@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
-import routes from './routes/index';
+import Auth0 from './auth/Auth0Helpers';
 
 const app = express();
 
@@ -23,7 +23,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+/****************/
+/**** Auth0 ****/
+/****************/
+
+app.get('/login', Auth0.login);
+app.get('/callback', Auth0.authVerify, Auth0.success);
+app.get('/logout', Auth0.logout);
+
+
+/****************/
+/**** Wildcard ****/
+/****************/
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../public/dist/index.html'));
+// });
+
+
+
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Listening on port 3000.');
