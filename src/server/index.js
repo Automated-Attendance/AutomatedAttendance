@@ -26,11 +26,10 @@ app.use(express.static(path.join(__dirname, '../dist')));
 /****************/
 /**** Auth0 ****/
 /****************/
-app.get('/', Auth0.index);
+
 app.get('/login', Auth0.login);
 app.get('/callback', Auth0.authVerify, Auth0.success);
 app.get('/logout', Auth0.logout);
-
 
 /****************/
 /**** Wildcard ****/

@@ -8,8 +8,6 @@ const env = {
 
 exports.authVerify = passport.authenticate('auth0', { failureRedirect: '/failed-login' });
 
-exports.index = (req, res) => res.render('index', { title: 'Express', env: env });
-
 exports.login = (req, res) => res.render('login', { env: env });
 
 exports.success = (req, res) => res.redirect('/wedidit');
