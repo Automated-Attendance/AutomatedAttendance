@@ -1,0 +1,19 @@
+{
+  "name": "automated-attendance",
+  "version": "1.0.0",
+  "description": "Facial recognition attendance app",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jukejc/AutomatedAttendance.git"
+  },
+  "author": "Blind Melon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jukejc/AutomatedAttendance/issues"
+  },
+  "homepage": "https://github.com/Jukejc/AutomatedAttendance#readme"
+}
