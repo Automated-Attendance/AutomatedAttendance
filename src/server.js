@@ -5,12 +5,8 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import dotenv from 'dotenv';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
-
-dotenv.load();
-
 import routes from './routes/index';
 
 const app = express();
@@ -26,6 +22,8 @@ app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Listening on port 3000.');
