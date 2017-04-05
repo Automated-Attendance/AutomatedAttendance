@@ -1,13 +1,13 @@
-# Project Name
+# Automated Attendance
 
 > Pithy project description
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Jason Chambers
+  - Han Zhao
+  - Duy Nguyen
+  - Andrew Alonis
 
 ## Table of Contents
 
@@ -26,8 +26,6 @@
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
 - etc
 - etc
 
