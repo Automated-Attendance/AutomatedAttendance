@@ -2,10 +2,10 @@
   "name": "automated-attendance",
   "version": "1.0.0",
   "description": "Facial recognition attendance app",
-  "main": "src/server.js",
+  "main": "src/server/index.js",
   "scripts": {
-    "start": "babel-node ./src/server.js --presets react,es2015",
-    "s": "nodemon src/server.js --exec babel-node --presets react,es2015",
+    "start": "babel-node ./src/server/index.js --presets react,es2015",
+    "s": "nodemon src/server/index.js --exec babel-node --presets react,es2015",
     "build": "node_modules/.bin/webpack --watch"
   },
   "repository": {
