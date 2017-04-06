@@ -9,10 +9,14 @@ class CameraPage extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    const camera = new JpegCamera('#camera');
+  }
+
   render() {
     return (
       <div>
-      TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
+        <div id="camera" />
       </div>
     );
   }
