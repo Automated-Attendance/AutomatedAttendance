@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-export default class CameraPage extends React.Component {
+class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ export default class CameraPage extends React.Component {
   render() {
     return (
       <div>
-      Test
+      TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
       </div>
     );
   }

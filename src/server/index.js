@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '/../public/dist')));
 
 /****************/
 /**** Auth0 ****/
@@ -36,8 +36,9 @@ app.get('/logout', Auth0.logout);
 /****************/
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../public/dist/index.html'));
 });
+
 
 /****************/
 /**** Cloudinary ****/
