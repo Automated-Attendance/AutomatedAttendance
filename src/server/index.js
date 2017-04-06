@@ -36,9 +36,9 @@ app.get('/logout', Auth0.logout);
 /**** Wildcard ****/
 /****************/
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../public/dist/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 
 
