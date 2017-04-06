@@ -8,21 +8,20 @@ CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   name NOT NULL varchar(50),
   email NOT NULL varchar(50),
-  photo null varchar(200),
+  photo varchar(200),
   type NOT NULL varchar(50) DEFAULT 'student',
   PRIMARY KEY (id)
 );
 
 CREATE TABLE classes (
   id int NOT NULL AUTO_INCREMENT,
-  name varchar(50),
+  name NOT NULL varchar(50),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE AttendanceRecord (
   id int NOT NULL AUTO_INCREMENT,
-  data NOT NULL Date,
-  time NOT NULL Time,
+  data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   status NOT NULL varchar(50)
   PRIMARY KEY (id)
 );
