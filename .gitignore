@@ -30,7 +30,7 @@ bower_components/
 babel_cache/
 
 # Webpack
-src/static/js/
+src/public/dist/bundle.js
 
 # env vars with dotenv
 .env
