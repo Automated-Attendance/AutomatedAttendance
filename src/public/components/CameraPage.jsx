@@ -7,7 +7,7 @@ import keydown, { Keys } from 'react-keydown';
 import autoBind from 'react-autobind';
 
 
-class CameraPage extends React.Component {
+export default class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -44,5 +44,3 @@ class CameraPage extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<CameraPage />, document.getElementById('main'));
