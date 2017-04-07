@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CameraPage from './components/CameraPage.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -7,7 +8,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-    }
+    };
   }
 
   render () {
@@ -38,9 +39,14 @@ class App extends React.Component {
           <div className="container">
             This is text on the page.
           </div>
+
+          <div>
+            <Route path="/CameraPage" component={CameraPage}/>
+          </div>
+          
         </div>
       </Router>
-    )
+    );
   }
 }
 

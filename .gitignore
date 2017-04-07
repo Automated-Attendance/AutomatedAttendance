@@ -18,10 +18,6 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# Compiled Dirs (http://nodejs.org/api/addons.html)
-build/
-dist/bundle.js
-
 # Dependency directories
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
@@ -29,8 +25,8 @@ node_modules/
 bower_components/
 babel_cache/
 
-# Webpack
-src/static/js/
+# Webpack bundle
+# src/public/dist/bundle.js
 
 # env vars with dotenv
 .env
