@@ -1,5 +1,5 @@
 var path = require('path');
-var SRC_DIR = path.join(__dirname, '/src/public/components');
+var SRC_DIR = path.join(__dirname, '/src/public');
 var DIST_DIR = path.join(__dirname, 'src/public/dist');
 
 module.exports = {
