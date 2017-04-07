@@ -18,11 +18,3 @@ exports.storeIfNew = (req, res, next) => {
   })
   .catch((err) => res.status(500).send(err));
 };
-
-
-    // id int NOT NULL AUTO_INCREMENT,
-    // name varchar(50),
-    // email varchar(50),
-    // photo varchar(200),
-    // type varchar(50) DEFAULT 'student',
-    // PRIMARY KEY (id)
