@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CameraPage from './components/CameraPage.jsx';
+import UserPage from './components/UserPage.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
           </div>
 
           <div>
+            <Route path="/user" component={UserPage}/>
             <Route path="/CameraPage" component={CameraPage}/>
           </div>
           

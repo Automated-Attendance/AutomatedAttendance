@@ -44,6 +44,7 @@
     "pug": "~2.0.0-beta11",
     "react": "^15.4.2",
     "react-autobind": "^1.0.6",
+    "react-data-grid": "^2.0.24",
     "react-dom": "^15.4.2",
     "react-keydown": "^1.6.9",
     "react-router-dom": "^4.0.0",
