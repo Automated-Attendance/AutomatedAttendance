@@ -27,20 +27,12 @@ class App extends React.Component {
 
               <div id="navbar" className="navbar-collaspe">
                 <ul className="nav navbar-nav navbar-right">
-                  <li>
-                    <a href="/Student">Student</a>
-                    <a href="/Admin">Admin</a>
-                  </li>
-                  <li>
-                    <a href="/login">Log In</a>
-                    <Link to="/About">About</Link>
-                  </li>
-                  <li>
-                    <Link to="/Contact">Contact</Link>
-                  </li>
-                  <li>
-                    <a href="/login">Log In</a>
-                  </li>
+                  <li><a href="/Student">Student</a></li>
+                  <li><a href="/Admin">Admin</a></li>
+                  <li><a href="/CameraPage">CameraPage</a></li>
+                  <li><a href="/login">Log In</a></li>
+                  <li><Link to="/About">About</Link></li>
+                  <li><Link to="/Contact">Contact</Link></li>
                 </ul>
               </div>
             </div>

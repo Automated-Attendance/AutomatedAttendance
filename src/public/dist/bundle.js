@@ -12726,7 +12726,11 @@ var App = function (_React$Component) {
                       'a',
                       { href: '/Student' },
                       'Student'
-                    ),
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
                     _react2.default.createElement(
                       'a',
                       { href: '/Admin' },
@@ -12738,9 +12742,22 @@ var App = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                       'a',
+                      { href: '/CameraPage' },
+                      'CameraPage'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      'a',
                       { href: '/login' },
                       'Log In'
-                    ),
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
                     _react2.default.createElement(
                       _reactRouterDom.Link,
                       { to: '/About' },
@@ -12754,15 +12771,6 @@ var App = function (_React$Component) {
                       _reactRouterDom.Link,
                       { to: '/Contact' },
                       'Contact'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      'a',
-                      { href: '/login' },
-                      'Log In'
                     )
                   )
                 )
