@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 /****************/
 /**** Auth0 ****/
@@ -36,9 +36,9 @@ app.get('/logout', Auth0.logout);
 /**** Wildcard ****/
 /****************/
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../public/dist/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 
 
