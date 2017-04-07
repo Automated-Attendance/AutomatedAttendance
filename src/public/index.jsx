@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CameraPage from './components/CameraPage.jsx';
 import Student from './components/Student.jsx';
-import Admin from './components/Admin.jsx'
+import Admin from './components/Admin.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
