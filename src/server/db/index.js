@@ -32,9 +32,11 @@ db.connectAsync().then(function() {
 .then(function() {
   console.log('Connected to ' + database + 'database as ID ' + db.threadId);
   return db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + database);
-}).then(function() {
+})
+.then(function() {
   return db.queryAsync('USE ' + database);
-}).then(function() {
+})
+.then(function() {
   return createTables(db);
 });
 
