@@ -10938,8 +10938,6 @@ var CameraPage = (_dec = (0, _reactKeydown2.default)('space'), (_class = functio
 
     var _this = _possibleConstructorReturn(this, (CameraPage.__proto__ || Object.getPrototypeOf(CameraPage)).call(this, props));
 
-    console.log(_reactKeydown.Keys);
-
     _this.state = {
       screenshot: null
     };

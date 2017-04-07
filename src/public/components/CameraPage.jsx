@@ -11,8 +11,6 @@ export default class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(Keys);
-
     this.state = {
       screenshot: null
     };
