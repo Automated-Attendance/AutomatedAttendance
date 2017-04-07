@@ -33,8 +33,6 @@ CREATE TABLE IF NOT EXISTS class_user (
   PRIMARY KEY (id)
 );
 
-ALTER TABLE users ADD FOREIGN KEY (attendanceID)
-REFERENCES AttendanceRecord(id);
 ALTER TABLE class_user ADD FOREIGN KEY (classid)
 REFERENCES classes(id);
 ALTER TABLE class_user ADD FOREIGN KEY (userid)
