@@ -19,7 +19,6 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-build/
 src/dist/bundle.js
 
 # Dependency directories
