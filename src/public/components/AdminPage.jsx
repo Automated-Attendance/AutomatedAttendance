@@ -25,8 +25,6 @@ export default class AdminPage extends React.Component {
     this.setState({
       selectedClass: chosenClass
     })
-    console.log(chosenClass);
-    console.log("I'm being clicked!");
   }
 
 
