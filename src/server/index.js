@@ -44,6 +44,7 @@ app.post('/cloudinarySend', cloud.post);
 /***********************************/
 
 app.post('/kairosGalleryStore', kairos.storeInGallery);
+app.post('/kairosGalleryRecognize', kairos.recognize);
 
 /****************/
 /**** Wildcard ****/

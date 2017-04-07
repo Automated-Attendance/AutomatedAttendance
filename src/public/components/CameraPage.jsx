@@ -38,8 +38,13 @@ export default class CameraPage extends React.Component {
   }
 
   uploadToKairosGallery() {
-    post('galleryStore', { img: this.state.screenshot })
-      .then((response) => console.log(response));
+    post('galleryStore', { img: this.state.screenshotURL })
+      .then((response) => this.queryKairosGallery());
+  }
+
+  queryKairosGallery() {
+    post('recognize', { img: this.state.screenshotURL })
+      .then((response) => console.log(response, 'am i a match?????????????????????????'));
   }
 
   render() {
