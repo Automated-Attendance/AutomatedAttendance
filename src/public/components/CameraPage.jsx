@@ -13,7 +13,9 @@ export default class CameraPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      screenshot: null
+      screenshot: null,
+      screenshotURL: null,
+      spinner: false
     };
     autoBind(this);
   }
@@ -25,9 +27,15 @@ export default class CameraPage extends React.Component {
     this.uploadToCloudinary(screenshot);
   }
 
-  uploadToCloudinary(dataURI) {
-    post('cloudinarySend', dataURI)
-      .then((response) => console.log(response));
+  uploadToCloudinary(screenshot) {
+    post('cloudinarySend', { img: screenshot })
+      .then( ({ data }) => {
+
+      });
+  }
+
+  compareWithFacialRecognition(urls) {
+    console.log(urls);
   }
 
   render() {
