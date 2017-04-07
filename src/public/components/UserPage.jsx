@@ -39,6 +39,7 @@ export default class UserPage extends React.Component {
         status: "Ontime"
       }]
     };
+    autoBind(this);
   }
 
   componentDidMount () {
@@ -46,9 +47,9 @@ export default class UserPage extends React.Component {
     // make a post request about specific user
 
   }
-  render() {
+  mapFakeData() {
 
-      const data = this.state.fakeData;
+    const data = this.state.fakeData;
     const nameList = data.map(name => {
       return (
         <tr key={name.id}>
@@ -59,10 +60,14 @@ export default class UserPage extends React.Component {
       )
     });
 
+    return nameList;
 
+  }
+
+  render() {
 
     return (
-      <div>
+      <div >
         <table className="table table-bordered table-reponsive">
 
           <thead>
@@ -74,7 +79,7 @@ export default class UserPage extends React.Component {
           </thead>
 
           <tbody>
-            {nameList}
+            {this.mapFakeData()}
           </tbody>
 
         </table>
