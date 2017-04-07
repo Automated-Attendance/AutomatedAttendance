@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const routes = {
-  'cloudinarySend': '/cloudinarySend'
+  'cloudinarySend': '/cloudinarySend',
+  'galleryStore': '/kairosGalleryStore'
 };
 
 const post = (routeName, message) => {

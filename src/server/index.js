@@ -9,6 +9,7 @@ import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
+import kairos from './kairosFR/kairosHelpers';
 
 const app = express();
 
@@ -32,11 +33,17 @@ app.get('/login', Auth0.login);
 app.get('/callback', Auth0.authVerify, Auth0.success);
 app.get('/logout', Auth0.logout);
 
-/****************/
+/********************/
 /**** Cloudinary ****/
-/****************/
+/********************/
 
 app.post('/cloudinarySend', cloud.post);
+
+/***********************************/
+/**** Kairos Facial Recognition ****/
+/***********************************/
+
+app.post('/kairosGalleryStore', kairos.storeInGallery);
 
 /****************/
 /**** Wildcard ****/

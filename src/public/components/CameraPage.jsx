@@ -30,12 +30,16 @@ export default class CameraPage extends React.Component {
   uploadToCloudinary(screenshot) {
     post('cloudinarySend', { img: screenshot })
       .then( ({ data }) => {
-
+        this.setState({ 
+          screenshotURL: data.secure_url
+        });
+        this.uploadToKairosGallery();
       });
   }
 
-  compareWithFacialRecognition(urls) {
-    console.log(urls);
+  uploadToKairosGallery() {
+    post('galleryStore', { img: this.state.screenshot })
+      .then((response) => console.log(response));
   }
 
   render() {
