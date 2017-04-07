@@ -1,7 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 
-export default class AdminPage extends React.Component {
+export default class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
