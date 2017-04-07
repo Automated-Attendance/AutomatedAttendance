@@ -3,20 +3,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Webcam from 'react-webcam';
+import keydown, { Keys } from 'react-keydown';
+import autoBind from 'react-autobind';
 
 
 class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(Keys);
 
     this.state = {
       screenshot: null
     };
-
-    this.takeScreenshot = this.takeScreenshot.bind(this);
+    autoBind(this);
   }
 
+  @keydown('space')
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ screenshot: screenshot });
