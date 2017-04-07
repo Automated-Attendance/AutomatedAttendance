@@ -1,14 +1,24 @@
 import mysql from 'mysql';
 import createTables from './config';
 import Promise from 'bluebird';
-const database = process.env.MYSQL_DB_NAME;
+var database;
+var connection;
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_ADMIN,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DB_NAME
-});
+if (process.env.LOCAL_ENV) {
+  database = process.env.MYSQL_DB_NAME_LOCAL;
+  connection = mysql.createConnection({
+    user: process.env.MYSQL_ADMIN_LOCAL,
+    password: process.env.MYSQL_PASSWORD_LOCAL,
+  });
+} else {
+  database = process.env.MYSQL_DB_NAME;
+  connection = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_ADMIN,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB_NAME
+  });
+}
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
 
