@@ -11,10 +11,10 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
-import fileUpload  from 'express-fileupload';
+import fileUpload from 'express-fileupload';
+import user from './db/userHelpers';
 
 const app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,8 +27,6 @@ app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
-
-// express-file upload setup
 app.use(fileUpload());
 
 /****************/
@@ -36,7 +34,7 @@ app.use(fileUpload());
 /****************/
 
 app.get('/login', Auth0.login);
-app.get('/callback', Auth0.authVerify, Auth0.success);
+app.get('/callback', Auth0.authVerify, user.storeIfNew, Auth0.success);
 app.get('/logout', Auth0.logout);
 
 /********************/
