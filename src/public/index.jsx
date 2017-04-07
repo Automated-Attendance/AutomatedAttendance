@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +17,13 @@ class App extends React.Component {
           <nav className="navbar navbar-inverse navbar-fixed-top">
             <div className="container">
               <div className="navbar-header">
-
+                <Link to="/" className="navbar-brand" >Automated Attendance</Link>
               </div>
 
               <div id="navbar" className="navbar-collaspe">
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    <a href="/">Log In</a>
+                    <a href="/login">Log In</a>
                   </li>
                   <li>
                     <div className="credit-photos">
