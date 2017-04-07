@@ -8,7 +8,7 @@ import session from 'express-session';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
-
+import cloudinary from 'cloudinary';
 const app = express();
 
 // view engine setup
@@ -40,7 +40,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-
+/****************/
+/**** Cloudinary ****/
+/****************/
 
 
 app.listen(process.env.PORT || 3000, function() {
