@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Jukejc/AutomatedAttendance#readme",
   "dependencies": {
+    "axios": "^0.16.0",
     "babel-cli": "^6.7.5",
     "axios": "^0.16.0",
     "babel-core": "^6.23.1",
