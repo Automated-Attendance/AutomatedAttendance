@@ -9,31 +9,31 @@ export default class Student extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeData : [{
-        id:1,
-        name: "han",
-        date: "4/1",
-        status: "Ontime"
-      },{
-        id:2,
-        name: "han",
-        date: "4/2",
-        status: "Ontime"
-      },{
-        id:3,
-        name: "han",
-        date: "4/3",
-        status: "Ontime"
-      },{
-        id:4,
-        name: "han",
-        date: "4/4",
-        status: "Ontime"
-      },{
-        id:5,
-        name: "han",
-        date: "4/5",
-        status: "Ontime"
+      fakeData: [{
+        id: 1,
+        name: 'han',
+        date: '4/1',
+        status: 'Ontime'
+      }, {
+        id: 2,
+        name: 'han',
+        date: '4/2',
+        status: 'Ontime'
+      }, {
+        id: 3,
+        name: 'han',
+        date: '4/3',
+        status: 'Ontime'
+      }, {
+        id: 4,
+        name: 'han',
+        date: '4/4',
+        status: 'Ontime'
+      }, {
+        id: 5,
+        name: 'han',
+        date: '4/5',
+        status: 'Ontime'
       }]
     };
     
@@ -53,7 +53,7 @@ export default class Student extends React.Component {
           <td>{name.date}</td>
           <td>{name.status}</td>
         </tr>
-      )
+      );
     });
 
     return nameList;
@@ -78,6 +78,6 @@ export default class Student extends React.Component {
 
         </table>
       </div>
-    )
+    );
   }
 }

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
 import autoBind from 'react-autobind';
+import { post, get } from './AxiosRoutes';
 
 
 export default class CameraPage extends React.Component {
@@ -12,7 +13,9 @@ export default class CameraPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      screenshot: null
+      screenshot: null,
+      screenshotURL: null,
+      spinner: false
     };
     autoBind(this);
   }
@@ -21,6 +24,27 @@ export default class CameraPage extends React.Component {
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ screenshot: screenshot });
+    this.uploadToCloudinary(screenshot);
+  }
+
+  uploadToCloudinary(screenshot) {
+    post('cloudinarySend', { img: screenshot })
+      .then( ({ data }) => {
+        this.setState({ 
+          screenshotURL: data.secure_url
+        });
+        this.uploadToKairosGallery();
+      });
+  }
+
+  uploadToKairosGallery() {
+    post('galleryStore', { img: this.state.screenshotURL })
+      .then((response) => this.queryKairosGallery());
+  }
+
+  queryKairosGallery() {
+    post('recognize', { img: this.state.screenshotURL })
+      .then((response) => console.log(response, 'am i a match?????????????????????????'));
   }
 
   render() {
