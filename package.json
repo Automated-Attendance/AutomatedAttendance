@@ -42,6 +42,7 @@
     "pug": "~2.0.0-beta11",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-webcam": "0.0.14",
     "serve-favicon": "^2.4.0",
     "webpack": "^2.2.1"
   },
