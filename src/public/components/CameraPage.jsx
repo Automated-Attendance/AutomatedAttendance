@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
 import autoBind from 'react-autobind';
+import { post, get } from './AxiosRoutes';
 
 
 export default class CameraPage extends React.Component {
@@ -21,6 +22,12 @@ export default class CameraPage extends React.Component {
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ screenshot: screenshot });
+    this.uploadToCloudinary(screenshot);
+  }
+
+  uploadToCloudinary(dataURI) {
+    post('cloudinarySend', dataURI)
+      .then((response) => console.log(response));
   }
 
   render() {

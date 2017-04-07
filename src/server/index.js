@@ -8,7 +8,8 @@ import session from 'express-session';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
-import cloudinary from 'cloudinary';
+import cloud from './cloudinary/cloudHelpers';
+
 const app = express();
 
 // view engine setup
@@ -32,6 +33,12 @@ app.get('/callback', Auth0.authVerify, Auth0.success);
 app.get('/logout', Auth0.logout);
 
 /****************/
+/**** Cloudinary ****/
+/****************/
+
+app.post('/cloudinarySend', cloud.post);
+
+/****************/
 /**** Wildcard ****/
 /****************/
 
@@ -40,9 +47,6 @@ app.get('*', (req, res) => {
 });
 
 
-/****************/
-/**** Cloudinary ****/
-/****************/
 
 
 app.listen(process.env.PORT || 3000, function() {
