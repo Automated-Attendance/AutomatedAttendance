@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CameraPage from './components/CameraPage.jsx';
+import AdminPage from './components/AdminPage.jsx'
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -39,9 +40,9 @@ class App extends React.Component {
           <div className="container">
             This is text on the page.
           </div>
-
           <div>
             <Route path="/CameraPage" component={CameraPage}/>
+            <Route path="/AdminPage" component={AdminPage}/>
           </div>
           
         </div>
