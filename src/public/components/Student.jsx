@@ -1,13 +1,10 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Webcam from 'react-webcam';
-import keydown, { Keys } from 'react-keydown';
 import autoBind from 'react-autobind';
 
 
-export default class UserPage extends React.Component {
+export default class Student extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,16 +36,15 @@ export default class UserPage extends React.Component {
         status: "Ontime"
       }]
     };
+    
     autoBind(this);
   }
 
   componentDidMount () {
-
     // make a post request about specific user
-
   }
+  
   mapFakeData() {
-
     const data = this.state.fakeData;
     const nameList = data.map(name => {
       return (
@@ -61,11 +57,9 @@ export default class UserPage extends React.Component {
     });
 
     return nameList;
-
   }
 
   render() {
-
     return (
       <div >
         <table className="table table-bordered table-reponsive">
