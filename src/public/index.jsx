@@ -6,6 +6,7 @@ import Admin from './components/Admin.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
 import AddStudent from './components/AddStudent.jsx';
+import Navigation from './components/Navigation.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -21,25 +22,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="container">
-          <nav className="navbar navbar-inverse navbar-fixed-top">
-            <div className="container">
-              <div className="navbar-header">
-                <Link to="/" className="navbar-brand" >Automated Attendance</Link>
-              </div>
-
-              <div id="navbar" className="navbar-collaspe">
-                <ul className="nav navbar-nav navbar-right">
-                  <li><Link to="/Student">Student</Link></li>
-                  <li><Link to="/Admin">Admin</Link></li>
-                  <li><Link to="/CameraPage">CameraPage</Link></li>
-                  <li><a href="/login">Log In</a></li>
-                  <li><Link to="/About">About</Link></li>
-                  <li><Link to="/Contact">Contact</Link></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-
+          <Navigation />
           <div className="container">
             This is text on the page.
           </div>
