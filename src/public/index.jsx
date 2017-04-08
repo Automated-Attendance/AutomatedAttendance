@@ -7,6 +7,7 @@ import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
 import AddStudent from './components/AddStudent.jsx';
 import Navigation from './components/Navigation.jsx';
+import LoginRedirect from './components/LoginRedirect.jsx';
 import autoBind from 'react-autobind';
 import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
@@ -52,7 +53,7 @@ class App extends React.Component {
           <div>
             <Route path="/Student" component={Student}/>
             <Route path="/CameraPage" component={CameraPage}/>
-            <Route path="/Admin" component={Admin}/>
+            <Route path="/Admin" component={() => this.state.admin ? <Admin/> : <LoginRedirect/> }/>
             <Route path="/About" component={About}/>
             <Route path="/Contact" component={Contact}/>
             <Route path="/AddStudent" component={AddStudent}/>
