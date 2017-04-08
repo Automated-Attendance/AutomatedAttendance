@@ -14,7 +14,6 @@ exports.searchDB = function(req, res) {
 
 
 exports.getAttendanceForUser = function(req, res) {
-  console.log('REQQQQQQQ', req)
   var queryString = "select users.name,status,date,AttendanceRecord.id from users right join AttendanceRecord on users.id=AttendanceRecord.user_id;";
   db.query(queryString, function(error, result) {
     if (error) {
