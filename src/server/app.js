@@ -29,9 +29,9 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
 app.use(fileUpload());
 
-/****************/
-/**** Auth0 *****/
-/****************/
+/************************/
+/**** Authentication ****/
+/************************/
 
 app.get('/login', Auth0.login);
 app.get('/callback', Auth0.authVerify, user.storeIfNew, Auth0.success);
