@@ -14,7 +14,7 @@ exports.querySelector = function(req, res, next) {
       JOIN users ON attendance_record.user_id=users.users_id\
       JOIN class_user ON users.users_id=class_user.user_id\
       JOIN classes ON classes.classes_id=class_user.class_id\
-      WHERE users.email=${req.body.email};`;
+      WHERE users.email='${req.body.email}';`;
   }
 
   next();

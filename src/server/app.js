@@ -56,7 +56,6 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /**** Database ****/
 /******************/
 
-app.post('/studentInformation', search.getAttendanceForUser );
 app.post('/search', search.querySelector, search.queryDatabase);
 
 /******************/
