@@ -3,7 +3,8 @@ import axios from 'axios';
 const routes = {
   'cloudinarySend': '/cloudinarySend',
   'galleryStore': '/kairosGalleryStore',
-  'recognize': '/kairosGalleryRecognize'
+  'recognize': '/kairosGalleryRecognize',
+  'search': '/search'
 };
 
 const post = (routeName, message) => {
