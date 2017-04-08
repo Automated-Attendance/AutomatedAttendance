@@ -7,7 +7,7 @@ export default class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: ['HRSF72','HRSF73','HRSF75','HRSF76'],
+      classes: ['HRSF72', 'HRSF73', 'HRSF75', 'HRSF76'],
       students: {
         'HRSF72': ['Duy', 'Jason', 'Andrew', 'Han'],
         'HRSF73': ['Sam', 'Aly', 'James', 'Kay'],
