@@ -36,6 +36,7 @@ app.use(fileUpload());
 app.get('/login', Auth0.login);
 app.get('/callback', Auth0.authVerify, user.storeIfNew, Auth0.success);
 app.get('/logout', Auth0.logout);
+app.get('/retrieveUserData', user.retrieveData);
 
 /********************/
 /**** Cloudinary ****/
