@@ -38,7 +38,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="container">
-          <Navigation />
+          <Navigation loggedIn={this.state.loggedIn}/>
           <div className="container">
             This is text on the page.
           </div>
