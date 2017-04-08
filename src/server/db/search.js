@@ -6,14 +6,14 @@ exports.querySelector = function(req, res, next) {
 
   if (req.body.queryType === 'allAttendance') {
     req.params.query = `SELECT * FROM attendance_record\
-      JOIN users ON attendance_record.user_id=users.user_id\
-      JOIN class_user ON users.user_id=class_user.user_id\
-      JOIN classes ON classes.class_id=class_user.class_id;`;
+      JOIN users ON attendance_record.user_id=users.users_id\
+      JOIN class_user ON users.users_id=class_user.user_id\
+      JOIN classes ON classes.classes_id=class_user.class_id;`;
   } else if (req.body.queryType === 'studentAttendance') {
     req.params.query = `SELECT * FROM attendance_record\
-      JOIN users ON attendance_record.user_id=users.user_id\
-      JOIN class_user ON users.user_id=class_user.user_id\
-      JOIN classes ON classes.class_id=class_user.class_id\
+      JOIN users ON attendance_record.user_id=users.users_id\
+      JOIN class_user ON users.users_id=class_user.user_id\
+      JOIN classes ON classes.classes_id=class_user.class_id\
       WHERE users.email=${req.body.email};`;
   }
 
