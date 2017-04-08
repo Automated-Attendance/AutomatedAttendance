@@ -21,10 +21,24 @@ exports.storeIfNew = (req, res, next) => {
 
 exports.retrieveData = (req, res) => {
   if (req.user) {
-    const qs = `SELECT * FROM users WHERE email='${req.user.emails[0].value}'`;
+    const userEmail = req.user.emails[0].value;
+    const qs = `SELECT * FROM users WHERE email='${userEmail}'`;
     db.queryAsync(qs)
     .then((response) => res.send(response[0]));
   } else {
     res.send('not logged in');
+  }
+};
+
+exports.updateIfAdmin = (req, res, next) => {
+  const adminPrivs = req.user._json.role === 'admin';
+  const userEmail = req.user.emails[0].value;
+  if (adminPrivs) {
+    const qs = `UPDATE users SET type='admin' WHERE email='${userEmail}'`;
+    db.queryAsync(qs)
+    .then((response) => next())
+    .catch((err) => res.status(500).send(err));
+  } else {
+    next();
   }
 };
