@@ -1,14 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CameraPage from './components/CameraPage.jsx';
-import Student from './components/Student.jsx';
-import Admin from './components/Admin.jsx';
-import About from './components/About.jsx';
-import Contact from './components/Contact.jsx';
-import AddStudent from './components/AddStudent.jsx';
-import Navigation from './components/Navigation.jsx';
-import LoginRedirect from './components/LoginRedirect.jsx';
+import Routes from './Routes.jsx';
 import autoBind from 'react-autobind';
+import Navigation from './components/Navigation.jsx';
 import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
@@ -43,21 +37,14 @@ class App extends React.Component {
     return (
       <Router>
         <div className="container">
+
           <Navigation 
             loggedIn={this.state.loggedIn}
             admin={this.state.admin}
           />
-          <div className="container">
-            This is text on the page.
-          </div>
-          <div>
-            <Route path="/About" component={About}/>
-            <Route path="/Contact" component={Contact}/>
-            <Route path="/Student" component={() => this.state.loggedIn && !this.state.admin ? <Student/> : <LoginRedirect loginData={this.state}/> }/>
-            <Route path="/CameraPage" component={() => this.state.admin ? <CameraPage/> : <LoginRedirect loginData={this.state}/> }/>
-            <Route path="/Admin" component={() => this.state.admin ? <Admin/> : <LoginRedirect loginData={this.state}/> }/>
-            <Route path="/AddStudent" component={() => this.state.admin ? <AddStudent/> : <LoginRedirect loginData={this.state}/> }/>
-          </div>
+
+          <Routes userAuth={this.state}/>
+
         </div>
       </Router>
     );
