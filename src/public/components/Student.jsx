@@ -3,6 +3,8 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes.js';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+
 
 
 export default class Student extends React.Component {
@@ -10,58 +12,32 @@ export default class Student extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeData: []
+      data: []
     };
     
     autoBind(this);
   }
 
   componentDidMount () {
-    post('studentInformation', {name: 'Han'})
+    //pass a actuall email next week
+    post('search', {queryType: 'studentAttendance', email: 'han@gmail.com'})
       .then( (response) => {
-        this.setState({fakeData: response.data})
+        console.log(response.data)
+        this.setState({data: response.data})
       })
       .catch( (err) => {
         console.log(err);
       });
 
-    // make a post request about specific user
   }
-  
-  mapFakeData() {
-    const data = this.state.fakeData;
-    const nameList = data.map( name => {
-      return (
-        <tr key={name.id}>
-          <td>{name.name}</td>
-          <td>{name.date}</td>
-          <td>{name.status}</td>
-      
-        </tr>
-      );
-    });
-
-    return nameList;
-  }
-
   render() {
     return (
-      <div >
-        <table className="table table-bordered table-reponsive">
-
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {this.mapFakeData()}
-          </tbody>
-
-        </table>
+      <div>
+        <BootstrapTable data={this.state.data} height='250px' scrollTop={'Top'} striped hover condensed>
+          <TableHeaderColumn dataField='class_name' isKey filter={{type: 'TextFilter'}} dataSort={true}>Class</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort={true}>Date</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' filter={{type: 'TextFilter'}} dataSort={true}>Status</TableHeaderColumn>
+        </BootstrapTable>
       </div>
     );
   }
