@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const LoginRedirect = ({ userPrivs }) => {
-  if (userPrivs.admin || userPrivs.loggedIn) {
+  if (userPrivs.isAdmin || userPrivs.isLoggedIn) {
     return (
       <div>
         <Link to="/">You don't have correct access to view this page. 

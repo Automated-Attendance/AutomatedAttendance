@@ -11,8 +11,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      loggedIn: false,
-      admin: false
+      isLoggedIn: false,
+      isAdmin: false
     };
     autoBind(this);
   }
@@ -26,9 +26,9 @@ class App extends React.Component {
     .then(({ data }) => {
       if (data !== 'not logged in') {
         if (data[0].type === 'admin') {
-          this.setState({ admin: true });
+          this.setState({ isAdmin: true });
         }
-        this.setState({ loggedIn: true });
+        this.setState({ isLoggedIn: true });
       }
     });
   }
@@ -38,12 +38,9 @@ class App extends React.Component {
       <Router>
         <div className="container">
 
-          <Navigation 
-            loggedIn={this.state.loggedIn}
-            admin={this.state.admin}
-          />
+          <Navigation userPrivs={this.state}/>
 
-          <Routes userAuth={this.state}/>
+          <Routes userPrivs={this.state}/>
 
         </div>
       </Router>
