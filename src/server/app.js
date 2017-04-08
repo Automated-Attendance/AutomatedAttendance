@@ -10,11 +10,8 @@ import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
-<<<<<<< 3ebbed1107032d46efd746dab64540a45476ca41
 import search from './db/search.js';
-=======
 import fileUpload  from 'express-fileupload';
->>>>>>> Finish addStudent Page
 
 const app = express();
 
@@ -31,7 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
 
-// express-file upload init
+// express-file upload setup
 app.use(fileUpload());
 
 /****************/
