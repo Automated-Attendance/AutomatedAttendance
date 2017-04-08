@@ -51,12 +51,12 @@ class App extends React.Component {
             This is text on the page.
           </div>
           <div>
-            <Route path="/Student" component={Student}/>
-            <Route path="/CameraPage" component={CameraPage}/>
+            <Route path="/Student" component={() => this.state.loggedIn ? <Student/> : <LoginRedirect/> }/>
+            <Route path="/CameraPage" component={() => this.state.admin ? <CameraPage/> : <LoginRedirect/> }/>
             <Route path="/Admin" component={() => this.state.admin ? <Admin/> : <LoginRedirect/> }/>
             <Route path="/About" component={About}/>
             <Route path="/Contact" component={Contact}/>
-            <Route path="/AddStudent" component={AddStudent}/>
+            <Route path="/AddStudent" component={() => this.state.admin ? <AddStudent/> : <LoginRedirect/> }/>
           </div>
         </div>
       </Router>
