@@ -14,7 +14,7 @@ exports.searchDB = function(req, res) {
 
 
 exports.getAttendanceForUser = function(req, res) {
-  var queryString = 'SELECT users.name,status,date,AttendanceRecord.id FROM users RIGHT JOIN AttendanceRecord on users.id=AttendanceRecord.user_id;';
+  var queryString = 'SELECT users.user_id, status, date, attendance_record.attendancerecord_id FROM users RIGHT JOIN attendance_record on users.user_id=attendance_record.attendancerecord_id;';
   db.query(queryString, function(error, result) {
     if (error) {
       res.status(500).send(error);
