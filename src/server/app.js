@@ -57,6 +57,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /******************/
 
 app.get('/search', search.searchDB);
+app.post('/studentInformation', search.getAttendanceForUser );
 
 /******************/
 /**** Wildcard ****/

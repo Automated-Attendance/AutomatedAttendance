@@ -7,8 +7,8 @@ module.exports = function(db) {
 
   // Create links table
   return db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar(50),
+    user_id int NOT NULL AUTO_INCREMENT,
+    user_name varchar(50),
     email varchar(50),
     photo varchar(200),
     type varchar(50) DEFAULT 'student',
@@ -16,14 +16,14 @@ module.exports = function(db) {
   );`)
   .then(function() {
     return db.queryAsync(`CREATE TABLE IF NOT EXISTS classes (
-      id int NOT NULL AUTO_INCREMENT,
-      name varchar(50),
+      class_id int NOT NULL AUTO_INCREMENT,
+      class_name varchar(50),
       PRIMARY KEY (id)
     );`);
   })
   .then(function() {
     return db.queryAsync(`CREATE TABLE IF NOT EXISTS AttendanceRecord (
-      id int NOT NULL AUTO_INCREMENT,
+      AttendanceRecord_id int NOT NULL AUTO_INCREMENT,
       date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       status varchar(50),
       user_id int NOT NULL,
