@@ -51,15 +51,15 @@ app.post('/studentUpload', cloud.upload);
 app.post('/kairosGalleryStore', kairos.storeInGallery);
 app.post('/kairosGalleryRecognize', kairos.recognize);
 
-/***********************************/
+/******************/
 /**** Database ****/
-/***********************************/
+/******************/
 
 app.get('/search', search.searchDB);
 
-/****************/
+/******************/
 /**** Wildcard ****/
-/****************/
+/******************/
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/dist/index.html'));

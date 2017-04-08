@@ -13,6 +13,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      loggedIn: false
     };
   }
 
@@ -28,9 +29,9 @@ class App extends React.Component {
 
               <div id="navbar" className="navbar-collaspe">
                 <ul className="nav navbar-nav navbar-right">
-                  <li><a href="/Student">Student</a></li>
-                  <li><a href="/Admin">Admin</a></li>
-                  <li><a href="/CameraPage">CameraPage</a></li>
+                  <li><Link to="/Student">Student</Link></li>
+                  <li><Link to="/Admin">Admin</Link></li>
+                  <li><Link to="/CameraPage">CameraPage</Link></li>
                   <li><a href="/login">Log In</a></li>
                   <li><Link to="/About">About</Link></li>
                   <li><Link to="/Contact">Contact</Link></li>
