@@ -21,9 +21,17 @@ class App extends React.Component {
     autoBind(this);
   }
 
+  componentWillMount() {
+    this.isLoggedIn();
+  }
+
   isLoggedIn() {
     get('userData')
-    .then((response) => console.log(response));
+    .then((response) => {
+      if (response.data !== 'not logged in') {
+        this.setState({ loggedIn: true });
+      }
+    });
   }
 
   render () {

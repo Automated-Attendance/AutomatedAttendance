@@ -18,3 +18,13 @@ exports.storeIfNew = (req, res, next) => {
   })
   .catch((err) => res.status(500).send(err));
 };
+
+exports.retrieveData = (req, res) => {
+  if (req.user) {
+    const qs = `SELECT * FROM users WHERE email='${req.user.emails[0].value}'`;
+    db.queryAsync(qs)
+    .then((response) => res.send(response[0]));
+  } else {
+    res.send('not logged in');
+  }
+};
