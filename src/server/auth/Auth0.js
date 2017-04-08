@@ -1,6 +1,5 @@
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
-import user from '../db/userHelpers';
 
 // Configure Passport to use Auth0
 var strategy = new Auth0Strategy({
