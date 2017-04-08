@@ -27,14 +27,16 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 db.connectAsync().then(function() {
   // keep the connection alive so server doesnt crash 
   setInterval(() => db.queryAsync('SELECT 1'), 5000);
-  return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
+  // return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
 })
 .then(function() {
   console.log('Connected to ' + database + 'database as ID ' + db.threadId);
   return db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + database);
-}).then(function() {
+})
+.then(function() {
   return db.queryAsync('USE ' + database);
-}).then(function() {
+})
+.then(function() {
   return createTables(db);
 });
 

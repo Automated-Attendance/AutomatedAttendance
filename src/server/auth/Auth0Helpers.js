@@ -10,7 +10,15 @@ exports.authVerify = passport.authenticate('auth0', { failureRedirect: '/failed-
 
 exports.login = (req, res) => res.render('login', { env: env });
 
-exports.success = (req, res) => res.redirect('/wedidit');
+exports.success = (req, res) => {
+  const adminPrivs = req.user._json.role === 'admin';
+
+  if (adminPrivs) {
+    res.redirect('/Admin');
+  } else {
+    res.redirect('/Student');
+  }
+};
 
 exports.logout = (req, res) => {
   req.logout();

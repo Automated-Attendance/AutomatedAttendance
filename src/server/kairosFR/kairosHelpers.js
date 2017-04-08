@@ -11,8 +11,8 @@ exports.storeInGallery = (req, res) => {
   };
 
   client.enroll(params)
-    .then((response) => res.send(response))
-    .catch((err) => res.status(500).send(err));
+  .then((response) => res.send(response))
+  .catch((err) => res.status(500).send(err));
 };
 
 exports.recognize = (req, res) => {
@@ -22,6 +22,6 @@ exports.recognize = (req, res) => {
   };
 
   client.recognize(params)
-    .then((response) => res.send(response))
-    .catch((err) => res.status(500).send(err));
+  .then((response) => res.send(response))
+  .catch((err) => res.status(500).send(err));
 };

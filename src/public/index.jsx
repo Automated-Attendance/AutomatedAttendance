@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CameraPage from './components/CameraPage.jsx';
-import Student from './components/Student.jsx';
-import Admin from './components/Admin.jsx';
-import About from './components/About.jsx';
-import Contact from './components/Contact.jsx';
-import AddStudent from './components/AddStudent.jsx';
+import Routes from './Routes.jsx';
+import autoBind from 'react-autobind';
+import Navigation from './components/Navigation.jsx';
+import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -13,43 +11,37 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      isLoggedIn: false,
+      isAdmin: false
     };
+    autoBind(this);
+  }
+
+  componentWillMount() {
+    this.isLoggedIn();
+  }
+
+  isLoggedIn() {
+    get('userData')
+    .then(({ data }) => {
+      if (data !== 'not logged in') {
+        if (data[0].type === 'admin') {
+          this.setState({ isAdmin: true });
+        }
+        this.setState({ isLoggedIn: true });
+      }
+    });
   }
 
   render () {
     return (
       <Router>
         <div className="container">
-          <nav className="navbar navbar-inverse navbar-fixed-top">
-            <div className="container">
-              <div className="navbar-header">
-                <Link to="/" className="navbar-brand" >Automated Attendance</Link>
-              </div>
 
-              <div id="navbar" className="navbar-collaspe">
-                <ul className="nav navbar-nav navbar-right">
-                  <li><a href="/Student">Student</a></li>
-                  <li><a href="/Admin">Admin</a></li>
-                  <li><a href="/CameraPage">CameraPage</a></li>
-                  <li><a href="/login">Log In</a></li>
-                  <li><Link to="/About">About</Link></li>
-                  <li><Link to="/Contact">Contact</Link></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+          <Navigation userPrivs={this.state}/>
 
-          <div className="container">
-            This is text on the page.
-          </div>
-          <div>
-            <Route path="/Student" component={Student}/>
-            <Route path="/CameraPage" component={CameraPage}/>
-            <Route path="/Admin" component={Admin}/>
-            <Route path="/About" component={About}/>
-            <Route path="/Contact" component={Contact}/>
-            <Route path="/AddStudent" component={AddStudent}/>
-          </div>
+          <Routes userPrivs={this.state}/>
+
         </div>
       </Router>
     );
