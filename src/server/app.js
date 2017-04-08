@@ -10,9 +10,14 @@ import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
+<<<<<<< 3ebbed1107032d46efd746dab64540a45476ca41
 import search from './db/search.js';
+=======
+import fileUpload  from 'express-fileupload';
+>>>>>>> Finish addStudent Page
 
 const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,8 +31,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
 
+// express-file upload init
+app.use(fileUpload());
+
 /****************/
-/**** Auth0 ****/
+/**** Auth0 *****/
 /****************/
 
 app.get('/login', Auth0.login);
@@ -39,6 +47,7 @@ app.get('/logout', Auth0.logout);
 /********************/
 
 app.post('/cloudinarySend', cloud.post);
+app.post('/studentUpload', cloud.upload);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
