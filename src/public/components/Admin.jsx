@@ -2,6 +2,7 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes';
 import { Link } from 'react-router-dom';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -15,10 +16,7 @@ export default class Admin extends React.Component {
         'HRSF76': ['Alice', 'Jenny', 'Andy', 'Terry']
       },
       selectedClass: '',
-      searchClass: '',
-      searchStudent: '',
-      searchDate: '',
-      results: []
+      attendance: []
     };
     autoBind(this);
   }
@@ -27,32 +25,16 @@ export default class Admin extends React.Component {
     this.state.selectedClass = this.state.classes[0];
   }
 
-  handleClassListChange(chosenClass) {
-    this.setState({selectedClass: chosenClass});
-  }
-
-  handleClassChange(event) {
-    this.setState({searchClass: event.target.value});
-  }
-
-  handleStudentChange(event) {
-    this.setState({searchStudent: event.target.value});
-  }
-
-  handleDateChange(event) {
-    this.setState({searchDate: event.target.value});
-  }
-
-  handleSubmit(event) {
-    var current = this;
-    get('search')
-      .then(function(response) {
-        console.log(response);
-        current.setState({results: response.data});
+  componentDidMount() {
+    post('search', {queryType: 'allAttendance'})
+      .then((response) => {
+        console.log(response.data);
+        this.setState({attendance: response.data});
+      })
+      .catch(function(error) {
+        console.log('Error fetching attendance.', error);
       });
-    event.preventDefault();
   }
-
 
   render() {
     return (
@@ -69,26 +51,14 @@ export default class Admin extends React.Component {
             return (<li key={index}>{student}</li>);
           })}
         </ul>
-        <h3>Search</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Class:
-            <input type="text" value={this.state.searchClass} onChange={this.handleClassChange}/>
-          </label>
-          <br></br>
-          <label>
-            Student:
-            <input type="text" value={this.state.searchStudent} onChange={this.handleStudentChange}/>
-          </label>
-          <br></br>
-          <label>
-            Date:
-            <input type="text" value={this.state.searchDate} onChange={this.handleDateChange}/>
-          </label>
-          <br></br>
-          <input type="submit" value="Search"/>
-        </form>
-        {this.state.results.map((result, index) => (<li key={index}>{result}</li>))}
+        
+        <BootstrapTable data={this.state.attendance} height='250' scrollTop={'Top'} striped hover condensed>
+          <TableHeaderColumn dataField='class_name' isKey filter={{type: 'TextFilter'}} dataSort={true}>Class</TableHeaderColumn>
+          <TableHeaderColumn dataField='user_name' filter={{type: 'TextFilter'}} dataSort={true}>Student</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort={true}>Date</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' filter={{type: 'TextFilter'}} dataSort={true}>Status</TableHeaderColumn>
+        </BootstrapTable>
+
         <Link to="/AddStudent">Add Student</Link>
       </div>
     );
