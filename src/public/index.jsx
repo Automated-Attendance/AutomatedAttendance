@@ -16,7 +16,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      admin: false
     };
     autoBind(this);
   }
