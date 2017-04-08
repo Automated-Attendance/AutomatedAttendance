@@ -7,18 +7,18 @@ module.exports = function(db) {
 
   // Create links table
   return db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
-    user_id int NOT NULL AUTO_INCREMENT,
+    users_id int NOT NULL AUTO_INCREMENT,
     user_name varchar(50) NOT NULL,
     email varchar(50) NOT NULL,
     photo varchar(200),
     type varchar(50) DEFAULT 'student',
-    PRIMARY KEY (id)
+    PRIMARY KEY (users_id)
   );`)
   .then(function() {
     return db.queryAsync(`CREATE TABLE IF NOT EXISTS classes (
-      class_id int NOT NULL AUTO_INCREMENT,
+      classes_id int NOT NULL AUTO_INCREMENT,
       class_name varchar(50) NOT NULL,
-      PRIMARY KEY (id)
+      PRIMARY KEY (classes_id)
     );`);
   })
   .then(function() {
@@ -27,7 +27,7 @@ module.exports = function(db) {
       date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       status varchar(50),
       user_id int NOT NULL,
-      PRIMARY KEY (id)
+      PRIMARY KEY (attendance_record_id)
     );`);
   })
   .then(function() {
@@ -40,15 +40,15 @@ module.exports = function(db) {
   })
   .then(function() {
     return db.queryAsync(`ALTER TABLE class_user ADD FOREIGN KEY (class_id)
-      REFERENCES classes(id);`);
+      REFERENCES classes(classes_id);`);
   })
   .then(function() {
     return db.queryAsync(`ALTER TABLE class_user ADD FOREIGN KEY (user_id)
-      REFERENCES users(id);`);
+      REFERENCES users(users_id);`);
   })
   .then(function() {
-    return db.queryAsync(`ALTER TABLE AttendanceRecord ADD FOREIGN KEY (user_id)
-      REFERENCES users(id);`);
+    return db.queryAsync(`ALTER TABLE attendance_record ADD FOREIGN KEY (user_id)
+      REFERENCES users(users_id);`);
   })
   .error(function(err) {
     console.log(err);
