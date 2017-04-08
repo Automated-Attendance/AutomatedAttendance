@@ -44,7 +44,7 @@ export default class CameraPage extends React.Component {
 
   queryKairosGallery() {
     post('recognize', { img: this.state.screenshotURL })
-    .then((response) => console.log(response, 'am i a match?????????????????????????'));
+    .then((response) => console.log(response));
   }
 
   render() {
