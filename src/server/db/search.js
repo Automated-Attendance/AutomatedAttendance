@@ -1,9 +1,28 @@
 import mysql from 'mysql';
 import db from './index.js';
 
-exports.searchDB = function(req, res) {
-  var queryString = 'SELECT * FROM users;';
-  db.query(queryString, function(error, result) {
+exports.querySelector = function(req, res, next) {
+  console.log('querySelector req.body:', req.body);
+
+  if (req.body.queryType === 'allAttendance') {
+    req.params.query = `SELECT * FROM attendance_record\
+      JOIN users ON attendance_record.user_id=users.user_id\
+      JOIN class_user ON users.user_id=class_user.user_id\
+      JOIN classes ON classes.class_id=class_user.class_id;`;
+  } else if (req.body.queryType === 'studentAttendance') {
+    req.params.query = `SELECT * FROM attendance_record\
+      JOIN users ON attendance_record.user_id=users.user_id\
+      JOIN class_user ON users.user_id=class_user.user_id\
+      JOIN classes ON classes.class_id=class_user.class_id\
+      WHERE users.email=${req.body.email};`;
+  }
+
+  next();
+}
+
+exports.queryDatabase = function(req, res) {
+  console.log('queryDatabase params:', req.params);
+  db.query(req.params.query, function(error, result) {
     if (error) {
       res.status(500).send(error);
     } else {
