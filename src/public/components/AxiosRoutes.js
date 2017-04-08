@@ -4,7 +4,8 @@ const routes = {
   'cloudinarySend': '/cloudinarySend',
   'galleryStore': '/kairosGalleryStore',
   'recognize': '/kairosGalleryRecognize',
-  'search': '/search'
+  'search': '/search',
+  'userData': '/retrieveUserData'
 };
 
 const post = (routeName, message) => {

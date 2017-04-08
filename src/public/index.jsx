@@ -7,6 +7,8 @@ import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
 import AddStudent from './components/AddStudent.jsx';
 import Navigation from './components/Navigation.jsx';
+import autoBind from 'react-autobind';
+import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -16,6 +18,12 @@ class App extends React.Component {
     this.state = {
       loggedIn: false
     };
+    autoBind(this);
+  }
+
+  isLoggedIn() {
+    get('userData')
+    .then((response) => console.log(response));
   }
 
   render () {
