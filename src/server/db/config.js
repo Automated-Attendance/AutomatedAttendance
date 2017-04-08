@@ -22,7 +22,7 @@ module.exports = function(db) {
     );`);
   })
   .then(function() {
-    return db.queryAsync(`CREATE TABLE IF NOT EXISTS AttendanceRecord (
+    return db.queryAsync(`CREATE TABLE IF NOT EXISTS attendance_record (
       AttendanceRecord_id int NOT NULL AUTO_INCREMENT,
       date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       status varchar(50),
