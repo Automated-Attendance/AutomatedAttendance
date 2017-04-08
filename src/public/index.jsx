@@ -28,8 +28,11 @@ class App extends React.Component {
 
   isLoggedIn() {
     get('userData')
-    .then((response) => {
-      if (response.data !== 'not logged in') {
+    .then(({ data }) => {
+      if (data !== 'not logged in') {
+        if (data[0].type === 'admin') {
+          this.setState({ admin: true });
+        }
         this.setState({ loggedIn: true });
       }
     });
@@ -39,7 +42,10 @@ class App extends React.Component {
     return (
       <Router>
         <div className="container">
-          <Navigation loggedIn={this.state.loggedIn}/>
+          <Navigation 
+            loggedIn={this.state.loggedIn}
+            admin={this.state.admin}
+          />
           <div className="container">
             This is text on the page.
           </div>
