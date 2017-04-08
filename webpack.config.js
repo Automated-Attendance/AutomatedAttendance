@@ -1,4 +1,4 @@
-import path from 'path';
+const path = require('path');
 const SRC_DIR = path.join(__dirname, '/src/public');
 const DIST_DIR = path.join(__dirname, '/src/public/dist');
 

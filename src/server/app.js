@@ -10,6 +10,7 @@ import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
+import search from './db/search.js';
 
 const app = express();
 
@@ -45,6 +46,12 @@ app.post('/cloudinarySend', cloud.post);
 
 app.post('/kairosGalleryStore', kairos.storeInGallery);
 app.post('/kairosGalleryRecognize', kairos.recognize);
+
+/***********************************/
+/**** Database ****/
+/***********************************/
+
+app.get('/search', search.searchDB);
 
 /****************/
 /**** Wildcard ****/

@@ -1,5 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
+import { post, get } from './AxiosRoutes';
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -12,7 +13,11 @@ export default class Admin extends React.Component {
         'HRSF75': ['Kevin', 'John', 'Greg', 'Mario'],
         'HRSF76': ['Alice', 'Jenny', 'Andy', 'Terry']
       },
-      selectedClass: ''
+      selectedClass: '',
+      searchClass: '',
+      searchStudent: '',
+      searchDate: '',
+      results: []
     };
     autoBind(this);
   }
@@ -21,10 +26,30 @@ export default class Admin extends React.Component {
     this.state.selectedClass = this.state.classes[0];
   }
 
-  handleClassChange(chosenClass) {
-    this.setState({
-      selectedClass: chosenClass
-    });
+  handleClassListChange(chosenClass) {
+    this.setState({selectedClass: chosenClass});
+  }
+
+  handleClassChange(event) {
+    this.setState({searchClass: event.target.value});
+  }
+
+  handleStudentChange(event) {
+    this.setState({searchStudent: event.target.value});
+  }
+
+  handleDateChange(event) {
+    this.setState({searchDate: event.target.value});
+  }
+
+  handleSubmit(event) {
+    var current = this;
+    get('search')
+      .then(function(response) {
+        console.log(response);
+        current.setState({results: response.data});
+      });
+    event.preventDefault();
   }
 
 
@@ -34,7 +59,7 @@ export default class Admin extends React.Component {
         <h3>Classes</h3>
         <ul>
           {this.state.classes.map((classes, index) => {
-            return (<li key={index} onClick={()=> { this.handleClassChange(classes); }}>{classes}</li>);
+            return (<li key={index} onClick={()=> { this.handleClassListChange(classes); }}>{classes}</li>);
           })}
         </ul>
         <h3>{this.state.selectedClass} students</h3>
@@ -43,6 +68,26 @@ export default class Admin extends React.Component {
             return (<li key={index}>{student}</li>);
           })}
         </ul>
+        <h3>Search</h3>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Class:
+            <input type="text" value={this.state.searchClass} onChange={this.handleClassChange}/>
+          </label>
+          <br></br>
+          <label>
+            Student:
+            <input type="text" value={this.state.searchStudent} onChange={this.handleStudentChange}/>
+          </label>
+          <br></br>
+          <label>
+            Date:
+            <input type="text" value={this.state.searchDate} onChange={this.handleDateChange}/>
+          </label>
+          <br></br>
+          <input type="submit" value="Search"/>
+        </form>
+        {this.state.results.map((result, index) => (<li key={index}>{result}</li>))}
       </div>
     );
   }
