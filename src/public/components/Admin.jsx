@@ -1,8 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -10,10 +9,10 @@ export default class Admin extends React.Component {
     this.state = {
       classes: ['HRSF72','HRSF73','HRSF75','HRSF76'],
       students: {
-        'HRSF72': ['Duy','Jason','Andrew','Han'],
-        'HRSF73': ['Sam','Aly','James','Kay'],
-        'HRSF75': ['Kevin','John','Greg','Mario'],
-        'HRSF76': ['Alice','Jenny','Andy','Terry']
+        'HRSF72': ['Duy', 'Jason', 'Andrew', 'Han'],
+        'HRSF73': ['Sam', 'Aly', 'James', 'Kay'],
+        'HRSF75': ['Kevin', 'John', 'Greg', 'Mario'],
+        'HRSF76': ['Alice', 'Jenny', 'Andy', 'Terry']
       },
       selectedClass: '',
       searchClass: '',
