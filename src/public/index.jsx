@@ -5,6 +5,7 @@ import Student from './components/Student.jsx';
 import Admin from './components/Admin.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
+import AddStudent from './components/AddStudent.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -47,8 +48,8 @@ class App extends React.Component {
             <Route path="/Admin" component={Admin}/>
             <Route path="/About" component={About}/>
             <Route path="/Contact" component={Contact}/>
+            <Route path="/AddStudent" component={AddStudent}/>
           </div>
-          
         </div>
       </Router>
     );
