@@ -10,10 +10,10 @@ export default class Admin extends React.Component {
     this.state = {
       classes: ['HRSF72','HRSF73','HRSF75','HRSF76'],
       students: {
-        'HRSF72': ['Duy', 'Jason', 'Andrew', 'Han'],
-        'HRSF73': ['Sam', 'Aly', 'James', 'Kay'],
-        'HRSF75': ['Kevin', 'John', 'Greg', 'Mario'],
-        'HRSF76': ['Alice', 'Jenny', 'Andy', 'Terry']
+        'HRSF72': ['Duy','Jason','Andrew','Han'],
+        'HRSF73': ['Sam','Aly','James','Kay'],
+        'HRSF75': ['Kevin','John','Greg','Mario'],
+        'HRSF76': ['Alice','Jenny','Andy','Terry']
       },
       selectedClass: '',
       searchClass: '',
@@ -70,7 +70,6 @@ export default class Admin extends React.Component {
             return (<li key={index}>{student}</li>);
           })}
         </ul>
-<<<<<<< 3ebbed1107032d46efd746dab64540a45476ca41
         <h3>Search</h3>
         <form onSubmit={this.handleSubmit}>
           <label>
@@ -91,9 +90,7 @@ export default class Admin extends React.Component {
           <input type="submit" value="Search"/>
         </form>
         {this.state.results.map((result, index) => (<li key={index}>{result}</li>))}
-=======
         <Link to="/AddStudent">Add Student</Link>
->>>>>>> Finish addStudent Page
       </div>
     );
   }
