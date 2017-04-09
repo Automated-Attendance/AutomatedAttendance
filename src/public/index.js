@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './Routes.jsx';
+import Routes from './Routes';
 import autoBind from 'react-autobind';
-import Navigation from './components/Navigation.jsx';
+import Navigation from './components/Navigation';
 import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
