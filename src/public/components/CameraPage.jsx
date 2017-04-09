@@ -27,24 +27,32 @@ export default class CameraPage extends React.Component {
     this.uploadToCloudinary(screenshot);
   }
 
-  uploadToCloudinary(screenshot) {
-    post('cloudinarySend', { img: screenshot })
-    .then( ({ data }) => {
-      this.setState({ 
-        screenshotURL: data.secure_url
-      });
+  async uploadToCloudinary(screenshot) {
+    try {
+      const { data } = await post('cloudinarySend', { img: screenshot })
+      this.setState({ screenshotURL: data.secure_url });
       this.uploadToKairosGallery();
-    });
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
-  uploadToKairosGallery() {
-    post('galleryStore', { img: this.state.screenshotURL })
-    .then((response) => this.queryKairosGallery());
+  async uploadToKairosGallery() {
+    try {
+      await post('galleryStore', { img: this.state.screenshotURL })
+      this.queryKairosGallery();
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
-  queryKairosGallery() {
-    post('recognize', { img: this.state.screenshotURL })
-    .then((response) => console.log(response));
+  async queryKairosGallery() {
+    try {
+      const { data } = await post('recognize', { img: this.state.screenshotURL })
+      console.log(data);
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
   render() {
