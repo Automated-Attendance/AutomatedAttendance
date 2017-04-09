@@ -13,9 +13,7 @@ export default class About extends React.Component {
   render() {
     return (
       <div>
-        <h3 className="header">
-          What are we doing here?
-        </h3>
+        <h3 className="header">What are we doing here?</h3>
         <p>
           We are creating an automated attendance system for Hack Reactor...
         </p>
