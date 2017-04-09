@@ -82,6 +82,7 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.6.1",
     "karma-babel-preprocessor": "^6.0.1",
+    "karma-nyan-reporter": "^0.2.5",
     "react-addons-test-utils": "^15.5.1"
   }
 }

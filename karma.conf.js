@@ -11,9 +11,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'src/**/*.js': ['webpack', 'sourcemap'],
-      'src/public/*.js': ['webpack', 'sourcemap'],
-      'src/public/components/*.js': ['webpack', 'sourcemap'],
+      'src/public/AppEntry.js': ['webpack', 'sourcemap'],
       'test/**/*.js': ['webpack', 'sourcemap']
     },
 
@@ -63,7 +61,12 @@ module.exports = function(config) {
         presets: ['react', 'es2015', 'stage-1']
       }
     },
-    reporters: ['progress'],
+    reporters: ['nyan'],
+
+    nyanReporter: {
+      suppressErrorHighlighting: true,
+    },
+    
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
