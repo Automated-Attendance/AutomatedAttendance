@@ -3,7 +3,7 @@ const SRC_DIR = path.join(__dirname, '/src/public');
 const DIST_DIR = path.join(__dirname, '/src/public/dist');
 
 module.exports = {
-  entry: ['babel-polyfill', `${SRC_DIR}/index.js`],
+  entry: ['babel-polyfill', `${SRC_DIR}/AppEntry.js`],
   output: {
     filename: 'bundle.js',
     path: DIST_DIR

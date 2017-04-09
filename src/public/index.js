@@ -6,7 +6,7 @@ import Navigation from './components/Navigation';
 import { get } from './components/AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -47,5 +47,3 @@ class App extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<App />, document.getElementById('app'));
