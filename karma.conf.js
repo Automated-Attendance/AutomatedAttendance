@@ -4,7 +4,7 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     browsers: ['Chrome'],
-    frameworks: ['jasmine'],
+    frameworks: ['mocha'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       'test/**/*.js'
