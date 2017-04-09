@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = function(config) {
   config.set({
     basePath: '',
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     frameworks: ['mocha'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
@@ -45,22 +45,6 @@ module.exports = function(config) {
       noInfo: true
     },
 
-    // plugins: [
-    //   'karma-webpack',
-    //   'karma-jasmine',
-    //   'karma-sourcemap-loader',
-    //   'karma-chrome-launcher',
-    //   'karma-phantomjs-launcher',
-    //   'karma-babel-preprocessor'
-    // ],
-
-
-    babelPreprocessor: {
-      options: {
-        plugins: ['transform-decorators-legacy', 'transform-regenerator'],
-        presets: ['react', 'es2015', 'stage-1']
-      }
-    },
     reporters: ['nyan'],
 
     nyanReporter: {
@@ -71,7 +55,6 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
     singleRun: false,
   });
 };
