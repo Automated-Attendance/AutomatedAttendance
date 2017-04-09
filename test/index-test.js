@@ -1,26 +1,27 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import { expect } from 'chai';
 import App from '../src/public/index';
 
 describe('<App />', function() {
-  it('calls componentDidMount', () => {
-    sinon.spy(App.prototype, 'componentWillMount');
+  
+  it('calls componentWillMount', () => {
+    const componentDidMountSpy = spy(App.prototype, 'componentWillMount');
     const wrapper = shallow(<App />);
     expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
+    componentDidMountSpy.restore();
   });
 
-  // it("contains spec with an expectation", function() {
-  //   expect(shallow(<Foo />).is('.foo')).toBe(true);
-  // });
+  it('contains a Navigation bar', () => {
+    const wrapper = mount(<App/>);
+    expect(wrapper.find('Navigation')).to.have.length(1);
+  });
 
-  // it("contains spec with an expectation", function() {
-  //   expect(mount(<Foo />).find('.foo').length).toBe(1);
-  // });
+  it('contains a Routes child component', () => {
+    const wrapper = mount(<App/>);
+    expect(wrapper.find('Routes')).to.have.length(1);
+  });
 
-  // it("can run an expectation with render", function() {
-  //   expect(render(<Foo />).find('.foo').length).toBe(1);
-  // });
 });
 
