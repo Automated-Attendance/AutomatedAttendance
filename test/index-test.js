@@ -1,10 +1,14 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Foo from '../src/public/index';
+import sinon from 'sinon';
+import { expect } from 'chai';
+import App from '../src/public/index';
 
-describe("A suite", function() {
-  it("contains spec with an expectation", function() {
-    expect(shallow(<Foo />).contains(<h3 className="header">What are we doing here?</h3>)).toBe(true);
+describe('<App />', function() {
+  it('calls componentDidMount', () => {
+    sinon.spy(App.prototype, 'componentWillMount');
+    const wrapper = shallow(<App />);
+    expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
   });
 
   // it("contains spec with an expectation", function() {
