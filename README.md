@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/Jukejc/AutomatedAttendance.svg?branch=master)](https://travis-ci.org/Jukejc/AutomatedAttendance)
+
+
+
 # Automated Attendance
 
 > Pithy project description
