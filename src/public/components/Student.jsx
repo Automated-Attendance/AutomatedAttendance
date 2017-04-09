@@ -22,8 +22,7 @@ export default class Student extends React.Component {
     //pass a actuall email next week
     post('search', {queryType: 'studentAttendance', email: 'han@gmail.com'})
       .then( (response) => {
-        console.log(response.data)
-        this.setState({data: response.data})
+        this.setState({data: response.data});
       })
       .catch( (err) => {
         console.log(err);
