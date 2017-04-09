@@ -1,13 +1,14 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
-import { spy } from 'sinon';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { Link } from 'react-router-dom';
-import App from '../src/public/components/Navigation';
+import About from '../src/public/components/About';
 
 
 describe('<About />', function() {
 
-
+  it('should render a title', () => {
+    const wrapper = shallow(<About/>);
+    expect(wrapper.contains(<h3 className="header">What are we doing here?</h3>)).to.equal(true);
+  });
 
 });
