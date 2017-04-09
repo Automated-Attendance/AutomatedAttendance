@@ -18,17 +18,16 @@ export default class Student extends React.Component {
     autoBind(this);
   }
 
-  componentDidMount () {
-    //pass a actuall email next week
-    post('search', {queryType: 'studentAttendance', email: 'han@gmail.com'})
-      .then( (response) => {
-        this.setState({data: response.data});
-      })
-      .catch( (err) => {
-        console.log(err);
-      });
-
+  async componentDidMount () {
+    try {
+      const { data } = await post('studentInformation', {name: 'Han'})
+      this.setState({data: data});
+    } catch (err) {
+      console.warn(err);
+    }
   }
+  
+
   render() {
     return (
       <div>
