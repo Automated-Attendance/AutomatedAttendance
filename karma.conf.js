@@ -3,15 +3,18 @@ const path = require('path');
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha'],
+    frameworks: ['jasmine'],
     files: [
-      'tests/**/*.js'
+      'node_modules/babel-polyfill/dist/polyfill.js',
+      'test/**/*.js'
     ],
 
     preprocessors: {
       // add webpack as preprocessor
       'src/**/*.js': ['webpack', 'sourcemap'],
-      'tests/**/*.js': ['webpack', 'sourcemap']
+      'src/public/*.js': ['webpack', 'sourcemap'],
+      'src/public/components/*.js': ['webpack', 'sourcemap'],
+      'test/**/*.js': ['webpack', 'sourcemap']
     },
 
     webpack: { //kind of a copy of your webpack config
@@ -34,6 +37,7 @@ module.exports = function(config) {
         ]
       },
       externals: {
+        'jsdom': 'window',
         'cheerio': 'window',
         'react/addons': true,
         'react/lib/ExecutionEnvironment': true,
@@ -47,16 +51,18 @@ module.exports = function(config) {
 
     plugins: [
       'karma-webpack',
-      'karma-mocha',
+      'karma-jasmine',
       'karma-sourcemap-loader',
       'karma-chrome-launcher',
-      'karma-phantomjs-launcher'
+      'karma-phantomjs-launcher',
+      'karma-babel-preprocessor'
     ],
 
 
     babelPreprocessor: {
       options: {
-        presets: ['airbnb']
+        plugins: ['transform-decorators-legacy', 'transform-regenerator'],
+        presets: ['react', 'es2015', 'stage-1']
       }
     },
     reporters: ['progress'],
