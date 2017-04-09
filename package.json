@@ -78,5 +78,9 @@
     "presets": [
       "es2015"
     ]
+  },
+  "devDependencies": {
+    "babel-preset-airbnb": "^2.2.3",
+    "karma-babel-preprocessor": "^6.0.1"
   }
 }
