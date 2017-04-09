@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { spy } from 'sinon';
 import { expect } from 'chai';
-import App from '../src/public/index';
+import App from '../src/public/components/index';
 
 describe('<App />', function() {
   
