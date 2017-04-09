@@ -9,7 +9,7 @@
     "build": "node_modules/.bin/webpack --watch",
     "db": "mysql -u root -h localhost -p",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "testwatch": "./node_modules/karma/bin/karma start --browsers Chrome"
+    "testwatch": "./node_modules/karma/bin/karma start --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
