@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = function(config) {
   config.set({
     basePath: '',
+    browsers: ['Chrome'],
     frameworks: ['jasmine'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
@@ -10,15 +11,14 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      // add webpack as preprocessor
       'src/**/*.js': ['webpack', 'sourcemap'],
       'src/public/*.js': ['webpack', 'sourcemap'],
       'src/public/components/*.js': ['webpack', 'sourcemap'],
       'test/**/*.js': ['webpack', 'sourcemap']
     },
 
-    webpack: { //kind of a copy of your webpack config
-      devtool: 'inline-source-map', //just do inline source maps instead of the default
+    webpack: {
+      devtool: 'inline-source-map',
       module: {
         loaders: [
           {
@@ -37,8 +37,6 @@ module.exports = function(config) {
         ]
       },
       externals: {
-        'jsdom': 'window',
-        'cheerio': 'window',
         'react/addons': true,
         'react/lib/ExecutionEnvironment': true,
         'react/lib/ReactContext': true
@@ -46,17 +44,17 @@ module.exports = function(config) {
     },
 
     webpackServer: {
-      noInfo: true //please don't spam the console when running in karma!
+      noInfo: true
     },
 
-    plugins: [
-      'karma-webpack',
-      'karma-jasmine',
-      'karma-sourcemap-loader',
-      'karma-chrome-launcher',
-      'karma-phantomjs-launcher',
-      'karma-babel-preprocessor'
-    ],
+    // plugins: [
+    //   'karma-webpack',
+    //   'karma-jasmine',
+    //   'karma-sourcemap-loader',
+    //   'karma-chrome-launcher',
+    //   'karma-phantomjs-launcher',
+    //   'karma-babel-preprocessor'
+    // ],
 
 
     babelPreprocessor: {
