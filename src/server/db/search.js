@@ -2,6 +2,7 @@ import mysql from 'mysql';
 import db from './index.js';
 
 exports.querySelector = function(req, res, next) {
+  
   console.log('querySelector req.body:', req.body);
 
   if (req.body.queryType === 'allAttendance') {

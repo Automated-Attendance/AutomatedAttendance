@@ -45,7 +45,8 @@
     "react-router-dom": "^4.0.0",
     "react-webcam": "0.0.14",
     "request": "^2.81.0",
-    "serve-favicon": "^2.4.0"
+    "serve-favicon": "^2.4.0",
+    "twilio": "^2.11.1"
   },
   "babel": {
     "presets": [
