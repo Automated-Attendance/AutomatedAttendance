@@ -21,16 +21,16 @@ export default class App extends React.Component {
     this.isLoggedIn();
   }
 
-  isLoggedIn() {
-    get('userData')
-    .then(({ data }) => {
-      if (data !== 'not logged in') {
-        if (data[0].type === 'admin') {
-          this.setState({ isAdmin: true });
-        }
-        this.setState({ isLoggedIn: true });
-      }
-    });
+  async isLoggedIn() {
+    try {
+      const { data } = await get('userData');
+      const loggedIn = data !== 'not logged in';
+      if (loggedIn && data[0].type === 'admin') this.setState({ isAdmin: true });
+      if (loggedIn) this.setState({ isLoggedIn: true });
+    } catch (err) {
+      // todo: handle client side errors better
+      console.warn(err);
+    }
   }
 
   render () {
