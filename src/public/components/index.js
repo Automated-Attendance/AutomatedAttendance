@@ -25,12 +25,13 @@ export default class App extends React.Component {
   isLoggedIn() {
     get('userData')
     .then(({ data }) => {
+      {console.log('data.email!!!!!!!!!!',data)}
       if (data !== 'not logged in') {
         if (data[0].type === 'admin') {
           this.setState({ isAdmin: true });
         }
         this.setState({ isLoggedIn: true });
-        this.setState({ userEmail: data.email})
+        this.setState({ userEmail: data[0].email})
       }
     });
   }

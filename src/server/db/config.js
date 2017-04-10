@@ -51,7 +51,7 @@ module.exports = function(db) {
       REFERENCES users(users_id);`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "han@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "hanz@gmail.com");`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("andrew", "andrew@gmail.com");`);
