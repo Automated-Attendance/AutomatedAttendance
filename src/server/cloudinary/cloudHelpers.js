@@ -14,7 +14,7 @@ exports.post = (req, res) => {
 };
 
 exports.upload = (req,res) => {
-  const { username, email, studentPhoto, selectedClass } = req.body;
+  const { studentName, studentEmail, studentPhoto, selectedClass } = req.body;
   const options = {
     format: 'png'
   }
@@ -23,8 +23,8 @@ exports.upload = (req,res) => {
       res.status(500).send(err);
     } else {
       let link = result.url;
-      let addUser = `INSERT INTO users (user_name,email,photo) VALUES ('${username}','${email}','${link}')`;
-      let addUserClass = `INSERT INTO class_user (class_id, user_id) SELECT classes.classes_id, users.users_id FROM classes, users WHERE users.email='${email}' AND classes.class_name='${selectedClass}'`;
+      let addUser = `INSERT INTO users (user_name,email,photo) VALUES ('${studentName}','${studentEmail}','${link}')`;
+      let addUserClass = `INSERT INTO class_user (class_id, user_id) SELECT classes.classes_id, users.users_id FROM classes, users WHERE users.email='${studentEmail}' AND classes.class_name='${selectedClass}'`;
       db.queryAsync(addUser, (error, result) => {
         if (error) {
           res.status(500).send(error)
