@@ -11,6 +11,7 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
+import studentHelpers from './db/studentHelpers.js'
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 
@@ -43,7 +44,7 @@ app.get('/retrieveUserData', user.retrieveData);
 /********************/
 
 app.post('/cloudinarySend', cloud.post);
-app.post('/studentUpload', cloud.upload);
+app.post('/studentUpload', cloud.upload, studentHelpers.addStudent);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
