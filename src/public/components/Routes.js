@@ -1,11 +1,11 @@
 import React from 'react';
-import CameraPage from './components/CameraPage';
-import Student from './components/Student';
-import Admin from './components/Admin';
-import About from './components/About';
-import Contact from './components/Contact';
-import AddStudent from './components/AddStudent';
-import LoginRedirect from './components/LoginRedirect';
+import CameraPage from './CameraPage';
+import Student from './Student';
+import Admin from './Admin';
+import About from './About';
+import Contact from './Contact';
+import AddStudent from './AddStudent';
+import LoginRedirect from './LoginRedirect';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 const Routes = ({ userPrivs }) => {
