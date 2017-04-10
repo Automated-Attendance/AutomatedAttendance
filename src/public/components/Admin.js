@@ -28,6 +28,12 @@ export default class Admin extends React.Component {
     }
   }
 
+  handleClassListChange(currentClass){
+    this.setState({
+      selectedClass: currentClass
+    })
+  }
+
   render() {
     return (
       <div>

@@ -6,8 +6,8 @@ const routes = {
   'recognize': '/kairosGalleryRecognize',
   'search': '/search',
   'userData': '/retrieveUserData',
-  'studentInformation': '/studentInformation'
-  'studentUpload': '/studentUpload',
+  'studentInformation': '/studentInformation',
+  'studentUpload': '/studentUpload'
 };
 
 const post = (routeName, message) => {

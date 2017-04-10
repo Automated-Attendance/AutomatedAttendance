@@ -1,4 +1,5 @@
 import cloudinary from 'cloudinary';
+import db from './../db/index.js'
 
 exports.post = (req, res) => {
   const screenshot = req.body.img;
@@ -13,17 +14,34 @@ exports.post = (req, res) => {
 };
 
 exports.upload = (req,res) => {
-  if (!req.files) {
-    return res.status(400).send('No files were uploaded.');
+  let username = req.body.studentName;
+  let email = req.body.studentEmail;
+  let studentPhoto = req.body.studentPhoto;
+  let selectedClass = req.body.selectedClass;
+  console.log(username,email,studentPhoto);
+  const options = {
+    format: 'png'
   }
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file 
-  let studentPhoto = req.files.sampleFile;
- 
-  // Use the mv() method to place the file somewhere on your server 
-  studentPhoto.mv(__dirname + '/temp/studentPhoto.jpg', function(err) {
-    if (err) {
-      return res.status(500).send(err);
+  cloudinary.v2.uploader.upload(studentPhoto, (err,result) => {
+    if (err) { 
+      res.status(500).send(err);
+    } else {
+      let link = result.url;
+      let addUser = `INSERT INTO users (user_name,email,photo) VALUES ('${username}','${email}','${link}')`;
+      let addUserClass = `INSERT INTO class_user (class_id, user_id) SELECT classes.classes_id, users.users_id FROM classes, users WHERE users.email='${email}' AND classes.class_name='${selectedClass}'`;
+      db.queryAsync(addUser, (error, result) => {
+        if (error) {
+          res.status(500).send(error)
+        } else {
+          db.queryAsync(addUserClass, (error, result) => {
+            if (error) {
+              res.status(500).send(error)
+            } else {
+              res.status(201).send('Upload Sucessful!');
+            }
+          })
+        }
+      })
     }
-    res.send('File uploaded!');
-  });
+  })
 }
