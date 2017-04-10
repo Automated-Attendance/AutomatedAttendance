@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes.js';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
@@ -14,8 +13,6 @@ export default class Student extends React.Component {
     this.state = {
       data: []
     };
-    
-    autoBind(this);
   }
 
   async componentDidMount () {
