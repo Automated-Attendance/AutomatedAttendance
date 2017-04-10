@@ -25,7 +25,7 @@ describe('<App />', function() {
 
   it('should receive a response from server after login', () => {
 
-  });;
+  });
 
 });
 

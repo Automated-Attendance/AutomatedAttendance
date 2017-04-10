@@ -22,8 +22,8 @@ describe('<CameraPage />', function() {
     testFn.restore();
   });
 
-  it('should call uploadToCloudinary on click', () => {
-    const testFn = spy(CameraPage.prototype, 'uploadToCloudinary');
+  it('should call testBundle on click', () => {
+    const testFn = spy(CameraPage.prototype, 'testBundle');
     const wrapper = mount(<CameraPage />);
     expect(testFn.called).to.equal(false);
     wrapper.find('button').simulate('click');
