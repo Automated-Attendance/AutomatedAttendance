@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes';
 
 export default class AddStudent extends React.Component {
@@ -12,8 +11,11 @@ export default class AddStudent extends React.Component {
       selectedClass: '',
       studentPhoto: '',
       success: false
-    }
-    autoBind(this);
+    },
+
+    ['handleInputChange', 'handleStudentSubmit','previewFile'].forEach((method) => {
+      this[method] = this[method].bind(this);
+    })
   }
 
   componentWillMount() {
@@ -37,13 +39,11 @@ export default class AddStudent extends React.Component {
       selectedClass: this.state.selectedClass,
       studentPhoto: this.state.studentPhoto
     }
-    console.log('Sending Student info!', data);
     post('studentUpload', data)
       .then((response) => {
         this.setState({
           success: true
         })
-        console.log(response);
       });
     event.preventDefault();
   }
@@ -56,7 +56,6 @@ export default class AddStudent extends React.Component {
     reader.addEventListener("load", () => {
       preview.src = reader.result;
       preview.height = '200';
-      console.log(reader.result);
       this.setState({
         studentPhoto: reader.result
       })

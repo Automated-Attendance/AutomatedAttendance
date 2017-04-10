@@ -14,11 +14,7 @@ exports.post = (req, res) => {
 };
 
 exports.upload = (req,res) => {
-  let username = req.body.studentName;
-  let email = req.body.studentEmail;
-  let studentPhoto = req.body.studentPhoto;
-  let selectedClass = req.body.selectedClass;
-  console.log(username,email,studentPhoto);
+  const { username, email, studentPhoto, selectedClass } = req.body;
   const options = {
     format: 'png'
   }
