@@ -13,7 +13,7 @@ const Routes = ({ userPrivs }) => {
     <div>
       <Route path="/About" component={About}/>
       <Route path="/Contact" component={Contact}/>
-      <Route path="/Student" component={() => userPrivs.isLoggedIn && !userPrivs.isAdmin ? <Student/> : <LoginRedirect userPrivs={userPrivs}/> }/>
+      <Route path="/Student" component={() => userPrivs.isLoggedIn && !userPrivs.isAdmin ? <Student userPrivs={userPrivs}/> : <LoginRedirect userPrivs={userPrivs}/> }/>
       <Route path="/CameraPage" component={() => userPrivs.isAdmin ? <CameraPage/> : <LoginRedirect userPrivs={userPrivs}/> }/>
       <Route path="/Admin" component={() => userPrivs.isAdmin ? <Admin/> : <LoginRedirect userPrivs={userPrivs}/> }/>
       <Route path="/AddStudent" component={() => userPrivs.isAdmin ? <AddStudent/> : <LoginRedirect userPrivs={userPrivs}/> }/>

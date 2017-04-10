@@ -11,7 +11,8 @@ export default class App extends React.Component {
 
     this.state = {
       isLoggedIn: false,
-      isAdmin: false
+      isAdmin: false,
+      userEmail: null
     };
     
     this.isLoggedIn = this.isLoggedIn.bind(this);
@@ -29,6 +30,7 @@ export default class App extends React.Component {
           this.setState({ isAdmin: true });
         }
         this.setState({ isLoggedIn: true });
+        this.setState({ userEmail: data.email})
       }
     });
   }
