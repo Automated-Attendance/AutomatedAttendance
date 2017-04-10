@@ -1,6 +1,6 @@
 import React from 'react';
-import { post, get } from './AxiosRoutes';
 import { Link } from 'react-router-dom';
+import { getAttendanceRecords } from './requests/classes';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 export default class Admin extends React.Component {
@@ -20,12 +20,9 @@ export default class Admin extends React.Component {
   }
 
   async componentWillMount() {
-    try {
-      const { data } = await post('search', {queryType: 'allAttendance'})
-      this.setState({attendance: data});
-    } catch (err) {
-      console.log(err);
-    }
+    const queryType = {queryType: 'allAttendance'};
+    const attendanceRecords = await getAttendanceRecords(queryType);
+    this.setState({ attendance: attendanceRecords });
   }
 
   handleClassListChange(currentClass){
