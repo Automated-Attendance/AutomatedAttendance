@@ -12,29 +12,50 @@ export default class Admin extends React.Component {
   }
 
   async componentWillMount() {
-    const queryType = {queryType: 'allAttendance'};
-    const attendanceRecords = await getAttendanceRecords(queryType);
-    this.setState({ attendance: attendanceRecords });
-    // try {
-    //   const { data } = await post('search', {queryType: 'allAttendance'})
-    //   data.forEach((item) => {
-    //     let timeStartIndex = item.date.indexOf('T');
-    //     let hour = item.date.slice(++timeStartIndex, timeStartIndex + 2) - 7;
-    //     let suffix = 'AM';
-    //     if (hour > 12) {
-    //       hour -= 12;
-    //       suffix = 'PM';
-    //     } else if (hour < 1) {
-    //       hour += 12;
-    //       suffix = 'PM';
-    //     }
-    //     item.time = `${hour}${item.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
-    //     item.date = item.date.slice(0, 10);
-    //   })
-    //   this.setState({attendance: data});
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const { data } = await post('search', {queryType: 'allAttendance'})
+      data.forEach((item) => {
+        let timeStartIndex = item.date.indexOf('T');
+        let hour = item.date.slice(++timeStartIndex, timeStartIndex + 2) - 7;
+        let suffix = 'AM';
+        if (hour > 12) {
+          hour -= 12;
+          suffix = 'PM';
+        } else if (hour < 1) {
+          hour += 12;
+          suffix = 'PM';
+        }
+        item.time = `${hour}${item.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
+        item.date = item.date.slice(0, 10);
+      })
+      this.setState({attendance: data});
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  parseDateAndTime(record) {
+    var result = record;
+    let timeStartIndex = result.date.indexOf('T');
+    let hour = result.date.slice(++timeStartIndex, timeStartIndex + 2) - 7;
+    let suffix = 'AM';
+    if (hour > 12) {
+      hour -= 12;
+      suffix = 'PM';
+    } else if (hour < 1) {
+      hour += 12;
+      suffix = 'PM';
+    }
+    if (hour === 12) {
+      if (suffix ===  'AM') {
+        suffix = 'PM';
+      } else {
+        suffix = 'AM';
+      }
+    }
+    result.time = `${hour}${result.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
+    result.date = result.date.slice(0, 10);
+    return result;
   }
 
   render() {
