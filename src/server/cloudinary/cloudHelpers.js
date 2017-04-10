@@ -13,7 +13,7 @@ exports.post = (req, res) => {
   });
 };
 
-exports.upload = (req,res) => {
+exports.upload = (req, res) => {
   const { studentName, studentEmail, studentPhoto, selectedClass } = req.body;
   const options = {
     format: 'png'
