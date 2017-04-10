@@ -17,7 +17,7 @@ exports.upload = (req,res) => {
   const { studentName, studentEmail, studentPhoto, selectedClass } = req.body;
   const options = {
     format: 'png'
-  }
+  };
   cloudinary.v2.uploader.upload(studentPhoto, (err,result) => {
     if (err) { 
       res.status(500).send(err);
