@@ -10,7 +10,8 @@ export default class AddStudent extends React.Component {
       studentName: '',
       studentEmail: '',
       selectedClass: '',
-      studentPhoto: ''
+      studentPhoto: '',
+      success: false
     }
     autoBind(this);
   }
@@ -39,6 +40,9 @@ export default class AddStudent extends React.Component {
     console.log('Sending Student info!', data);
     post('studentUpload', data)
       .then((response) => {
+        this.setState({
+          success: true
+        })
         console.log(response);
       });
     event.preventDefault();
@@ -82,7 +86,8 @@ export default class AddStudent extends React.Component {
           <input type="file" name="sampleFile" onChange={this.previewFile}/>
           <img src=""/>
         </form>
-        <button onClick={this.handleStudentSubmit}>Upload!</button>  
+        <button onClick={this.handleStudentSubmit}>Upload!</button>
+        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}  
       </div>
     );
   }
