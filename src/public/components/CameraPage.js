@@ -1,20 +1,25 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
-import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes';
-
 
 export default class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    ['takeScreenshot',
+    'uploadToCloudinary',
+    'uploadToKairosGallery',
+     'queryKairosGallery'].forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+
     this.state = {
       screenshot: null,
       screenshotURL: null,
       spinner: false
     };
-    autoBind(this);
   }
 
   @keydown('space')
@@ -26,7 +31,7 @@ export default class CameraPage extends React.Component {
 
   async uploadToCloudinary(screenshot) {
     try {
-      const { data } = await post('cloudinarySend', { img: screenshot })
+      const { data } = await post('cloudinarySend', { img: screenshot });
       this.setState({ screenshotURL: data.secure_url });
       this.uploadToKairosGallery();
     } catch (err) {
@@ -36,7 +41,7 @@ export default class CameraPage extends React.Component {
 
   async uploadToKairosGallery() {
     try {
-      await post('galleryStore', { img: this.state.screenshotURL })
+      await post('galleryStore', { img: this.state.screenshotURL });
       this.queryKairosGallery();
     } catch (err) {
       console.warn(err);
@@ -45,7 +50,7 @@ export default class CameraPage extends React.Component {
 
   async queryKairosGallery() {
     try {
-      const { data } = await post('recognize', { img: this.state.screenshotURL })
+      const { data } = await post('recognize', { img: this.state.screenshotURL });
       console.log(data);
     } catch (err) {
       console.warn(err);
