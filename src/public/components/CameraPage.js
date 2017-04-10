@@ -1,7 +1,4 @@
-'use strict';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
 import autoBind from 'react-autobind';
