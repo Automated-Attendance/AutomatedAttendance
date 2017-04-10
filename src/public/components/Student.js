@@ -14,14 +14,14 @@ export default class Student extends React.Component {
     };
   }
 
-  // async componentDidMount () {
-  //   try {
-  //     const { data } = await post('studentInformation', {name: 'Han'})
-  //     this.setState({data: data});
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // }
+  async componentDidMount () {
+    try {
+      const { data } = await post('studentInformation', {email: this.props.email})
+      this.setState({data: data});
+    } catch (err) {
+      console.warn(err);
+    }
+  }
   
 
   render() {
