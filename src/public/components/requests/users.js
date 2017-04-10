@@ -20,6 +20,6 @@ const getUserData = async function() {
     // todo: better error handling in client
     console.error(err);
   }
-}
+};
 
 export { getUserData };
