@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 const routes = {
-  'cloudinarySend': '/cloudinarySend',
-  'galleryStore': '/kairosGalleryStore',
-  'recognize': '/kairosGalleryRecognize',
   'search': '/search',
-  'userData': '/retrieveUserData',
   'studentInformation': '/studentInformation',
   'studentUpload': '/studentUpload'
 };
