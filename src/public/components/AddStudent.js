@@ -1,5 +1,5 @@
 import React from 'react';
-import { post, get } from './AxiosRoutes';
+import { storeStudentData } from './requests/students';
 
 export default class AddStudent extends React.Component {
   constructor(props) {
@@ -31,21 +31,15 @@ export default class AddStudent extends React.Component {
     })
   }
 
-  handleStudentSubmit(event) {
-    let current = this;
+  async handleStudentSubmit(event) {
     let data = {
       studentName: this.state.studentName,
       studentEmail: this.state.studentEmail,
       selectedClass: this.state.selectedClass,
       studentPhoto: this.state.studentPhoto
     }
-    post('studentUpload', data)
-      .then((response) => {
-        this.setState({
-          success: true
-        })
-      });
-    event.preventDefault();
+
+    this.setState({ success: await storeStudentData(data) });
   }
 
   previewFile() {
