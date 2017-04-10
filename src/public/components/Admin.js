@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 import { post, get } from './AxiosRoutes';
 import { Link } from 'react-router-dom';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -18,7 +17,6 @@ export default class Admin extends React.Component {
       selectedClass: '',
       attendance: []
     };
-    autoBind(this);
   }
 
   async componentWillMount() {

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from '../Routes';
-import autoBind from 'react-autobind';
 import Navigation from './Navigation';
 import { get } from './AxiosRoutes';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
@@ -14,7 +13,8 @@ export default class App extends React.Component {
       isLoggedIn: false,
       isAdmin: false
     };
-    autoBind(this);
+    
+    this.isLoggedIn = this.isLoggedIn.bind(this);
   }
 
   componentWillMount() {
