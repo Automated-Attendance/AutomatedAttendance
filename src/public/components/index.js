@@ -15,7 +15,8 @@ export default class App extends React.Component {
   }
 
   async componentWillMount() {
-    this.setState( await getUserData() );
+    const loginStatus = await getUserData();
+    this.setState(loginStatus);
   }
 
   render () {

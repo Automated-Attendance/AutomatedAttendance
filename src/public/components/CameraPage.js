@@ -29,7 +29,8 @@ export default class CameraPage extends React.Component {
 
   // strictly for testing functionality
   async testBundle(screenshot) {
-    this.setState( await cloudinaryUpload(screenshot) );
+    const screenshotURL = await cloudinaryUpload(screenshot);
+    this.setState(screenshotURL);
     console.log( await queryGallery(this.state.screenshotURL) );
   }
 
