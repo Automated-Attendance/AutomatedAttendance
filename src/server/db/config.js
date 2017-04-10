@@ -89,20 +89,20 @@ module.exports = function(db) {
       (SELECT users_id FROM users WHERE user_name='duy'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('ontime', (SELECT users_id FROM users WHERE user_name='han'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('On time', (SELECT users_id FROM users WHERE user_name='han'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('ontime', (SELECT users_id FROM users WHERE user_name='andrew'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('On time', (SELECT users_id FROM users WHERE user_name='andrew'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('late', (SELECT users_id FROM users WHERE user_name='jason'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('Tardy', (SELECT users_id FROM users WHERE user_name='jason'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('absent', (SELECT users_id FROM users WHERE user_name='duy'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('Absent', (SELECT users_id FROM users WHERE user_name='duy'));`);
   })
   .error(function(err) {
     console.log(err);

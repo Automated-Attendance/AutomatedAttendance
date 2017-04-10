@@ -8,6 +8,10 @@ export default class Admin extends React.Component {
     super(props);
     this.state = {
       attendance: []
+      selectedClass: '',
+      attendance: [],
+      classes: {},
+      students: {}
     };
   }
 
@@ -28,7 +32,7 @@ export default class Admin extends React.Component {
         item.time = `${hour}${item.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
         item.date = item.date.slice(0, 10);
         item = this.parseDateAndTime(item);
-      })
+      });
       this.setState({attendance: data});
     } catch (err) {
       console.log(err);
@@ -90,16 +94,84 @@ export default class Admin extends React.Component {
     return `${month} ${day}, ${year}`;
   }
 
+  monthToNum(month) {
+    if (month === 'January') {
+      return 1;
+    } else if (month === 'February') {
+      return 2;
+    } else if (month === 'March') {
+      return 3;
+    } else if (month === 'April') {
+      return 4;
+    } else if (month === 'May') {
+      return 5;
+    } else if (month === 'June') {
+      return 6;
+    } else if (month === 'July') {
+      return 7;
+    } else if (month === 'August') {
+      return 8;
+    } else if (month === 'September') {
+      return 9;
+    } else if (month === 'October') {
+      return 10;
+    } else if (month === 'November') {
+      return 11;
+    } else if (month === 'December') {
+      return 12;
+    }
+  }
+
+  statusType = {
+    'On time': 'On time',
+    Tardy: 'Tardy',
+    Absent: 'Absent'
+  };
+
+  enumFormatter(cell, row, enumObject) {
+    // console.log('cell', cell);
+    console.log('row', row);
+    // console.log('enum', enumObject);
+    // console.log('E', enumObject[cell]);
+    return enumObject[cell];
+  }
+
+  revertSortFunc(a, b, order) {   // order is desc or asc
+    var aYear = a.date.slice(a.date.length - 4);
+    var bYear = b.date.slice(b.date.length - 4);
+    var aMonth = this.monthToNum(a.date.slice(0, a.date.indexOf(' ')));
+    var bMonth = this.monthToNum(b.date.slice(0, b.date.indexOf(' ')));
+    var aDay = a.date.slice(a.date.indexOf(' ') + 1, a.date.indexOf(','));
+    var bDay = b.date.slice(b.date.indexOf(' ') + 1, b.date.indexOf(','));
+    if (order === 'desc') {
+      if (aYear !== bYear) {
+        return aYear - bYear;
+      } else if (aMonth !== bMonth) {
+        return aMonth - bMonth;
+      } else {
+        return aDay - bDay;
+      }
+    } else {
+      if (aYear !== bYear) {
+        return bYear - aYear;
+      } else if (aMonth !== bMonth) {
+        return bMonth - aMonth;
+      } else {
+        return bDay - aDay;
+      }
+    }
+  }
+
   render() {
     return (
       <div>
 
-        <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'} striped hover condensed>
+        <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'}  multiColumnSort={5} striped hover condensed>
           <TableHeaderColumn dataField='class_name' isKey filter={{type: 'TextFilter'}} dataSort={true}>Class</TableHeaderColumn>
           <TableHeaderColumn dataField='user_name' filter={{type: 'TextFilter'}} dataSort={true}>Student</TableHeaderColumn>
-          <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort={true}>Date</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='status' filter={{type: 'TextFilter'}} dataSort={true}>Status</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.statusType}} dataSort={true}>Status</TableHeaderColumn>
         </BootstrapTable>
 
         <Link to="/AddStudent">Add Student</Link>
