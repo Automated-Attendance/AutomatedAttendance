@@ -7,10 +7,10 @@ import App from '../src/public/components/index';
 describe('<App />', function() {
   
   it('calls componentWillMount', () => {
-    const componentDidMountSpy = spy(App.prototype, 'componentWillMount');
+    const componentWillMountSpy = spy(App.prototype, 'componentWillMount');
     const wrapper = shallow(<App />);
     expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
-    componentDidMountSpy.restore();
+    componentWillMountSpy.restore();
   });
 
   it('contains a Navigation bar', () => {
