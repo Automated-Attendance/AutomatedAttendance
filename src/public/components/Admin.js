@@ -32,6 +32,13 @@ export default class Admin extends React.Component {
         item.time = `${hour}${item.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
         item.date = item.date.slice(0, 10);
         item = this.parseDateAndTime(item);
+        if (!this.state.classes[item.class_name]) {
+          let thisClass = this.state.classes;
+          thisClass[item.class_name] = item.class_name;
+          this.setState({
+            classes: thisClass
+          });
+        }
       });
       this.setState({attendance: data});
     } catch (err) {
@@ -167,7 +174,7 @@ export default class Admin extends React.Component {
       <div>
 
         <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'}  multiColumnSort={5} striped hover condensed>
-          <TableHeaderColumn dataField='class_name' isKey filter={{type: 'TextFilter'}} dataSort={true}>Class</TableHeaderColumn>
+          <TableHeaderColumn dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
           <TableHeaderColumn dataField='user_name' filter={{type: 'TextFilter'}} dataSort={true}>Student</TableHeaderColumn>
           <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
