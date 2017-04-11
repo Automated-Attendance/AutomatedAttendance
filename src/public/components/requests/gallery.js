@@ -21,4 +21,4 @@ const storeInGallery = async function(imgURL) {
 
 
 
-export { queryGallery };
+export { queryGallery, storeInGallery };
