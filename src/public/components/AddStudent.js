@@ -1,11 +1,12 @@
 import React from 'react';
 import { storeStudentData } from './requests/students';
+import { getClasses } from './requests/classes';
 
 export default class AddStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: ['HRSF72','HRSF73','HRSF75','HRSF76'],
+      classes: '',
       studentName: '',
       studentEmail: '',
       selectedClass: '',
@@ -18,7 +19,9 @@ export default class AddStudent extends React.Component {
     })
   }
 
-  componentWillMount() {
+  async componentWillMount() {
+    const classes = await getClasses();
+    this.setState(classes);
     this.setState({
       selectedClass: this.state.classes[0]
     })
@@ -66,7 +69,7 @@ export default class AddStudent extends React.Component {
         <h3>Add Student</h3>
         <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input>
         <select name='selectedClass' onChange={this.handleInputChange}>
-          {this.state.classes.map((item,index)=> {
+          {this.state.classes && this.state.classes.map((item,index) => {
             return (<option key={index} value={item}>{item}</option>)
           })}
         </select><br/>
