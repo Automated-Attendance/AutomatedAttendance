@@ -62,7 +62,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
-app.post('/addClass', classHelpers.addClass)
+app.post('/addClass', classHelpers.addClass);
 
 /*****************/
 /**** Twillio ****/
@@ -74,7 +74,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailMessage', mailgun);
+app.post('/emailStudents', search.getListOfUsers, mailGun.sendMail);
 
 /******************/
 /**** Wildcard ****/
