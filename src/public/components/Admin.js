@@ -11,18 +11,13 @@ export default class Admin extends React.Component {
       classes: {},
       students: {},
       emails: {},
-      statuses: {
-        'On time': 'On time',
-        Tardy: 'Tardy',
-        Absent: 'Absent'        
-      }
+      statuses: {}
     };
   }
 
   async componentWillMount() {
     const queryType = {queryType: 'allAttendance'};
     const attendanceRecords = await getAttendanceRecords(queryType);      
-
     attendanceRecords.forEach((item) => {
       item = this.parseDateAndTime(item);
       if (!this.state.classes[item.class_name]) {
@@ -42,8 +37,10 @@ export default class Admin extends React.Component {
       if (!this.state.emails[item.email]) {
         let thisEmail = this.state.emails;
         let thisStudent = this.state.students;
+        let fullName = `${item.first_name} ${item.last_name}`;
         thisEmail[item.email] = item.email;
-        thisStudent[item.user_name] = item.user_name;
+        thisStudent[fullName] = fullName;
+        item.full_name = fullName;
         this.setState({
           emails: thisEmail,
           students: thisStudent
@@ -136,6 +133,37 @@ export default class Admin extends React.Component {
     }
   }
 
+  nameSort(a, b, order) {   // order is desc or asc
+    // console.log(a);
+    console.log('SORT');
+    console.log(a);
+    console.log(b);
+    console.log(a.first_name);
+    console.log(b.first_name);
+    console.log(a.first_name.localeCompare(b.first_name));
+    // console.log(parseInt(b.first_name));
+    console.log(a.first_name - b.first_name);
+    // var aSpace = a.indexOf(' ');
+    // var bSpace = b.indexOf(' ');
+    // var aFirst = a.slice(0, aSpace);
+    // var bFirst = b.slice(0, bSpace);
+    // var aLast = a.slice(aSpace + 1);
+    // var bLast = b.slice(bSpace + 1);
+    if (order === 'desc') {
+      if (a.last_name !== b.last_name) {
+        return a.last_name.localeCompare(b.last_name) * -1;
+      } else {
+        return a.first_name.localeCompare(b.first_name) * -1;
+      }
+    } else {
+      if (a.last_name !== b.last_name) {
+        return b.last_name.localeCompare(a.last_name) * -1;
+      } else {
+        return b.first_name.localeCompare(a.first_name) * -1;
+      }
+    }
+  }
+  
   revertSortFunc(a, b, order) {   // order is desc or asc
     var aYear = a.date.slice(a.date.length - 4);
     var bYear = b.date.slice(b.date.length - 4);
@@ -168,7 +196,7 @@ export default class Admin extends React.Component {
 
         <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'}  multiColumnSort={5} striped hover condensed>
           <TableHeaderColumn dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
-          <TableHeaderColumn dataField='user_name' filterFormatted filter={{type: 'SelectFilter', options: this.state.students}} dataSort={true}>Student</TableHeaderColumn>
+          <TableHeaderColumn dataField='full_name' filterFormatted filter={{type: 'SelectFilter', options: this.state.students}} dataSort sortFunc={this.nameSort}>Name</TableHeaderColumn>
           <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.state.statuses}} dataSort={true}>Status</TableHeaderColumn>
