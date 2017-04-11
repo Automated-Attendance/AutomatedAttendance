@@ -2,10 +2,10 @@ import db from './index';
 
 exports.addStudent =  async (req, res, next) => {
   try {
-    const { studentName, studentEmail, selectedClass, link } = req.body
+    const { studentName, studentEmail, selectedClass, imageLink } = req.body
 
     let addUser = `INSERT INTO users (user_name, email, photo) 
-    VALUES ('${studentName}', '${studentEmail}', '${link}')`;
+    VALUES ('${studentName}', '${studentEmail}', '${imageLink}')`;
 
     let addUserClass = `INSERT INTO class_user (class_id, user_id) 
     SELECT classes.classes_id, users.users_id FROM classes, users 
@@ -20,18 +20,3 @@ exports.addStudent =  async (req, res, next) => {
     res.status(500).send(err);
   }
 };
-
-// old with callbacks for reference
-// db.queryAsync(addUser, (error, result) => {
-//   if (error) {
-//     res.status(500).send(error);
-//   } else {
-//     db.queryAsync(addUserClass, (error, result) => {
-//       if (error) {
-//         res.status(500).send(error);
-//       } else {
-//         res.status(201).send('Upload Sucessful!');
-//       }
-//     });
-//   }
-// });
