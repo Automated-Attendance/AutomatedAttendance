@@ -19,7 +19,7 @@ export default class Admin extends React.Component {
     const queryType = {queryType: 'allAttendance'};
     const attendanceRecords = await getAttendanceRecords(queryType);      
     attendanceRecords.forEach((item) => {
-      item = this.parseDateAndTime(item);
+      item.date = this.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
@@ -50,105 +50,80 @@ export default class Admin extends React.Component {
     this.setState({attendance: attendanceRecords});
   }
 
-  parseDateAndTime(record) {
-    var result = record;
-    let timeStartIndex = result.date.indexOf('T');
-    let hour = result.date.slice(++timeStartIndex, timeStartIndex + 2) - 7;
-    let suffix = 'AM';
-    if (hour > 12) {
-      hour -= 12;
-      suffix = 'PM';
-    } else if (hour <= 0) {
-      hour += 12;
-      suffix = 'PM';
+  parseDateAndTime(oldDate) {
+    var newDate = {
+      year: oldDate.slice(0, 4),
+      month: oldDate.slice(5, 7),
+      day: oldDate.slice(8, 10),
+      hour: oldDate.slice(11, 13),
+      minute: oldDate.slice(14, 16),
+      second: oldDate.slice(17, 19),
+      millisecond: oldDate.slice(20, 23)
+    };
+    newDate.month--;
+    newDate.hour -= 7;
+    if (newDate.hour < 0) {
+      newDate.hour += 24;
+      newDate.day -= 1;
     }
-    if (hour === 12) {
-      suffix = suffix === 'AM' ? 'PM' : 'AM';
-    }
-    result.time = `${hour}${result.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
-    result.date = this.convertDate(result.date.slice(0, 10));
-    return result;
+    return new Date(
+      newDate.year,
+      newDate.month,
+      newDate.day,
+      newDate.hour,
+      newDate.minute,
+      newDate.second,
+      newDate.millisecond
+    );
   }
-
-  convertDate(date) {
-    var year = date.slice(0, 4);
-    var month = date.slice(5, 7);
-    var day = date.slice(8);
-    if (month === '01') {
-      month = 'January';
-    } else if (month === '02') {
-      month = 'February';
-    } else if (month === '03') {
-      month = 'March';
-    } else if (month === '04') {
-      month = 'April';
-    } else if (month === '05') {
-      month = 'May';
-    } else if (month === '06') {
-      month = 'June';
-    } else if (month === '07') {
-      month = 'July';
-    } else if (month === '08') {
-      month = 'August';
-    } else if (month === '09') {
-      month = 'September';
-    } else if (month === '10') {
-      month = 'October';
-    } else if (month === '11') {
-      month = 'November';
-    } else if (month === '12') {
-      month = 'December';
-    }
-    if (day.charAt(0) === '0') {
-      day = day.slice(1);
-    }
-    return `${month} ${day}, ${year}`;
-  }
-
-  monthToNum(month) {
-    if (month === 'January') {
-      return 1;
-    } else if (month === 'February') {
-      return 2;
-    } else if (month === 'March') {
-      return 3;
-    } else if (month === 'April') {
-      return 4;
-    } else if (month === 'May') {
-      return 5;
-    } else if (month === 'June') {
-      return 6;
-    } else if (month === 'July') {
-      return 7;
-    } else if (month === 'August') {
-      return 8;
-    } else if (month === 'September') {
-      return 9;
-    } else if (month === 'October') {
-      return 10;
-    } else if (month === 'November') {
-      return 11;
-    } else if (month === 'December') {
-      return 12;
+  
+  monthNumToText(month) {
+    if (month === 0) {
+      return 'January';
+    } else if (month === 1) {
+      return 'February';
+    } else if (month === 2) {
+      return 'March';
+    } else if (month === 3) {
+      return 'April';
+    } else if (month === 4) {
+      return 'May';
+    } else if (month === 5) {
+      return 'June';
+    } else if (month === 6) {
+      return 'July';
+    } else if (month === 7) {
+      return 'August';
+    } else if (month === 8) {
+      return 'September';
+    } else if (month === 9) {
+      return 'October';
+    } else if (month === 10) {
+      return 'November';
+    } else if (month === 11) {
+      return 'December';
     }
   }
 
-  nameSort(a, b, order) {   // order is desc or asc
-    // console.log(a);
-    console.log('SORT');
-    console.log(a);
-    console.log(b);
-    console.log(a.first_name);
-    console.log(b.first_name);
-    console.log(a.first_name.localeCompare(b.first_name));
-    // console.log(parseInt(b.first_name));
-    console.log(a.first_name - b.first_name);
-    // var aSpace = a.indexOf(' ');
-    // var bSpace = b.indexOf(' ');
-    // var aFirst = a.slice(0, aSpace);
-    // var bFirst = b.slice(0, bSpace);
-    // var aLast = a.slice(aSpace + 1);
-    // var bLast = b.slice(bSpace + 1);
+  dayNumToText(day) {
+    if (day === 0) {
+      return 'Sunday';
+    } else if (day === 1) {
+      return 'Monday';
+    } else if (day === 2) {
+      return 'Tuesday';
+    } else if (day === 3) {
+      return 'Wednesday';
+    } else if (day === 4) {
+      return 'Thursday';
+    } else if (day === 5) {
+      return 'Friday';
+    } else if (day === 6) {
+      return 'Saturday';
+    }
+  }
+
+  nameSort(a, b, order) {
     if (order === 'desc') {
       if (a.last_name !== b.last_name) {
         return a.last_name.localeCompare(b.last_name) * -1;
@@ -164,30 +139,8 @@ export default class Admin extends React.Component {
     }
   }
   
-  revertSortFunc(a, b, order) {   // order is desc or asc
-    var aYear = a.date.slice(a.date.length - 4);
-    var bYear = b.date.slice(b.date.length - 4);
-    var aMonth = this.monthToNum(a.date.slice(0, a.date.indexOf(' ')));
-    var bMonth = this.monthToNum(b.date.slice(0, b.date.indexOf(' ')));
-    var aDay = a.date.slice(a.date.indexOf(' ') + 1, a.date.indexOf(','));
-    var bDay = b.date.slice(b.date.indexOf(' ') + 1, b.date.indexOf(','));
-    if (order === 'desc') {
-      if (aYear !== bYear) {
-        return aYear - bYear;
-      } else if (aMonth !== bMonth) {
-        return aMonth - bMonth;
-      } else {
-        return aDay - bDay;
-      }
-    } else {
-      if (aYear !== bYear) {
-        return bYear - aYear;
-      } else if (aMonth !== bMonth) {
-        return bMonth - aMonth;
-      } else {
-        return bDay - aDay;
-      }
-    }
+  dateFormatter(cell, row) {
+    return `${this.dayNumToText(cell.getDay())}, ${this.monthNumToText(cell.getMonth())} ${cell.getDate()}, ${cell.getFullYear()}`;
   }
 
   render() {
@@ -196,9 +149,9 @@ export default class Admin extends React.Component {
 
         <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'}  multiColumnSort={5} striped hover condensed>
           <TableHeaderColumn dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
-          <TableHeaderColumn dataField='full_name' filterFormatted filter={{type: 'SelectFilter', options: this.state.students}} dataSort sortFunc={this.nameSort}>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='full_name' filterFormatted filter={{type: 'TextFilter'}} dataSort sortFunc={this.nameSort}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' dataFormat={this.dateFormatter.bind(this)} filter={{type: 'DateFilter'}} dataSort={true} dataAlign='right'>Date</TableHeaderColumn>
+          <TableHeaderColumn dataField='time' dataSort={true} dataAlign='right'>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.state.statuses}} dataSort={true}>Status</TableHeaderColumn>
         </BootstrapTable>
 
