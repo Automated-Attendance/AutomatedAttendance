@@ -1,24 +1,29 @@
 import React from 'react';
 import { storeStudentData } from './requests/students';
+import { getClasses, addClasses } from './requests/classes';
 
 export default class AddStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: ['HRSF72','HRSF73','HRSF75','HRSF76'],
+      classes: '',
       studentName: '',
       studentEmail: '',
       selectedClass: '',
       studentPhoto: '',
-      success: false
+      className: '',
+      success: false,
+      classAdded: false
     },
 
-    ['handleInputChange', 'handleStudentSubmit','previewFile'].forEach((method) => {
+    ['handleInputChange', 'handleStudentSubmit', 'handleClassSubmit', 'previewFile'].forEach((method) => {
       this[method] = this[method].bind(this);
     })
   }
 
-  componentWillMount() {
+  async componentWillMount() {
+    const classes = await getClasses();
+    this.setState(classes);
     this.setState({
       selectedClass: this.state.classes[0]
     })
@@ -40,6 +45,15 @@ export default class AddStudent extends React.Component {
     }
 
     this.setState({ success: await storeStudentData(data) });
+  }
+
+  async handleClassSubmit(event) {
+    let data = {
+      className: this.state.className
+    }
+
+    await addClasses(data);
+    this.setState({classAdded: true});
   }
 
   previewFile() {
@@ -66,7 +80,7 @@ export default class AddStudent extends React.Component {
         <h3>Add Student</h3>
         <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input>
         <select name='selectedClass' onChange={this.handleInputChange}>
-          {this.state.classes.map((item,index)=> {
+          {this.state.classes && this.state.classes.map((item,index) => {
             return (<option key={index} value={item}>{item}</option>)
           })}
         </select><br/>
@@ -80,7 +94,11 @@ export default class AddStudent extends React.Component {
           <img src=""/>
         </form>
         <button onClick={this.handleStudentSubmit}>Upload!</button>
-        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}  
+        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}
+        <h3>Add Class</h3> 
+        <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input>
+        <button onClick={this.handleClassSubmit}>Add Class!</button>
+        {!this.state.classAdded ? null: <h6>Class Added Successfully!</h6>}
       </div>
     );
   }

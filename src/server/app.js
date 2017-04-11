@@ -12,6 +12,7 @@ import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
 import studentHelpers from './db/studentHelpers.js';
+import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 import twilio from './twillio/twillioHelper';
@@ -59,7 +60,8 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /******************/
 
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
-
+app.get('/getClassData', classHelpers.getClass);
+app.post('/addClass', classHelpers.addClass)
 
 /*****************/
 /**** Twillio ****/
