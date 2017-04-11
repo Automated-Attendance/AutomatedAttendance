@@ -40,3 +40,16 @@ exports.getAttendanceForUser = function(req, res) {
     }
   });
 }
+
+exports.getListOfUsers = function(req, res, next) {
+  var queryString = 'SELECT * from users;';
+  db.query(queryString, function(error, result) {
+    if (error) {
+      res.status(500).send(error);
+    } else {
+      // res.json(result);
+      req.params = result;
+      next();
+    }
+  });
+}
