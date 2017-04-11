@@ -76,7 +76,7 @@ export default class Admin extends React.Component {
       newDate.millisecond
     );
   }
-  
+
   monthNumToText(month) {
     if (month === 0) {
       return 'January';
@@ -139,8 +139,27 @@ export default class Admin extends React.Component {
     }
   }
   
-  dateFormatter(cell, row) {
+  dateFormatter(cell) {
     return `${this.dayNumToText(cell.getDay())}, ${this.monthNumToText(cell.getMonth())} ${cell.getDate()}, ${cell.getFullYear()}`;
+  }
+
+  timeFormatter(cell) {
+    var suffix;
+    var hours = cell.getHours();
+    var minutes = cell.getMinutes();
+    if (hours >= 12) {
+      suffix = 'PM';
+      hours -= 12;
+    } else {
+      suffix = 'AM';
+    }
+    if (hours === 0) {
+      hours = 12;
+    }
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+    return `${hours}:${minutes} ${suffix}`;
   }
 
   render() {
@@ -151,7 +170,7 @@ export default class Admin extends React.Component {
           <TableHeaderColumn dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
           <TableHeaderColumn dataField='full_name' filterFormatted filter={{type: 'TextFilter'}} dataSort sortFunc={this.nameSort}>Name</TableHeaderColumn>
           <TableHeaderColumn dataField='date' dataFormat={this.dateFormatter.bind(this)} filter={{type: 'DateFilter'}} dataSort={true} dataAlign='right'>Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='time' dataSort={true} dataAlign='right'>Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' dataFormat={this.timeFormatter} dataSort={true} dataAlign='right'>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.state.statuses}} dataSort={true}>Status</TableHeaderColumn>
         </BootstrapTable>
 
