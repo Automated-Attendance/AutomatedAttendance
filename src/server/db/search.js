@@ -20,7 +20,6 @@ exports.querySelector = function(req, res, next) {
 }
 
 exports.queryDatabase = function(req, res) {
-  console.log('queryDatabase params:', req.params);
   db.query(req.params.query, function(error, result) {
     if (error) {
       res.status(500).send(error);

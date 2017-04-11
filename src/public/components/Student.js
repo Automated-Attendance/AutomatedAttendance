@@ -1,6 +1,5 @@
-'use strict';
-
 import React from 'react';
+import { getStudentData } from './requests/students';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 
@@ -13,13 +12,11 @@ export default class Student extends React.Component {
       data: []
     };
   }
+
   async componentDidMount () {
-    try {
-      const { data } = await post('search', {email: this.props.userPrivs.userEmail , queryType: 'studentAttendance'})
-      this.setState({data: data});
-    } catch (err) {
-      console.warn(err);
-    }
+    const userEmail = this.props.userPrivs.userEmail;
+    const data = await getStudentData({ email: this.props.userPrivs.userEmail, queryType: 'studentAttendance' });
+    this.setState({ data: data });
   }
   
 

@@ -11,7 +11,7 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
-import studentHelpers from './db/studentHelpers.js'
+import studentHelpers from './db/studentHelpers.js';
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 import twilio from './twillio/twillioHelper';
@@ -58,7 +58,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /**** Database ****/
 /******************/
 
-app.post('/search', search.querySelector, search.queryDatabase);
+app.post('/getStudentData', search.querySelector, search.queryDatabase);
 
 
 /*****************/
