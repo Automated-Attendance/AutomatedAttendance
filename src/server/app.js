@@ -52,7 +52,7 @@ app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.store
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
-
+app.get('/galleryLists', kairos.test);
 app.post('/kairosGalleryRecognize', kairos.recognize);
 
 /******************/
