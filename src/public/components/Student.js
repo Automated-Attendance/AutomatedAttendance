@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import { post, get } from './AxiosRoutes.js';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 
@@ -15,14 +14,14 @@ export default class Student extends React.Component {
     };
   }
 
-  async componentDidMount () {
-    try {
-      const { data } = await post('studentInformation', {name: 'Han'})
-      this.setState({data: data});
-    } catch (err) {
-      console.warn(err);
-    }
-  }
+  // async componentDidMount () {
+  //   try {
+  //     const { data } = await post('studentInformation', {name: 'Han'})
+  //     this.setState({data: data});
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // }
   
 
   render() {

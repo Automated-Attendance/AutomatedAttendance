@@ -23,5 +23,9 @@ describe('<App />', function() {
     expect(wrapper.find('Routes')).to.have.length(1);
   });
 
+  it('should receive a response from server after login', () => {
+
+  });
+
 });
 
