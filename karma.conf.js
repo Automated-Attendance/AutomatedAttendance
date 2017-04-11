@@ -27,11 +27,7 @@ module.exports = function(config) {
               plugins: ['transform-decorators-legacy', 'transform-regenerator'],
               presets: ['react', 'es2015', 'stage-1']
             }
-          },
-          {
-            test: /\.json$/,
-            loader: 'json-loader',
-          },
+          }
         ]
       },
       externals: {
@@ -43,6 +39,11 @@ module.exports = function(config) {
 
     webpackServer: {
       noInfo: true
+    },
+
+    browserConsoleLogOptions: {
+      level: 'log',
+      terminal: true
     },
 
     reporters: ['nyan'],

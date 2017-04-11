@@ -2,10 +2,23 @@ import React from 'react';
 import keydown, { Keys } from 'react-keydown';
 import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
-import { spy } from 'sinon';
+import sinon from 'sinon';
+import axios from 'axios';
 import CameraPage from '../src/public/components/CameraPage';
 
 describe('<CameraPage />', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: [{ type: 'admin' }] }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
 
 
   it('should render with a webcam component view', () => {
@@ -14,7 +27,7 @@ describe('<CameraPage />', function() {
   });
 
   it('should call takeScreenshot on click', () => {
-    const testFn = spy(CameraPage.prototype, 'takeScreenshot');
+    const testFn = sinon.spy(CameraPage.prototype, 'takeScreenshot');
     const wrapper = mount(<CameraPage />);
     expect(testFn.called).to.equal(false);
     wrapper.find('button').simulate('click');
@@ -23,7 +36,7 @@ describe('<CameraPage />', function() {
   });
 
   it('should call testBundle on click', () => {
-    const testFn = spy(CameraPage.prototype, 'testBundle');
+    const testFn = sinon.spy(CameraPage.prototype, 'testBundle');
     const wrapper = mount(<CameraPage />);
     expect(testFn.called).to.equal(false);
     wrapper.find('button').simulate('click');
