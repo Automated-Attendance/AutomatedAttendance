@@ -46,13 +46,12 @@ app.get('/retrieveUserData', user.retrieveData);
 /********************/
 
 app.post('/cloudinarySend', cloud.post);
-app.post('/studentUpload', cloud.upload, studentHelpers.addStudent);
+app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.storeInGallery);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
 
-app.post('/kairosGalleryStore', kairos.storeInGallery);
 app.post('/kairosGalleryRecognize', kairos.recognize);
 
 /******************/

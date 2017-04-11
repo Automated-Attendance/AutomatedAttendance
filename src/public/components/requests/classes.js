@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getAttendanceRecords = async function(queryType) {
+const getAttendanceRecords = async (queryType) => {
   try {
     const { data } = await axios.post('/getStudentData', queryType);
     return data;

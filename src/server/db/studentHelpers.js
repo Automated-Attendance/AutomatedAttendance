@@ -1,6 +1,6 @@
 import db from './index';
 
-exports.addStudent =  async (req, res) => {
+exports.addStudent =  async (req, res, next) => {
   try {
     const { studentName, studentEmail, selectedClass, link } = req.body
 
@@ -14,7 +14,7 @@ exports.addStudent =  async (req, res) => {
 
     await db.queryAsync(addUser);
     await db.queryAsync(addUserClass);
-    res.status(201).send('Upload Sucessful!');
+    next();
 
   } catch (err) {
     res.status(500).send(err);
