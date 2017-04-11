@@ -3,6 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import axios from 'axios';
+import * as users from '../src/public/components/requests/users';
 import App from '../src/public/components/index';
 
 describe('<App />', function() {
@@ -20,7 +21,7 @@ describe('<App />', function() {
   
   it('calls componentWillMount', function() {
     const componentWillMountSpy = sinon.spy(App.prototype, 'componentWillMount');
-    const wrapper = shallow(<App />);
+    const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
     componentWillMountSpy.restore();
   });
@@ -35,14 +36,19 @@ describe('<App />', function() {
     expect(wrapper.find('Routes')).to.have.length(1);
   });
 
-  it('should receive a response from server after login', async function() {
-    try {
-      const wrapper = mount(<App/>);
+  it('should receive a response from the server', function() {
+    const getUserDataSpy = sinon.spy(users, 'getUserData');
+    expect(getUserDataSpy.called).to.equal(false);
+    const wrapper = mount(<App/>);
+    expect(getUserDataSpy.called).to.equal(true);
+  });
+
+  it('should detect a user if they are logged in', function() {
+    const wrapper = mount(<App/>);
+    setTimeout(() => {
       expect(wrapper.state().isLoggedIn).to.equal(true);
       expect(wrapper.state().isAdmin).to.equal(true);
-    } catch (err) {
-      console.warn(err);
-    }
+    }, 1000);
   });
 
 });

@@ -17,6 +17,7 @@ export default class App extends React.Component {
 
   async componentWillMount() {
     const loginStatus = await getUserData();
+    console.log(loginStatus, 'loginStatus loginStatus loginStatus loginStatus loginStatus loginStatus loginStatus loginStatus ');
     this.setState(loginStatus);
   }
 
