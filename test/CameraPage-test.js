@@ -30,7 +30,7 @@ describe('<CameraPage />', function() {
     const testFn = sinon.spy(CameraPage.prototype, 'takeScreenshot');
     const wrapper = mount(<CameraPage />);
     expect(testFn.called).to.equal(false);
-    wrapper.find('button').simulate('click');
+    wrapper.find('.screenShootButton').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
@@ -39,7 +39,7 @@ describe('<CameraPage />', function() {
     const testFn = sinon.spy(CameraPage.prototype, 'testBundle');
     const wrapper = mount(<CameraPage />);
     expect(testFn.called).to.equal(false);
-    wrapper.find('button').simulate('click');
+    wrapper.find('.screenShootButton').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
