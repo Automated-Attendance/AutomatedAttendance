@@ -7,8 +7,6 @@ export default class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      attendance: []
-      selectedClass: '',
       attendance: [],
       classes: {},
       students: {},
@@ -43,6 +41,13 @@ export default class Admin extends React.Component {
           thisClass[item.class_name] = item.class_name;
           this.setState({
             classes: thisClass
+          });
+        }
+        if (!this.state.statuses[item.status]) {
+          let thisStatus = this.state.statuses;
+          thisStatus[item.status] = item.status;
+          this.setState({
+            statuses: thisStatus
           });
         }
         if (!this.state.emails[item.email]) {
@@ -145,20 +150,6 @@ export default class Admin extends React.Component {
     }
   }
 
-  statusType = {
-    'On time': 'On time',
-    Tardy: 'Tardy',
-    Absent: 'Absent'
-  };
-
-  enumFormatter(cell, row, enumObject) {
-    // console.log('cell', cell);
-    console.log('row', row);
-    // console.log('enum', enumObject);
-    // console.log('E', enumObject[cell]);
-    return enumObject[cell];
-  }
-
   revertSortFunc(a, b, order) {   // order is desc or asc
     var aYear = a.date.slice(a.date.length - 4);
     var bYear = b.date.slice(b.date.length - 4);
@@ -194,7 +185,7 @@ export default class Admin extends React.Component {
           <TableHeaderColumn dataField='user_name' filterFormatted filter={{type: 'SelectFilter', options: this.state.students}} dataSort={true}>Student</TableHeaderColumn>
           <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.statusType}} dataSort={true}>Status</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.state.statuses}} dataSort={true}>Status</TableHeaderColumn>
         </BootstrapTable>
 
         <Link to="/AddStudent">Add Student</Link>
