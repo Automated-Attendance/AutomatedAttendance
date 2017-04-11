@@ -12,9 +12,8 @@ exports.twilioMessage = function (req, res) {
     body: 'hey han'
   }, function (err, message) {
     if(err) {
-      console.log('ERR',err)
       res.status(404).end();
-    }else {
+    } else {
       res.status(200).send();
     }
   })
