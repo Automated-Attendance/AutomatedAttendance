@@ -3,6 +3,8 @@ import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
 import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
+import { sendEmails } from './requests/emails';
+
 
 export default class CameraPage extends React.Component {
 
@@ -34,6 +36,11 @@ export default class CameraPage extends React.Component {
     console.log( await queryGallery(this.state.screenshotURL) );
   }
 
+  // sending email to all users 
+  async sendEmails () {
+    await sendEmails();
+  }
+
   render() {
     return (
       <div>
@@ -47,6 +54,10 @@ export default class CameraPage extends React.Component {
         <div className="screenshots">
           <button onClick={this.takeScreenshot}>Take Screenshot</button>
           { this.state.screenshot ? <img src={this.state.screenshot} /> : null }
+        </div>
+
+        <div>
+          <button onClick={this.sendEmails}>Send Emails</button>
         </div>
 
       </div>

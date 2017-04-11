@@ -15,7 +15,8 @@ import studentHelpers from './db/studentHelpers.js';
 import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
-import twilio from './twillio/twillioHelper';
+import twilio from './twilio/twilioHelper';
+import mailGun from './mailgun/mailGunHelpers';
 
 const app = express();
 
@@ -60,14 +61,21 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /******************/
 
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
+
 app.get('/getClassData', classHelpers.getClass);
-app.post('/addClass', classHelpers.addClass)
+app.post('/addClass', classHelpers.addClass);
 
 /*****************/
 /**** Twillio ****/
 /*****************/
 
 app.post('/twilioMessage', twilio.twilioMessage);
+
+/*****************/
+/**** MailGun ****/
+/*****************/
+
+app.post('/emailStudents', search.getListOfUsers, mailGun.sendMail);
 
 /******************/
 /**** Wildcard ****/
