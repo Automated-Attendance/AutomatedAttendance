@@ -16,24 +16,28 @@ export default class AddStudent extends React.Component {
       classAdded: false
     },
 
-    ['handleInputChange', 'handleStudentSubmit', 'handleClassSubmit', 'previewFile'].forEach((method) => {
+    ['handleInputChange',
+    'handleStudentSubmit',
+    'handleClassSubmit',
+    'previewFile',
+    'updateClassList'].forEach((method) => {
       this[method] = this[method].bind(this);
     })
   }
 
   async componentWillMount() {
+    await this.updateClassList();
+  }
+
+  async updateClassList() {
     const classes = await getClasses();
     this.setState(classes);
-    this.setState({
-      selectedClass: this.state.classes[0]
-    })
+    this.setState({ selectedClass: this.state.classes[0] });
   }
 
   handleInputChange(event) {
     let name = event.target.name;
-    this.setState({
-      [name]: event.target.value
-    })
+    this.setState({ [name]: event.target.value });
   }
 
   async handleStudentSubmit(event) {
@@ -48,13 +52,10 @@ export default class AddStudent extends React.Component {
   }
 
   async handleClassSubmit(event) {
-    let data = {
-      className: this.state.className
-    }
-
+    let data = { className: this.state.className };
     await addClasses(data);
-    this.setState(await getClasses());
-    this.setState({classAdded: true});
+    this.setState({ classAdded: true });
+    await this.updateClassList();
   }
 
   previewFile() {

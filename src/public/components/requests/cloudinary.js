@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const cloudinaryUpload = async function(screenshot) {
+const cloudinaryUpload = async (screenshot) => {
   try {
     const { data } = await axios.post('/cloudinarySend', { img: screenshot });
     return { screenshotURL: data.secure_url };

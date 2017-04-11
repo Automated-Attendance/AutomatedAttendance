@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const queryGallery = async function(imgURL) {
+const queryGallery = async (imgURL) => {
   try {
     const { data } = await axios.post('/kairosGalleryRecognize', { img: imgURL });
     return data;
@@ -10,7 +10,7 @@ const queryGallery = async function(imgURL) {
   }
 };
 
-const storeInGallery = async function(imgURL) {
+const storeInGallery = async (imgURL) => {
   try {
     await post('galleryStore', { img: imgURL });
   } catch (err) {

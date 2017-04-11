@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getUserData = async function() {
+const getUserData = async () => {
   try {
     const { data } = await axios.get('/retrieveUserData');
     const loggedIn = data !== 'not logged in';

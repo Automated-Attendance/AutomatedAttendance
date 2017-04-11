@@ -23,8 +23,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -46,13 +46,12 @@ app.get('/retrieveUserData', user.retrieveData);
 /********************/
 
 app.post('/cloudinarySend', cloud.post);
-app.post('/studentUpload', cloud.upload, studentHelpers.addStudent);
+app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.storeInGallery);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
 
-app.post('/kairosGalleryStore', kairos.storeInGallery);
 app.post('/kairosGalleryRecognize', kairos.recognize);
 
 /******************/
@@ -61,7 +60,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
-app.post('/addClass', classHelpers.addClass)
+app.post('/addClass', classHelpers.addClass);
 
 /*****************/
 /**** Twillio ****/
