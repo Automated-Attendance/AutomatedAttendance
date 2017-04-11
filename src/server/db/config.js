@@ -60,11 +60,8 @@ module.exports = function(db) {
     return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("duy", "myemailisthirtyninedigitslong@gmail.com");`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "han.bigge@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "jciphone333@gmail.com");`);
   })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("Hansheng", "jciphone333@gmail.com");`);
-  // })
   .then(function() {
     return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
   })

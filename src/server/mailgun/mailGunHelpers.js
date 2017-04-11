@@ -2,9 +2,7 @@ import MailGun from 'mailgun-js'
 const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
  
 exports.sendMail = (req, res) => {
-  // console.log(req.params);
   req.params.forEach( (person)=> {
-    console.log('email', person.email);
     var data = { 
       from: 'Excited User <aaallstars15@gmail.com>',
       to: person.email,
@@ -14,7 +12,8 @@ exports.sendMail = (req, res) => {
     
     mailgun.messages().send(data, function (error, body) {
       if (error) {
-        res.status(500).send(error)
+        res.status(500).send(error);
+        return;
         console.log(error);
       } else {
         console.log(body);

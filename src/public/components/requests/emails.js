@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-// const getEmails = async function () {
-//   try {
-//     const response = await axios.post('/getAllUsers');
-
-//   }
-// }
-
 const sendEmails = async function() {
   try {
     const response = await axios.post('/emailStudents');

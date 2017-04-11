@@ -49,7 +49,6 @@ exports.getListOfUsers = function(req, res, next) {
     } else {
       // res.json(result);
       req.params = result;
-      
       next();
     }
   });
