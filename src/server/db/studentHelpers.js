@@ -16,4 +16,4 @@ exports.addStudent = (req, res) => {
       });
     }
   });
-}
+};

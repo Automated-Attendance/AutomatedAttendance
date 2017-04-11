@@ -11,10 +11,10 @@ exports.twilioMessage = function (req, res) {
     from: '16692226070',
     body: 'hey han'
   }, function (err, message) {
-    if(err) {
+    if (err) {
       res.status(404).end();
     } else {
       res.status(200).send();
     }
-  })
+  });
 };
