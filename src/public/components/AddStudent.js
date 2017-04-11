@@ -80,7 +80,8 @@ export default class AddStudent extends React.Component {
           <img src=""/>
         </form>
         <button onClick={this.handleStudentSubmit}>Upload!</button>
-        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}  
+        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}
+        <h3>Add Class</h3>  
       </div>
     );
   }
