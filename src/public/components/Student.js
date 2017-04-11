@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import { getStudentData } from './requests/students';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -16,8 +14,9 @@ export default class Student extends React.Component {
   }
 
   async componentDidMount () {
+    const userEmail = this.props.userPrivs.userEmail;
     const data = await getStudentData({ email: this.props.userPrivs.userEmail, queryType: 'studentAttendance' });
-    this.setState(data);
+    this.setState({ data: data });
   }
   
 
