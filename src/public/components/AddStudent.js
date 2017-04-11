@@ -53,6 +53,7 @@ export default class AddStudent extends React.Component {
     }
 
     await addClasses(data);
+    this.setState(await getClasses());
     this.setState({classAdded: true});
   }
 
@@ -90,7 +91,7 @@ export default class AddStudent extends React.Component {
           action='http://localhost:3000/studentUpload' 
           method='post' 
           encType="multipart/form-data">
-          <input type="file" name="sampleFile" onChange={this.previewFile}/>
+          <input type="file" name="sampleFile" onChange={this.previewFile} />
           <img src=""/>
         </form>
         <button onClick={this.handleStudentSubmit}>Upload!</button>
