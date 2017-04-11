@@ -15,7 +15,6 @@ export default class Student extends React.Component {
   }
   async componentDidMount () {
     try {
-      console.log('props.userPrivs', this.props.userPrivs)
       const { data } = await post('search', {email: this.props.userPrivs.userEmail , queryType: 'studentAttendance'})
       this.setState({data: data});
     } catch (err) {
