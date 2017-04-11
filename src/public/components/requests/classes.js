@@ -10,7 +10,7 @@ const getAttendanceRecords = async (queryType) => {
   }
 };
 
-const getClasses = async function() {
+const getClasses = async () => {
   try {
     const { data } = await axios.get('/getClassData');
     let classes = data[0].map((className) => className.class_name);
@@ -20,7 +20,7 @@ const getClasses = async function() {
   }
 }
 
-const addClasses = async function(className) {
+const addClasses = async (className) => {
   try {
     await axios.post('/addClass', className);
   } catch (err) {
