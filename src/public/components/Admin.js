@@ -20,51 +20,37 @@ export default class Admin extends React.Component {
   }
 
   async componentWillMount() {
-    try {
-      const { data } = await post('search', {queryType: 'allAttendance'})
-      data.forEach((item) => {
-        let timeStartIndex = item.date.indexOf('T');
-        let hour = item.date.slice(++timeStartIndex, timeStartIndex + 2) - 7;
-        let suffix = 'AM';
-        if (hour > 12) {
-          hour -= 12;
-          suffix = 'PM';
-        } else if (hour < 1) {
-          hour += 12;
-          suffix = 'PM';
-        }
-        item.time = `${hour}${item.date.slice(timeStartIndex + 2, timeStartIndex + 8)} ${suffix}`;
-        item.date = item.date.slice(0, 10);
-        item = this.parseDateAndTime(item);
-        if (!this.state.classes[item.class_name]) {
-          let thisClass = this.state.classes;
-          thisClass[item.class_name] = item.class_name;
-          this.setState({
-            classes: thisClass
-          });
-        }
-        if (!this.state.statuses[item.status]) {
-          let thisStatus = this.state.statuses;
-          thisStatus[item.status] = item.status;
-          this.setState({
-            statuses: thisStatus
-          });
-        }
-        if (!this.state.emails[item.email]) {
-          let thisEmail = this.state.emails;
-          let thisStudent = this.state.students;
-          thisEmail[item.email] = item.email;
-          thisStudent[item.user_name] = item.user_name;
-          this.setState({
-            emails: thisEmail,
-            students: thisStudent
-          });
-        }
-      });
-      this.setState({attendance: data});
-    } catch (err) {
-      console.log(err);
-    }
+    const queryType = {queryType: 'allAttendance'};
+    const attendanceRecords = await getAttendanceRecords(queryType);      
+
+    attendanceRecords.forEach((item) => {
+      item = this.parseDateAndTime(item);
+      if (!this.state.classes[item.class_name]) {
+        let thisClass = this.state.classes;
+        thisClass[item.class_name] = item.class_name;
+        this.setState({
+          classes: thisClass
+        });
+      }
+      if (!this.state.statuses[item.status]) {
+        let thisStatus = this.state.statuses;
+        thisStatus[item.status] = item.status;
+        this.setState({
+          statuses: thisStatus
+        });
+      }
+      if (!this.state.emails[item.email]) {
+        let thisEmail = this.state.emails;
+        let thisStudent = this.state.students;
+        thisEmail[item.email] = item.email;
+        thisStudent[item.user_name] = item.user_name;
+        this.setState({
+          emails: thisEmail,
+          students: thisStudent
+        });
+      }
+    });
+    this.setState({attendance: attendanceRecords});
   }
 
   parseDateAndTime(record) {
