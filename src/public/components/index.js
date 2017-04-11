@@ -10,7 +10,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      isAdmin: false
+      isAdmin: false,
+      userEmail: null
     };
   }
 

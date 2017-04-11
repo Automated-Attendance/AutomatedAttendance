@@ -14,6 +14,7 @@ import search from './db/search.js';
 import studentHelpers from './db/studentHelpers.js'
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
+import twilio from './twillio/twillioHelper';
 
 const app = express();
 
@@ -58,6 +59,13 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 /******************/
 
 app.post('/search', search.querySelector, search.queryDatabase);
+
+
+/*****************/
+/**** Twillio ****/
+/*****************/
+
+app.post('/twilioMessage', twilio.twilioMessage);
 
 /******************/
 /**** Wildcard ****/
