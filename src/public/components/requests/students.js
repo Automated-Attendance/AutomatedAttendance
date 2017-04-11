@@ -10,4 +10,13 @@ const storeStudentData = async function(studentData) {
   }
 }
 
-export { storeStudentData };
+const getStudentData = async function(studentData) {
+  try {
+    const { data } = await axios.post('/getStudentData', studentData);
+    return data;
+  } catch (err) {
+    console.warn(err);
+  }
+};
+
+export { storeStudentData, getStudentData };
