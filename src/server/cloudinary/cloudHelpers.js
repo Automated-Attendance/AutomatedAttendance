@@ -1,31 +1,27 @@
 import cloudinary from 'cloudinary';
+import Promise from 'bluebird';
 
-exports.post = (req, res) => {
-  const screenshot = req.body.img;
-  const options = {
-    format: 'png',
-    public_id: 'temporary'
-  };
-  cloudinary.v2.uploader.upload(screenshot, options, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(result);
-    }
-  });
+Promise.promisifyAll(cloudinary);
+
+exports.post = async (req, res) => {
+  try {
+    const { img } = req.body;
+    const options = { format: 'png', public_id: 'temporary' };
+    const result = await cloudinary.v2.uploader.upload(img, options);
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
-exports.upload = (req, res, next) => {
-  const { studentName, studentEmail, studentPhoto, selectedClass } = req.body;
-  const options = {
-    format: 'png'
-  };
-  cloudinary.v2.uploader.upload(studentPhoto, options, (err, result) => {
-    if (err) { 
-      res.status(500).send(err);
-    } else {
-      req.body.link = result.url;
-      next();
-    }
-  });
+exports.upload = async (req, res, next) => {
+  try {
+    const { studentPhoto } = req.body;
+    const options = { format: 'png' }
+    const { url } = await cloudinary.v2.uploader.upload(studentPhoto, options);
+    req.body.imageLink = url;
+    next();
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };
