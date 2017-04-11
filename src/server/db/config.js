@@ -54,14 +54,17 @@ module.exports = function(db) {
     return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "hanz@gmail.com");`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("andrew", "andrew@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("andrew", "andrew.alonis@gmail.com");`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("duy", "duy@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("duy", "myemailisthirtyninedigitslong@gmail.com");`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "jason@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "han.bigge@gmail.com");`);
   })
+  // .then(function() {
+  //   return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("Hansheng", "jciphone333@gmail.com");`);
+  // })
   .then(function() {
     return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
   })
