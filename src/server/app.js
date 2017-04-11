@@ -61,6 +61,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
+app.post('/addClass', classHelpers.addClass)
 
 /*****************/
 /**** Twillio ****/

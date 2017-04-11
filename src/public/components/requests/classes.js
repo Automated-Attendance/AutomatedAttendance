@@ -20,4 +20,12 @@ const getClasses = async function() {
   }
 }
 
-export { getAttendanceRecords, getClasses };
+const addClasses = async function(className) {
+  try {
+    await axios.post('/addClass', className);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export { getAttendanceRecords, getClasses, addClasses };
