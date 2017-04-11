@@ -11,7 +11,13 @@ export default class Admin extends React.Component {
       selectedClass: '',
       attendance: [],
       classes: {},
-      students: {}
+      students: {},
+      emails: {},
+      statuses: {
+        'On time': 'On time',
+        Tardy: 'Tardy',
+        Absent: 'Absent'        
+      }
     };
   }
 
@@ -37,6 +43,16 @@ export default class Admin extends React.Component {
           thisClass[item.class_name] = item.class_name;
           this.setState({
             classes: thisClass
+          });
+        }
+        if (!this.state.emails[item.email]) {
+          let thisEmail = this.state.emails;
+          let thisStudent = this.state.students;
+          thisEmail[item.email] = item.email;
+          thisStudent[item.user_name] = item.user_name;
+          this.setState({
+            emails: thisEmail,
+            students: thisStudent
           });
         }
       });
@@ -175,7 +191,7 @@ export default class Admin extends React.Component {
 
         <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'}  multiColumnSort={5} striped hover condensed>
           <TableHeaderColumn dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
-          <TableHeaderColumn dataField='user_name' filter={{type: 'TextFilter'}} dataSort={true}>Student</TableHeaderColumn>
+          <TableHeaderColumn dataField='user_name' filterFormatted filter={{type: 'SelectFilter', options: this.state.students}} dataSort={true}>Student</TableHeaderColumn>
           <TableHeaderColumn dataField='date' filter={{type: 'TextFilter'}} dataSort sortFunc={this.revertSortFunc.bind(this)}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField='time' dataSort={true}>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='status' filterFormatted filter={{type: 'SelectFilter', options: this.statusType}} dataSort={true}>Status</TableHeaderColumn>
