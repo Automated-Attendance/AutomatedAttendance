@@ -32,6 +32,10 @@ export default class CameraPage extends React.Component {
     };
   }
 
+  async componentWillMount() {
+    await this.updateClassList();
+  }
+
   @keydown('space')
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
@@ -61,6 +65,13 @@ export default class CameraPage extends React.Component {
 
   toggleDisabled(e) {
     this.setState({ disabled: e.target.checked });
+  }
+
+  // getting class list from DB
+
+  async updateClassList() {
+    const classes = await getClasses();
+    this.setState(classes);
   }
 
   render() {
