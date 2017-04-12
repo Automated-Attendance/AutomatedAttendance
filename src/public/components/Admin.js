@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getAttendanceRecords } from './requests/classes';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-// require('../dist/stylesheets/react-bootstrap-table.css');
-require('../dist/stylesheets/table.css');
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -36,13 +34,13 @@ export default class Admin extends React.Component {
           statuses: thisStatus
         });
       }
+      let fullName = `${item.first_name} ${item.last_name}`;
+      item.full_name = fullName;
       if (!this.state.emails[item.email]) {
         let thisEmail = this.state.emails;
         let thisStudent = this.state.students;
-        let fullName = `${item.first_name} ${item.last_name}`;
         thisEmail[item.email] = item.email;
         thisStudent[fullName] = fullName;
-        item.full_name = fullName;
         this.setState({
           emails: thisEmail,
           students: thisStudent
@@ -167,16 +165,78 @@ export default class Admin extends React.Component {
   render() {
     return (
       <div>
-
-        <BootstrapTable ref='table1' data={this.state.attendance} csvFileName={'Attendance.csv'} height='250px' scrollTop={'Top'} multiColumnSort={5} striped hover condensed exportCSV>
-          <TableHeaderColumn width='100px' dataField='class_name' isKey filterFormatted filter={{type: 'SelectFilter', options: this.state.classes}} dataSort={true}>Class</TableHeaderColumn>
-          <TableHeaderColumn width='100px' dataField='full_name' filterFormatted filter={{type: 'TextFilter'}} dataSort sortFunc={this.nameSort}>Name</TableHeaderColumn>
-          <TableHeaderColumn width='100px' dataField='date' dataFormat={this.dateFormatter.bind(this)} filter={{type: 'DateFilter', defaultValue: {date: new Date(), comparator: '='}}} dataSort={true} dataAlign='right'>Date</TableHeaderColumn>
-          <TableHeaderColumn width='100px' dataField='date' dataFormat={this.timeFormatter} dataSort={true} dataAlign='right'>Time</TableHeaderColumn>
-          <TableHeaderColumn width='100px' dataField='status' columnClassName='td-column-string-example' filterFormatted filter={{type: 'SelectFilter', options: this.state.statuses}} dataSort={true}>Status</TableHeaderColumn>
+        <br></br>
+        <a href='/AddStudent'><button>Add Student/Class</button></a>
+        <BootstrapTable
+          data = {this.state.attendance}
+          csvFileName = {'Attendance.csv'}
+          maxHeight = '750px'
+          scrollTop = {'Top'}
+          multiColumnSort = {5}
+          striped
+          hover
+          condensed
+          exportCSV
+        >
+          <TableHeaderColumn
+            isKey
+            dataField = 'class_name'
+            width = '15%'
+            dataSort
+            filterFormatted
+            filter = {{
+              type: 'SelectFilter',
+              options: this.state.classes
+            }}
+          >
+            Class
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField = 'full_name'
+            width = '25%'
+            dataSort
+            sortFunc = {this.nameSort}
+            filterFormatted
+            filter = {{
+              type: 'TextFilter'
+            }}
+          >
+            Name
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField = 'date'
+            width = '30%'
+            dataAlign = 'right'
+            dataFormat = {this.dateFormatter.bind(this)}
+            dataSort
+            filter = {{
+              type: 'TextFilter',
+            }}
+          >
+            Date
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField = 'date'
+            width = '15%'
+            dataAlign = 'right'
+            dataSort
+            dataFormat = {this.timeFormatter}
+          >
+            Time
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField = 'status'
+            width = '15%'
+            dataSort
+            filterFormatted
+            filter = {{
+              type: 'SelectFilter',
+              options: this.state.statuses
+            }}
+          >
+            Status
+          </TableHeaderColumn>
         </BootstrapTable>
-
-        <Link to="/AddStudent">Add Student</Link>
       </div>
     );
   }
