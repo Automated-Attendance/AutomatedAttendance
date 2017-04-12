@@ -29,7 +29,7 @@ export default class Spinner extends React.Component {
       left: '50%',
       shadow: true,
       hwaccel: false,
-      position: 'absolute'
+      position: 'relative'
     };
 
     this.spinner = new CircleSpinner(options);
@@ -38,6 +38,6 @@ export default class Spinner extends React.Component {
   }
 
   render() {
-    return ( <span ref="spinnercircle"/> );
+    return ( <div ref="spinnercircle"/> );
   }
 }

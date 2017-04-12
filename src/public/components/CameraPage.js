@@ -29,16 +29,16 @@ export default class CameraPage extends React.Component {
       spinner: false,
       disabled: false,
       options: [],
-      value: []
+      value: [],
+      checkedinUser: null
     };
   }
 
   @keydown('space')
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({ screenshot: screenshot });
+    this.setState({ screenshot: screenshot, spinner: true });
     this.testBundle(this.state.screenshot);
-    console.log(this.state);
   }
 
   // strictly for testing functionality
@@ -46,6 +46,7 @@ export default class CameraPage extends React.Component {
     const screenshotURL = await cloudinaryUpload(screenshot);
     this.setState(screenshotURL);
     console.log( await queryGallery(this.state.screenshotURL) );
+    this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
 
   async getSelectOptions() {
@@ -75,29 +76,30 @@ export default class CameraPage extends React.Component {
     return (
       <div>
 
-      <Spinner/>
+        <div onClick={!this.state.options.length && this.getSelectOptions}>
+          <Select 
+            multi={true}
+            simpleValue
+            disabled={this.state.disabled}
+            value={this.state.value}
+            placeholder="Select your classes"
+            options={this.state.options}
+            onChange={this.handleSelectChange}
+          />
+        </div>
 
-      <div onClick={!this.state.options.length && this.getSelectOptions}>
-        <Select 
-          multi={true}
-          simpleValue
-          disabled={this.state.disabled}
-          value={this.state.value}
-          placeholder="Select your classes"
-          options={this.state.options}
-          onChange={this.handleSelectChange}
-        />
-      </div>
-
-        <Webcam
-          ref='webcam'
-        />;
+        <div>
+          <Webcam ref='webcam'/>
+        </div>
 
         <h1> Screenshots </h1>
 
         <div className="screenshots">
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
         </div>
+
+        {this.state.spinner && <Spinner/>}
+        {this.state.checkedinUser}
 
       </div>
     );
