@@ -87,13 +87,9 @@ export default class CameraPage extends React.Component {
     this.setState(classes);
   }
 
-<<<<<<< 35bcc174bf45558d0565840d0a9d16cb16f947d9
-
-=======
   async populateAttendanceRecord () {
     const student = await getStudentInCertainClasses(this.state.value);
   }
->>>>>>> Input Users into attendance record upon clicking add attendance
 
   render() {
     return (
