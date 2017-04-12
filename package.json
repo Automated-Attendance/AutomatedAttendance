@@ -24,6 +24,7 @@
     "axios": "^0.16.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.16.1",
+    "bootstrap-select": "^1.12.2",
     "cloudinary": "^1.8.0",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
