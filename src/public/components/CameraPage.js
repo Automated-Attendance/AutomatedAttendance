@@ -14,7 +14,7 @@ export default class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
-
+    
     ['takeScreenshot',
     'getSelectOptions',
     'handleSelectChange',
@@ -29,10 +29,13 @@ export default class CameraPage extends React.Component {
       spinner: false,
       disabled: false,
       options: [],
-      value: [],
+      value: null,
+      selectedClasses: [],
       checkedinUser: null
     };
   }
+
+
 
   @keydown('space')
   takeScreenshot() {
@@ -40,6 +43,8 @@ export default class CameraPage extends React.Component {
     this.setState({ screenshot: screenshot, spinner: true });
     this.testBundle(this.state.screenshot);
   }
+
+
 
   // strictly for testing functionality
   async testBundle(screenshot) {
@@ -49,6 +54,8 @@ export default class CameraPage extends React.Component {
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
 
+
+
   async getSelectOptions() {
     const classList = await getClasses();
     const classes = classList.classes.map((classname) => {
@@ -57,20 +64,28 @@ export default class CameraPage extends React.Component {
     this.setState({ options: classes });
   }
 
+
+
   handleSelectChange(value) {
-    this.setState({ value });
+    const selectedClasses = value.split(',');
+    this.setState({ value, selectedClasses });
   }
+
+
 
   toggleDisabled(e) {
     this.setState({ disabled: e.target.checked });
   }
 
-  // getting class list from DB
 
+
+  // getting class list from DB
   async updateClassList() {
     const classes = await getClasses();
     this.setState(classes);
   }
+
+
 
   render() {
     return (
