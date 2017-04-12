@@ -53,3 +53,24 @@ exports.getListOfUsers = async (req, res, next) => {
     res.status(500).send(error);
   }
 }
+
+exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
+  try {
+    let qs = ''
+    req.body.classes.forEach((classes,index) => {
+      if(index === req.body.classes.length - 1) {
+        qs += `classes.class_name='${classes}'`
+      } else {
+        qs += `classes.class_name='${classes}' or `
+      }
+    });
+
+    const queryString = `SELECT * FROM users JOIN class_user on users.users_id=class_user.user_id
+    JOIN classes on class_user.class_id=classes.classes_id WHERE ${qs};`
+    const result = await db.queryAsync(queryString);
+    req.body.params = result;
+    next();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}

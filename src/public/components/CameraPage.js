@@ -8,6 +8,7 @@ import { getClasses } from './requests/classes';
 import Select from 'react-select';
 import Spinner from './Spinner';
 import 'react-select/dist/react-select.css';
+import { getStudentInCertainClasses } from './requests/attendancerecord';
 
 
 export default class CameraPage extends React.Component {
@@ -19,7 +20,8 @@ export default class CameraPage extends React.Component {
     'getSelectOptions',
     'handleSelectChange',
     'toggleDisabled',
-    'testBundle'].forEach((method) => {
+    'testBundle',
+    'populateAttendanceRecord'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -85,7 +87,9 @@ export default class CameraPage extends React.Component {
     this.setState(classes);
   }
 
-
+  async populateAttendanceRecord () {
+    const student = await getStudentInCertainClasses(this.state.value);
+  }
 
   render() {
     return (
@@ -108,9 +112,10 @@ export default class CameraPage extends React.Component {
         </div>
 
         <h1> Screenshots </h1>
-
-        <div className="screenshots">
+        
+        <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
+          <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
         </div>
 
         {this.state.spinner && <Spinner/>}
