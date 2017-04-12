@@ -6,6 +6,7 @@ import { queryGallery } from './requests/gallery';
 // import { sendEmails } from './requests/emails';
 import { getClasses } from './requests/classes';
 import Select from 'react-select';
+import Spinner from './Spinner';
 import 'react-select/dist/react-select.css';
 
 
@@ -37,6 +38,7 @@ export default class CameraPage extends React.Component {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ screenshot: screenshot });
     this.testBundle(this.state.screenshot);
+    console.log(this.state);
   }
 
   // strictly for testing functionality
@@ -73,6 +75,8 @@ export default class CameraPage extends React.Component {
     return (
       <div>
 
+      <Spinner/>
+
       <div onClick={!this.state.options.length && this.getSelectOptions}>
         <Select 
           multi={true}
@@ -93,7 +97,6 @@ export default class CameraPage extends React.Component {
 
         <div className="screenshots">
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
-          { this.state.screenshot ? <img src={this.state.screenshot} /> : null }
         </div>
 
       </div>
