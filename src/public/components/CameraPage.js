@@ -4,6 +4,7 @@ import keydown, { Keys } from 'react-keydown';
 import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
 import { sendEmails } from './requests/emails';
+import { getClasses } from './requests/classes';
 
 
 export default class CameraPage extends React.Component {
@@ -11,15 +12,20 @@ export default class CameraPage extends React.Component {
   constructor(props) {
     super(props);
 
-    ['takeScreenshot', 'testBundle'].forEach((method) => {
+    ['takeScreenshot', 'testBundle', 'updateClassList'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
     this.state = {
       screenshot: null,
       screenshotURL: null,
-      spinner: false
+      spinner: false,
+      classes: ''
     };
+  }
+
+  async componentWillMount() {
+    await this.updateClassList();
   }
 
   @keydown('space')
@@ -39,6 +45,13 @@ export default class CameraPage extends React.Component {
   // sending email to all users 
   async sendEmails () {
     await sendEmails();
+  }
+
+  // getting class list from DB
+
+  async updateClassList() {
+    const classes = await getClasses();
+    this.setState(classes);
   }
 
   render() {
