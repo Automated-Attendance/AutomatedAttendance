@@ -11,6 +11,7 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
+import insert from './db/insert.js';
 import studentHelpers from './db/studentHelpers.js';
 import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
@@ -63,6 +64,9 @@ app.post('/kairosGalleryRecognize', kairos.recognize);
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
+
+// getting students with certain classes
+app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord );
 
 /*****************/
 /**** Twillio ****/
