@@ -9,7 +9,7 @@ exports.storeIfNew = async (req, res, next) => {
     const results = await db.queryAsync(`SELECT email FROM users WHERE email='${profile.emails[0].value}'`);
     if (!results[0].length) {
       let newUser = { user_name: profile.nickname, email: profile.emails[0].value };
-      await db.queryAsync('INSERT INTO users SET ?', newUser)
+      await db.queryAsync('INSERT INTO users SET ?', newUser);
     }
     next(); 
   } catch (err) {
@@ -22,7 +22,7 @@ exports.retrieveData = async (req, res) => {
     if (req.user) {
       const userEmail = req.user.emails[0].value;
       const selectUser = `SELECT * FROM users WHERE email='${userEmail}'`;
-      const response = await db.queryAsync(selectUser)
+      const response = await db.queryAsync(selectUser);
       res.send(response[0]);
     } else {
       res.send('not logged in');
