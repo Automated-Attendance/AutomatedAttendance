@@ -12,10 +12,21 @@ exports.addStudent =  async (req, res, next) => {
     WHERE users.email='${studentEmail}' 
     AND classes.class_name='${selectedClass}'`;
 
-    await db.queryAsync(addUser);
+    let updateUser = `UPDATE users SET photo='${imageLink}' 
+    WHERE email='${studentEmail}';`
+
+    let selectUser = `SELECT email FROM users WHERE email='${studentEmail}'`;
+
+    const results = await db.queryAsync(selectUser);
+    
+    if (results[0].length) {
+      await db.queryAsync(updateUser);
+    } else {
+      await db.queryAsync(addUser);
+    }
+
     await db.queryAsync(addUserClass);
     next();
-
   } catch (err) {
     res.status(500).send(err);
   }

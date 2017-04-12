@@ -96,7 +96,7 @@ export default class AddStudent extends React.Component {
         <input name="studentEmail" type="text" placeholder="Enter Email" onChange={this.handleInputChange}></input><br/>
          <form ref='uploadForm' 
           id='uploadForm' 
-          action='http://localhost:3000/studentUpload' 
+          action='/studentUpload' 
           method='post' 
           encType="multipart/form-data">
           <input type="file" name="sampleFile" onChange={this.previewFile} />
