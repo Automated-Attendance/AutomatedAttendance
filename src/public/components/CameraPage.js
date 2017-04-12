@@ -5,6 +5,8 @@ import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
 import { sendEmails } from './requests/emails';
 import { getClasses } from './requests/classes';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 
 export default class CameraPage extends React.Component {
@@ -12,7 +14,11 @@ export default class CameraPage extends React.Component {
   constructor(props) {
     super(props);
 
-    ['takeScreenshot', 'testBundle', 'updateClassList'].forEach((method) => {
+    ['takeScreenshot',
+    'getSelectOptions',
+    'handleSelectChange',
+    'toggleDisabled',
+    'testBundle'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -20,7 +26,9 @@ export default class CameraPage extends React.Component {
       screenshot: null,
       screenshotURL: null,
       spinner: false,
-      classes: ''
+      disabled: false,
+      options: [],
+      value: []
     };
   }
 
@@ -42,9 +50,21 @@ export default class CameraPage extends React.Component {
     console.log( await queryGallery(this.state.screenshotURL) );
   }
 
-  // sending email to all users 
-  async sendEmails () {
-    await sendEmails();
+  async getSelectOptions() {
+    console.log('im here');
+    const classList = await getClasses();
+    const classes = classList.classes.map((classname) => {
+      return { label: classname, value: classname };
+    });
+    this.setState({ options: classes });
+  }
+
+  handleSelectChange(value) {
+    this.setState({ value });
+  }
+
+  toggleDisabled(e) {
+    this.setState({ disabled: e.target.checked });
   }
 
   // getting class list from DB
@@ -58,6 +78,18 @@ export default class CameraPage extends React.Component {
     return (
       <div>
 
+      <div onClick={!this.state.options.length && this.getSelectOptions}>
+        <Select 
+          multi={true}
+          simpleValue
+          disabled={this.state.disabled}
+          value={this.state.value}
+          placeholder="Select your classes"
+          options={this.state.options}
+          onChange={this.handleSelectChange}
+        />
+      </div>
+
         <Webcam
           ref='webcam'
         />;
@@ -67,7 +99,7 @@ export default class CameraPage extends React.Component {
         <div className="screenshots">
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           { this.state.screenshot ? <img src={this.state.screenshot} /> : null }
-          <button className="emailButton" onClick={this.sendEmails}>Send Emails</button>
+          <button className="emailButton" onClick={sendEmails}>Send Emails</button>
         </div>
 
       </div>
