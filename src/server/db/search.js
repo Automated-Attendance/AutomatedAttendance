@@ -25,18 +25,18 @@ exports.querySelector = (req, res, next) => {
 exports.queryDatabase = async (req, res) => {
   try {
     const result = await db.queryAsync(req.params.query);
-    res.json(result);
+    res.json(result[0]);
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
 
-exports.getAttendanceForUser = (req, res) => {
+exports.getAttendanceForUser = async (req, res) => {
   try {
     const queryString = `SELECT users.user_id, status, date, attendance_record.attendancerecord_id 
     FROM users RIGHT JOIN attendance_record on users.user_id=attendance_record.attendancerecord_id;`;
-    const result = db.queryAsync(queryString);
+    const result = await db.queryAsync(queryString);
     res.json(result);
   } catch (err) {
     res.status(500).send(error);
@@ -46,7 +46,7 @@ exports.getAttendanceForUser = (req, res) => {
 exports.getListOfUsers = async (req, res, next) => {
   try {
     const queryString = 'SELECT * from users;';
-    db.query(queryString);
+    const result = await db.queryAsync(queryString);
     req.params = result;
     next();
   } catch (err) {
