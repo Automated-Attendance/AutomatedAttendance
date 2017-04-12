@@ -3,7 +3,7 @@ import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
 import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
-import { sendEmails } from './requests/emails';
+// import { sendEmails } from './requests/emails';
 import { getClasses } from './requests/classes';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -94,10 +94,11 @@ export default class CameraPage extends React.Component {
         <div className="screenshots">
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           { this.state.screenshot ? <img src={this.state.screenshot} /> : null }
-          <button className="emailButton" onClick={sendEmails}>Send Emails</button>
         </div>
 
       </div>
     );
   }
 }
+
+// <button className="emailButton" onClick={sendEmails}>Send Emails</button>
