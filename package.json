@@ -46,6 +46,7 @@
     "react-router-dom": "^4.0.0",
     "react-select": "^1.0.0-rc.3",
     "react-webcam": "0.0.14",
+    "react-widgets": "^3.4.6",
     "serve-favicon": "^2.4.0",
     "spin.js": "^2.3.2",
     "twilio": "^2.11.1"
@@ -73,6 +74,7 @@
     "css-loader": "^0.28.0",
     "enzyme": "^2.8.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "file-loader": "^0.11.1",
     "json-loader": "^0.5.4",
     "karma": "^1.6.0",
     "karma-babel-preprocessor": "^6.0.1",
@@ -83,11 +85,14 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
     "mocha": "^3.2.0",
     "moxios": "^0.4.0",
     "react-addons-test-utils": "^15.5.1",
     "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
   }
 }
