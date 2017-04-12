@@ -32,10 +32,6 @@ export default class CameraPage extends React.Component {
     };
   }
 
-  async componentWillMount() {
-    await this.updateClassList();
-  }
-
   @keydown('space')
   takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
@@ -51,7 +47,6 @@ export default class CameraPage extends React.Component {
   }
 
   async getSelectOptions() {
-    console.log('im here');
     const classList = await getClasses();
     const classes = classList.classes.map((classname) => {
       return { label: classname, value: classname };
