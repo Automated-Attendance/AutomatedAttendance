@@ -17,7 +17,7 @@ exports.storeInGallery = async (req, res) => {
 exports.recognize = async (req, res) => {
   try {
     const params = { 'image': req.body.img, 'gallery_name': 'TestGallery' };
-    const response = await client.recognize(params)
+    const response = await client.recognize(params);
     res.send(response);
   } catch (err) {
     res.status(500).send(err);
