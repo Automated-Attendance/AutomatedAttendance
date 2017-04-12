@@ -16,8 +16,9 @@ exports.storeInGallery = async (req, res) => {
 
 exports.recognize = async (req, res) => {
   try {
-    const params = { 'image': req.body.img, 'gallery_name': 'TestGallery' };
+    const params = { 'image': req.body.img, 'gallery_name': 'testClass' };
     const response = await client.recognize(params);
+    console.log(response);
     res.send(response);
   } catch (err) {
     res.status(500).send(err);
@@ -26,5 +27,11 @@ exports.recognize = async (req, res) => {
 
 exports.test = async (req, res) => {
   const galleries = await client.galleryListAll();
+  res.send(galleries);
+}
+
+exports.testGalleryList = async (req, res) => {
+  const options = { 'gallery_name': req.params.galleryName };
+  const galleries = await client.galleryView(options);
   res.send(galleries);
 }
