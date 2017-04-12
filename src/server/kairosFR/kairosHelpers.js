@@ -14,15 +14,14 @@ exports.storeInGallery = async (req, res) => {
   }
 };
 
-exports.recognize = (req, res) => {
-  const params = {
-    'image': req.body.img,
-    'gallery_name': 'TestGallery'
-  };
-
-  client.recognize(params)
-  .then((response) => res.send(response))
-  .catch((err) => res.status(500).send(err));
+exports.recognize = async (req, res) => {
+  try {
+    const params = { 'image': req.body.img, 'gallery_name': 'TestGallery' };
+    const response = await client.recognize(params)
+    res.send(response);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
 exports.test = async (req, res) => {
