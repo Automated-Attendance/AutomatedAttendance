@@ -16,8 +16,8 @@ exports.post = async (req, res) => {
 
 exports.upload = async (req, res, next) => {
   try {
-    const { studentPhoto } = req.body;
-    const options = { format: 'png' }
+    const { studentPhoto, studentEmail } = req.body;
+    const options = { format: 'png', 'public_id': studentEmail }
     const { url } = await cloudinary.v2.uploader.upload(studentPhoto, options);
     req.body.imageLink = url;
     next();

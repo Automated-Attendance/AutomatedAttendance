@@ -47,6 +47,7 @@
     "react-select": "^1.0.0-rc.3",
     "react-webcam": "0.0.14",
     "serve-favicon": "^2.4.0",
+    "spin.js": "^2.3.2",
     "twilio": "^2.11.1"
   },
   "babel": {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { storeStudentData } from './requests/students';
+import Spinner from './Spinner';
 import { getClasses, addClasses } from './requests/classes';
 
 export default class AddStudent extends React.Component {
@@ -13,7 +14,8 @@ export default class AddStudent extends React.Component {
       studentPhoto: '',
       className: '',
       success: false,
-      classAdded: false
+      classAdded: false,
+      spinner: false
     },
 
     ['handleInputChange',
@@ -47,14 +49,16 @@ export default class AddStudent extends React.Component {
       selectedClass: this.state.selectedClass,
       studentPhoto: this.state.studentPhoto
     }
-
+    this.setState({ spinner: true, success: false });
     this.setState({ success: await storeStudentData(data) });
+    this.setState({ spinner: false });
   }
 
   async handleClassSubmit(event) {
     let data = { className: this.state.className };
+    this.setState({ spinner: true, classAdded: false });
     await addClasses(data);
-    this.setState({ classAdded: true });
+    this.setState({ spinner: false, classAdded: true });
     await this.updateClassList();
   }
 
@@ -80,6 +84,9 @@ export default class AddStudent extends React.Component {
     return (
       <div>
         <h3>Add Student</h3>
+
+        {this.state.spinner && <Spinner/>}
+
         <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input>
         <select name='selectedClass' onChange={this.handleInputChange}>
           {this.state.classes && this.state.classes.map((item,index) => {
@@ -89,7 +96,7 @@ export default class AddStudent extends React.Component {
         <input name="studentEmail" type="text" placeholder="Enter Email" onChange={this.handleInputChange}></input><br/>
          <form ref='uploadForm' 
           id='uploadForm' 
-          action='http://localhost:3000/studentUpload' 
+          action='/studentUpload' 
           method='post' 
           encType="multipart/form-data">
           <input type="file" name="sampleFile" onChange={this.previewFile} />
