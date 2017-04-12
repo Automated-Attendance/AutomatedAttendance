@@ -12,12 +12,7 @@ exports.login = (req, res) => res.render('login', { env: env });
 
 exports.success = (req, res) => {
   const adminPrivs = req.user._json.role === 'admin';
-
-  if (adminPrivs) {
-    res.redirect('/Admin');
-  } else {
-    res.redirect('/Student');
-  }
+  adminPrivs ? res.redirect('/Admin') : res.redirect('/Student');
 };
 
 exports.logout = (req, res) => {
