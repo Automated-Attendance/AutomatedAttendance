@@ -63,9 +63,10 @@ exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
       } else {
         qs += `classes.class_name='${classes}' or `
       }
-    })
+    });
 
-    const queryString = `select * from users join class_user on users.users_id=class_user.user_id join classes on class_user.class_id=classes.classes_id where ${qs};`
+    const queryString = `SELECT * FROM users JOIN class_user on users.users_id=class_user.user_id
+    JOIN classes on class_user.class_id=classes.classes_id WHERE ${qs};`
     const result = await db.queryAsync(queryString);
     req.body.params = result;
     next();
