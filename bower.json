@@ -1,0 +1,17 @@
+{
+  "name": "automated-attendance",
+  "description": "Facial recognition attendance app",
+  "main": "src/server/index.js",
+  "authors": [
+    "Blind Melon"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Jukejc/AutomatedAttendance",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
