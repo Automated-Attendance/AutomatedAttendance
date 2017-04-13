@@ -11,23 +11,22 @@ exports.storeInGallery = async (req, res) => {
     console.log(data);
     res.status(201).send(data);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
 
 exports.recognize = async (req, res, next) => {
   try {
-    const params = { 'image': req.body.img, 'gallery_name': 'testClass' };
-    const response = await client.recognize(params);
-    console.log('im here', req.body.img);
-    if( response.body.images.length > 0 ) {
-      req.body.matches = response.body.images;
-      next();
+    const params = { 'image': req.body.imageLink, 'gallery_name': 'hrsf72' };
+    const { body } = await client.recognize(params);
+    if (body.Errors) {
+      res.send(body.Errors);
     } else {
-      res.send('There was no match');
+      req.body.matches = body.images;
+      next();
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
 
