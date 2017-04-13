@@ -6,11 +6,14 @@ Promise.promisifyAll(db);
 
 exports.insertAttendanceRecord = async (req, res) => {
   try {
-    req.body.params[0].forEach((user) => {
-      let id =user.user_id;
-      let status = 'Absent';
-      let add = `INSERT INTO attendance_record(status, user_id) VALUES ('${status}', '${id}');`
-      db.queryAsync(add);
+    let users = req.body.params[0];
+    users.forEach(async (user) => {
+      let result = await db.queryAsync(`SELECT date FROM attendance_record WHERE user_id='${user.user_id}'`);
+      let existingDay = new Date(result[0][0].date).getDay();
+      let currentDay = new Date().getDay();
+      if (existingDay !== currentDay) {
+        db.queryAsync(`INSERT INTO attendance_record(status, user_id) VALUES ('Absent', '${user.user_id}');`);
+      }
     });
     res.status(201).send();
   } catch (err) {
