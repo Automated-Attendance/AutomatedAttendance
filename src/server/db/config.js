@@ -53,16 +53,16 @@ module.exports = function(db) {
       REFERENCES users(users_id);`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('HZ', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('AA', 'Andrew', 'Alonis', 'andrew@gmail.com');`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'andrew@gmail.com');`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('JC', 'Jason', 'Chambers', 'jciphone333@gmail.com');`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('jukejc', 'Jason', 'Chambers', 'jciphone333@gmail.com');`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
