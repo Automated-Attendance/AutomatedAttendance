@@ -37,5 +37,3 @@ exports.removeUserFromClass = async (req, res) => {
     res.status(500).send(err);
   }
 };
-
-
