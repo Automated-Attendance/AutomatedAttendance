@@ -78,18 +78,15 @@ exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
 
 exports.getSpecificUser = async (req, res, next) => {
   try {
-    let matches = req.body.matches;
+    let { matches } = req.body;
     let qs = '';
     matches.forEach(function (user, index) {
-      if(index === matches.length-1) {
-        qs += `user_name='${user.transaction.subject_id}';`
-      } else {
-        qs += `user_name='${user.transaction.subject_id}' or `
-      }
+      qs += index === matches.length - 1 ? `user_name='${user.transaction.subject_id}';` 
+      : `user_name='${user.transaction.subject_id}' or `;
     });
     const queryString = `SELECT email FROM users where ${qs}`;
     const result = await db.queryAsync(queryString);
-    req.body.users = result;
+    req.body.users = result[0];
     next();
   } catch (err) {  
     res.status.send(err);
