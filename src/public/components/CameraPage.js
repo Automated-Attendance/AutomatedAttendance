@@ -49,11 +49,6 @@ export default class CameraPage extends React.Component {
     this.setState({ mounted: false });
   }
 
-  componentDidUpdate() {
-    const len = this.state.value.length;
-    this.setState({ noClassSelected: len ? false : true });
-  }
-
   @keydown('space')
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
@@ -86,6 +81,7 @@ export default class CameraPage extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value) await getStudentInCertainClasses(this.state.value);
+    else alert('You must select classes before populating Attendance Records.');
   }
 
   updateSelectedDateCutoff(e) {
@@ -120,7 +116,6 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-          {this.state.noClassSelected && <h1>You must select classes before populating Attendance Records</h1>}
         </div>
 
         {this.state.spinner && <Spinner/>}
