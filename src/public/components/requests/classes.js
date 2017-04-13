@@ -30,8 +30,6 @@ const addClasses = async (className) => {
 };
 
 const removeClasses = async (className) => {
-  console.log('class removal request');
-  console.log(className);
   try {
     await axios.post('/removeClass', className);
   } catch (err) {
