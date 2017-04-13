@@ -5,8 +5,8 @@ const client = new Kairos(process.env.KAIROS_APP_ID, process.env.KAIROS_APP_KEY)
 
 exports.storeInGallery = async (req, res) => {
   try {
-    const { studentName, selectedClass, imageLink, studentEmail } = req.body;
-    const params = { 'image': imageLink, 'subject_id': studentEmail, 'gallery_name': selectedClass }
+    const { studentUserName, selectedClass, imageLink } = req.body;
+    const params = { 'image': imageLink, 'subject_id': studentUserName, 'gallery_name': selectedClass }
     const data = await client.enroll(params);
     console.log(data);
     res.status(201).send(data);
