@@ -39,7 +39,9 @@ exports.sendMailForArrival = (req, res) => {
         return;
         console.log(error);
       } else {
+        // Ill allow it --- https://i.imgur.com/SnIwFtRh.jpg
         console.log(body);
+        res.end();
       }
     })
   })
