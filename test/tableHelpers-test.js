@@ -33,13 +33,28 @@ describe('<tableHelpers />', function() {
   });
   
   it('should convert month from number to string', () => {
-    var month = tableHelpers.months[2];
-    expect(month).to.equal('March');
+    expect(tableHelpers.months[0]).to.equal('January');
+    expect(tableHelpers.months[1]).to.equal('February');
+    expect(tableHelpers.months[2]).to.equal('March');
+    expect(tableHelpers.months[3]).to.equal('April');
+    expect(tableHelpers.months[4]).to.equal('May');
+    expect(tableHelpers.months[5]).to.equal('June');
+    expect(tableHelpers.months[6]).to.equal('July');
+    expect(tableHelpers.months[7]).to.equal('August');
+    expect(tableHelpers.months[8]).to.equal('September');
+    expect(tableHelpers.months[9]).to.equal('October');
+    expect(tableHelpers.months[10]).to.equal('November');
+    expect(tableHelpers.months[11]).to.equal('December');
   });
   
   it('should convert day from number to string', () => {
-    var day = tableHelpers.days[2];
-    expect(day).to.equal('Tuesday');
+    expect(tableHelpers.days[0]).to.equal('Sunday');
+    expect(tableHelpers.days[1]).to.equal('Monday');
+    expect(tableHelpers.days[2]).to.equal('Tuesday');
+    expect(tableHelpers.days[3]).to.equal('Wednesday');
+    expect(tableHelpers.days[4]).to.equal('Thursday');
+    expect(tableHelpers.days[5]).to.equal('Friday');
+    expect(tableHelpers.days[6]).to.equal('Saturday');
   });
   
   it('should format date to string', () => {

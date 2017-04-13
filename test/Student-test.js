@@ -24,4 +24,9 @@ describe('<Student />', function() {
     const wrapper = mount(<Student/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
   });
+
+  it('should have four columns in the table', () => {
+    const wrapper = mount(<Student/>);
+    expect(wrapper.find('TableHeaderColumn')).to.have.length(4);
+  });
 });

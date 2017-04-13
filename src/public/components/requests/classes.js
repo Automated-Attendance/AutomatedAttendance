@@ -18,7 +18,7 @@ const getClasses = async () => {
   } catch (err) {
     console.error(err)
   }
-}
+};
 
 const addClasses = async (className) => {
   try {
@@ -26,6 +26,16 @@ const addClasses = async (className) => {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
-export { getAttendanceRecords, getClasses, addClasses };
+const removeClasses = async (className) => {
+  console.log('class removal request');
+  console.log(className);
+  try {
+    await axios.post('/removeClass', className);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export { getAttendanceRecords, getClasses, addClasses, removeClasses };

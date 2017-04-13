@@ -8,7 +8,20 @@ const storeStudentData = async (studentData) => {
     // todo: better error handling
     console.warn(err);
   }
-}
+};
+
+const removeStudentData = async (studentData) => {
+  console.log('student removal request');
+  console.log(studentData);
+  try {
+    const response = await axios.post('/removeStudent', studentData);
+    return response.status === 201;
+  } catch (err) {
+    // todo: better error handling
+    console.warn(err);
+  }
+
+};
 
 const getStudentData = async (studentData) => {
   try {
@@ -26,8 +39,9 @@ const getStudentInCertainClasses = async (classes) => {
     const reponse = await axios.post('/getStudentWithCertainClasses', { classes: splitClasses});
     return reponse.status === 201;
   } catch (err) {
+    // todo: better error handling
     console.warn(err);
   }
-}
+};
 
-export { storeStudentData, getStudentData, getStudentInCertainClasses };
+export { storeStudentData, removeStudentData, getStudentData, getStudentInCertainClasses };
