@@ -14,8 +14,8 @@ import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import { getStudentInCertainClasses } from './requests/attendancerecord';
 
+// init time localization for DateTimePicker
 momentLocalizer(Moment);
-
 
 export default class CameraPage extends React.Component {
 
@@ -137,8 +137,6 @@ export default class CameraPage extends React.Component {
 
         {this.state.spinner && <Spinner/>}
         {this.state.checkedinUser}
-
-
 
       </div>
     );
