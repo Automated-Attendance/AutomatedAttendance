@@ -24,4 +24,9 @@ describe('<Admin />', function() {
     const wrapper = mount(<Admin/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
   });
+  
+  it('should have five columns in the table', () => {
+    const wrapper = mount(<Admin/>);
+    expect(wrapper.find('TableHeaderColumn')).to.have.length(5);
+  });
 });
