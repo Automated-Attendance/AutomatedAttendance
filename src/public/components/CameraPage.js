@@ -1,7 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
-import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
 // import { sendEmails } from './requests/emails';
 import { getClasses } from './requests/classes';
@@ -58,9 +57,7 @@ export default class CameraPage extends React.Component {
 
   // strictly for testing functionality
   async testBundle(screenshot) {
-    const screenshotURL = await cloudinaryUpload(screenshot);
-    this.setState(screenshotURL);
-    console.log( await queryGallery(this.state.screenshotURL) );
+    console.log( await queryGallery(this.state.screenshot) );
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
 
