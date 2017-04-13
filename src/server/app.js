@@ -48,7 +48,7 @@ app.get('/retrieveUserData', user.retrieveData);
 /********************/
 
 app.post('/cloudinarySend', cloud.post);
-app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.storeInGallery);
+app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.storeInGallery);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/

@@ -50,7 +50,7 @@ export default class AddStudent extends React.Component {
 
   async handleStudentSubmit(event) {
     let data = {
-      studentUserName: this.state.selectedUser,
+      studentUserName: this.state.selectedUser.value,
       selectedClass: this.state.selectedClass,
       studentPhoto: this.state.studentPhoto
     }
