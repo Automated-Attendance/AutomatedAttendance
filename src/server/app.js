@@ -61,6 +61,7 @@ app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
+
 /******************/
 /**** Database ****/
 /******************/
