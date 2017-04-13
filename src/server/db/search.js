@@ -24,6 +24,7 @@ exports.querySelector = (req, res, next) => {
 
 exports.queryDatabase = async (req, res) => {
   try {
+    if (!req.params.query) req.params.query = `SELECT first_name, last_name, user_name FROM users`;
     const result = await db.queryAsync(req.params.query);
     res.json(result[0]);
   } catch (err) {

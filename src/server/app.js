@@ -63,6 +63,7 @@ app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, ma
 /**** Database ****/
 /******************/
 
+app.get('/retrieveAllUsers', search.queryDatabase);
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
