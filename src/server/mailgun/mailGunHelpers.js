@@ -4,7 +4,7 @@ const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.en
 exports.sendMailLate = (req, res) => {
   req.params.forEach( (person)=> {
     var data = { 
-      from: 'Excited User <aaallstars15@gmail.com>',
+      from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: person.email,
       subject: 'Late Email Warning',
       text: '1 minutes till class starts! Email communication@ if you are going to be late.'
@@ -27,7 +27,7 @@ exports.sendMailForArrival = async (req, res) => {
     const { users } = req.body;
     users.forEach((user) => {
       let data = { 
-        from: 'Excited User <aaallstars15@gmail.com>',
+        from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
         to: user.email,
         subject: 'Class Arrival',
         text: 'Welcome to class! You have checked in today!'
