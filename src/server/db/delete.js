@@ -35,3 +35,4 @@ exports.removeUserFromClass = async (req, res) => {
   }
 };
 
+
