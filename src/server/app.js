@@ -18,6 +18,9 @@ import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
+import remove from './db/delete.js';
+
+
 
 const app = express();
 
@@ -67,6 +70,8 @@ app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
 app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord );
+app.post('/removeStudent', remove.removeUserFromClass);
+app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
 
 /*****************/
 /**** Twillio ****/
