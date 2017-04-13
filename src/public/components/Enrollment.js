@@ -8,7 +8,7 @@ import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 import { getAllUsers } from './requests/users';
 
-export default class AddStudent extends React.Component {
+export default class Enrollment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

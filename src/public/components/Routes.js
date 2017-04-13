@@ -4,7 +4,7 @@ import Student from './Student';
 import Admin from './Admin';
 import About from './About';
 import Contact from './Contact';
-import AddStudent from './AddStudent';
+import Enrollment from './Enrollment';
 import LoginRedirect from './LoginRedirect';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const Routes = ({ userPrivs }) => {
       <Route path="/Student" component={() => userPrivs.isLoggedIn && !userPrivs.isAdmin ? <Student userPrivs={userPrivs}/> : <LoginRedirect userPrivs={userPrivs}/> }/>
       <Route path="/CameraPage" component={() => userPrivs.isAdmin ? <CameraPage/> : <LoginRedirect userPrivs={userPrivs}/> }/>
       <Route path="/Admin" component={() => userPrivs.isAdmin ? <Admin/> : <LoginRedirect userPrivs={userPrivs}/> }/>
-      <Route path="/AddStudent" component={() => userPrivs.isAdmin ? <AddStudent/> : <LoginRedirect userPrivs={userPrivs}/> }/>
+      <Route path="/Enrollment" component={() => userPrivs.isAdmin ? <Enrollment/> : <LoginRedirect userPrivs={userPrivs}/> }/>
     </div>
   );
 };
