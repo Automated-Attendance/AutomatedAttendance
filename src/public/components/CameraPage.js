@@ -8,8 +8,14 @@ import { getClasses } from './requests/classes';
 import Select from 'react-select';
 import Spinner from './Spinner';
 import 'react-select/dist/react-select.css';
+import 'react-widgets/lib/less/react-widgets.less';
+import DateTime from 'react-widgets/lib/DateTimePicker';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import { getStudentInCertainClasses } from './requests/attendancerecord';
 
+// init time localization for DateTimePicker
+momentLocalizer(Moment);
 
 export default class CameraPage extends React.Component {
 
@@ -21,7 +27,8 @@ export default class CameraPage extends React.Component {
     'handleSelectChange',
     'toggleDisabled',
     'testBundle',
-    'populateAttendanceRecord'].forEach((method) => {
+    'populateAttendanceRecord',
+    'updateSelectedDateCutoff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -33,7 +40,8 @@ export default class CameraPage extends React.Component {
       options: [],
       value: null,
       selectedClasses: [],
-      checkedinUser: null
+      checkedinUser: null,
+      selectedDateCutoff: null
     };
   }
 
@@ -87,13 +95,22 @@ export default class CameraPage extends React.Component {
     this.setState(classes);
   }
 
-  async populateAttendanceRecord () {
+  async populateAttendanceRecord() {
     const student = await getStudentInCertainClasses(this.state.value);
+  }
+
+  updateSelectedDateCutoff(e) {
+    this.setState({ selectedDateCutoff: new Date(e)});
   }
 
   render() {
     return (
       <div>
+
+        <DateTime 
+          defaultValue={new Date()}
+          onChange={this.updateSelectedDateCutoff}
+        />
 
         <div onClick={!this.state.options.length && this.getSelectOptions}>
           <Select 
