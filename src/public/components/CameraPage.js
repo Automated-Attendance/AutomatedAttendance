@@ -11,7 +11,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { getStudentInCertainClasses } from './requests/students';
+import { getStudentInCertainClasses, getLateStudents } from './requests/students';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -26,7 +26,8 @@ export default class CameraPage extends React.Component {
     'handleSelectChange',
     'toggleDisabled',
     'populateAttendanceRecord',
-    'updateSelectedDateCutoff'].forEach((method) => {
+    'updateSelectedDateCutoff',
+    'sendLateEmails'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -87,6 +88,9 @@ export default class CameraPage extends React.Component {
   updateSelectedDateCutoff(e) {
     this.setState({ selectedDateCutoff: new Date(e)});
   }
+  async sendLateEmails () {
+    await getLateStudents();
+  }
 
   render() {
     return (
@@ -116,6 +120,8 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
+          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+
         </div>
 
         {this.state.spinner && <Spinner/>}

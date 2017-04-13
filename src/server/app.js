@@ -61,6 +61,7 @@ app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
+
 /******************/
 /**** Database ****/
 /******************/
@@ -69,9 +70,11 @@ app.get('/retrieveAllUsers', search.queryDatabase);
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord );
+app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord);
+
 app.post('/removeStudent', remove.removeUserFromClass);
 app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
+app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople)
 
 /*****************/
 /**** Twillio ****/

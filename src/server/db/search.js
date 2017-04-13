@@ -40,7 +40,7 @@ exports.getAttendanceForUser = async (req, res) => {
     const result = await db.queryAsync(queryString);
     res.json(result);
   } catch (err) {
-    res.status(500).send(error);
+    res.status(500).send(err);
   }
 };
 
@@ -51,7 +51,7 @@ exports.getListOfUsers = async (req, res, next) => {
     req.params = result;
     next();
   } catch (err) {
-    res.status(500).send(error);
+    res.status(500).send(err);
   }
 };
 
@@ -89,6 +89,30 @@ exports.getSpecificUser = async (req, res, next) => {
     req.body.users = result[0];
     next();
   } catch (err) {  
+    res.status.send(err);
+  }
+};
+
+exports.getPendingUsers = async (req, res, next) => {
+  try {
+    let queryString = `SELECT * FROM attendance_record WHERE status='Pending'`;
+    let result = await db.queryAsync(queryString);
+    req.body.usersInformation = result[0];
+    next();
+
+  } catch (err) {
+    res.status(500).send(err)
+  }
+};
+
+exports.getLateUsers = async (req, res, next) => {
+  try {
+    let queryString = `select users.email, users.first_name from users Right JOIN attendance_record ON users.users_id=attendance_record.user_id;`;
+    let result = await db.queryAsync(queryString);
+    req.body.userEmails = result[0];
+
+    next();
+  }catch (err) {
     res.status.send(err);
   }
 }

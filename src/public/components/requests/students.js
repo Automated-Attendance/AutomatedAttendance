@@ -44,4 +44,13 @@ const getStudentInCertainClasses = async (classes) => {
   }
 };
 
-export { storeStudentData, removeStudentData, getStudentData, getStudentInCertainClasses };
+const getLateStudents = async () => {
+  try {
+    const response = await axios.post('/getLateStudents');
+    return response.status === 201;
+  } catch (err) {
+    console.warn(err);
+  }
+}
+
+export { storeStudentData, getStudentData, getStudentInCertainClasses, getLateStudents, removeStudentData };
