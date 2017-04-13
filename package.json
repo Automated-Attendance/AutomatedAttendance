@@ -47,6 +47,7 @@
     "react-keydown": "^1.6.9",
     "react-router-dom": "^4.0.0",
     "react-select": "^1.0.0-rc.3",
+    "react-virtualized": "^9.7.3",
     "react-virtualized-select": "^2.4.0",
     "react-webcam": "0.0.14",
     "react-widgets": "^3.4.6",

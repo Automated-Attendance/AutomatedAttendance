@@ -40,3 +40,24 @@ exports.sendMailForArrival = async (req, res) => {
   }
 };
 
+exports.emailAbsentPeople = async (req, res) => {
+  try {
+    const { userEmails } = req.body;
+    userEmails.forEach((user) => {
+      console.log('USER=====', user)
+      let data = { 
+        from: 'Excited User <aaallstars15@gmail.com>',
+        to: user.email,
+        subject: 'Absent',
+        text: 'You are absent from class today!'
+      };
+      mailgun.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+    });
+    res.send('Checked in users.');
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+} 
+
