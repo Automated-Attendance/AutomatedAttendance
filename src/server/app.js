@@ -47,7 +47,6 @@ app.get('/retrieveUserData', user.retrieveData);
 /**** Cloudinary ****/
 /********************/
 
-app.post('/cloudinarySend', cloud.post);
 app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.storeInGallery);
 
 /***********************************/
@@ -57,7 +56,7 @@ app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.store
 app.get('/galleryLists', kairos.test);
 app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
-app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
+app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
 /******************/
 /**** Database ****/
