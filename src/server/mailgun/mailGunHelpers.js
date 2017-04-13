@@ -44,7 +44,6 @@ exports.emailAbsentPeople = async (req, res) => {
   try {
     const { userEmails } = req.body;
     userEmails.forEach((user) => {
-      console.log('USER=====', user)
       let data = { 
         from: 'Excited User <aaallstars15@gmail.com>',
         to: user.email,
