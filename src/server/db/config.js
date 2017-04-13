@@ -9,7 +9,9 @@ module.exports = function(db) {
   return db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
     users_id int NOT NULL AUTO_INCREMENT,
     user_name varchar(50) NOT NULL,
-    email varchar(50) NOT NULL,
+    first_name varchar(50),
+    last_name varchar(50),
+    email varchar(50) NOT NULL UNIQUE,
     photo varchar(200),
     type varchar(50) DEFAULT 'student',
     PRIMARY KEY (users_id)
@@ -51,16 +53,16 @@ module.exports = function(db) {
       REFERENCES users(users_id);`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "hanshengzhao1993@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('HZ', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("andrew", "andrew.alonis@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('AA', 'Andrew', 'Alonis', 'andrew@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("Duy12312313", "duyng92@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('DN', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "jciphone333@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('JC', 'Jason', 'Chambers', 'jciphone333@gmail.com');`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
@@ -71,17 +73,17 @@ module.exports = function(db) {
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE user_name='han'));`);
+      (SELECT users_id FROM users WHERE email='hanz@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE user_name='andrew'));`);
+      (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE user_name='jason'));`);
+      (SELECT users_id FROM users WHERE email='jason@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
@@ -89,16 +91,16 @@ module.exports = function(db) {
       (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('ontime', (SELECT users_id FROM users WHERE user_name='han'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('On time', (SELECT users_id FROM users WHERE email='hanz@gmail.com'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('ontime', (SELECT users_id FROM users WHERE user_name='andrew'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('On time', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('late', (SELECT users_id FROM users WHERE user_name='jason'));`);
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)\
+      VALUES ('Tardy', (SELECT users_id FROM users WHERE email='jason@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)

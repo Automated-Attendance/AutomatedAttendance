@@ -87,26 +87,26 @@ export default class AddStudent extends React.Component {
 
         {this.state.spinner && <Spinner/>}
 
-        <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input>
-        <select name='selectedClass' onChange={this.handleInputChange}>
+        Class: <select name='selectedClass' onChange={this.handleInputChange}>
           {this.state.classes && this.state.classes.map((item,index) => {
             return (<option key={index} value={item}>{item}</option>)
           })}
         </select><br/>
+        <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input><br/>
         <input name="studentEmail" type="text" placeholder="Enter Email" onChange={this.handleInputChange}></input><br/>
          <form ref='uploadForm' 
           id='uploadForm' 
           action='/studentUpload' 
           method='post' 
           encType="multipart/form-data">
-          <input type="file" name="sampleFile" onChange={this.previewFile} />
+          Enter Photo:<input type="file" name="sampleFile" onChange={this.previewFile} />
           <img src=""/>
         </form>
-        <button onClick={this.handleStudentSubmit}>Upload!</button>
-        {!this.state.success ? null : <h6>Image Upload Successful!</h6>}
+        <button onClick={this.handleStudentSubmit}>Add Student</button>
+        {!this.state.success ? null : <h6>Student Added Successfully!</h6>}
         <h3>Add Class</h3> 
-        <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input>
-        <button onClick={this.handleClassSubmit}>Add Class!</button>
+        <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/>
+        <button onClick={this.handleClassSubmit}>Add Class</button>
         {!this.state.classAdded ? null: <h6>Class Added Successfully!</h6>}
       </div>
     );
