@@ -11,7 +11,7 @@ if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
     user: process.env.CLOUD_TEST_DB_ADMIN,
     password: process.env.CLOUD_TEST_DB_PASSWORD,
   });
-} else if (process.LOCAL_ENV) {
+} else if (process.env.LOCAL_ENV) {
   database = process.env.MYSQL_DB_NAME_LOCAL;
   connection = mysql.createConnection({
     user: process.env.MYSQL_ADMIN_LOCAL,
