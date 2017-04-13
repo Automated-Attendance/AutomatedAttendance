@@ -18,8 +18,19 @@ const getUserData = async () => {
     return status;
   } catch (err) {
     // todo: better error handling in client
-    console.error(err);
+    console.error(err.message);
   }
 };
 
-export { getUserData };
+const getAllUsers = async () => {
+  try {
+    const { data } = await axios.get('/retrieveAllUsers');
+    return data.map((user) => {
+      return { label: user.first_name + ' ' + user.last_name + ' - ' + user.user_name, value: user.user_name };
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export { getUserData, getAllUsers };
