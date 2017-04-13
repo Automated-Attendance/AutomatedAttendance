@@ -107,10 +107,8 @@ exports.getPendingUsers = async (req, res, next) => {
 
 exports.getLateUsers = async (req, res, next) => {
   try {
-    console.log('getting into late users')
     let queryString = `select users.email, users.first_name from users Right JOIN attendance_record ON users.users_id=attendance_record.user_id;`;
     let result = await db.queryAsync(queryString);
-    console.log('result', result[0])
     req.body.userEmails = result[0];
 
     next();
