@@ -2,20 +2,23 @@ import React from 'react';
 import { storeStudentData } from './requests/students';
 import Spinner from './Spinner';
 import { getClasses, addClasses } from './requests/classes';
+import VirtualizedSelect from 'react-virtualized-select'
+import 'react-select/dist/react-select.css'
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
 export default class AddStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       classes: '',
-      studentName: '',
-      studentEmail: '',
       selectedClass: '',
       studentPhoto: '',
       className: '',
       success: false,
       classAdded: false,
-      spinner: false
+      spinner: false,
+      selectedUser: null
     },
 
     ['handleInputChange',
@@ -80,6 +83,28 @@ export default class AddStudent extends React.Component {
   }
 
 
+
+
+
+  async getSelectOptions() {
+    const classList = await getClasses();
+    const classes = classList.classes.map((classname) => {
+      return { label: classname, value: classname };
+    });
+    this.setState({ options: classes });
+  }
+
+
+
+  handleSelectChange(value) {
+    const selectedClasses = value.split(',');
+    this.setState({ value, selectedClasses });
+  }
+
+
+
+
+
   render() {
     return (
       <div>
@@ -92,8 +117,17 @@ export default class AddStudent extends React.Component {
             return (<option key={index} value={item}>{item}</option>)
           })}
         </select><br/>
-        <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input><br/>
-        <input name="studentEmail" type="text" placeholder="Enter Email" onChange={this.handleInputChange}></input><br/>
+
+        <div>
+
+      <VirtualizedSelect
+        options={this.state.options ? this.state.options : [{ label: 'Error loading data..', value: '' }]}
+        onChange={(selectedUser) => console.log(selectedUser)}
+        value={this.state.selectedUser}
+      />
+
+        </div>
+
          <form ref='uploadForm' 
           id='uploadForm' 
           action='/studentUpload' 
@@ -107,8 +141,13 @@ export default class AddStudent extends React.Component {
         <h3>Add Class</h3> 
         <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/>
         <button onClick={this.handleClassSubmit}>Add Class</button>
-        {!this.state.classAdded ? null: <h6>Class Added Successfully!</h6>}
+        {!this.state.classAdded ? null : <h6>Class Added Successfully!</h6>}
       </div>
     );
   }
 }
+
+
+
+        // <input name="studentName" type="text" placeholder="Enter Name" onChange={this.handleInputChange}></input><br/>
+        // <input name="studentEmail" type="text" placeholder="Enter Email" onChange={this.handleInputChange}></input><br/>
