@@ -5,9 +5,10 @@ const client = new Kairos(process.env.KAIROS_APP_ID, process.env.KAIROS_APP_KEY)
 
 exports.storeInGallery = async (req, res) => {
   try {
-    const { studentName, selectedClass, imageLink } = req.body;
-    const params = { 'image': imageLink, 'subject_id': studentName, 'gallery_name': selectedClass }
+    const { studentName, selectedClass, imageLink, studentEmail } = req.body;
+    const params = { 'image': imageLink, 'subject_id': studentEmail, 'gallery_name': selectedClass }
     const data = await client.enroll(params);
+    console.log(data);
     res.status(201).send(data);
   } catch (err) {
     res.status(500).send(err);
@@ -18,7 +19,7 @@ exports.recognize = async (req, res, next) => {
   try {
     const params = { 'image': req.body.img, 'gallery_name': 'testClass' };
     const response = await client.recognize(params);
-
+    console.log('im here', req.body.img);
     if( response.body.images.length > 0 ) {
       req.body.matches = response.body.images;
       next();
@@ -39,4 +40,10 @@ exports.testGalleryList = async (req, res) => {
   const options = { 'gallery_name': req.params.galleryName };
   const galleries = await client.galleryView(options);
   res.send(galleries);
+}
+
+exports.testGalleryRemove = async (req, res) => {
+  const options = { 'gallery_name': req.params.galleryName };
+  const clearedStatus = await client.galleryRemove(options);
+  res.send(clearedStatus);
 }
