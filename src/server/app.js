@@ -55,7 +55,7 @@ app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.store
 /***********************************/
 app.get('/galleryLists', kairos.test);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
-app.post('/kairosGalleryRecognize', kairos.recognize);
+app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
 /******************/
 /**** Database ****/
@@ -78,7 +78,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudents', search.getListOfUsers, mailGun.sendMail);
+app.post('/emailStudents', search.getListOfUsers, mailGun.sendMailLate);
 
 /******************/
 /**** Wildcard ****/

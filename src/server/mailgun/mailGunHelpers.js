@@ -1,7 +1,7 @@
 import MailGun from 'mailgun-js'
 const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
  
-exports.sendMail = (req, res) => {
+exports.sendMailLate = (req, res) => {
   req.params.forEach( (person)=> {
     var data = { 
       from: 'Excited User <aaallstars15@gmail.com>',
@@ -22,5 +22,26 @@ exports.sendMail = (req, res) => {
   });
 };
   
+exports.sendMailForArrival = (req, res) => {
+  const users = req.body.users[0];
+  users.forEach(function (user, index) {
 
+    var data = { 
+      from: 'Excited User <aaallstars15@gmail.com>',
+      to: user.email,
+      subject: 'Class Arrival',
+      text: 'Welcome to class! You have checked in today!'
+    };
+    
+    mailgun.messages().send(data, function (error, body) {
+      if (error) {
+        res.status(500).send(error);
+        return;
+        console.log(error);
+      } else {
+        console.log(body);
+      }
+    })
+  })
+};
 

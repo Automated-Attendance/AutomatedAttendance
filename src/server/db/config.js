@@ -51,13 +51,13 @@ module.exports = function(db) {
       REFERENCES users(users_id);`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "hanz@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("han", "hanshengzhao1993@gmail.com");`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("andrew", "andrew.alonis@gmail.com");`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("duy", "myemailisthirtyninedigitslong@gmail.com");`);
+    return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("Duy12312313", "duyng92@gmail.com");`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO users (user_name, email) VALUES ("jason", "jciphone333@gmail.com");`);
@@ -86,7 +86,7 @@ module.exports = function(db) {
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
-      (SELECT users_id FROM users WHERE user_name='duy'));`);
+      (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
@@ -102,7 +102,7 @@ module.exports = function(db) {
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('absent', (SELECT users_id FROM users WHERE user_name='duy'));`);
+      VALUES ('absent', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
   })
   .error(function(err) {
     console.log(err);
