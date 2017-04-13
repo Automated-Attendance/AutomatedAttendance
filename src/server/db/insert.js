@@ -9,9 +9,13 @@ exports.insertAttendanceRecord = async (req, res) => {
     let users = req.body.params[0];
     users.forEach(async (user) => {
       let result = await db.queryAsync(`SELECT date FROM attendance_record WHERE user_id='${user.user_id}'`);
-      let existingDay = new Date(result[0][0].date).getDay();
-      let currentDay = new Date().getDay();
-      if (existingDay !== currentDay) {
+      if (result[0].length) {
+        let existingDay = new Date(result[0][0].date).getDay();
+        let currentDay = new Date().getDay();
+        if (existingDay !== currentDay) {
+          db.queryAsync(`INSERT INTO attendance_record(status, user_id) VALUES ('Absent', '${user.user_id}');`);
+        }
+      } else {
         db.queryAsync(`INSERT INTO attendance_record(status, user_id) VALUES ('Absent', '${user.user_id}');`);
       }
     });
