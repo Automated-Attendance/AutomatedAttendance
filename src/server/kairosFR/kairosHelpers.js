@@ -14,12 +14,17 @@ exports.storeInGallery = async (req, res) => {
   }
 };
 
-exports.recognize = async (req, res) => {
+exports.recognize = async (req, res, next) => {
   try {
     const params = { 'image': req.body.img, 'gallery_name': 'testClass' };
     const response = await client.recognize(params);
-    console.log(response);
-    res.send(response);
+
+    if( response.body.images.length > 0 ) {
+      req.body.matches = response.body.images;
+      next();
+    } else {
+      res.send('There was no match');
+    }
   } catch (err) {
     res.status(500).send(err);
   }

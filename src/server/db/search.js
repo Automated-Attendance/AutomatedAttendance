@@ -41,7 +41,7 @@ exports.getAttendanceForUser = async (req, res) => {
   } catch (err) {
     res.status(500).send(error);
   }
-}
+};
 
 exports.getListOfUsers = async (req, res, next) => {
   try {
@@ -52,7 +52,7 @@ exports.getListOfUsers = async (req, res, next) => {
   } catch (err) {
     res.status(500).send(error);
   }
-}
+};
 
 exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
   try {
@@ -72,5 +72,25 @@ exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
     next();
   } catch (err) {
     res.status(500).send(err);
+  }
+};
+
+exports.getSpecificUser = async (req, res, next) => {
+  try {
+    let matches = req.body.matches;
+    let qs = '';
+    matches.forEach(function (user, index) {
+      if(index === matches.length-1) {
+        qs += `user_name='${user.transaction.subject_id}';`
+      } else {
+        qs += `user_name='${user.transaction.subject_id}' or `
+      }
+    });
+    const queryString = `SELECT email FROM users where ${qs}`;
+    const result = await db.queryAsync(queryString);
+    req.body.users = result;
+    next();
+  } catch (err) {  
+    res.status.send(err);
   }
 }
