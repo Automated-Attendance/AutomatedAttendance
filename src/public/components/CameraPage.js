@@ -1,7 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
-import { cloudinaryUpload } from './requests/cloudinary';
 import { queryGallery } from './requests/gallery';
 // import { sendEmails } from './requests/emails';
 import { getClasses } from './requests/classes';
@@ -12,7 +11,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { getStudentInCertainClasses } from './requests/attendancerecord';
+import { getStudentInCertainClasses } from './requests/students';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -26,45 +25,37 @@ export default class CameraPage extends React.Component {
     'getSelectOptions',
     'handleSelectChange',
     'toggleDisabled',
-    'testBundle',
     'populateAttendanceRecord',
     'updateSelectedDateCutoff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
     this.state = {
-      screenshot: null,
-      screenshotURL: null,
       spinner: false,
       disabled: false,
       options: [],
       value: null,
-      selectedClasses: [],
       checkedinUser: null,
-      selectedDateCutoff: null
+      selectedDateCutoff: null,
+      noClassSelected: true
     };
   }
 
+  componentWillMount() {
+    this.setState({ mounted: true });
+  }
 
+  componentWillUnmount() {
+    this.setState({ mounted: false });
+  }
 
   @keydown('space')
-  takeScreenshot() {
+  async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({ screenshot: screenshot, spinner: true });
-    this.testBundle(this.state.screenshot);
-  }
-
-
-
-  // strictly for testing functionality
-  async testBundle(screenshot) {
-    const screenshotURL = await cloudinaryUpload(screenshot);
-    this.setState(screenshotURL);
-    console.log( await queryGallery(this.state.screenshotURL) );
+    this.setState({ spinner: true });
+    console.log( await queryGallery(screenshot) );
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
-
-
 
   async getSelectOptions() {
     const classList = await getClasses();
@@ -74,20 +65,13 @@ export default class CameraPage extends React.Component {
     this.setState({ options: classes });
   }
 
-
-
   handleSelectChange(value) {
-    const selectedClasses = value.split(',');
-    this.setState({ value, selectedClasses });
+    this.setState({ value });
   }
-
-
 
   toggleDisabled(e) {
     this.setState({ disabled: e.target.checked });
   }
-
-
 
   // getting class list from DB
   async updateClassList() {
@@ -96,7 +80,8 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    const student = await getStudentInCertainClasses(this.state.value);
+    if (this.state.value) await getStudentInCertainClasses(this.state.value);
+    else alert('You must select classes before populating Attendance Records.');
   }
 
   updateSelectedDateCutoff(e) {
@@ -124,9 +109,7 @@ export default class CameraPage extends React.Component {
           />
         </div>
 
-        <div>
-          <Webcam ref='webcam'/>
-        </div>
+        { this.state.mounted && <div><Webcam ref='webcam'/></div> }
 
         <h1> Screenshots </h1>
         

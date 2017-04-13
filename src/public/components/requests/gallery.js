@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const queryGallery = async (imgURL) => {
+const queryGallery = async (image) => {
   try {
-    const { data } = await axios.post('/kairosGalleryRecognize', { img: imgURL });
+    const { data } = await axios.post('/kairosGalleryRecognize', { img: image });
     return data;
   } catch (err) {
     // todo: handle client errors better
-    console.warn(err);
+    console.warn(err.message);
   }
 };
 
@@ -15,7 +15,7 @@ const storeInGallery = async (imgURL) => {
     await post('galleryStore', { img: imgURL });
   } catch (err) {
     // todo: handle client errors better
-    console.warn(err);
+    console.warn(err.message);
   }
 };
 

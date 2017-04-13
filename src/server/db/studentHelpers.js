@@ -1,30 +1,18 @@
 import db from './index';
 
-exports.addStudent =  async (req, res, next) => {
+exports.addToClass =  async (req, res, next) => {
   try {
-    const { studentName, studentEmail, selectedClass, imageLink } = req.body
+    const { studentUserName, selectedClass, imageLink } = req.body
 
-    let addUser = `INSERT INTO users (user_name, email, photo) 
-    VALUES ('${studentName}', '${studentEmail}', '${imageLink}')`;
-
-    let addUserClass = `INSERT INTO class_user (class_id, user_id) 
+    const addUserClass = `INSERT INTO class_user (class_id, user_id) 
     SELECT classes.classes_id, users.users_id FROM classes, users 
-    WHERE users.email='${studentEmail}' 
+    WHERE users.user_name='${studentUserName}' 
     AND classes.class_name='${selectedClass}'`;
 
-    let updateUser = `UPDATE users SET photo='${imageLink}' 
-    WHERE email='${studentEmail}';`
+    const updateUser = `UPDATE users SET photo='${imageLink}' 
+    WHERE user_name='${studentUserName}';`
 
-    let selectUser = `SELECT email FROM users WHERE email='${studentEmail}'`;
-
-    const results = await db.queryAsync(selectUser);
-    
-    if (results[0].length) {
-      await db.queryAsync(updateUser);
-    } else {
-      await db.queryAsync(addUser);
-    }
-
+    await db.queryAsync(updateUser);
     await db.queryAsync(addUserClass);
     next();
   } catch (err) {

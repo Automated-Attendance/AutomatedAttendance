@@ -18,32 +18,25 @@ exports.sendMailLate = (req, res) => {
       } else {
         console.log(body);
       }
-    })
+    });
   });
 };
   
-exports.sendMailForArrival = (req, res) => {
-  const users = req.body.users[0];
-  users.forEach(function (user, index) {
-
-    var data = { 
-      from: 'Excited User <aaallstars15@gmail.com>',
-      to: user.email,
-      subject: 'Class Arrival',
-      text: 'Welcome to class! You have checked in today!'
-    };
-    
-    mailgun.messages().send(data, function (error, body) {
-      if (error) {
-        res.status(500).send(error);
-        return;
-        console.log(error);
-      } else {
-        // Ill allow it --- https://i.imgur.com/SnIwFtRh.jpg
-        console.log(body);
-        res.end();
-      }
-    })
-  })
+exports.sendMailForArrival = async (req, res) => {
+  try {
+    const { users } = req.body;
+    users.forEach((user) => {
+      let data = { 
+        from: 'Excited User <aaallstars15@gmail.com>',
+        to: user.email,
+        subject: 'Class Arrival',
+        text: 'Welcome to class! You have checked in today!'
+      };
+      mailgun.messages().send(data);
+    });
+    res.send('Checked in users.');
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };
 

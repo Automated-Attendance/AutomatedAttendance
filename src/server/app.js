@@ -47,25 +47,25 @@ app.get('/retrieveUserData', user.retrieveData);
 /**** Cloudinary ****/
 /********************/
 
-app.post('/cloudinarySend', cloud.post);
-app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.storeInGallery);
+app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.storeInGallery);
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
+
 app.get('/galleryLists', kairos.test);
+app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
-app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
+app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
 /******************/
 /**** Database ****/
 /******************/
 
+app.get('/retrieveAllUsers', search.queryDatabase);
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-
-// getting students with certain classes
 app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord );
 
 /*****************/
