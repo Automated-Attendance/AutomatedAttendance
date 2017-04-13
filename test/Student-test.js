@@ -21,7 +21,7 @@ describe('<Student />', function() {
   });
 
   it('should have a table', () => {
-    const wrapper = mount(<Admin/>);
+    const wrapper = mount(<Student/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
   });
 });
