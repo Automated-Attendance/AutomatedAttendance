@@ -6,6 +6,7 @@ import VirtualizedSelect from 'react-virtualized-select'
 import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
+import { getAllUsers } from './requests/users';
 
 export default class AddStudent extends React.Component {
   constructor(props) {
@@ -18,14 +19,16 @@ export default class AddStudent extends React.Component {
       success: false,
       classAdded: false,
       spinner: false,
-      selectedUser: null
+      selectedUser: null,
+      options: []
     },
 
     ['handleInputChange',
     'handleStudentSubmit',
     'handleClassSubmit',
     'previewFile',
-    'updateClassList'].forEach((method) => {
+    'updateClassList',
+    'getExistingUserList'].forEach((method) => {
       this[method] = this[method].bind(this);
     })
   }
@@ -47,8 +50,7 @@ export default class AddStudent extends React.Component {
 
   async handleStudentSubmit(event) {
     let data = {
-      studentName: this.state.studentName,
-      studentEmail: this.state.studentEmail,
+      studentUserName: this.state.selectedUser,
       selectedClass: this.state.selectedClass,
       studentPhoto: this.state.studentPhoto
     }
@@ -73,37 +75,17 @@ export default class AddStudent extends React.Component {
     reader.addEventListener("load", () => {
       preview.src = reader.result;
       preview.height = '200';
-      this.setState({
-        studentPhoto: reader.result
-      })
+      this.setState({ studentPhoto: reader.result });
     }, false);
     if (file) {
       reader.readAsDataURL(file);
     }
   }
 
-
-
-
-
-  async getSelectOptions() {
-    const classList = await getClasses();
-    const classes = classList.classes.map((classname) => {
-      return { label: classname, value: classname };
-    });
-    this.setState({ options: classes });
+  async getExistingUserList() {
+    const users = await getAllUsers();
+    this.setState({ options: users });
   }
-
-
-
-  handleSelectChange(value) {
-    const selectedClasses = value.split(',');
-    this.setState({ value, selectedClasses });
-  }
-
-
-
-
 
   render() {
     return (
@@ -118,14 +100,12 @@ export default class AddStudent extends React.Component {
           })}
         </select><br/>
 
-        <div>
-
-      <VirtualizedSelect
-        options={this.state.options ? this.state.options : [{ label: 'Error loading data..', value: '' }]}
-        onChange={(selectedUser) => console.log(selectedUser)}
-        value={this.state.selectedUser}
-      />
-
+        <div onClick={!this.state.options.length && this.getExistingUserList}>
+          <VirtualizedSelect
+            options={this.state.options ? this.state.options : [{ label: 'Error loading data..', value: '' }]}
+            onChange={(selectedUser) => this.setState({ selectedUser })}
+            value={this.state.selectedUser}
+          />
         </div>
 
          <form ref='uploadForm' 
