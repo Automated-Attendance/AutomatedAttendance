@@ -35,15 +35,6 @@ describe('<CameraPage />', function() {
     testFn.restore();
   });
 
-  it('should call testBundle on click', () => {
-    const testFn = sinon.spy(CameraPage.prototype, 'testBundle');
-    const wrapper = mount(<CameraPage />);
-    expect(testFn.called).to.equal(false);
-    wrapper.find('.screenShotButton').simulate('click');
-    expect(testFn.called).to.equal(true);
-    testFn.restore();
-  });
-
   it('should not have img node when no screenshot has been stored', () => {
     const wrapper = shallow(<CameraPage />);
     expect(wrapper.find('img')).to.have.length(0);

@@ -25,7 +25,6 @@ export default class CameraPage extends React.Component {
     'getSelectOptions',
     'handleSelectChange',
     'toggleDisabled',
-    'testBundle',
     'populateAttendanceRecord',
     'updateSelectedDateCutoff'].forEach((method) => {
       this[method] = this[method].bind(this);
@@ -37,7 +36,8 @@ export default class CameraPage extends React.Component {
       options: [],
       value: null,
       checkedinUser: null,
-      selectedDateCutoff: null
+      selectedDateCutoff: null,
+      noClassSelected: true
     };
   }
 
@@ -49,6 +49,11 @@ export default class CameraPage extends React.Component {
     this.setState({ mounted: false });
   }
 
+  componentDidUpdate() {
+    const len = this.state.value.length;
+    this.setState({ noClassSelected: len ? false : true });
+  }
+
   @keydown('space')
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
@@ -56,13 +61,6 @@ export default class CameraPage extends React.Component {
     console.log( await queryGallery(screenshot) );
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
-
-
-
-  // strictly for testing functionality
-  async testBundle(screenshot) {}
-
-
 
   async getSelectOptions() {
     const classList = await getClasses();
@@ -72,19 +70,13 @@ export default class CameraPage extends React.Component {
     this.setState({ options: classes });
   }
 
-
-
   handleSelectChange(value) {
     this.setState({ value });
   }
 
-
-
   toggleDisabled(e) {
     this.setState({ disabled: e.target.checked });
   }
-
-
 
   // getting class list from DB
   async updateClassList() {
@@ -128,6 +120,7 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
+          {this.state.noClassSelected && <h1>You must select classes before populating Attendance Records</h1>}
         </div>
 
         {this.state.spinner && <Spinner/>}
