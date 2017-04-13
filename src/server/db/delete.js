@@ -24,7 +24,7 @@ exports.removeClassFromClasses = async (req, res) => {
   }
 };
 
-exports.removeUserFromAllClasses = async (req, res) => {
+exports.removeUserFromClass = async (req, res) => {
    try {
     let studentUserName = req.body.studentUserName;
     let className = req.body.className;
@@ -35,12 +35,3 @@ exports.removeUserFromAllClasses = async (req, res) => {
   }
 };
 
-exports.removeUserFromClass = async (req, res) => {
-  try {
-    let studentUserName = req.body.studentUserName;
-    const queryString = `DELETE FROM class_user WHERE user_id = (SELECT users_id FROM users WHERE user_name=${studentUserName})`;
-    await db.queryAsync(queryString);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
