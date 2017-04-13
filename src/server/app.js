@@ -53,7 +53,9 @@ app.post('/studentUpload', cloud.upload, studentHelpers.addStudent, kairos.store
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
+
 app.get('/galleryLists', kairos.test);
+app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
 
@@ -64,8 +66,6 @@ app.post('/kairosGalleryRecognize', kairos.recognize, search.getSpecificUser, ma
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-
-// getting students with certain classes
 app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord );
 
 /*****************/
