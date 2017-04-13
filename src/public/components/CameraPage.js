@@ -11,7 +11,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { getStudentInCertainClasses } from './requests/attendancerecord';
+import { getStudentInCertainClasses } from './requests/students';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -32,34 +32,35 @@ export default class CameraPage extends React.Component {
     });
 
     this.state = {
-      screenshot: null,
-      screenshotURL: null,
       spinner: false,
       disabled: false,
       options: [],
       value: null,
-      selectedClasses: [],
       checkedinUser: null,
       selectedDateCutoff: null
     };
   }
 
+  componentWillMount() {
+    this.setState({ mounted: true });
+  }
 
+  componentWillUnmount() {
+    this.setState({ mounted: false });
+  }
 
   @keydown('space')
-  takeScreenshot() {
+  async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({ screenshot: screenshot, spinner: true });
-    this.testBundle(this.state.screenshot);
+    this.setState({ spinner: true });
+    console.log( await queryGallery(screenshot) );
+    this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
 
 
 
   // strictly for testing functionality
-  async testBundle(screenshot) {
-    console.log( await queryGallery(this.state.screenshot) );
-    this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
-  }
+  async testBundle(screenshot) {}
 
 
 
@@ -74,8 +75,7 @@ export default class CameraPage extends React.Component {
 
 
   handleSelectChange(value) {
-    const selectedClasses = value.split(',');
-    this.setState({ value, selectedClasses });
+    this.setState({ value });
   }
 
 
@@ -93,7 +93,7 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    const student = await getStudentInCertainClasses(this.state.value);
+    if (this.state.value) await getStudentInCertainClasses(this.state.value);
   }
 
   updateSelectedDateCutoff(e) {
@@ -121,9 +121,7 @@ export default class CameraPage extends React.Component {
           />
         </div>
 
-        <div>
-          <Webcam ref='webcam'/>
-        </div>
+        { this.state.mounted && <div><Webcam ref='webcam'/></div> }
 
         <h1> Screenshots </h1>
         
