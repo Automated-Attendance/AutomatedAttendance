@@ -4,9 +4,9 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import Student from '../src/public/components/Student';
+import Admin from '../src/public/components/Admin';
 
-describe('<Student />', function() {
+describe('<Admin />', function() {
 
   let sandbox;
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('<Student />', function() {
   });
 
   it('should have a table', () => {
-    const wrapper = mount(<Student/>);
+    const wrapper = mount(<Admin/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
   });
 });
