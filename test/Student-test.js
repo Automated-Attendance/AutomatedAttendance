@@ -1,41 +1,27 @@
-// import React from 'react';
-// import { shallow, mount, render } from 'enzyme';
-// import { spy } from 'sinon';
-// import { expect } from 'chai';
-// import Student from '../src/public/components/Student';
+import React from 'react';
+import keydown, { Keys } from 'react-keydown';
+import { shallow, mount, render } from 'enzyme';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import axios from 'axios';
+import Student from '../src/public/components/Student';
 
-// describe('<Student />', function() {
+describe('<Student />', function() {
 
-//   it('calls componentDidMount', () => {
-//     const componentDidMountSpy = spy(Student.prototype, 'componentDidMount');
-//     const wrapper = mount(<Student />);
-//     expect(Student.prototype.componentDidMount.calledOnce).to.equal(true);
-//   });
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: [{ type: 'admin' }] }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
 
+  afterEach(() => {
+    sandbox.restore();
+  });
 
-//   // beforeEach(function(done) {
-//   //   dbConnection = mysql.createConnection({
-//   //     user: 'root',
-//   //     password: 'cake',
-//   //     database: 'AutomatedAttendance'
-//   //   });
-//   //   dbConnection.connect();
-
-
-//   //   var tablenames = ['attendance_record', 'class_user', 'classes', 'users'];
-    
-//   //    Empty the db table before each test so that multiple tests
-//   //    * (or repeated runs of the tests) won't screw each other up: 
-
-//   //   tablename.forEach( (table)=>{
-//   //     dbConnection.query('truncate ' + tablename, done)
-//   //   });
-
-//   // });
-
-//   // afterEach(function() {
-//   //   dbConnection.end();
-//   // });
-
-// });
-
+  it('should have a table', () => {
+    const wrapper = mount(<Admin/>);
+    expect(wrapper.find('BootstrapTable')).to.have.length(1);
+  });
+});
