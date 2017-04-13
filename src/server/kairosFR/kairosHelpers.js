@@ -8,7 +8,6 @@ exports.storeInGallery = async (req, res) => {
     const { studentUserName, selectedClass, imageLink } = req.body;
     const params = { 'image': imageLink, 'subject_id': studentUserName, 'gallery_name': selectedClass }
     const data = await client.enroll(params);
-    console.log(data);
     res.status(201).send(data);
   } catch (err) {
     res.status(500).send(err.message);
