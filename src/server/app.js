@@ -74,7 +74,8 @@ app.post('/addClass', classHelpers.addClass);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 
 app.post('/removeStudent', studentHelpers.removeFromClass);
-app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
+app.post('/removeClass', classHelpers.removeClass);
+// app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
 app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
 
 /*****************/
