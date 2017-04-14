@@ -1,9 +1,5 @@
-import Promise from 'bluebird';
-import db from './index';
 import AuthModel from './QueryModels/AuthModel';
 const Auth = new AuthModel();
-
-Promise.promisifyAll(db);
 
 exports.storeAndLogin = async (req, res) => {
   try {
