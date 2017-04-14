@@ -19,7 +19,6 @@ exports.getAttendanceRecords = async (req, res) => {
   try {
     let result, { type, email } = req.query;
     if (type === 'allAttendance') {
-      console.log('here');
       result = await Search.getAllRecords();
     } else {
       result = await Search.getStudentRecord(email);
@@ -46,27 +45,6 @@ exports.getListOfUsers = async (req, res, next) => {
     const queryString = 'SELECT * from users;';
     const result = await db.queryAsync(queryString);
     req.params = result;
-    next();
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
-exports.getListOfUsersWithCertainClasses = async (req, res, next) => {
-  try {
-    let qs = ''
-    req.body.classes.forEach((classes,index) => {
-      if(index === req.body.classes.length - 1) {
-        qs += `classes.class_name='${classes}'`
-      } else {
-        qs += `classes.class_name='${classes}' or `
-      }
-    });
-
-    const queryString = `SELECT * FROM users JOIN class_user on users.users_id=class_user.user_id
-    JOIN classes on class_user.class_id=classes.classes_id WHERE ${qs};`
-    const result = await db.queryAsync(queryString);
-    req.body.params = result;
     next();
   } catch (err) {
     res.status(500).send(err);
