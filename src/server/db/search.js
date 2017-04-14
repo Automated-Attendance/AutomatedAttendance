@@ -4,6 +4,7 @@ import db from './index.js';
 import SearchModel from './QueryModels/SearchModel';
 
 Promise.promisifyAll(db);
+const Search = new SearchModel();
 
 exports.querySelector = (req, res, next) => {
 
@@ -22,9 +23,28 @@ exports.querySelector = (req, res, next) => {
   next();
 };
 
-exports.getAllUsers = async (req, res) => {
-  const result = await Search.getFirstLastGithubNames();
-  res.json(result[0]);
+exports.getAllUsernames = async (req, res) => {
+  try {
+    const result = await Search.getFirstLastGithubNames();
+    res.json(result[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+
+exports.getAttendanceRecords = async (req, res) => {
+  try {
+    let result, { type, email } = req.query;
+    if (type === 'allAttendance') {
+      console.log('here');
+      result = await Search.getAllRecords();
+    } else {
+      result = await Search.getStudentRecords(email);
+    }
+    res.json(result[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 }
 
 exports.queryDatabase = async (req, res) => {

@@ -12,6 +12,16 @@ export default class SearchModel extends SearchQueries {
 
   async getFirstLastGithubNames() {
     const queryString = super.firstLastGithubNames();
+    return await db.queryAsync(queryString);
+  }
+
+  async getStudentRecord(email) {
+    const queryString = super.studentAttendance(email);
+    return await db.queryAsync(queryString);
+  }
+
+  async getAllRecords() {
+    const queryString = super.allAttendance();
     console.log(queryString);
     return await db.queryAsync(queryString);
   }
