@@ -45,3 +45,10 @@ exports.testGalleryRemove = async (req, res) => {
   const clearedStatus = await client.galleryRemove(options);
   res.send(clearedStatus);
 }
+
+exports.galleryRemoveUser = async (userName, className) => {
+  const options = { subject_id: userName, gallery_name: className};
+  return await client.galleryRemoveSubject(options);
+};
+
+

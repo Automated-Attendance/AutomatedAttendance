@@ -1,6 +1,7 @@
 import mysql from 'mysql';
 import Promise from 'bluebird';
 import db from './index.js';
+import { galleryRemoveUser } from '../kairosFR/kairosHelpers';
 
 Promise.promisifyAll(db);
 
@@ -32,7 +33,8 @@ exports.removeUserFromClass = async (req, res) => {
     let className = req.body.className;
     const queryString = `DELETE FROM class_user WHERE user_id = (SELECT users_id FROM users WHERE user_name='${studentUserName}') AND class_id = (SELECT classes_id FROM classes WHERE class_name = '${className}')`;
     await db.queryAsync(queryString);
-    res.status(201).send();
+    const result = await galleryRemoveUser(studentUserName, className);
+    res.status(201).send(result);
   } catch (err) {
     res.status(500).send(err);
   }
