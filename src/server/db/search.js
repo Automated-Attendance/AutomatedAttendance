@@ -39,7 +39,7 @@ exports.getAttendanceRecords = async (req, res) => {
       console.log('here');
       result = await Search.getAllRecords();
     } else {
-      result = await Search.getStudentRecords(email);
+      result = await Search.getStudentRecord(email);
     }
     res.json(result[0]);
   } catch (err) {

@@ -22,7 +22,6 @@ export default class SearchModel extends SearchQueries {
 
   async getAllRecords() {
     const queryString = super.allAttendance();
-    console.log(queryString);
     return await db.queryAsync(queryString);
   }
 
