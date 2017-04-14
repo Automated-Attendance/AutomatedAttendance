@@ -74,7 +74,7 @@ app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasse
 
 app.post('/removeStudent', remove.removeUserFromClass);
 app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
-app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople)
+app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
 
 /*****************/
 /**** Twillio ****/
