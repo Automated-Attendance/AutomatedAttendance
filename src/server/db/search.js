@@ -80,8 +80,6 @@ exports.getSpecificUser = async (req, res, next) => {
   try {
     let { matches } = req.body;
 
-    console.log('MATCHES', matches);
-
     let qs = '';
     matches.forEach(function (user, index) {
       qs += index === matches.length - 1 ? `user_name='${user.transaction.subject_id}';` 
@@ -90,10 +88,6 @@ exports.getSpecificUser = async (req, res, next) => {
     const queryString = `SELECT email, users_id FROM users where ${qs}`;
     const result = await db.queryAsync(queryString);
     req.body.users = result[0];
-
-    console.log('RESULT:   ', result)
-
-    console.log(result[0])
     
     next();
   } catch (err) {  
