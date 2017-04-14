@@ -15,8 +15,8 @@ export default class ClassModel extends ClassQueries {
     return await db.queryAsync(queryString);
   }
 
-  async addClass() {
-    const queryString = super.addClass();
+  async addClass(className) {
+    const queryString = super.addClass(className);
     return await db.queryAsync(queryString);
   }
 
