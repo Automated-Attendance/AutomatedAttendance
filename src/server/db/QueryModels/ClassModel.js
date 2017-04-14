@@ -20,4 +20,11 @@ export default class ClassModel extends ClassQueries {
     return await db.queryAsync(queryString);
   }
 
+  async removeClass(className) {
+    const classUserString = super.removeFromClassUser(className);
+    const classesString = super.removeFromClasses(className);
+    await db.queryAsync(classUserString);
+    return await db.queryAsync(classesString);
+  }
+
 }
