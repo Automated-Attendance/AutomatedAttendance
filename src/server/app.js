@@ -68,7 +68,6 @@ app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSp
 
 app.get('/retrieveAllUsers', search.getAllUsernames);
 app.get('/attendanceRecords', search.getAttendanceRecords);
-app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
 app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord);

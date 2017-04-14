@@ -23,16 +23,6 @@ const removeStudentData = async (studentData) => {
 
 };
 
-const getStudentData = async (studentData) => {
-  try {
-    const { data } = await axios.post('/getStudentData', studentData);
-    return data;
-  } catch (err) {
-    // todo: better error handling
-    console.warn(err);
-  }
-};
-
 const getStudentInCertainClasses = async (classes) => {
   try {
     const splitClasses = classes.split(',');
