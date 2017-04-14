@@ -19,6 +19,7 @@ import user from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
 import remove from './db/delete.js';
+import Attendance from './db/attendanceHelpers';
 
 
 
@@ -70,7 +71,7 @@ app.get('/allUsers', search.getAllUsernames);
 app.get('/attendanceRecords', search.getAttendanceRecords);
 app.get('/classList', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord);
+app.post('/storeAttendanceRecord', Attendance.storeRecords);
 
 app.post('/removeStudent', remove.removeUserFromClass);
 app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
