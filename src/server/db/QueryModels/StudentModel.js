@@ -12,7 +12,6 @@ export default class StudentModel extends StudentQueries {
 
   async removeFromClass(studentInfo) {
     const queryString = super.removeFromClass(studentInfo);
-    let res = await db.queryAsync(queryString);
-    console.log(res);
+    return await db.queryAsync(queryString);
   }
 }
