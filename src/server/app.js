@@ -11,14 +11,13 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
-import insert from './db/insert.js';
 import studentHelpers from './db/studentHelpers.js';
 import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
-import remove from './db/delete.js';
+import Attendance from './db/attendanceHelpers';
 
 
 
@@ -66,15 +65,15 @@ app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSp
 /**** Database ****/
 /******************/
 
-app.get('/retrieveAllUsers', search.queryDatabase);
-app.post('/getStudentData', search.querySelector, search.queryDatabase);
-app.get('/getClassData', classHelpers.getClass);
+app.get('/allUsers', search.getAllUsernames);
+app.get('/attendanceRecords', Attendance.getRecords);
+app.get('/classList', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord);
+app.post('/storeAttendanceRecord', Attendance.storeRecords);
 
-app.post('/removeStudent', remove.removeUserFromClass);
-app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
-app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
+app.post('/removeStudent', studentHelpers.removeFromClass);
+app.post('/removeClass', classHelpers.removeClass);
+app.post('/emailLateStudents', Attendance.emailLateStudents);
 
 /*****************/
 /**** Twillio ****/

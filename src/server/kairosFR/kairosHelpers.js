@@ -29,6 +29,11 @@ exports.recognize = async (req, res, next) => {
   }
 };
 
+exports.removeGallery = async (className) => {
+  const options = { 'gallery_name': className };
+  return await client.galleryRemove(options);
+}
+
 exports.test = async (req, res) => {
   const galleries = await client.galleryListAll();
   res.send(galleries);
@@ -45,3 +50,10 @@ exports.testGalleryRemove = async (req, res) => {
   const clearedStatus = await client.galleryRemove(options);
   res.send(clearedStatus);
 }
+
+exports.galleryRemoveUser = async ({ studentUserName, className }) => {
+  const options = { subject_id: studentUserName, gallery_name: className};
+  return await client.galleryRemoveSubject(options);
+};
+
+

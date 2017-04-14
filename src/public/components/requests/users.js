@@ -24,7 +24,7 @@ const getUserData = async () => {
 
 const getAllUsers = async () => {
   try {
-    const { data } = await axios.get('/retrieveAllUsers');
+    const { data } = await axios.get('/allUsers');
     return data.map((user) => {
       return { label: user.first_name + ' ' + user.last_name + ' - ' + user.user_name, value: user.user_name };
     });

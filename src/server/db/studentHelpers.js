@@ -1,4 +1,8 @@
 import db from './index';
+import StudentModel from './QueryModels/StudentModel';
+import { galleryRemoveUser } from '../kairosFR/kairosHelpers';
+
+const Student = new StudentModel();
 
 exports.addToClass =  async (req, res, next) => {
   try {
@@ -17,5 +21,15 @@ exports.addToClass =  async (req, res, next) => {
     next();
   } catch (err) {
     res.status(500).send(err);
+  }
+};
+
+exports.removeFromClass = async (req, res) => {
+  try {
+    await Student.removeFromClass(req.body);
+    await galleryRemoveUser(req.body);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };

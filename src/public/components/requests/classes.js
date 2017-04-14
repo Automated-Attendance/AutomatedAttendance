@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const getAttendanceRecords = async (queryType) => {
+const getAttendanceRecords = async (queryData) => {
   try {
-    const { data } = await axios.post('/getStudentData', queryType);
+    const { queryType, email } = queryData;
+    const { data } = await axios.get(`/attendanceRecords?type=${queryType}&email=${email}`);
     return data;
   } catch (err) {
     // todo: better error handling
@@ -12,7 +13,7 @@ const getAttendanceRecords = async (queryType) => {
 
 const getClasses = async () => {
   try {
-    const { data } = await axios.get('/getClassData');
+    const { data } = await axios.get('/classList');
     let classes = data[0].map((className) => className.class_name);
     return { classes: classes };
   } catch (err) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getStudentData } from './requests/students';
+import { getAttendanceRecords } from './requests/classes';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
 
@@ -17,7 +17,7 @@ export default class Student extends React.Component {
 
   async componentDidMount () {
     const userEmail = this.props.userPrivs.userEmail;
-    const attendanceRecords = await getStudentData({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
+    const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach((item) => {
       item.date = this.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {

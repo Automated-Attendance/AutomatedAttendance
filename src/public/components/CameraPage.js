@@ -11,7 +11,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { getStudentInCertainClasses, getLateStudents } from './requests/students';
+import { storeAttendanceRecord, emailLateStudents } from './requests/students';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -81,7 +81,7 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    if (this.state.value) await getStudentInCertainClasses(this.state.value);
+    if (this.state.value) await storeAttendanceRecord(this.state.value);
     else alert('You must select classes before populating Attendance Records.');
   }
 
@@ -89,7 +89,7 @@ export default class CameraPage extends React.Component {
     this.setState({ selectedDateCutoff: new Date(e)});
   }
   async sendLateEmails () {
-    await getLateStudents();
+    await emailLateStudents();
   }
 
   render() {
