@@ -34,7 +34,7 @@ exports.sendMailForArrival = async (req, res) => {
       };
       mailgun.messages().send(data);
     });
-    res.send('Checked in users.');
+    res.send(req.body.matches);
   } catch (err) {
     res.status(500).send(err.message);
   }
