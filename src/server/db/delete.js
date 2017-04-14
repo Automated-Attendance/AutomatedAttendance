@@ -6,7 +6,6 @@ Promise.promisifyAll(db);
 
 exports.removeClassFromClassUser = async (req, res, next) => {
   try {
-    console.log('++++req.body++++', req.body);
     let className = req.body.className;
     const queryString = `DELETE FROM class_user WHERE class_id= (SELECT classes_id FROM classes WHERE class_name = '${className}')`;
     await db.queryAsync(queryString);
