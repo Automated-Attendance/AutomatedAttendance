@@ -62,7 +62,7 @@ module.exports = function(db) {
     return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
   })
   .then(function() {
-    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('jukejc', 'Jason', 'Chambers', 'jciphone333@gmail.com');`);
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
@@ -83,7 +83,7 @@ module.exports = function(db) {
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE email='jciphone333@gmail.com'));`);
+      (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
@@ -92,15 +92,19 @@ module.exports = function(db) {
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('On time', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
+      VALUES ('Pending', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('On time', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
+      VALUES ('Pending', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('absent', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
+      VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
+      VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Jukejc'));`);
   })
   .error(function(err) {
     console.log(err);
