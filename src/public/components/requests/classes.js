@@ -13,7 +13,7 @@ const getAttendanceRecords = async (queryData) => {
 
 const getClasses = async () => {
   try {
-    const { data } = await axios.get('/getClassData');
+    const { data } = await axios.get('/classList');
     let classes = data[0].map((className) => className.class_name);
     return { classes: classes };
   } catch (err) {

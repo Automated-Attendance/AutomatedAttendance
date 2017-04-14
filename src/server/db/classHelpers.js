@@ -1,9 +1,10 @@
 import db from './index';
+import ClassModel from './QueryModels/ClassModel';
+const Class = new ClassModel();
 
 exports.getClass = async (req, res) => {
   try {
-    let queryClass = 'SELECT class_name FROM classes';
-    const classes = await db.queryAsync(queryClass);
+    const classes = await Class.getClassList();
     res.status(200).send(classes);
   }
   catch (err) {
