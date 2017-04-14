@@ -15,14 +15,4 @@ export default class SearchModel extends SearchQueries {
     return await db.queryAsync(queryString);
   }
 
-  async getStudentRecord(email) {
-    const queryString = super.studentAttendance(email);
-    return await db.queryAsync(queryString);
-  }
-
-  async getAllRecords() {
-    const queryString = super.allAttendance();
-    return await db.queryAsync(queryString);
-  }
-
 }

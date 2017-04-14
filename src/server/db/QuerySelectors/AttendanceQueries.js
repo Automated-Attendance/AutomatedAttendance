@@ -13,12 +13,40 @@ export default class AttendanceQueries {
     JOIN classes ON class_user.class_id=classes.classes_id WHERE ${qs};`;
   }
 
+  allAttendance() {
+    return `SELECT * FROM attendance_record
+      JOIN users ON attendance_record.user_id=users.users_id
+      JOIN class_user ON users.users_id=class_user.user_id
+      JOIN classes ON classes.classes_id=class_user.class_id;`;
+  }
+
+  studentAttendance(email) {
+    return `SELECT * FROM attendance_record
+      JOIN users ON attendance_record.user_id=users.users_id
+      JOIN class_user ON users.users_id=class_user.user_id
+      JOIN classes ON classes.classes_id=class_user.class_id
+      WHERE users.email='${email}';`;
+  }
+
   userRecordDate(id) {
     return `SELECT date FROM attendance_record WHERE user_id='${id}'`;
   }
 
   insertRecord(id) {
     return `INSERT INTO attendance_record(status, user_id) VALUES ('Pending', '${id}');`;
+  }
+
+  getPendingUsers() {
+    return `SELECT * FROM attendance_record WHERE status='Pending'`;
+  }
+
+  pendingToAbsent(id) {
+    return `UPDATE attendance_record SET status='Absent' WHERE user_id='${id}'`;
+  }
+
+  getAllLateUserEmails() {
+    return `select users.email, users.first_name from users 
+    RIGHT JOIN attendance_record ON users.users_id=attendance_record.user_id;`;
   }
 
 }

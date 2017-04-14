@@ -1,20 +1,5 @@
 export default class SearchQueries {
 
-  allAttendance() {
-    return `SELECT * FROM attendance_record
-      JOIN users ON attendance_record.user_id=users.users_id
-      JOIN class_user ON users.users_id=class_user.user_id
-      JOIN classes ON classes.classes_id=class_user.class_id;`;
-  }
-
-  studentAttendance(email) {
-    return `SELECT * FROM attendance_record
-      JOIN users ON attendance_record.user_id=users.users_id
-      JOIN class_user ON users.users_id=class_user.user_id
-      JOIN classes ON classes.classes_id=class_user.class_id
-      WHERE users.email='${email}';`;
-  }
-
   firstLastGithubNames() {
     return 'SELECT first_name, last_name, user_name FROM users';
   }
