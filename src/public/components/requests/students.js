@@ -31,13 +31,13 @@ const storeAttendanceRecord = async (classes) => {
   }
 };
 
-const getLateStudents = async () => {
+const emailLateStudents = async () => {
   try {
-    const response = await axios.post('/getLateStudents');
+    const response = await axios.post('/emailLateStudents');
     return response.status === 201;
   } catch (err) {
     console.warn(err);
   }
 }
 
-export { storeStudentData, storeAttendanceRecord, getLateStudents, removeStudentData };
+export { storeStudentData, storeAttendanceRecord, emailLateStudents, removeStudentData };
