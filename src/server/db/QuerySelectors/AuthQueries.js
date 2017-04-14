@@ -1,7 +1,7 @@
 export default class AuthQueries {
 
   selectExistingUser(email) {
-    return `SELECT email FROM users WHERE email='${email}'`;
+    return `SELECT * FROM users WHERE email='${email}'`;
   }
 
   insertNewUser(firstName, lastName, nickname, email) {

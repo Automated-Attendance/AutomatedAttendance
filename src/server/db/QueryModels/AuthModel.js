@@ -30,4 +30,9 @@ export default class UserModel extends UserQueries {
     return undefined;
   }
 
+  async getUserData(email) {
+    let userQuery = super.selectExistingUser(email);
+    return await db.queryAsync(userQuery);
+  }
+
 };

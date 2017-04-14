@@ -19,10 +19,9 @@ exports.storeAndLogin = async (req, res) => {
 exports.retrieveData = async (req, res) => {
   try {
     if (req.user) {
-      const userEmail = req.user._json.email;
-      const selectUser = `SELECT * FROM users WHERE email='${userEmail}'`;
-      const response = await db.queryAsync(selectUser);
-      res.send(response[0]);
+      const { email } = req.user._json;
+      const [user] = await Auth.getUserData(email);
+      res.send(user);
     } else {
       res.send('not logged in');
     }
