@@ -49,7 +49,7 @@ app.get('/retrieveUserData', User.retrieveData);
 /**** Cloudinary ****/
 /********************/
 
-app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.storeInGallery);
+// rip
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
@@ -64,6 +64,9 @@ app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSp
 /******************/
 /**** Database ****/
 /******************/
+
+// where do i go now????
+app.post('/studentUpload', studentHelpers.addToClass);
 
 app.get('/allUsers', search.getAllUsernames);
 app.get('/attendanceRecords', Attendance.getRecords);
