@@ -66,7 +66,7 @@ app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSp
 /**** Database ****/
 /******************/
 
-app.get('/retrieveAllUsers', search.queryDatabase);
+app.get('/retrieveAllUsers', search.getAllUsers);
 app.post('/getStudentData', search.querySelector, search.queryDatabase);
 app.get('/getClassData', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);

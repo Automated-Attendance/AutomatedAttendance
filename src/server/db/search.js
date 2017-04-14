@@ -1,6 +1,7 @@
 import mysql from 'mysql';
 import Promise from 'bluebird';
 import db from './index.js';
+import SearchModel from './QueryModels/SearchModel';
 
 Promise.promisifyAll(db);
 
@@ -18,9 +19,13 @@ exports.querySelector = (req, res, next) => {
       JOIN classes ON classes.classes_id=class_user.class_id
       WHERE users.email='${req.body.email}';`;
   }
-
   next();
 };
+
+exports.getAllUsers = async (req, res) => {
+  const result = await Search.getFirstLastGithubNames();
+  res.json(result[0]);
+}
 
 exports.queryDatabase = async (req, res) => {
   try {
