@@ -11,7 +11,6 @@ import Auth0 from './auth/Auth0Helpers';
 import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
-import insert from './db/insert.js';
 import studentHelpers from './db/studentHelpers.js';
 import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
@@ -67,14 +66,14 @@ app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSp
 /******************/
 
 app.get('/allUsers', search.getAllUsernames);
-app.get('/attendanceRecords', search.getAttendanceRecords);
+app.get('/attendanceRecords', Attendance.getRecords);
 app.get('/classList', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 
 app.post('/removeStudent', studentHelpers.removeFromClass);
 app.post('/removeClass', classHelpers.removeClass);
-app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
+app.post('/emailLateStudents', Attendance.emailLateStudents);
 
 /*****************/
 /**** Twillio ****/
