@@ -14,7 +14,7 @@ import search from './db/search.js';
 import studentHelpers from './db/studentHelpers.js';
 import classHelpers from './db/classHelpers.js';
 import fileUpload from 'express-fileupload';
-import user from './db/userHelpers';
+import User from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
 import Attendance from './db/attendanceHelpers';
@@ -41,9 +41,9 @@ app.use(fileUpload());
 /************************/
 
 app.get('/login', Auth0.login);
-app.get('/callback', Auth0.authVerify, user.storeIfNew, user.updateIfAdmin, Auth0.success);
+app.get('/callback', Auth0.authVerify, User.storeAndLogin);
 app.get('/logout', Auth0.logout);
-app.get('/retrieveUserData', user.retrieveData);
+app.get('/retrieveUserData', User.retrieveData);
 
 /********************/
 /**** Cloudinary ****/
