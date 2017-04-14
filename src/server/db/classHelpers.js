@@ -1,5 +1,6 @@
 import db from './index';
 import ClassModel from './QueryModels/ClassModel';
+import { removeGallery } from '../kairosFR/kairosHelpers';
 
 const Class = new ClassModel();
 
@@ -13,7 +14,7 @@ exports.getClass = async (req, res) => {
   } 
 }
 
-exports.addClass = async (req, res, next) => {
+exports.addClass = async (req, res) => {
   try {
     const { className } = req.body;
     await Class.addClass(className);
@@ -21,5 +22,16 @@ exports.addClass = async (req, res, next) => {
   }
   catch (err) {
     res.status(500).send(err.message);
+  }
+}
+
+exports.removeClass = async (req, res) => {
+  try {
+    const { className } = req.body;
+    await Class.removeClass(className);
+    await removeGallery(className);
+    res.sendStatus(200);
+  } catch (err) {
+
   }
 }

@@ -29,6 +29,11 @@ exports.recognize = async (req, res, next) => {
   }
 };
 
+exports.removeGallery = async (className) => {
+  const options = { 'gallery_name': className };
+  return await client.galleryRemove(options);
+}
+
 exports.test = async (req, res) => {
   const galleries = await client.galleryListAll();
   res.send(galleries);
