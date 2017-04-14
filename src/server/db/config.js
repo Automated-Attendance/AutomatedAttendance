@@ -100,10 +100,6 @@ module.exports = function(db) {
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('Tardy', (SELECT users_id FROM users WHERE email='jciphone333@gmail.com'));`);
-  })
-  .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
       VALUES ('absent', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
   })
   .error(function(err) {
