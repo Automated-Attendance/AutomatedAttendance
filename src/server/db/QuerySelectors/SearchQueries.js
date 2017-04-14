@@ -23,19 +23,6 @@ export default class SearchQueries {
     return 'SELECT * from users;';
   }
 
-  usersByClass(classes) {
-    let qs = '';
-    classes.forEach((classes, index) => {
-      if (index === classes.length - 1) {
-        qs += `classes.class_name='${classes}'`;
-      } else {
-        qs += `classes.class_name='${classes}' or `;
-      }
-    });
-    return `SELECT * FROM users JOIN class_user on users.users_id=class_user.user_id
-    JOIN classes on class_user.class_id=classes.classes_id WHERE ${qs};`;
-  }
-
   getMatchedUsers(matches) {
     let qs = '';
     matches.forEach(function (user, index) {

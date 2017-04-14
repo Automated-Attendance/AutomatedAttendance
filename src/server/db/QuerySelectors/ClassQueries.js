@@ -7,5 +7,5 @@ export default class ClassQueries {
   addClass(className) {
     return `INSERT INTO classes (class_name) VALUES ('${className}')`;
   }
-
+  
 }
