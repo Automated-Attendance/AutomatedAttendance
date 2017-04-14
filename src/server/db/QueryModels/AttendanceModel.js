@@ -45,7 +45,7 @@ export default class AttendanceModel extends AttendanceQueries {
     const getAllLateEmailsQuery = super.getAllLateUserEmails();
     const [users] = await db.queryAsync(getLateUsersQuery);
     users.forEach(async (user) => {
-      let lateQuery = super.pendingToAbsent(user.users_id);
+      let lateQuery = super.pendingToAbsent(user.user_id);
       await db.queryAsync(lateQuery);
     });
     const [emails] = await db.queryAsync(getAllLateEmailsQuery);
