@@ -43,4 +43,4 @@ const getLateStudents = async () => {
   }
 }
 
-export { storeStudentData, getStudentData, getStudentInCertainClasses, getLateStudents, removeStudentData };
+export { storeStudentData, getStudentInCertainClasses, getLateStudents, removeStudentData };
