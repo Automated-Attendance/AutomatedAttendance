@@ -7,10 +7,11 @@ Promise.promisifyAll(db);
 exports.checkInUserOnTime = (req, res, next) => {
   try {
     const users = req.body.users;
+    // console.log(users);
 
     users.forEach(function (user) {
-      let queryString = `UPDATE attendance_record SET status='On time' WHERE user_id='${user.id}'`;
-      await db.queryAsync(queryString);
+      let queryString = `UPDATE attendance_record SET status='On time' WHERE user_id='${user.users_id}'`;
+      db.queryAsync(queryString);
     });
 
     next();

@@ -91,6 +91,8 @@ exports.getSpecificUser = async (req, res, next) => {
     const result = await db.queryAsync(queryString);
     req.body.users = result[0];
 
+    console.log('RESULT:   ', result)
+
     console.log(result[0])
     
     next();
