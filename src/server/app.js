@@ -18,7 +18,6 @@ import fileUpload from 'express-fileupload';
 import user from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
-import remove from './db/delete.js';
 import Attendance from './db/attendanceHelpers';
 
 
@@ -75,7 +74,6 @@ app.post('/storeAttendanceRecord', Attendance.storeRecords);
 
 app.post('/removeStudent', studentHelpers.removeFromClass);
 app.post('/removeClass', classHelpers.removeClass);
-// app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
 app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
 
 /*****************/
