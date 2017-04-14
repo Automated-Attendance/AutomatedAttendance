@@ -7,4 +7,16 @@ export default class StudentQueries {
     FROM classes WHERE class_name ='${className}')`;
   }
 
+  addToClass(studentUserName, selectedClass) {
+    return `INSERT INTO class_user (class_id, user_id) 
+    SELECT classes.classes_id, users.users_id FROM classes, users 
+    WHERE users.user_name='${studentUserName}' 
+    AND classes.class_name='${selectedClass}'`;
+  }
+
+  updateUser(imageLink, studentUserName) {
+    return `UPDATE users SET photo='${imageLink}' 
+    WHERE user_name='${studentUserName}'`;
+  }
+
 }

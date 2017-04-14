@@ -14,4 +14,14 @@ export default class StudentModel extends StudentQueries {
     const queryString = super.removeFromClass(studentInfo);
     return await db.queryAsync(queryString);
   }
+
+  async updateUser(image, userName) {
+    let updateQuery = super.updateUser(image, userName);
+    return await db.queryAsync(updateQuery);
+  }
+
+  async addToClass(userName, className) {
+    let addQuery = super.addToClass(userName, className);
+    return await db.queryAsync(addQuery);
+  }
 }
