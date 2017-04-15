@@ -25,21 +25,3 @@ exports.getListOfUsers = async (req, res, next) => {
     res.status(500).send(err);
   }
 };
-
-// about to be deprecated
-exports.getSpecificUser = async (req, res, next) => {
-  try {
-    let { matches } = req.body;
-    let qs = '';
-    matches.forEach(function (user, index) {
-      qs += index === matches.length - 1 ? `user_name='${user.transaction.subject_id}';` 
-      : `user_name='${user.transaction.subject_id}' or `;
-    });
-    const queryString = `SELECT email FROM users where ${qs}`;
-    const result = await db.queryAsync(queryString);
-    req.body.users = result[0];
-    next();
-  } catch (err) {  
-    res.status.send(err);
-  }
-};
