@@ -1,9 +1,8 @@
-import db from './index';
-import StudentModel from './QueryModels/StudentModel';
-import { galleryRemoveUser } from '../kairosFR/kairosHelpers';
-import { upload } from '../cloudinary/cloudHelpers';
-import { storeInGallery, recognize } from '../kairosFR/kairosHelpers';
-import { sendMailForArrival } from '../mailgun/mailgunHelpers';
+import db from '../index';
+import StudentModel from '../QueryModels/StudentModel';
+import { upload } from '../../cloudinary/cloudHelpers';
+import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
+import { sendMailForArrival } from '../../mailgun/mailgunHelpers';
 
 const Student = new StudentModel();
 

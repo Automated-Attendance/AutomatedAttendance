@@ -1,4 +1,4 @@
-import AttendanceModel from './QueryModels/AttendanceModel';
+import AttendanceModel from '../QueryModels/AttendanceModel';
 
 const Attendance = new AttendanceModel();
 

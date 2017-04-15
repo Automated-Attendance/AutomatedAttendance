@@ -1,6 +1,6 @@
-import db from './index';
-import ClassModel from './QueryModels/ClassModel';
-import { removeGallery } from '../kairosFR/kairosHelpers';
+import db from '../index';
+import ClassModel from '../QueryModels/ClassModel';
+import { removeGallery } from '../../kairosFR/kairosHelpers';
 
 const Class = new ClassModel();
 
