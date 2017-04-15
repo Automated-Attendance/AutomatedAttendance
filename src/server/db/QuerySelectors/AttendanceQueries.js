@@ -32,8 +32,8 @@ export default class AttendanceQueries {
     return `SELECT date FROM attendance_record WHERE user_id='${id}'`;
   }
 
-  insertRecord(id) {
-    return `INSERT INTO attendance_record(status, user_id) VALUES ('Pending', '${id}');`;
+  insertRecord(id, time) {
+    return `INSERT INTO attendance_record(status, user_id, checkin_time) VALUES ('Pending', '${id}', '${time}');`;
   }
 
   getPendingUsers() {
