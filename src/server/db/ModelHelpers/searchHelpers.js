@@ -1,7 +1,7 @@
 import mysql from 'mysql';
 import Promise from 'bluebird';
-import db from './index.js';
-import SearchModel from './QueryModels/SearchModel';
+import db from '../index';
+import SearchModel from '../QueryModels/SearchModel';
 
 Promise.promisifyAll(db);
 const Search = new SearchModel();

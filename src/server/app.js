@@ -8,13 +8,12 @@ import session from 'express-session';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
-import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
-import search from './db/search';
+import searchHelpers from './db/ModelHelpers/searchHelpers';
 import studentHelpers from './db/ModelHelpers/studentHelpers';
 import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
-import User from './db/ModelHelpers/userHelpers';
+import userHelpers from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
@@ -41,9 +40,9 @@ app.use(fileUpload());
 /************************/
 
 app.get('/login', Auth0.login);
-app.get('/callback', Auth0.authVerify, User.storeAndLogin);
+app.get('/callback', Auth0.authVerify, userHelpers.storeAndLogin);
 app.get('/logout', Auth0.logout);
-app.get('/retrieveUserData', User.retrieveData);
+app.get('/retrieveUserData', userHelpers.retrieveData);
 
 /********************/
 /**** Cloudinary ****/
@@ -79,7 +78,7 @@ app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
 
 // idk yet
-app.get('/allUsers', search.getAllUsernames);
+app.get('/allUsers', searchHelpers.getAllUsernames);
 
 /*****************/
 /**** Twillio ****/
@@ -91,7 +90,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudentsWarning', search.getListOfUsers, mailGun.sendMailLate);
+app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailGun.sendMailLate);
 
 /******************/
 /**** Wildcard ****/
