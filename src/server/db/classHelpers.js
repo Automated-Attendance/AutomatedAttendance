@@ -32,6 +32,6 @@ exports.removeClass = async (req, res) => {
     await removeGallery(className);
     res.sendStatus(200);
   } catch (err) {
-
+    res.status(500).send(err.message);
   }
 }

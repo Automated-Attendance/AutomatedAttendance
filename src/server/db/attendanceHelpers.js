@@ -34,3 +34,7 @@ exports.emailLateStudents = async (req, res) => {
     res.status(500).send(err.message);
   }
 }
+
+exports.emailStudentsWarning = async (req, res) => {
+
+};
