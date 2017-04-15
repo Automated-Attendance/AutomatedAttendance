@@ -1,4 +1,5 @@
 import AuthModel from '../QueryModels/AuthModel';
+
 const Auth = new AuthModel();
 
 exports.storeAndLogin = async (req, res) => {

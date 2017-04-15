@@ -15,6 +15,7 @@ exports.getAllUsernames = async (req, res) => {
   }
 }
 
+// idk what this is for
 exports.getListOfUsers = async (req, res, next) => {
   try {
     const queryString = 'SELECT * from users;';

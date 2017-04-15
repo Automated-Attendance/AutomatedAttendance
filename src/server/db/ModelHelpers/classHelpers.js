@@ -1,4 +1,3 @@
-import db from '../index';
 import ClassModel from '../QueryModels/ClassModel';
 import { removeGallery } from '../../kairosFR/kairosHelpers';
 

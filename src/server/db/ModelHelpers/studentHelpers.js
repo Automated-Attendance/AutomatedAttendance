@@ -1,4 +1,3 @@
-import db from '../index';
 import StudentModel from '../QueryModels/StudentModel';
 import { upload } from '../../cloudinary/cloudHelpers';
 import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
@@ -15,7 +14,6 @@ exports.addToClass = async (req, res) => {
     await storeInGallery(studentUserName, selectedClass, url);
     res.sendStatus(201);
   } catch (err) {
-    console.log(err.message);
     res.status(500).send(err.message);
   }
 }
@@ -38,7 +36,6 @@ exports.checkInStudents = async (req, res) => {
     sendMailForArrival(matchedUsers);
     res.sendStatus(201);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send(err);
   }
 };
