@@ -13,7 +13,8 @@ const storeStudentData = async (studentData) => {
 const removeStudentData = async (studentData) => {
   try {
     const response = await axios.post('/removeStudent', studentData);
-    return response.status === 201;
+    console.log('remove student response', response);
+    return response.status === 200;
   } catch (err) {
     // todo: better error handling
     console.warn(err);

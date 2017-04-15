@@ -99,8 +99,8 @@ export default class Enrollment extends React.Component {
   async handleClassAddSubmit(event) {
     let data = { className: this.state.className };
     this.setState({ spinner: true, classAdded: false });
-    await addClasses(data);
-    this.setState({ spinner: false, classAdded: true });
+    this.setState({ classAdded: await addClasses(data) });
+    this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
   }
@@ -119,8 +119,8 @@ export default class Enrollment extends React.Component {
   async handleClassRemoveSubmit(event) {
     let data = { className: this.state.selectedClassRemoveClass };
     this.setState({ spinner: true, classRemoved: false });
-    await removeClasses(data);
-    this.setState({ spinner: false, classRemoved: true });
+    this.setState({ classRemoved: await removeClasses(data) });
+    this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
   }
