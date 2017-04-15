@@ -28,7 +28,20 @@ export default class StudentQueries {
         qs += `user_name='${user.transaction.subject_id}' or `;
       }
     });
-    return `SELECT email FROM users where ${qs}`;
+    return `SELECT email, users_id FROM users where ${qs}`;
+  }
+
+  checkInQuery(matches) {
+    let qs = '';
+    matches.forEach((user, index) => {
+      console.log(user);
+      if (index === matches.length - 1) {
+        qs += `user_id='${user.users_id}'`;
+      } else {
+        qs += `user_id='${user.users_id}' or `;
+      }
+    });
+    return `UPDATE attendance_record SET status='On time' WHERE ${qs}`;
   }
 
 }
