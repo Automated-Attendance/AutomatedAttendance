@@ -24,4 +24,9 @@ export default class StudentModel extends StudentQueries {
     let addQuery = super.addToClass(userName, className);
     return await db.queryAsync(addQuery);
   }
+
+  async getMatchedUsers(matches) {
+    let matchedUsersQuery = super.getMatchedUsers(matches);
+    return await db.queryAsync(matchedUsersQuery);
+  }
 }

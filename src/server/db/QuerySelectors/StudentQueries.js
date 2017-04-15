@@ -19,4 +19,16 @@ export default class StudentQueries {
     WHERE user_name='${studentUserName}'`;
   }
 
+  getMatchedUsers(matches) {
+    let qs = '';
+    matches.forEach((user, index) => {
+      if (index === matches.length - 1) {
+        qs += `user_name='${user.transaction.subject_id}';`;
+      } else {
+        qs += `user_name='${user.transaction.subject_id}' or `;
+      }
+    });
+    return `SELECT email FROM users where ${qs}`;
+  }
+
 }
