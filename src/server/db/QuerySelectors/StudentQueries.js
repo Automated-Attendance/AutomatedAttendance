@@ -43,4 +43,10 @@ export default class StudentQueries {
     return `UPDATE attendance_record SET status='On time' WHERE ${qs}`;
   }
 
+  checkIfStudentIsEnrolled(userName, className) {
+    return `SELECT * FROM classes
+      JOIN class_user ON classes.classes_id=class_user.class_id AND classes.class_name='${className}'
+      JOIN users ON class_user.user_id=users.users_id AND users.user_name='${userName}'`;
+  }
+
 }

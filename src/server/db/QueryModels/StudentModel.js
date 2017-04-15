@@ -34,4 +34,10 @@ export default class StudentModel extends StudentQueries {
     let checkInQuery = super.checkInQuery(matches);
     return await db.queryAsync(checkInQuery);
   }
+
+  async checkIfStudentIsEnrolled(userName, className) {
+    const queryString = super.checkIfStudentIsEnrolled(userName, className);
+    return await db.queryAsync(queryString);
+  }
+
 }

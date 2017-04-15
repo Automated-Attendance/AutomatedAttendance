@@ -30,5 +30,11 @@ export default class ClassModel extends ClassQueries {
   async getEnrollment() {
     const queryString = super.getEnrollment();
     return await db.queryAsync(queryString);
-  }  
+  }
+
+  async checkIfClassExists(className) {
+    const queryString = super.checkIfClassExists(className);
+    return await db.queryAsync(queryString);
+  }
+
 }

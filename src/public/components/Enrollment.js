@@ -28,7 +28,6 @@ export default class Enrollment extends React.Component {
       classAdded: false,
       classRemoved: false,
       spinner: false,
-      // selectedUser: null,
       studentOptionsAddStudent: [],
       studentOptionsRemoveStudent: [],
       classOptionsAddStudent: [],
