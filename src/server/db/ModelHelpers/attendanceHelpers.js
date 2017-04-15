@@ -4,8 +4,8 @@ const Attendance = new AttendanceModel();
 
 exports.storeRecords = async (req, res) => {
   try {
-    const { classes } = req.body;
-    await Attendance.storeRecords(classes);
+    const { classes, time } = req.body;
+    await Attendance.storeRecords(classes, time);
     res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err.message);
