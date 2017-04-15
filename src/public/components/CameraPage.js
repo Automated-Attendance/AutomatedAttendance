@@ -92,7 +92,7 @@ export default class CameraPage extends React.Component {
     this.setState({ selectedTimeCutoff: date });
   }
   async sendLateEmails () {
-    await emailLateStudents();
+    await emailLateStudents(this.state.selectedTimeCutoff);
   }
 
   render() {
@@ -121,9 +121,9 @@ export default class CameraPage extends React.Component {
         <h1> Screenshots </h1>
         
         <div>
-          <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
+          <button className="screenShotButton" onClick={this.takeScreenshot.bind(this)}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-          <button className="lateStudentButton" onClick={this.sendLateEmails(this.state.selectedTimeCutoff)}>Send Email to late Students</button>
+          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
 
         </div>
 
