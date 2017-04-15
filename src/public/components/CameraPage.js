@@ -86,6 +86,8 @@ export default class CameraPage extends React.Component {
   }
 
   updateSelectedDateCutoff(e) {
+    console.log(e);
+    console.log(typeof e);
     this.setState({ selectedDateCutoff: new Date(e)});
   }
   async sendLateEmails () {
@@ -120,7 +122,7 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+          <button className="lateStudentButton" onClick={this.sendLateEmails(this.state.selectedDateCutoff)}>Send Email to late Students</button>
 
         </div>
 
