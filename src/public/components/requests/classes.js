@@ -37,4 +37,19 @@ const removeClasses = async (className) => {
   }
 };
 
-export { getAttendanceRecords, getClasses, addClasses, removeClasses };
+const getEnrollment = async () => {
+  try {
+    const { data } = await axios.get('/getEnrollment');
+    let enrollment = data[0].map((record) => {
+      return {
+        class: record.class_name,
+        student: `${record.first_name} ${record.last_name}`
+      };
+    });
+    return {enrollment: enrollment};
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export { getAttendanceRecords, getClasses, addClasses, removeClasses, getEnrollment };
