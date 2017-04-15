@@ -23,20 +23,35 @@ const getClasses = async () => {
 
 const addClasses = async (className) => {
   try {
-    await axios.post('/addClass', className);
+    const response = await axios.post('/addClass', className);
+    return response.status === 201;
   } catch (err) {
     console.error(err);
   }
 };
 
 const removeClasses = async (className) => {
-  console.log('class removal request');
-  console.log(className);
   try {
-    await axios.post('/removeClass', className);
+    const response = await axios.post('/removeClass', className);
+    return response.status === 200;
   } catch (err) {
     console.error(err);
   }
 };
 
-export { getAttendanceRecords, getClasses, addClasses, removeClasses };
+const getEnrollment = async () => {
+  try {
+    const { data } = await axios.get('/getEnrollment');
+    let enrollment = data[0].map((record) => {
+      return {
+        class: record.class_name,
+        student: `${record.first_name} ${record.last_name}`
+      };
+    });
+    return {enrollment: enrollment};
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export { getAttendanceRecords, getClasses, addClasses, removeClasses, getEnrollment };

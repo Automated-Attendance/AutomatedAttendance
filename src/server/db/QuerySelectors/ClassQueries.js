@@ -16,4 +16,9 @@ export default class ClassQueries {
     return `DELETE FROM classes WHERE class_name = '${className}'`;
   }
   
+  getEnrollment() {
+    return `SELECT * FROM classes
+      RIGHT JOIN class_user ON classes.classes_id=class_user.class_id
+      LEFT JOIN users ON class_user.user_id=users.users_id`;
+  }
 }

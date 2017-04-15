@@ -11,7 +11,7 @@ exports.getClass = async (req, res) => {
   catch (err) {
     res.status(500).send(err.message);
   } 
-}
+};
 
 exports.addClass = async (req, res) => {
   try {
@@ -22,15 +22,28 @@ exports.addClass = async (req, res) => {
   catch (err) {
     res.status(500).send(err.message);
   }
-}
+};
 
 exports.removeClass = async (req, res) => {
   try {
-    const { className } = req.body;
-    await Class.removeClass(className);
-    await removeGallery(className);
+    const classNames = req.body.className.split(',');
+    for (let i = 0; i < classNames.length; i++) {
+      const { className } = { className: classNames[i] };
+      await Class.removeClass(className);
+      await removeGallery(className);
+    }
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.message);
   }
-}
+};
+
+exports.getEnrollment = async (req, res) => {
+  try {
+    const enrollment = await Class.getEnrollment();
+    res.status(200).send(enrollment);
+  }
+  catch (err) {
+    res.status(500).send(err.message);
+  }
+};

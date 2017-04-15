@@ -13,7 +13,7 @@ exports.getAllUsernames = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
-}
+};
 
 // idk what this is for
 exports.getListOfUsers = async (req, res, next) => {
