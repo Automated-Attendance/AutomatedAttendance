@@ -7,16 +7,26 @@ const Student = new StudentModel();
 
 exports.addToClass = async (req, res) => {
   try {
+    var added = false;
     const classNames = req.body.selectedClass.split(',');
     for (let i = 0; i < classNames.length; i++) {
       req.body.selectedClass = classNames[i];
       let { studentPhoto, studentUserName, selectedClass } = req.body;
-      const { url } = await upload(req.body);
-      await Student.updateUser(url, studentUserName);
-      await Student.addToClass(studentUserName, selectedClass);
-      await storeInGallery(studentUserName, selectedClass, url);
+      let enrolled = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
+      console.log('enrolled', enrolled);
+      if (enrolled[0].length === 0) {
+        const { url } = await upload(req.body);
+        await Student.updateUser(url, studentUserName);
+        await Student.addToClass(studentUserName, selectedClass);
+        await storeInGallery(studentUserName, selectedClass, url);
+        added = true;
+      }
     }
-    res.sendStatus(201);
+    if (added) {
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(204);
+    }
   } catch (err) {
     res.status(500).send(err.message);
   }
