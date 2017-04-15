@@ -120,7 +120,7 @@ export default class CameraPage extends React.Component {
         <h1> Screenshots </h1>
         
         <div>
-          <button className="screenShotButton" onClick={this.takeScreenshot.bind(this)}>Take Screenshot</button>
+          <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
           <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
 
