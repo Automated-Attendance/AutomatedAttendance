@@ -54,8 +54,6 @@ export default class Admin extends React.Component {
   render() {
     return (
       <div>
-        <br/>
-        <a href='/Enrollment'><button>Add Student/Class</button></a>
         <BootstrapTable
           data = {this.state.attendance}
           csvFileName = {'Attendance.csv'}
