@@ -50,7 +50,8 @@ exports.checkInStudents = async (req, res) => {
     const { url } = await upload(req.body);
     const matches = await recognize(url);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    sendMailForArrival(matchedUsers);
+    await Student.checkInOnTime(matchedUsers);
+    sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err);
