@@ -58,25 +58,28 @@ app.get('/retrieveUserData', User.retrieveData);
 app.get('/galleryLists', kairos.test);
 app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
-app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
-
+app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
 /******************/
 /**** Database ****/
 /******************/
 
-// where do i go now????
+// Students
 app.post('/studentUpload', studentHelpers.addToClass);
+app.post('/removeStudent', studentHelpers.removeFromClass);
 
-app.get('/allUsers', search.getAllUsernames);
-app.get('/attendanceRecords', Attendance.getRecords);
+// Classes
 app.get('/classList', classHelpers.getClass);
 app.post('/addClass', classHelpers.addClass);
-app.post('/storeAttendanceRecord', Attendance.storeRecords);
-
-app.post('/removeStudent', studentHelpers.removeFromClass);
 app.post('/removeClass', classHelpers.removeClass);
+
+// Attendance
+app.get('/attendanceRecords', Attendance.getRecords);
+app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
+
+// idk yet
+app.get('/allUsers', search.getAllUsernames);
 
 /*****************/
 /**** Twillio ****/
@@ -88,7 +91,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudents', search.getListOfUsers, mailGun.sendMailLate);
+app.post('/emailStudentsWarning', search.getListOfUsers, mailGun.sendMailLate);
 
 /******************/
 /**** Wildcard ****/
