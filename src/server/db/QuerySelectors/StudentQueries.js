@@ -33,6 +33,7 @@ export default class StudentQueries {
 
   checkInQuery(matches) {
     let qs = '';
+    
     matches.forEach((user, index) => {
       if (index === matches.length - 1) {
         qs += `user_id='${user.users_id}'`;
