@@ -22,22 +22,16 @@ exports.sendMailLate = (req, res) => {
   });
 };
   
-exports.sendMailForArrival = async (req, res) => {
-  try {
-    const { users } = req.body;
-    users.forEach((user) => {
-      let data = { 
-        from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
-        to: user.email,
-        subject: 'Class Arrival',
-        text: 'Welcome to class! You have checked in today!'
-      };
-      mailgun.messages().send(data);
-    });
-    res.send(req.body.matches);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+exports.sendMailForArrival = async (matchedUsers) => {
+  matchedUsers.forEach((user) => {
+    let data = { 
+      from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
+      to: user.email,
+      subject: 'Class Arrival',
+      text: 'Welcome to class! You have checked in today!'
+    };
+    mailgun.messages().send(data);
+  });
 };
 
 exports.sendAbsentEmails = async (emails) => {

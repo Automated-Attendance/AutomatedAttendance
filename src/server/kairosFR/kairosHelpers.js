@@ -8,19 +8,10 @@ exports.storeInGallery = async (studentUserName, selectedClass, imageLink) => {
   return await client.enroll(params);
 };
 
-exports.recognize = async (req, res, next) => {
-  try {
-    const params = { 'image': req.body.imageLink, 'gallery_name': 'hrsf72' };
-    const { body } = await client.recognize(params);
-    if (body.Errors) {
-      res.send(body.Errors);
-    } else {
-      req.body.matches = body.images;
-      next();
-    }
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+exports.recognize = async (url) => {
+  const params = { 'image': url, 'gallery_name': 'hrsf72' };
+  const { body } = await client.recognize(params);
+  return body.Errors ? res.status(500).send(body.Errors) : body.images;
 };
 
 exports.removeGallery = async (className) => {

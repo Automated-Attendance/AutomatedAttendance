@@ -2,29 +2,10 @@ import db from './index';
 import StudentModel from './QueryModels/StudentModel';
 import { galleryRemoveUser } from '../kairosFR/kairosHelpers';
 import { upload } from '../cloudinary/cloudHelpers';
-import { storeInGallery } from '../kairosFR/kairosHelpers';
+import { storeInGallery, recognize } from '../kairosFR/kairosHelpers';
+import { sendMailForArrival } from '../mailgun/mailgunHelpers';
 
 const Student = new StudentModel();
-
-// exports.addToClass =  async (req, res, next) => {
-//   try {
-//     const { studentUserName, selectedClass, imageLink } = req.body
-
-//     const addUserClass = `INSERT INTO class_user (class_id, user_id) 
-//     SELECT classes.classes_id, users.users_id FROM classes, users 
-//     WHERE users.user_name='${studentUserName}' 
-//     AND classes.class_name='${selectedClass}'`;
-
-//     const updateUser = `UPDATE users SET photo='${imageLink}' 
-//     WHERE user_name='${studentUserName}';`
-
-//     await db.queryAsync(updateUser);
-//     await db.queryAsync(addUserClass);
-//     next();
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// };
 
 exports.addToClass = async (req, res) => {
   try {
@@ -49,3 +30,19 @@ exports.removeFromClass = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+exports.checkInStudents = async (req, res) => {
+  try {
+    const { url } = await upload(req.body);
+    const matches = await recognize(url);
+    const [matchedUsers] = await Student.getMatchedUsers(matches);
+    sendMailForArrival(matchedUsers);
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err);
+  }
+};
+
+
+
