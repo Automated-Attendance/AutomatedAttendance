@@ -31,32 +31,32 @@ describe('<Navigation />', function() {
 
   it('shows the Student page to student accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={studentProps}/>);
-    expect(wrapper.contains(<li><Link to="/Student">Student</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/Student">Attendance</Link></li>)).to.equal(true);
   });
 
   it('hides the Student page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/Student">Student</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/Student">Attendance</Link></li>)).to.equal(false);
   });
 
   it('shows the Admin page to admin accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={adminProps}/>);
-    expect(wrapper.contains(<li><Link to="/Admin">Admin</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/Admin">Attendance</Link></li>)).to.equal(true);
   });
 
   it('hides the Admin page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/Admin">Admin</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/Admin">Attendance</Link></li>)).to.equal(false);
   });
 
-  it('shows the CameraPage to admin accounts', () => {
+  it('shows the Camera page to admin accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={adminProps}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage">CameraPage</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/CameraPage">Camera</Link></li>)).to.equal(true);
   });
 
-  it('hides the CameraPage to users not authorized', () => {
+  it('hides the Camera page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage">CameraPage</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/CameraPage">Camera</Link></li>)).to.equal(false);
   });
 
   it('shows the login link to users not authorized', () => {
