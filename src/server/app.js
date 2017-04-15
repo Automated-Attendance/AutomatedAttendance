@@ -17,7 +17,7 @@ import fileUpload from 'express-fileupload';
 import User from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
-import Attendance from './db/attendanceHelpers';
+import Attendance from './db/Helpers/attendanceHelpers';
 
 
 
