@@ -69,9 +69,9 @@ app.post('/removeStudent', studentHelpers.removeFromClass);
 
 // Classes
 app.get('/classList', classHelpers.getClass);
+app.get('/getEnrollment', classHelpers.getEnrollment);
 app.post('/addClass', classHelpers.addClass);
 app.post('/removeClass', classHelpers.removeClass);
-app.get('/getEnrollment', classHelpers.getEnrollment);
 
 // Attendance
 app.get('/attendanceRecords', Attendance.getRecords);
