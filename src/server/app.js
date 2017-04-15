@@ -14,7 +14,7 @@ import search from './db/search';
 import studentHelpers from './db/ModelHelpers/studentHelpers';
 import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
-import User from './db/userHelpers';
+import User from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
