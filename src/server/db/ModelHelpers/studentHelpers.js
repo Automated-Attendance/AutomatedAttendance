@@ -7,11 +7,15 @@ const Student = new StudentModel();
 
 exports.addToClass = async (req, res) => {
   try {
-    let { studentPhoto, studentUserName, selectedClass } = req.body;
-    const { url } = await upload(req.body);
-    await Student.updateUser(url, studentUserName);
-    await Student.addToClass(studentUserName, selectedClass);
-    await storeInGallery(studentUserName, selectedClass, url);
+    var classNames = req.body.selectedClass.split(',');
+    for (let i = 0; i < classNames.length; i++) {
+      req.body.selectedClass = classNames[i];
+      let { studentPhoto, studentUserName, selectedClass } = req.body;
+      const { url } = await upload(req.body);
+      await Student.updateUser(url, studentUserName);
+      await Student.addToClass(studentUserName, selectedClass);
+      await storeInGallery(studentUserName, selectedClass, url);
+    }
     res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err.message);
