@@ -87,7 +87,6 @@ export default class CameraPage extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    console.log(e);
     let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
     this.setState({ selectedTimeCutoff: date });
   }
