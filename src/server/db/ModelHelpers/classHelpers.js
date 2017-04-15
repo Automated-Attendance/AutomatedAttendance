@@ -26,7 +26,7 @@ exports.addClass = async (req, res) => {
 
 exports.removeClass = async (req, res) => {
   try {
-    var classNames = req.body.className.split(',');
+    const classNames = req.body.className.split(',');
     for (let i = 0; i < classNames.length; i++) {
       const { className } = { className: classNames[i] };
       await Class.removeClass(className);

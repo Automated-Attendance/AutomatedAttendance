@@ -37,8 +37,6 @@ exports.testGalleryRemove = async (req, res) => {
 }
 
 exports.galleryRemoveUser = async ({ studentUserName, className }) => {
-  const options = { subject_id: studentUserName, gallery_name: className};
+  const options = { subject_id: studentUserName.value, gallery_name: className};
   return await client.galleryRemoveSubject(options);
 };
-
-

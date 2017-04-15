@@ -7,7 +7,7 @@ const Student = new StudentModel();
 
 exports.addToClass = async (req, res) => {
   try {
-    var classNames = req.body.selectedClass.split(',');
+    const classNames = req.body.selectedClass.split(',');
     for (let i = 0; i < classNames.length; i++) {
       req.body.selectedClass = classNames[i];
       let { studentPhoto, studentUserName, selectedClass } = req.body;
@@ -20,12 +20,16 @@ exports.addToClass = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
-}
+};
 
 exports.removeFromClass = async (req, res) => {
   try {
-    await Student.removeFromClass(req.body);
-    await galleryRemoveUser(req.body);
+    const classNames = req.body.className.split(',');
+    for (let i = 0; i < classNames.length; i++) {
+      req.body.className = classNames[i];
+      await Student.removeFromClass(req.body);
+      await galleryRemoveUser(req.body);
+    }
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.message);
@@ -43,6 +47,3 @@ exports.checkInStudents = async (req, res) => {
     res.status(500).send(err);
   }
 };
-
-
-
