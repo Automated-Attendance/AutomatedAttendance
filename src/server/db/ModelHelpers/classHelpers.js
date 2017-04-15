@@ -15,8 +15,8 @@ exports.getClass = async (req, res) => {
 exports.addClass = async (req, res) => {
   try {
     const { className } = req.body;
-    const exists = await Class.checkIfClassExists(className);
-    if (exists[0].length === 0) {
+    const [ exists ] = await Class.checkIfClassExists(className);
+    if (exists.length === 0) {
       await Class.addClass(className);
       res.sendStatus(201);
     } else {
