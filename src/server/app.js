@@ -12,12 +12,12 @@ import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
 import search from './db/search.js';
 import studentHelpers from './db/studentHelpers.js';
-import classHelpers from './db/classHelpers.js';
+import classHelpers from './db/ModelHelpers/classHelpers.js';
 import fileUpload from 'express-fileupload';
 import User from './db/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
-import Attendance from './db/Helpers/attendanceHelpers';
+import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 
 
