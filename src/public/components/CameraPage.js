@@ -26,7 +26,7 @@ export default class CameraPage extends React.Component {
     'handleSelectChange',
     'toggleDisabled',
     'populateAttendanceRecord',
-    'updateSelectedDateCutoff',
+    'updateSelectedTimeCutoff',
     'sendLateEmails'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -37,7 +37,7 @@ export default class CameraPage extends React.Component {
       options: [],
       value: null,
       checkedinUser: null,
-      selectedDateCutoff: null,
+      selectedTimeCutoff: null,
       noClassSelected: true
     };
   }
@@ -81,14 +81,13 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    if (this.state.value) await storeAttendanceRecord(this.state.value);
+    if (this.state.value) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
     else alert('You must select classes before populating Attendance Records.');
   }
 
-  updateSelectedDateCutoff(e) {
+  updateSelectedTimeCutoff(e) {
     console.log(e);
-    console.log(typeof e);
-    this.setState({ selectedDateCutoff: new Date(e)});
+    this.setState({ selectedTimeCutoff: new Date(e)});
   }
   async sendLateEmails () {
     await emailLateStudents();
@@ -100,7 +99,7 @@ export default class CameraPage extends React.Component {
 
         <DateTime 
           defaultValue={new Date()}
-          onChange={this.updateSelectedDateCutoff}
+          onChange={this.updateSelectedTimeCutoff}
         />
 
         <div onClick={!this.state.options.length && this.getSelectOptions}>
@@ -122,7 +121,7 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-          <button className="lateStudentButton" onClick={this.sendLateEmails(this.state.selectedDateCutoff)}>Send Email to late Students</button>
+          <button className="lateStudentButton" onClick={this.sendLateEmails(this.state.selectedTimeCutoff)}>Send Email to late Students</button>
 
         </div>
 
