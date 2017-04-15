@@ -8,17 +8,15 @@ import session from 'express-session';
 import passport from 'passport';
 import Auth0Strategy from './auth/Auth0';
 import Auth0 from './auth/Auth0Helpers';
-import cloud from './cloudinary/cloudHelpers';
 import kairos from './kairosFR/kairosHelpers';
-import search from './db/search.js';
-import insert from './db/insert.js';
-import studentHelpers from './db/studentHelpers.js';
-import classHelpers from './db/classHelpers.js';
+import searchHelpers from './db/ModelHelpers/searchHelpers';
+import studentHelpers from './db/ModelHelpers/studentHelpers';
+import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
-import user from './db/userHelpers';
+import userHelpers from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
 import mailGun from './mailgun/mailGunHelpers';
-import remove from './db/delete.js';
+import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 
 
@@ -42,15 +40,15 @@ app.use(fileUpload());
 /************************/
 
 app.get('/login', Auth0.login);
-app.get('/callback', Auth0.authVerify, user.storeIfNew, user.updateIfAdmin, Auth0.success);
+app.get('/callback', Auth0.authVerify, userHelpers.storeAndLogin);
 app.get('/logout', Auth0.logout);
-app.get('/retrieveUserData', user.retrieveData);
+app.get('/retrieveUserData', userHelpers.retrieveData);
 
 /********************/
 /**** Cloudinary ****/
 /********************/
 
-app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.storeInGallery);
+// rip
 
 /***********************************/
 /**** Kairos Facial Recognition ****/
@@ -59,22 +57,28 @@ app.post('/studentUpload', cloud.upload, studentHelpers.addToClass, kairos.store
 app.get('/galleryLists', kairos.test);
 app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
-app.post('/kairosGalleryRecognize', cloud.upload, kairos.recognize, search.getSpecificUser, mailGun.sendMailForArrival);
-
+app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
 /******************/
 /**** Database ****/
 /******************/
 
-app.get('/retrieveAllUsers', search.queryDatabase);
-app.post('/getStudentData', search.querySelector, search.queryDatabase);
-app.get('/getClassData', classHelpers.getClass);
-app.post('/addClass', classHelpers.addClass);
-app.post('/getStudentWithCertainClasses', search.getListOfUsersWithCertainClasses, insert.insertAttendanceRecord);
+// Students
+app.post('/studentUpload', studentHelpers.addToClass);
+app.post('/removeStudent', studentHelpers.removeFromClass);
 
-app.post('/removeStudent', remove.removeUserFromClass);
-app.post('/removeClass', remove.removeClassFromClassUser, remove.removeClassFromClasses);
-app.post('/getLateStudents', search.getPendingUsers, insert.insertAbsentRecord, search.getLateUsers, mailGun.emailAbsentPeople);
+// Classes
+app.get('/classList', classHelpers.getClass);
+app.post('/addClass', classHelpers.addClass);
+app.post('/removeClass', classHelpers.removeClass);
+
+// Attendance
+app.get('/attendanceRecords', Attendance.getRecords);
+app.post('/storeAttendanceRecord', Attendance.storeRecords);
+app.post('/emailLateStudents', Attendance.emailLateStudents);
+
+// idk yet
+app.get('/allUsers', searchHelpers.getAllUsernames);
 
 /*****************/
 /**** Twillio ****/
@@ -86,7 +90,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudents', search.getListOfUsers, mailGun.sendMailLate);
+app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailGun.sendMailLate);
 
 /******************/
 /**** Wildcard ****/

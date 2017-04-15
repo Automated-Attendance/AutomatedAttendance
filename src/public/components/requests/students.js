@@ -11,8 +11,6 @@ const storeStudentData = async (studentData) => {
 };
 
 const removeStudentData = async (studentData) => {
-  console.log('student removal request');
-  console.log(studentData);
   try {
     const response = await axios.post('/removeStudent', studentData);
     return response.status === 201;
@@ -23,20 +21,9 @@ const removeStudentData = async (studentData) => {
 
 };
 
-const getStudentData = async (studentData) => {
+const storeAttendanceRecord = async (classes) => {
   try {
-    const { data } = await axios.post('/getStudentData', studentData);
-    return data;
-  } catch (err) {
-    // todo: better error handling
-    console.warn(err);
-  }
-};
-
-const getStudentInCertainClasses = async (classes) => {
-  try {
-    const splitClasses = classes.split(',');
-    const reponse = await axios.post('/getStudentWithCertainClasses', { classes: splitClasses});
+    const reponse = await axios.post('/storeAttendanceRecord', { classes: classes.split(',') });
     return reponse.status === 201;
   } catch (err) {
     // todo: better error handling
@@ -44,13 +31,13 @@ const getStudentInCertainClasses = async (classes) => {
   }
 };
 
-const getLateStudents = async () => {
+const emailLateStudents = async () => {
   try {
-    const response = await axios.post('/getLateStudents');
+    const response = await axios.post('/emailLateStudents');
     return response.status === 201;
   } catch (err) {
     console.warn(err);
   }
 }
 
-export { storeStudentData, getStudentData, getStudentInCertainClasses, getLateStudents, removeStudentData };
+export { storeStudentData, storeAttendanceRecord, emailLateStudents, removeStudentData };
