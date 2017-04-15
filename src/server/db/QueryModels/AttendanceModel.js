@@ -22,11 +22,11 @@ export default class AttendanceModel extends AttendanceQueries {
   }
 
   // todo: find a way to parse dates for a common time, stores duplicate records after 5pm PDT
-  async storeRecords(classes) {
+  async storeRecords(classes, time) {
     const userListQuery = super.usersByClass(classes);
     const [users] = await db.queryAsync(userListQuery);
     users.forEach(async (user) => {
-      let insertQuery = super.insertRecord(user.users_id);
+      let insertQuery = super.insertRecord(user.users_id, time);
       let userDateQuery = super.userRecordDate(user.users_id);
       let [userDate] = await db.queryAsync(userDateQuery);
       if (userDate.length) {

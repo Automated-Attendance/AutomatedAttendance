@@ -27,6 +27,7 @@ module.exports = function(db) {
     return db.queryAsync(`CREATE TABLE IF NOT EXISTS attendance_record (
       attendance_record_id int NOT NULL AUTO_INCREMENT,
       date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      checkin_time varchar(50) NOT NULL,
       status varchar(50),
       user_id int NOT NULL,
       PRIMARY KEY (attendance_record_id)
@@ -51,6 +52,9 @@ module.exports = function(db) {
   .then(function() {
     return db.queryAsync(`ALTER TABLE attendance_record ADD FOREIGN KEY (user_id)
       REFERENCES users(users_id);`);
+  })
+  .then(function () {
+    return db.queryAsync(`set time_zone='-07:00'`)
   })
   .then(function() {
     return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
@@ -90,22 +94,22 @@ module.exports = function(db) {
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
       (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
   })
-  .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('Pending', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
-  })
-  .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('Pending', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
-  })
-  .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
-  })
-  .then(function() {
-    return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-      VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Jukejc'));`);
-  })
+  // .then(function() {
+  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
+  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
+  // })
+  // .then(function() {
+  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
+  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
+  // })
+  // .then(function() {
+  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
+  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
+  // })
+  // .then(function() {
+  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id)
+  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Jukejc'));`);
+  // })
   .error(function(err) {
     console.log(err);
   });

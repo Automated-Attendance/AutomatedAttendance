@@ -12,6 +12,7 @@ import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import MomentTZ from 'moment-timezone';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -26,7 +27,7 @@ export default class CameraPage extends React.Component {
     'handleSelectChange',
     'toggleDisabled',
     'populateAttendanceRecord',
-    'updateSelectedDateCutoff',
+    'updateSelectedTimeCutoff',
     'sendLateEmails'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -37,7 +38,7 @@ export default class CameraPage extends React.Component {
       options: [],
       value: null,
       checkedinUser: null,
-      selectedDateCutoff: null,
+      selectedTimeCutoff: null,
       noClassSelected: true
     };
   }
@@ -81,15 +82,16 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    if (this.state.value) await storeAttendanceRecord(this.state.value);
-    else alert('You must select classes before populating Attendance Records.');
+    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+    else alert('You must select classes and check in time before populating Attendance Records.');
   }
 
-  updateSelectedDateCutoff(e) {
-    this.setState({ selectedDateCutoff: new Date(e)});
+  updateSelectedTimeCutoff(e) {
+    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    this.setState({ selectedTimeCutoff: date });
   }
   async sendLateEmails () {
-    await emailLateStudents();
+    await emailLateStudents(this.state.selectedTimeCutoff);
   }
 
   render() {
@@ -98,7 +100,7 @@ export default class CameraPage extends React.Component {
 
         <DateTime 
           defaultValue={new Date()}
-          onChange={this.updateSelectedDateCutoff}
+          onChange={this.updateSelectedTimeCutoff}
         />
 
         <div onClick={!this.state.options.length && this.getSelectOptions}>
