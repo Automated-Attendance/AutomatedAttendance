@@ -16,11 +16,11 @@ exports.getRecords = async (req, res) => {
   try {
     let result, { type, email } = req.query;
     if (type === 'allAttendance') {
-      result = await Attendance.getAllRecords();
+      [result] = await Attendance.getAllRecords();
     } else {
-      result = await Attendance.getStudentRecord(email);
+      [result] = await Attendance.getStudentRecord(email);
     }
-    res.json(result[0]);
+    res.json(result);
   } catch (err) {
     res.status(500).send(err.message);
   }

@@ -23,13 +23,13 @@ export default class AttendanceModel extends AttendanceQueries {
 
   async storeRecords(classes) {
     const userListQuery = super.usersByClass(classes);
-    const users = await db.queryAsync(userListQuery);
-    users[0].forEach(async (user) => {
+    const [users] = await db.queryAsync(userListQuery);
+    users.forEach(async (user) => {
       let insertQuery = super.insertRecord(user.users_id);
       let userDateQuery = super.userRecordDate(user.users_id);
-      let userDate = await db.queryAsync(userDateQuery);
-      if (userDate[0].length) {
-        let existingDay = new Date(userDate[0][0].date).getDay();
+      let [userDate] = await db.queryAsync(userDateQuery);
+      if (userDate.length) {
+        let existingDay = new Date(userDate[0].date).getDay();
         let currentDay = new Date().getDay();
         if (existingDay !== currentDay) {
           db.queryAsync(insertQuery);  
