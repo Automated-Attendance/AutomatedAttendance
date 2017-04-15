@@ -12,8 +12,8 @@ exports.addToClass = async (req, res) => {
     for (let i = 0; i < classNames.length; i++) {
       req.body.selectedClass = classNames[i];
       let { studentPhoto, studentUserName, selectedClass } = req.body;
-      let enrolled = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
-      if (enrolled[0].length === 0) {
+      let [ enrolled ] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
+      if (enrolled.length === 0) {
         const { url } = await upload(req.body);
         await Student.updateUser(url, studentUserName);
         await Student.addToClass(studentUserName, selectedClass);
