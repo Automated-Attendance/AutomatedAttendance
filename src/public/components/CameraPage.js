@@ -12,6 +12,7 @@ import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import MomentTZ from 'moment-timezone';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -81,13 +82,14 @@ export default class CameraPage extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    if (this.state.value) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
-    else alert('You must select classes before populating Attendance Records.');
+    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+    else alert('You must select classes and check in time before populating Attendance Records.');
   }
 
   updateSelectedTimeCutoff(e) {
     console.log(e);
-    this.setState({ selectedTimeCutoff: new Date(e)});
+    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    this.setState({ selectedTimeCutoff: date });
   }
   async sendLateEmails () {
     await emailLateStudents();

@@ -34,6 +34,7 @@
     "kairos-api": "^0.1.3",
     "mailgun-js": "^0.9.1",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "morgan": "^1.8.1",
     "mysql": "^2.13.0",
     "passport": "^0.3.0",
