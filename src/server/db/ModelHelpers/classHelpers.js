@@ -26,20 +26,13 @@ exports.addClass = async (req, res) => {
 
 exports.removeClass = async (req, res) => {
   try {
-    if (req.body.className.includes(',')) {
-      var classNames = req.body.className.split(',');
-      for (let i = 0; i < classNames.length; i++) {
-        const { className } = { className: classNames[i] };
-        await Class.removeClass(className);
-        await removeGallery(className);
-      }
-      res.sendStatus(200);
-    } else {
-      const { className } = req.body;
+    var classNames = req.body.className.split(',');
+    for (let i = 0; i < classNames.length; i++) {
+      const { className } = { className: classNames[i] };
       await Class.removeClass(className);
       await removeGallery(className);
-      res.sendStatus(200);
     }
+    res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.message);
   }
