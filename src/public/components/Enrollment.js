@@ -55,16 +55,18 @@ export default class Enrollment extends React.Component {
 
   async populateTable() {
     const enrollmentRecords = await getEnrollment();
-    enrollmentRecords.enrollment.forEach((item) => {
-      if (!this.state.classOptionsEnrollment[item.class]) {
-        let thisClass = this.state.classOptionsEnrollment;
-        thisClass[item.class] = item.class;
-        this.setState({
-          classOptionsEnrollment: thisClass
-        });
-      }
-    });
-    this.setState({enrollmentRecords: enrollmentRecords.enrollment});    
+    if (enrollmentRecords) {
+      enrollmentRecords.enrollment.forEach((item) => {
+        if (!this.state.classOptionsEnrollment[item.class]) {
+          let thisClass = this.state.classOptionsEnrollment;
+          thisClass[item.class] = item.class;
+          this.setState({
+            classOptionsEnrollment: thisClass
+          });
+        }
+      });
+      this.setState({enrollmentRecords: enrollmentRecords.enrollment});
+    }
   }
 
   async updateClassList() {

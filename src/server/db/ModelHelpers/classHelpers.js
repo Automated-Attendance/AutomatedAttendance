@@ -37,14 +37,10 @@ exports.removeClass = async (req, res) => {
 
 exports.getEnrollment = async (req, res) => {
   try {
-    let enrollmentQuery = `SELECT * FROM classes
-      RIGHT JOIN class_user ON classes.classes_id=class_user.class_id
-      LEFT JOIN users ON class_user.user_id=users.users_id`;
-    const enrollment = await db.queryAsync(enrollmentQuery)
-    console.log('enrollment', enrollment);
-    res.status(201).send(enrollment);
+    const enrollment = await Class.getEnrollment();
+    res.status(200).send(enrollment);
   }
   catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
