@@ -7,8 +7,7 @@ exports.getClass = async (req, res) => {
   try {
     const classes = await Class.getClassList();
     res.status(200).send(classes);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).send(err.message);
   } 
 };
@@ -16,10 +15,14 @@ exports.getClass = async (req, res) => {
 exports.addClass = async (req, res) => {
   try {
     const { className } = req.body;
-    await Class.addClass(className);
-    res.sendStatus(201);
-  }
-  catch (err) {
+    const exists = await Class.checkIfClassExists(className);
+    if (exists[0].length === 0) {
+      await Class.addClass(className);
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
     res.status(500).send(err.message);
   }
 };
@@ -42,8 +45,7 @@ exports.getEnrollment = async (req, res) => {
   try {
     const enrollment = await Class.getEnrollment();
     res.status(200).send(enrollment);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).send(err.message);
   }
 };

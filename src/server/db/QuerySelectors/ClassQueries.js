@@ -9,7 +9,7 @@ export default class ClassQueries {
   }
 
   removeFromClassUser(className) {
-    return `DELETE FROM class_user WHERE class_id= (SELECT classes_id FROM classes WHERE class_name = '${className}')`;
+    return `DELETE FROM class_user WHERE class_id = (SELECT classes_id FROM classes WHERE class_name = '${className}')`;
   }
 
   removeFromClasses(className) {
@@ -21,4 +21,9 @@ export default class ClassQueries {
       RIGHT JOIN class_user ON classes.classes_id=class_user.class_id
       LEFT JOIN users ON class_user.user_id=users.users_id`;
   }
+
+  checkIfClassExists(className) {
+    return `SELECT * FROM classes WHERE class_name = '${className}'`;
+  }
+
 }
