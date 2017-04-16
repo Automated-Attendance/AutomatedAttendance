@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/Automated-Attendance/AutomatedAttendance.svg?branch=master)](https://travis-ci.org/Automated-Attendance/AutomatedAttendance)
 [![Coverage Status](https://coveralls.io/repos/github/Automated-Attendance/AutomatedAttendance/badge.svg?branch=master)](https://coveralls.io/github/Automated-Attendance/AutomatedAttendance?branch=master)
+[![dependencies Status](https://david-dm.org/Automated-Attendance/AutomatedAttendance/status.svg)](https://david-dm.org/Automated-Attendance/AutomatedAttendance)
+[![devDependencies Status](https://david-dm.org/Automated-Attendance/AutomatedAttendance/dev-status.svg)](https://david-dm.org/Automated-Attendance/AutomatedAttendance?type=dev)
 
 
 
