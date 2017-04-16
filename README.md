@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Automated-Attendance/AutomatedAttendance.svg?branch=master)](https://travis-ci.org/Automated-Attendance/AutomatedAttendance)
+[![Coverage Status](https://coveralls.io/repos/github/Automated-Attendance/AutomatedAttendance/badge.svg?branch=master)](https://coveralls.io/github/Automated-Attendance/AutomatedAttendance?branch=master)
 
 
 
