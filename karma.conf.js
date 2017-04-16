@@ -44,7 +44,7 @@ module.exports = function(config) {
       'test/test-grabber.js': ['webpack', 'sourcemap']
     },
 
-    reporters: ['nyan', 'coverage'],
+    reporters: ['nyan', 'coverage', 'coveralls'],
 
     nyanReporter: {
       suppressErrorHighlighting: true,
