@@ -1,5 +1,16 @@
 const path = require('path');
 
+var reporters;
+if (process.env.TRAVIS) {
+  reporters = [{type: 'lcovonly', dir: 'coverage/'}];
+} else {
+  reporters = [
+    {type: 'text'},
+    {type: 'text-summary'},
+    {type: 'html', dir: 'coverage/', subdir: 'report/'}
+  ];
+}
+
 
 const webpackConfig = {
   devtool: 'inline-source-map',
@@ -44,20 +55,14 @@ module.exports = function(config) {
       'test/test-grabber.js': ['webpack', 'sourcemap']
     },
 
-    reporters: ['nyan', 'coverage', 'coveralls'],
+    reporters: ['nyan', 'coverage'],
 
     nyanReporter: {
       suppressErrorHighlighting: true,
     },
 
     coverageReporter: {
-      reporters: [
-        {type: 'text'},
-        {type: 'text-summary'},
-        {type: 'html', dir: 'coverage/', subdir: 'report/'},
-        {type: 'lcov', dir: 'coverage/'},
-        {type: 'cobertura', dir: 'coverage/', file: 'coverage.xml'},
-      ],
+      reporters: reporters,
     },
 
     webpack: webpackConfig,
