@@ -7,12 +7,12 @@ module.exports = function(config) {
     frameworks: ['mocha'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
-      'test/**/*.js'
+      'test/test-grabber.js'
     ],
 
     preprocessors: {
       'src/public/AppEntry.js': ['webpack', 'sourcemap'],
-      'test/**/*.js': ['webpack', 'sourcemap']
+      'test/test-grabber.js': ['webpack', 'sourcemap']
     },
 
     webpack: {
