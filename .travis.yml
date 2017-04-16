@@ -10,8 +10,5 @@ cache:
 env:
   - TRAVIS=true
 
-script: 
-  - npm run report
-
 after success: 
   - cat coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js
