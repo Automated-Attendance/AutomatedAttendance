@@ -41,11 +41,10 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      // 'src/public/AppEntry.js': ['webpack', 'sourcemap'],
       'test/test-grabber.js': ['webpack', 'sourcemap']
     },
 
-    reporters: ['nyan'],
+    reporters: ['nyan', 'coverage'],
 
     nyanReporter: {
       suppressErrorHighlighting: true,
