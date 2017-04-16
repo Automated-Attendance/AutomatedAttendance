@@ -1,10 +1,10 @@
 const path = require('path');
 
-var reporters;
+var reportOutput;
 if (process.env.TRAVIS) {
-  reporters = [{type: 'lcovonly', dir: 'coverage/'}];
+  reportOutput = [{type: 'lcovonly', dir: 'coverage/'}];
 } else {
-  reporters = [
+  reportOutput = [
     {type: 'text'},
     {type: 'text-summary'},
     {type: 'html', dir: 'coverage/', subdir: 'report/'}
@@ -62,7 +62,7 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      reporters: reporters,
+      reporters: reportOutput,
     },
 
     webpack: webpackConfig,
