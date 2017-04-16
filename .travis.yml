@@ -5,4 +5,10 @@ node_js:
 cache:
   bundler: true
   directories:
-  - node_modules
+    - node_modules
+
+  script: 
+    - npm run report
+
+  after success: 
+    - cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js
