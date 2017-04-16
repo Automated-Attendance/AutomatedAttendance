@@ -70,6 +70,10 @@ module.exports = function(config) {
       level: 'log',
       terminal: true
     },
+
+    client: {
+      captureConsole: false
+    },
     
     port: 9876,
     colors: true,
