@@ -10,5 +10,5 @@ cache:
 env:
   - TRAVIS=true
 
-after success: 
+after_success: 
   - npm run coveralls
