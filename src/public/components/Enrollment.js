@@ -118,6 +118,9 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, studentRemoved: false });
     this.setState({ studentRemoved: await removeStudentData(data) });
     this.setState({ spinner: false });
+    setTimeout(() => {
+      this.setState({ studentRemoved: false })
+    },2000);
     await this.populateTable();
   }
 
@@ -128,6 +131,9 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
+    setTimeout(() => {
+      this.setState({ classRemoved: false })
+    },2000);
   }
 
   previewFile() {
