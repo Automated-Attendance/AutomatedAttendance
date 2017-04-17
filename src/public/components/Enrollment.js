@@ -38,12 +38,15 @@ export default class Enrollment extends React.Component {
     },
 
     ['handleInputChange',
+    'toggleOff',
     'handleStudentAddSubmit',
     'handleClassAddSubmit',
+    'handleStudentRemoveSubmit',
+    'handleClassRemoveSubmit',
     'previewFile',
     'updateClassList',
     'getExistingUserList',
-     'toggleOff'].forEach(method => {
+    'getSelectOptions'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
@@ -72,11 +75,6 @@ export default class Enrollment extends React.Component {
   async updateClassList() {
     const classes = await getClasses();
     this.setState(classes);
-    this.setState({
-      selectedClassAddStudent: this.state.classes[0],
-      selectedClassRemoveStudent: this.state.classes[0],
-      selectedClassRemoveClass: this.state.classes[0]
-    });
   }
 
   handleInputChange(event) {
@@ -171,11 +169,6 @@ export default class Enrollment extends React.Component {
     });
   }
 
-  async updateClassList() {
-    const classes = await getClasses();
-    this.setState(classes);
-  }
-
   render() {
     return (
       <div>
@@ -188,12 +181,12 @@ export default class Enrollment extends React.Component {
 
         <h3>Add Student to Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsAddStudent.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassAddStudent}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsAddStudent}
             onChange={(selectedClass) => this.setState({ selectedClassAddStudent: selectedClass })}
           />
@@ -204,6 +197,7 @@ export default class Enrollment extends React.Component {
             options={this.state.studentOptionsAddStudent ? this.state.studentOptionsAddStudent : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedUser) => this.setState({ selectedStudentAddStudent: selectedUser })}
             value={this.state.selectedStudentAddStudent}
+            placeholder="Select Student..."
           />
         </div><br/>
         <form ref='uploadForm'
@@ -220,27 +214,27 @@ export default class Enrollment extends React.Component {
 
         <h3>Delete Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsRemoveClass.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassRemoveClass}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsRemoveClass}
             onChange={(selectedClass) => this.setState({ selectedClassRemoveClass: selectedClass })}
           />
         </div><br/>
-        <button onClick={this.handleClassRemoveSubmit.bind(this)}>Delete Class</button>
+        <button onClick={this.handleClassRemoveSubmit}>Delete Class</button>
         {!this.state.classRemoved ? null : <h6>Class Deleted Successfully!</h6>}<hr/>
 
         <h3>Remove Student from Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsRemoveStudent.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassRemoveStudent}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsRemoveStudent}
             onChange={(selectedClass) => this.setState({ selectedClassRemoveStudent: selectedClass })}
           />
@@ -251,6 +245,7 @@ export default class Enrollment extends React.Component {
             options={this.state.studentOptionsRemoveStudent ? this.state.studentOptionsRemoveStudent : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedUser) => this.setState({ selectedStudentRemoveStudent: selectedUser })}
             value={this.state.selectedStudentRemoveStudent}
+            placeholder="Select Student..."
           />
         </div>
         <form ref='uploadForm'
@@ -259,7 +254,7 @@ export default class Enrollment extends React.Component {
           method='post'
           encType="multipart/form-data">
         </form><br/>
-        <button onClick={this.handleStudentRemoveSubmit.bind(this)}>Remove Student</button>
+        <button onClick={this.handleStudentRemoveSubmit}>Remove Student</button>
         {!this.state.studentRemoved ? null : <h6>Student Removed Successfully!</h6>}<hr/>
 
         <h3>Student Enrollments</h3>
