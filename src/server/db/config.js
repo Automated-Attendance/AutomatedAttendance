@@ -56,60 +56,44 @@ module.exports = function(db) {
   .then(function () {
     return db.queryAsync(`set time_zone='-07:00'`)
   })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'andrew@gmail.com');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-  //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-  //     (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-  //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-  //     (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-  //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-  //     (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-  //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
-  //     (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id, checkin_time)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'), '${new Date()}');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id, checkin_time)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='andrew@gmail.com'), '${new Date()}');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id, checkin_time)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Duy12312313'), '${new Date()}');`);
-  // })
-  // .then(function() {
-  //   return db.queryAsync(`INSERT INTO attendance_record(status, user_id, checkin_time)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Jukejc'), '${new Date()}');`);
-  // })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'andrew@gmail.com');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jciphone333@gmail.com');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+      (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+      (SELECT users_id FROM users WHERE email='myemailisthirtyninedigitslong@gmail.com'));`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+      (SELECT users_id FROM users WHERE email='jciphone333@gmail.com'));`);
+  })
+  .then(function() {
+    return db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
+      (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
+  })
   .error(function(err) {
     console.log(err);
   });
