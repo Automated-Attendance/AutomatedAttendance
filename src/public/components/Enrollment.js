@@ -42,7 +42,7 @@ export default class Enrollment extends React.Component {
     'handleClassAddSubmit',
     'previewFile',
     'updateClassList',
-    'getExistingUserList'].forEach((method) => {
+    'getExistingUserList','toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     })
   }
@@ -83,6 +83,13 @@ export default class Enrollment extends React.Component {
     this.setState({ [name]: event.target.value });
   }
 
+  toggleOff(status) {
+    setTimeout(() => {
+      this.setState({ [status]: false })
+    },2000);
+  }
+
+
   async handleStudentAddSubmit(event) {
     let data = {
       studentUserName: this.state.selectedStudentAddStudent.value,
@@ -92,10 +99,9 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, studentAdded: false });
     this.setState({ studentAdded: await storeStudentData(data) });
     this.setState({ spinner: false });
+    await this.toggleOff('studentAdded');
     await this.populateTable();
-    setTimeout(() => {
-      this.setState({ studentAdded: false })
-    },2000);
+
   }
 
   async handleClassAddSubmit(event) {
@@ -103,9 +109,7 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, classAdded: false });
     this.setState({ classAdded: await addClasses(data) });
     this.setState({ spinner: false });
-    setTimeout(() => {
-      this.setState({ classAdded: false})
-    }, 2000);
+    await this.toggleOff('classAdded');
     await this.updateClassList();
     await this.populateTable();
   }
@@ -118,9 +122,7 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, studentRemoved: false });
     this.setState({ studentRemoved: await removeStudentData(data) });
     this.setState({ spinner: false });
-    setTimeout(() => {
-      this.setState({ studentRemoved: false })
-    },2000);
+    await this.toggleOff('studentRemoved');
     await this.populateTable();
   }
 
@@ -130,10 +132,9 @@ export default class Enrollment extends React.Component {
     this.setState({ classRemoved: await removeClasses(data) });
     this.setState({ spinner: false });
     await this.updateClassList();
+    await this.toggleOff('classRemoved');
     await this.populateTable();
-    setTimeout(() => {
-      this.setState({ classRemoved: false })
-    },2000);
+    toggleOff('classRemoved');
   }
 
   previewFile() {
