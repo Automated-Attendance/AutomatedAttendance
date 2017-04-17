@@ -93,6 +93,9 @@ export default class Enrollment extends React.Component {
     this.setState({ studentAdded: await storeStudentData(data) });
     this.setState({ spinner: false });
     await this.populateTable();
+    setTimeout(() => {
+      this.setState({ studentAdded: false })
+    },2000);
   }
 
   async handleClassAddSubmit(event) {
@@ -100,6 +103,9 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, classAdded: false });
     this.setState({ classAdded: await addClasses(data) });
     this.setState({ spinner: false });
+    setTimeout(() => {
+      this.setState({ classAdded: false})
+    }, 2000);
     await this.updateClassList();
     await this.populateTable();
   }
