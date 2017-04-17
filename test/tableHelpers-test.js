@@ -70,12 +70,12 @@ describe('<tableHelpers />', function() {
   it('should sort full names by last name', () => {
     var names = tableHelpers.nameSort(
       {
-        first_name: 'Andrew',
-        last_name: 'Bobby'
+        'first_name': 'Andrew',
+        'last_name': 'Bobby'
       },
       {
-        first_name: 'Andrew',
-        last_name: 'Alonis'
+        'first_name': 'Andrew',
+        'last_name': 'Alonis'
       },
       'desc'
     );
@@ -85,12 +85,12 @@ describe('<tableHelpers />', function() {
   it('should sort full names by first name', () => {
     var names = tableHelpers.nameSort(
       {
-        first_name: 'Bobby',
-        last_name: 'Alonis'
+        'first_name': 'Bobby',
+        'last_name': 'Alonis'
       },
       {
-        first_name: 'Andrew',
-        last_name: 'Alonis'
+        'first_name': 'Andrew',
+        'last_name': 'Alonis'
       },
       'desc'
     );

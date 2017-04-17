@@ -5,4 +5,10 @@ node_js:
 cache:
   bundler: true
   directories:
-  - node_modules
+    - node_modules
+
+env:
+  - TRAVIS=true
+
+after_success: 
+  - npm run coveralls
