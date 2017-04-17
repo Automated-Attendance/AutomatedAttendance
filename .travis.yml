@@ -11,4 +11,4 @@ env:
   - TRAVIS=true
 
 after success: 
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - npm run coveralls
