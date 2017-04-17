@@ -138,7 +138,6 @@ export default class Enrollment extends React.Component {
     let preview = document.querySelector('img');
     let file = document.querySelector('input[type=file]').files[0];
     let reader = new FileReader();
-
     reader.addEventListener("load", () => {
       preview.src = reader.result;
       preview.height = '200';
@@ -177,7 +176,7 @@ export default class Enrollment extends React.Component {
         <h3>Create Class</h3>
         <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/><br/>
         <button onClick={this.handleClassAddSubmit}>Create Class</button>
-        {!this.state.classAdded ? null : <h6>Class Added Successfully!</h6>}<hr/>
+        {!this.state.classAdded ? null : <h5>{this.state.className} created!</h5>}<hr/>
 
         <h3>Add Student to Class</h3>
         Class:
@@ -209,7 +208,7 @@ export default class Enrollment extends React.Component {
           <img src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
-        {!this.state.studentAdded ? null : <h6>Student Added Successfully!</h6>}<hr/>
+        {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
 
 
         <h3>Delete Class</h3>
@@ -225,7 +224,7 @@ export default class Enrollment extends React.Component {
           />
         </div><br/>
         <button onClick={this.handleClassRemoveSubmit}>Delete Class</button>
-        {!this.state.classRemoved ? null : <h6>Class Deleted Successfully!</h6>}<hr/>
+        {!this.state.classRemoved ? null : <h5>{this.state.selectedClassRemoveClass} deleted!</h5>}<hr/>
 
         <h3>Remove Student from Class</h3>
         Class:
@@ -255,7 +254,7 @@ export default class Enrollment extends React.Component {
           encType="multipart/form-data">
         </form><br/>
         <button onClick={this.handleStudentRemoveSubmit}>Remove Student</button>
-        {!this.state.studentRemoved ? null : <h6>Student Removed Successfully!</h6>}<hr/>
+        {!this.state.studentRemoved ? null : <h5>{this.state.selectedStudentRemoveStudent} removed from {this.state.selectedClassRemoveStudent}!</h5>}<hr/>
 
         <h3>Student Enrollments</h3>
         <BootstrapTable
