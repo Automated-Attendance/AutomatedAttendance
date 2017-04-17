@@ -99,8 +99,8 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, studentAdded: false });
     this.setState({ studentAdded: await storeStudentData(data) });
     this.setState({ spinner: false });
-    await this.toggleOff('studentAdded');
     await this.populateTable();
+    this.toggleOff('studentAdded');
 
   }
 
@@ -109,9 +109,9 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, classAdded: false });
     this.setState({ classAdded: await addClasses(data) });
     this.setState({ spinner: false });
-    await this.toggleOff('classAdded');
     await this.updateClassList();
     await this.populateTable();
+    this.toggleOff('classAdded');
   }
 
   async handleStudentRemoveSubmit(event) {
@@ -122,8 +122,8 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: true, studentRemoved: false });
     this.setState({ studentRemoved: await removeStudentData(data) });
     this.setState({ spinner: false });
-    await this.toggleOff('studentRemoved');
     await this.populateTable();
+    this.toggleOff('studentRemoved');
   }
 
   async handleClassRemoveSubmit(event) {
@@ -132,9 +132,8 @@ export default class Enrollment extends React.Component {
     this.setState({ classRemoved: await removeClasses(data) });
     this.setState({ spinner: false });
     await this.updateClassList();
-    await this.toggleOff('classRemoved');
     await this.populateTable();
-    toggleOff('classRemoved');
+    this.toggleOff('classRemoved');
   }
 
   previewFile() {
