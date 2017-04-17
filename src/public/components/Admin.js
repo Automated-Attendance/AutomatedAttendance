@@ -14,6 +14,7 @@ import Select from 'react-select';
 import { getAllUsers } from './requests/users';
 import VirtualizedSelect from 'react-virtualized-select'
 import { changeAttendanceStatus } from './requests/students';
+import Spinner from './Spinner';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -55,6 +56,12 @@ export default class Admin extends React.Component {
     'handleUpdateStatusSubmit'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+  }
+
+  updateSelectedTimeCutoff(e) {
+    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    this.setState({ selectedTimeCutoff: date });
   }
 
   async componentWillMount() {
@@ -174,6 +181,8 @@ export default class Admin extends React.Component {
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
         <h3>Attendance Records</h3>
+
+
         <BootstrapTable
           data = {this.state.attendance}
           csvFileName = {'Attendance.csv'}
