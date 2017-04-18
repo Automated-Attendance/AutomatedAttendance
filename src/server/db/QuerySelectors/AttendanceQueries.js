@@ -33,7 +33,7 @@ export default class AttendanceQueries {
   }
 
   insertRecord(id, time) {
-    return `INSERT INTO attendance_record(status, user_id, checkin_time) VALUES ('Pending', '${id}', '${time}');`;
+    return `INSERT INTO attendance_record(status, user_id, cutoff_time) VALUES ('Pending', '${id}', '${time}');`;
   }
 
   getPendingUsers() {
