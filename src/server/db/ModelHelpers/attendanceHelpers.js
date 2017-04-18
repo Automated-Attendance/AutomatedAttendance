@@ -1,4 +1,6 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
+import MomentTZ from 'moment-timezone';
+
 
 const Attendance = new AttendanceModel();
 
@@ -7,9 +9,15 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
-    // setInterval( () => {
-    //   console.log('check every 3 sec')
-    // }, 3000);
+    var start = setInterval( () => {
+      let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
+      console.log('setting interval!!')
+      if(currentTime > time) {
+        const pendingStudents = Attendance.emailLateStudents();
+        clearInterval(start);
+      };
+
+    }, 15000);
 
     res.sendStatus(201);
   } catch (err) {
@@ -37,6 +45,15 @@ exports.emailLateStudents = async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.message);
+  }
+}
+
+exports.removeAttendanceRecordDate = async (req, res) => {
+  try {
+    await Attendance.deleteRecordDate(req.body);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send(err.message)
   }
 }
 

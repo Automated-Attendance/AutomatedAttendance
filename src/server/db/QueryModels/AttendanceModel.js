@@ -52,6 +52,11 @@ export default class AttendanceModel extends AttendanceQueries {
     const [emails] = await db.queryAsync(getAllLateEmailsQuery);
     await sendAbsentEmails(emails);
   }
+
+  async deleteRecordDate({ date }) {
+    const deleteQuery = super.deleteRecordByDay(date);
+    await db.queryAsync(deleteQuery);
+  }
 }
 
 
