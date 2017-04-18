@@ -87,9 +87,8 @@ export default class Enrollment extends React.Component {
   toggleOff(status) {
     setTimeout(() => {
       this.setState({ [status]: false })
-    },2000);
+    }, 2000);
   }
-
 
   async handleStudentAddSubmit(event) {
     let data = {
