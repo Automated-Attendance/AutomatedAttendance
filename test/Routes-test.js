@@ -19,24 +19,6 @@ describe('<Routes />', function() {
     sandbox.restore();
   });
 
-  const admin = {
-    isLoggedIn: true,
-    isAdmin: true
-  };
-
-
-  const student = {
-    isLoggedIn: true,
-    isAdmin: false
-  };
-
-
-  const loggedOut = {
-    isLoggedIn: false,
-    isAdmin: false
-  };
-
-
   it('should receive props', () => {
     const wrapper = shallow(<Routes userPrivs={admin}/>);
     expect(wrapper.instance().props.userPrivs.isLoggedIn).to.equal(true);
