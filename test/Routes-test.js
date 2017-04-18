@@ -10,7 +10,7 @@ describe('<Routes />', function() {
   let sandbox;
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    const resolved = new Promise((res) => res({ data: [{ type: 'admin' }] }));
+    const resolved = new Promise((res) => res('this is test data'));
     sandbox.stub(axios, 'get').returns(resolved);
     sandbox.stub(axios, 'post').returns(resolved);
   });
@@ -19,10 +19,28 @@ describe('<Routes />', function() {
     sandbox.restore();
   });
 
+  const admin = {
+    isLoggedIn: true,
+    isAdmin: true
+  };
 
-  it('should render with a webcam component view', () => {
-    // const wrapper = shallow(<CameraPage/>);
-    // expect(wrapper.find('Webcam')).to.have.length(1);
+
+  const student = {
+    isLoggedIn: true,
+    isAdmin: false
+  };
+
+
+  const loggedOut = {
+    isLoggedIn: false,
+    isAdmin: false
+  };
+
+
+  it('should receive props', () => {
+    const wrapper = shallow(<Routes userPrivs={admin}/>);
+    expect(wrapper.instance().props.userPrivs.isLoggedIn).to.equal(true);
+    expect(wrapper.instance().props.userPrivs.isAdmin).to.equal(true);
   });
 
 });
