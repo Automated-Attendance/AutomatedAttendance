@@ -44,8 +44,6 @@ export default class CameraPage extends React.Component {
         
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
-
-
         </div>
 
         {this.state.spinner && <Spinner/>}

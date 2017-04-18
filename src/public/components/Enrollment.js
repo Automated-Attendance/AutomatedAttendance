@@ -22,14 +22,13 @@ export default class Enrollment extends React.Component {
       selectedStudentAddStudent: '',
       selectedStudentRemoveStudent: '',
       studentPhoto: '',
-      className: '',
+      createClassName: '',
       studentAdded: false,
       studentRemoved: false,
       classAdded: false,
       classRemoved: false,
       spinner: false,
-      studentOptionsAddStudent: [],
-      studentOptionsRemoveStudent: [],
+      studentOptions: [],
       classOptionsAddStudent: [],
       classOptionsRemoveStudent: [],
       classOptionsRemoveClass: [],
@@ -37,13 +36,16 @@ export default class Enrollment extends React.Component {
       enrollmentRecords: []
     },
 
-    ['handleInputChange',
+    ['updateClassList',
+    'handleInputChange',
+    'toggleOff',
     'handleStudentAddSubmit',
     'handleClassAddSubmit',
+    'handleStudentRemoveSubmit',
+    'handleClassRemoveSubmit',
     'previewFile',
-    'updateClassList',
     'getExistingUserList',
-     'toggleOff'].forEach(method => {
+    'getSelectOptions'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
@@ -72,11 +74,6 @@ export default class Enrollment extends React.Component {
   async updateClassList() {
     const classes = await getClasses();
     this.setState(classes);
-    this.setState({
-      selectedClassAddStudent: this.state.classes[0],
-      selectedClassRemoveStudent: this.state.classes[0],
-      selectedClassRemoveClass: this.state.classes[0]
-    });
   }
 
   handleInputChange(event) {
@@ -105,7 +102,7 @@ export default class Enrollment extends React.Component {
   }
 
   async handleClassAddSubmit(event) {
-    let data = { className: this.state.className };
+    let data = { className: this.state.createClassName };
     this.setState({ spinner: true, classAdded: false });
     this.setState({ classAdded: await addClasses(data) });
     this.setState({ spinner: false });
@@ -140,7 +137,6 @@ export default class Enrollment extends React.Component {
     let preview = document.querySelector('img');
     let file = document.querySelector('input[type=file]').files[0];
     let reader = new FileReader();
-
     reader.addEventListener("load", () => {
       preview.src = reader.result;
       preview.height = '200';
@@ -153,10 +149,7 @@ export default class Enrollment extends React.Component {
 
   async getExistingUserList() {
     const users = await getAllUsers();
-    this.setState({
-      studentOptionsAddStudent: users,
-      studentOptionsRemoveStudent: users
-    });
+    this.setState({ studentOptions: users });
   }
 
   async getSelectOptions() {
@@ -171,11 +164,6 @@ export default class Enrollment extends React.Component {
     });
   }
 
-  async updateClassList() {
-    const classes = await getClasses();
-    this.setState(classes);
-  }
-
   render() {
     return (
       <div>
@@ -184,26 +172,27 @@ export default class Enrollment extends React.Component {
         <h3>Create Class</h3>
         <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/><br/>
         <button onClick={this.handleClassAddSubmit}>Create Class</button>
-        {!this.state.classAdded ? null : <h6>Class Added Successfully!</h6>}<hr/>
+        {!this.state.classAdded ? null : <h5>{this.state.createClassName} created!</h5>}<hr/>
 
         <h3>Add Student to Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsAddStudent.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassAddStudent}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsAddStudent}
             onChange={(selectedClass) => this.setState({ selectedClassAddStudent: selectedClass })}
           />
         </div><br/>
         Student:
-        <div onClick={!this.state.studentOptionsAddStudent.length && this.getExistingUserList}>
+        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
-            options={this.state.studentOptionsAddStudent ? this.state.studentOptionsAddStudent : [{ label: 'Error loading data..', value: '' }]}
+            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedUser) => this.setState({ selectedStudentAddStudent: selectedUser })}
             value={this.state.selectedStudentAddStudent}
+            placeholder="Select Student..."
           />
         </div><br/>
         <form ref='uploadForm'
@@ -215,52 +204,47 @@ export default class Enrollment extends React.Component {
           <img src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
-        {!this.state.studentAdded ? null : <h6>Student Added Successfully!</h6>}<hr/>
+        {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentRemoveStudent.label.slice(0, this.state.selectedStudentRemoveStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
 
 
         <h3>Delete Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsRemoveClass.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassRemoveClass}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsRemoveClass}
             onChange={(selectedClass) => this.setState({ selectedClassRemoveClass: selectedClass })}
           />
         </div><br/>
-        <button onClick={this.handleClassRemoveSubmit.bind(this)}>Delete Class</button>
-        {!this.state.classRemoved ? null : <h6>Class Deleted Successfully!</h6>}<hr/>
+        <button onClick={this.handleClassRemoveSubmit}>Delete Class</button>
+        {!this.state.classRemoved ? null : <h5>{this.state.selectedClassRemoveClass} deleted!</h5>}<hr/>
 
         <h3>Remove Student from Class</h3>
         Class:
-        <div onClick={!this.state.classOptionsRemoveStudent.length && this.getSelectOptions.bind(this)}>
+        <div onClick={this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             value={this.state.selectedClassRemoveStudent}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.classOptionsRemoveStudent}
             onChange={(selectedClass) => this.setState({ selectedClassRemoveStudent: selectedClass })}
           />
         </div><br/>
         Student:
-        <div onClick={!this.state.studentOptionsRemoveStudent.length && this.getExistingUserList}>
+        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
-            options={this.state.studentOptionsRemoveStudent ? this.state.studentOptionsRemoveStudent : [{ label: 'Error loading data..', value: '' }]}
+            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedUser) => this.setState({ selectedStudentRemoveStudent: selectedUser })}
             value={this.state.selectedStudentRemoveStudent}
+            placeholder="Select Student..."
           />
-        </div>
-        <form ref='uploadForm'
-          id='uploadForm'
-          action='/studentUpload'
-          method='post'
-          encType="multipart/form-data">
-        </form><br/>
-        <button onClick={this.handleStudentRemoveSubmit.bind(this)}>Remove Student</button>
-        {!this.state.studentRemoved ? null : <h6>Student Removed Successfully!</h6>}<hr/>
+        </div><br/>
+        <button onClick={this.handleStudentRemoveSubmit}>Remove Student</button>
+        {!this.state.studentRemoved ? null : <h5>{this.state.selectedStudentRemoveStudent.label.slice(0, this.state.selectedStudentRemoveStudent.label.indexOf('-') - 1)} removed from {this.state.selectedClassRemoveStudent}!</h5>}<hr/>
 
         <h3>Student Enrollments</h3>
         <BootstrapTable

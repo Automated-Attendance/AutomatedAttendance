@@ -43,7 +43,7 @@ describe('<LoginRedirect />', function() {
 
   it('should render login Link if not logged in', () => {
     const wrapper = shallow(<LoginRedirect userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<a href="/login"><button>Login</button></a>)).to.equal(true);
+    expect(wrapper.contains(<a href="/login">login</a>)).to.equal(true);
   });
 
   it('should not render login Link if logged in', () => {

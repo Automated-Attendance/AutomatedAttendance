@@ -13,8 +13,7 @@ const LoginRedirect = ({ userPrivs }) => {
   } else {
     return (
       <div>
-        <h1>You must login to view this page</h1>
-        <a href="/login"><button>Login</button></a>
+        <h3>You must <a href="/login">login</a> to view this page</h3>
       </div>
     );
   }
