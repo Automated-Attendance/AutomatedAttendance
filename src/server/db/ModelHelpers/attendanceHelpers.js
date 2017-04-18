@@ -9,14 +9,13 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
-    var start = setInterval( () => {
+    var absentInterval = setInterval( () => {
       let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
       console.log('setting interval!!')
       if(currentTime > time) {
         const pendingStudents = Attendance.emailLateStudents();
-        clearInterval(start);
+        clearInterval(absentInterval);
       };
-
     }, 15000);
 
     res.sendStatus(201);
