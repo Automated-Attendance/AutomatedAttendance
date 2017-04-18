@@ -52,7 +52,7 @@ exports.checkInStudents = async (req, res) => {
     const matches = await recognize(url);
     const date = await moment().format('YYYY-MM-DD hh:mm:ss');
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    await Student.checkInOnTime(matchedUsers,date);
+    await Student.checkInOnTime(matchedUsers, date);
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
