@@ -42,7 +42,8 @@ export default class Enrollment extends React.Component {
     'handleClassAddSubmit',
     'previewFile',
     'updateClassList',
-    'getExistingUserList','toggleOff'].forEach((method) => {
+    'getExistingUserList',
+     'toggleOff'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
