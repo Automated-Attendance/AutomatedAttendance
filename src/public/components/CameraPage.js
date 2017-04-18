@@ -11,7 +11,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import { storeAttendanceRecord } from './requests/students';
 import MomentTZ from 'moment-timezone';
 
 // init time localization for DateTimePicker
@@ -26,8 +26,7 @@ export default class CameraPage extends React.Component {
     'getSelectOptions',
     'handleSelectChange',
     'populateAttendanceRecord',
-    'updateSelectedTimeCutoff',
-    'sendLateEmails'].forEach((method) => {
+    'updateSelectedTimeCutoff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -85,9 +84,6 @@ export default class CameraPage extends React.Component {
     let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
     this.setState({ selectedTimeCutoff: date });
   }
-  async sendLateEmails () {
-    await emailLateStudents(this.state.selectedTimeCutoff);
-  }
 
   render() {
     return (
@@ -117,7 +113,7 @@ export default class CameraPage extends React.Component {
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
           <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+
 
         </div>
 

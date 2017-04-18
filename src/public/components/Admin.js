@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import { getAttendanceRecords } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
+import { storeAttendanceRecord, emailLateStudents } from './requests/students';
 
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
+
+    ['sendLateEmails'].forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+
     this.state = {
       attendance: [],
       classes: {},
@@ -51,9 +57,16 @@ export default class Admin extends React.Component {
     this.setState({attendance: attendanceRecords});
   }
 
+  async sendLateEmails () {
+    await emailLateStudents(this.state.selectedTimeCutoff);
+  }
+
   render() {
     return (
       <div>
+
+      <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+
         <BootstrapTable
           data = {this.state.attendance}
           csvFileName = {'Attendance.csv'}
