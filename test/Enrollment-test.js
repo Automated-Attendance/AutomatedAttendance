@@ -39,7 +39,7 @@ describe('<Entrollment/> populateTable()', function() {
 
   it('should populate enrollment records', async function() {
     const wrapper = await mount(<Enrollment/>);
-    expect(wrapper.state().enrollmentRecords.length).to.equal(5);
+    setTimeout(()=> expect(wrapper.state().enrollmentRecords.length).to.equal(5), 2000);
   });
 
 });
