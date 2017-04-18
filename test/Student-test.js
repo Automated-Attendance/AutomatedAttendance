@@ -34,11 +34,6 @@ describe('<Student />', function() {
     expect(wrapper.find('TableHeaderColumn')).to.have.length(4);
   });
 
-  it('should have four columns in the table', function() {
-    const wrapper = mount(<Student userPrivs={userPrivs}/>);
-    expect(wrapper.find('TableHeaderColumn')).to.have.length(4);
-  });
-
   it('should render a students attendance records', function() {
     const wrapper = mount(<Student userPrivs={userPrivs}/>);
     setTimeout(() => {
