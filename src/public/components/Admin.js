@@ -103,9 +103,8 @@ export default class Admin extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
-    else alert('You must select classes and check in time before populating Attendance Records.');
+    else alert('Select class(es) and cutoff time!');
     await this.getAttendance();
-
   }
 
   updateSelectedTimeCutoff(e) {
