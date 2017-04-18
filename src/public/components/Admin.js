@@ -18,7 +18,7 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     const queryType = {queryType: 'allAttendance'};
-    const attendanceRecords = await getAttendanceRecords(queryType);      
+    const attendanceRecords = await getAttendanceRecords(queryType);   
     attendanceRecords.forEach((item) => {
       item.date = tableHelpers.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
