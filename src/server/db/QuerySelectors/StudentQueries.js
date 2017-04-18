@@ -31,7 +31,7 @@ export default class StudentQueries {
     return `SELECT email, users_id FROM users where ${qs}`;
   }
 
-  checkInQuery(matches,date) {
+  checkInQuery(matches, date) {
     let qs = '';
     matches.forEach((user, index) => {
       if (index === matches.length - 1) {
