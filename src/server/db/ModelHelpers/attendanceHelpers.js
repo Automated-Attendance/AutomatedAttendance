@@ -1,5 +1,6 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
 import MomentTZ from 'moment-timezone';
+import moment from 'moment';
 
 
 const Attendance = new AttendanceModel();
@@ -9,14 +10,30 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
-    var absentInterval = setInterval( () => {
-      let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
-      console.log('setting interval!!')
-      if(currentTime > time) {
-        const pendingStudents = Attendance.emailLateStudents();
-        clearInterval(absentInterval);
-      };
-    }, 15000);
+    var warningEmail = setInterval( ()=> {
+      let warningTime = moment(time).subtract(10, 'minute');
+      var currentTime = moment();
+      var currentTimeString = currentTime.format('h:mm');
+      var recordedTimeString = warningTime.format('h:mm');
+
+      console.log(currentTimeString, recordedTimeString)
+
+      if(currentTimeString === recordedTimeString) {
+
+        console.log('currenttime and recorded time are same');
+        const pendingStudents = Attendance.emailWarningStudents();
+        clearInterval(warningEmail);
+
+      }
+    }, 5000);
+
+    // var absentInterval = setInterval( () => {
+    //   let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
+    //   if(currentTime > time) {
+    //     const pendingStudents = Attendance.emailLateStudents();
+    //     clearInterval(absentInterval);
+    //   };
+    // }, 15000);
 
     res.sendStatus(201);
   } catch (err) {
