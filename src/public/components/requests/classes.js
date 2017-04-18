@@ -17,7 +17,7 @@ const getClasses = async () => {
     let classes = data[0].map((className) => className.class_name);
     return { classes: classes };
   } catch (err) {
-    console.error(err)
+    console.error(err.message);
   }
 };
 

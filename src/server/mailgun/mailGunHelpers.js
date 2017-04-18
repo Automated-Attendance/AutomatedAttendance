@@ -30,7 +30,7 @@ exports.sendMailForArrival = async (matchedUsers) => {
       subject: 'Class Arrival',
       text: 'Welcome to class! You have checked in today!'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };
 
@@ -42,6 +42,6 @@ exports.sendAbsentEmails = async (emails) => {
       subject: 'Absent',
       text: 'Refactor all the things!'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };

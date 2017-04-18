@@ -1,24 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendanceRecords } from './requests/classes';
+import { getAttendanceRecords, getClasses } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
+import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import DateTime from 'react-widgets/lib/DateTimePicker';
+import 'react-select/dist/react-select.css';
+import 'react-widgets/lib/less/react-widgets.less';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import MomentTZ from 'moment-timezone';
+import Select from 'react-select';
+
+// init time localization for DateTimePicker
+momentLocalizer(Moment);
+
 
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
+
+    ['sendLateEmails',
+    'populateAttendanceRecord',
+    'updateSelectedTimeCutoff',
+    'getSelectOptions',
+    'getAttendance',
+    'handleSelectChange'].forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+
     this.state = {
       attendance: [],
+      options: [],
       classes: {},
       students: {},
       emails: {},
-      statuses: {}
+      statuses: {},
+      value: null,
+      selectedTimeCutoff: null
     };
   }
 
   async componentWillMount() {
+    await this.getAttendance();
+  }
+
+  async getAttendance() {
     const queryType = {queryType: 'allAttendance'};
-    const attendanceRecords = await getAttendanceRecords(queryType);      
+    const attendanceRecords = await getAttendanceRecords(queryType);   
     attendanceRecords.forEach((item) => {
       item.date = tableHelpers.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
@@ -51,9 +80,58 @@ export default class Admin extends React.Component {
     this.setState({attendance: attendanceRecords});
   }
 
+  async sendLateEmails () {
+    await emailLateStudents(this.state.selectedTimeCutoff);
+  }
+
+  async populateAttendanceRecord() {
+    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+    else alert('You must select classes and check in time before populating Attendance Records.');
+    await this.getAttendance();
+
+  }
+
+  updateSelectedTimeCutoff(e) {
+    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    this.setState({ selectedTimeCutoff: date });
+  }
+
+  async getSelectOptions() {
+    const classList = await getClasses();
+    const classes = classList.classes.map((classname) => {
+      return { label: classname, value: classname };
+    });
+    this.setState({ options: classes });
+  }
+
+  handleSelectChange(value) {
+    this.setState({ value });
+  }
+
   render() {
     return (
       <div>
+
+        <div onClick={!this.state.options.length && this.getSelectOptions}>
+          <Select 
+            multi={true}
+            simpleValue
+            disabled={this.state.disabled}
+            value={this.state.value}
+            placeholder="Select your classes"
+            options={this.state.options}
+            onChange={this.handleSelectChange}
+          />
+        </div>
+
+        <DateTime 
+          defaultValue={new Date()}
+          onChange={this.updateSelectedTimeCutoff}
+        />
+
+      <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+      <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
+
         <BootstrapTable
           data = {this.state.attendance}
           csvFileName = {'Attendance.csv'}
