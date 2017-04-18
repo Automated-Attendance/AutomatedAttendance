@@ -83,6 +83,7 @@ export default class Admin extends React.Component {
       }
       let fullName = `${item.first_name} ${item.last_name}`;
       item.full_name = fullName;
+      /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
         let thisEmail = this.state.emails;
         let thisStudent = this.state.students;
