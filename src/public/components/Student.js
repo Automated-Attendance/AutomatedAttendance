@@ -15,7 +15,7 @@ export default class Student extends React.Component {
     };
   }
 
-  async componentDidMount () {
+  async componentWillMount () {
     const userEmail = this.props.userPrivs.userEmail;
     const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach((item) => {
