@@ -60,4 +60,3 @@ exports.checkInStudents = async (req, res) => {
   }
 };
 
-
