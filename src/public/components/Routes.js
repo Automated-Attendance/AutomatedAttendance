@@ -6,6 +6,7 @@ import About from './About';
 import Contact from './Contact';
 import Enrollment from './Enrollment';
 import LoginRedirect from './LoginRedirect';
+import AttendanceTable from './AttendanceTable';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 const Routes = ({ userPrivs }) => {

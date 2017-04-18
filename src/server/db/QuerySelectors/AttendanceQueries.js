@@ -49,4 +49,8 @@ export default class AttendanceQueries {
     RIGHT JOIN attendance_record ON users.users_id=attendance_record.user_id;`;
   }
 
+  deleteRecordByDay(date) {
+    return `DELETE FROM attendance_record where date BETWEEN '${date} 00:00:00' and '${date} 23:59:59'; `
+  }
+
 }
