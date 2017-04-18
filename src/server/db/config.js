@@ -26,7 +26,7 @@ module.exports = function(db) {
   .then(function() {
     return db.queryAsync(`CREATE TABLE IF NOT EXISTS attendance_record (
       attendance_record_id int NOT NULL AUTO_INCREMENT,
-      date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      date varchar(50),
       checkin_time varchar(50) NOT NULL,
       status varchar(50),
       user_id int NOT NULL,

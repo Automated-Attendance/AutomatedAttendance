@@ -31,7 +31,7 @@ export default class StudentQueries {
     return `SELECT email, users_id FROM users where ${qs}`;
   }
 
-  checkInQuery(matches) {
+  checkInQuery(matches,date) {
     let qs = '';
     matches.forEach((user, index) => {
       if (index === matches.length - 1) {
@@ -40,7 +40,7 @@ export default class StudentQueries {
         qs += `user_id='${user.users_id}' or `;
       }
     });
-    return `UPDATE attendance_record SET status='On time' WHERE ${qs}`;
+    return `UPDATE attendance_record SET status='On time',date='${date}' WHERE ${qs}`;
   }
 
   checkIfStudentIsEnrolled(userName, className) {
