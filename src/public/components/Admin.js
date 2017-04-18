@@ -11,23 +11,16 @@ import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import MomentTZ from 'moment-timezone';
 import Select from 'react-select';
+import { getAllUsers } from './requests/users';
+import VirtualizedSelect from 'react-virtualized-select'
+import { changeAttendanceStatus } from './requests/students';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
 
-
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
-
-    ['sendLateEmails',
-    'populateAttendanceRecord',
-    'updateSelectedTimeCutoff',
-    'getSelectOptions',
-    'getAttendance',
-    'handleSelectChange'].forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
 
     this.state = {
       attendance: [],
@@ -36,13 +29,37 @@ export default class Admin extends React.Component {
       students: {},
       emails: {},
       statuses: {},
+      selectedDate: {},
+      selectedStudent: '',
+      selectedStatus: '',
+      statusUpdated: false,
+      studentOptions: [],
+      statusOptions: [
+        {label: 'On time', value: 'On time'},
+        {label: 'Tardy', value: 'Tardy'},
+        {label: 'Absent', value: 'Absent'},
+        {label: 'Pending', value: 'Pending'}
+      ],
       value: null,
       selectedTimeCutoff: null
-    };
+    },
+
+    ['getAttendance',
+    'sendLateEmails',
+    'populateAttendanceRecord',
+    'updateSelectedTimeCutoff',
+    'getSelectOptions',
+    'handleSelectChange',
+    'getExistingUserList',
+    'updateSelectedDate',
+    'handleUpdateStatusSubmit'].forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   async componentWillMount() {
     await this.getAttendance();
+    await this.getExistingUserList();
   }
 
   async getAttendance() {
@@ -108,30 +125,53 @@ export default class Admin extends React.Component {
     this.setState({ value });
   }
 
+  async getExistingUserList() {
+    const users = await getAllUsers();
+    this.setState({ studentOptions: users });
+  }
+
+  updateSelectedDate(e) {
+    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    this.setState({ selectedDate: date });
+  }
+
+  async handleUpdateStatusSubmit(event) {
+    let data = {
+      selectedDate: this.state.selectedDate,
+      selectedStudent: this.state.selectedStudent,
+      selectedStatus: this.state.selectedStatus
+    };
+    this.setState({ spinner: true, statusUpdated: false });
+    this.setState({ statusUpdated: await changeAttendanceStatus(data) });
+    this.setState({ spinner: false });
+    await this.getAttendance();
+  }
+
   render() {
     return (
       <div>
-
+        <h3>Start Daily Attendance</h3>
+        Class:
         <div onClick={!this.state.options.length && this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
             disabled={this.state.disabled}
             value={this.state.value}
-            placeholder="Select your classes"
+            placeholder="Select Class(es)..."
             options={this.state.options}
             onChange={this.handleSelectChange}
           />
-        </div>
-
-        <DateTime 
-          defaultValue={new Date()}
+        </div><br/>
+        Date and Cutoff Time:
+        <DateTime
+          placeholder="Select Date and Time..."
           onChange={this.updateSelectedTimeCutoff}
-        />
+        /><br/>
+        <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
+        <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
-      <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
-      <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
-
+        <h3>Attendance Records</h3>
         <BootstrapTable
           data = {this.state.attendance}
           csvFileName = {'Attendance.csv'}
@@ -202,7 +242,37 @@ export default class Admin extends React.Component {
           >
             Status
           </TableHeaderColumn>
-        </BootstrapTable>
+        </BootstrapTable><hr/>
+
+        <h3>Change Attendance Records</h3>
+        Date:
+        <DateTime
+          onChange={this.updateSelectedDate}
+          placeholder="Select Date..."
+          time={false}
+        /><br/>
+        Student:
+        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+          <VirtualizedSelect
+            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
+            onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
+            value={this.state.selectedStudent}
+            placeholder="Select Student..."
+          />
+        </div><br/>
+        Status:
+        <div>
+          <Select
+            simpleValue
+            value={this.state.selectedStatus}
+            placeholder="Select Status..."
+            options={this.state.statusOptions}
+            onChange={selected => this.setState({ selectedStatus: selected })}
+          />
+        </div><br/>
+        <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
+        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}<hr/>
+
       </div>
     );
   }
