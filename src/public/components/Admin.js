@@ -5,11 +5,13 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
 
+
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
 
-    ['sendLateEmails'].forEach((method) => {
+    ['sendLateEmails',
+    'populateAttendanceRecord'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -18,7 +20,9 @@ export default class Admin extends React.Component {
       classes: {},
       students: {},
       emails: {},
-      statuses: {}
+      statuses: {},
+      value: null,
+      selectedTimeCutoff: null
     };
   }
 
@@ -61,11 +65,17 @@ export default class Admin extends React.Component {
     await emailLateStudents(this.state.selectedTimeCutoff);
   }
 
+  async populateAttendanceRecord() {
+    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+    else alert('You must select classes and check in time before populating Attendance Records.');
+  }
+
   render() {
     return (
       <div>
 
       <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to late Students</button>
+      <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
 
         <BootstrapTable
           data = {this.state.attendance}

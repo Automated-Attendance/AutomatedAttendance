@@ -11,7 +11,6 @@ import 'react-widgets/lib/less/react-widgets.less';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { storeAttendanceRecord } from './requests/students';
 import MomentTZ from 'moment-timezone';
 
 // init time localization for DateTimePicker
@@ -25,7 +24,6 @@ export default class CameraPage extends React.Component {
     ['takeScreenshot',
     'getSelectOptions',
     'handleSelectChange',
-    'populateAttendanceRecord',
     'updateSelectedTimeCutoff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -75,11 +73,6 @@ export default class CameraPage extends React.Component {
     this.setState(classes);
   }
 
-  async populateAttendanceRecord() {
-    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
-    else alert('You must select classes and check in time before populating Attendance Records.');
-  }
-
   updateSelectedTimeCutoff(e) {
     let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
     this.setState({ selectedTimeCutoff: date });
@@ -112,7 +105,6 @@ export default class CameraPage extends React.Component {
         
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
-          <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}> Populate Attendance Records </button>
 
 
         </div>
