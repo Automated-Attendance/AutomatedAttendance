@@ -12,10 +12,7 @@ export default class CameraPage extends React.Component {
 
     this.state = {
       spinner: false,
-      disabled: false,
-      checkedinUser: null,
-      selectedTimeCutoff: null,
-      noClassSelected: true
+      checkedinUser: null
     };
 
     this.takeScreenshot = this.takeScreenshot.bind(this);
