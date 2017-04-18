@@ -42,7 +42,8 @@ export default class Enrollment extends React.Component {
     'handleClassAddSubmit',
     'previewFile',
     'updateClassList',
-    'getExistingUserList'].forEach((method) => {
+    'getExistingUserList',
+     'toggleOff'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
@@ -83,6 +84,12 @@ export default class Enrollment extends React.Component {
     this.setState({ [name]: event.target.value });
   }
 
+  toggleOff(status) {
+    setTimeout(() => {
+      this.setState({ [status]: false })
+    }, 2000);
+  }
+
   async handleStudentAddSubmit(event) {
     let data = {
       studentUserName: this.state.selectedStudentAddStudent.value,
@@ -93,6 +100,8 @@ export default class Enrollment extends React.Component {
     this.setState({ studentAdded: await storeStudentData(data) });
     this.setState({ spinner: false });
     await this.populateTable();
+    this.toggleOff('studentAdded');
+
   }
 
   async handleClassAddSubmit(event) {
@@ -102,6 +111,7 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
+    this.toggleOff('classAdded');
   }
 
   async handleStudentRemoveSubmit(event) {
@@ -113,6 +123,7 @@ export default class Enrollment extends React.Component {
     this.setState({ studentRemoved: await removeStudentData(data) });
     this.setState({ spinner: false });
     await this.populateTable();
+    this.toggleOff('studentRemoved');
   }
 
   async handleClassRemoveSubmit(event) {
@@ -122,6 +133,7 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
+    this.toggleOff('classRemoved');
   }
 
   previewFile() {
