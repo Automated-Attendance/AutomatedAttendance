@@ -1,3 +1,5 @@
+import Moment from 'moment';
+
 module.exports = async function(db) {
   await db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
     users_id int NOT NULL AUTO_INCREMENT,
@@ -16,8 +18,8 @@ module.exports = async function(db) {
     );`);  
   await db.queryAsync(`CREATE TABLE IF NOT EXISTS attendance_record (
       attendance_record_id int NOT NULL AUTO_INCREMENT,
-      date varchar(50),
-      checkin_time varchar(50) NOT NULL,
+      checkin_time varchar(50),
+      cutoff_time varchar(50) NOT NULL,
       status varchar(50),
       user_id int NOT NULL,
       PRIMARY KEY (attendance_record_id)
