@@ -209,7 +209,7 @@ export default class Admin extends React.Component {
             Name
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField = 'date'
+            dataField = 'checkin_time'
             width = '30%'
             dataAlign = 'right'
             dataFormat = {tableHelpers.dateFormatter}
@@ -222,7 +222,7 @@ export default class Admin extends React.Component {
             Date
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField = 'date'
+            dataField = 'checkin_time'
             width = '15%'
             dataAlign = 'right'
             dataSort

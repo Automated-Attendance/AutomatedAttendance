@@ -65,7 +65,7 @@ export default class Student extends React.Component {
             Class
           </TableHeaderColumn>
                     <TableHeaderColumn
-            dataField = 'date'
+            dataField = 'checkin_time'
             width = '30%'
             dataAlign = 'right'
             dataFormat = {tableHelpers.dateFormatter}
@@ -78,7 +78,7 @@ export default class Student extends React.Component {
             Date
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField = 'date'
+            dataField = 'checkin_time'
             width = '15%'
             dataAlign = 'right'
             dataSort
