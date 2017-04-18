@@ -40,4 +40,20 @@ const emailLateStudents = async () => {
   }
 }
 
-export { storeStudentData, storeAttendanceRecord, emailLateStudents, removeStudentData };
+const changeAttendanceStatus = async (data) => {
+  try {
+    console.log('trying', data);
+    const response = await axios.post('/changeAttendanceStatus', data);
+    return response.status === 201;
+  } catch (err) {
+    console.warn(err)
+  }
+}
+
+export {
+  storeStudentData,
+  storeAttendanceRecord,
+  emailLateStudents,
+  removeStudentData,
+  changeAttendanceStatus
+};
