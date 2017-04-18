@@ -25,7 +25,6 @@ export default class CameraPage extends React.Component {
     ['takeScreenshot',
     'getSelectOptions',
     'handleSelectChange',
-    'toggleDisabled',
     'populateAttendanceRecord',
     'updateSelectedTimeCutoff',
     'sendLateEmails'].forEach((method) => {
@@ -69,10 +68,6 @@ export default class CameraPage extends React.Component {
 
   handleSelectChange(value) {
     this.setState({ value });
-  }
-
-  toggleDisabled(e) {
-    this.setState({ disabled: e.target.checked });
   }
 
   // getting class list from DB
