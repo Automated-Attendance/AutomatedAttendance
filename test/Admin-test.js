@@ -35,4 +35,35 @@ describe('<Admin />', function() {
     const wrapper = mount(<Admin/>);
     setTimeout(() => expect(wrapper.state().attendance).to.have.length(1), 2000);
   });
+
+  it('should call sendLateEmails on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'sendLateEmails');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.lateStudentButton').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should call populateAttendanceRecord on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should store records on click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<Admin />);
+    let date = new Date();
+    wrapper.setState({ value: 'HRSF72', selectedTimeCutoff: date });
+    expect(wrapper.state().selectedTimeCutoff).to.equal(date);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
 });
