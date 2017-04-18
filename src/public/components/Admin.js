@@ -153,7 +153,7 @@ export default class Admin extends React.Component {
       <div>
         <h3>Start Daily Attendance</h3>
         Class:
-        <div onClick={!this.state.options.length && this.getSelectOptions}>
+        <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue
