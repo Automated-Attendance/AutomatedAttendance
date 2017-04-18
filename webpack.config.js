@@ -1,7 +1,6 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, '/src/public');
 const DIST_DIR = path.join(__dirname, '/src/public/dist');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {

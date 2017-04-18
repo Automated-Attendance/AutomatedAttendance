@@ -15,6 +15,7 @@ const getClasses = async () => {
   try {
     const { data } = await axios.get('/classList');
     let classes = data[0].map((className) => className.class_name);
+    console.log(classes);
     return { classes: classes };
   } catch (err) {
     console.error(err.message);
