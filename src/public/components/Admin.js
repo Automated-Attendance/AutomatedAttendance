@@ -271,8 +271,7 @@ export default class Admin extends React.Component {
           />
         </div><br/>
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
-        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}<hr/>
-
+        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
       </div>
     );
   }

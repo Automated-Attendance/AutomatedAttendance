@@ -1,5 +1,3 @@
-import Moment from 'moment';
-
 module.exports = async function(db) {
   await db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
     users_id int NOT NULL AUTO_INCREMENT,
@@ -55,12 +53,4 @@ module.exports = async function(db) {
   await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
       VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
       (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
-  // awaiturn db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
-  // awaiturn db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE email='andrew@gmail.com'));`);
-  // awaiturn db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
-  // awaiturn db.queryAsync(`INSERT INTO attendance_record(status, user_id)
-  //     VALUES ('Pending', (SELECT users_id FROM users WHERE user_name='Jukejc'));`);
 };
