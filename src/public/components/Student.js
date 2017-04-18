@@ -19,7 +19,7 @@ export default class Student extends React.Component {
     const userEmail = this.props.userPrivs.userEmail;
     const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach((item) => {
-      item.date = this.parseDateAndTime(item.date);
+      item.date = tableHelpers.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
