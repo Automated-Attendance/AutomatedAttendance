@@ -9,10 +9,6 @@ export default class CameraPage extends React.Component {
 
   constructor(props) {
     super(props);
-    
-    ['takeScreenshot'].forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
 
     this.state = {
       spinner: false,
@@ -21,6 +17,8 @@ export default class CameraPage extends React.Component {
       selectedTimeCutoff: null,
       noClassSelected: true
     };
+
+    this.takeScreenshot = this.takeScreenshot.bind(this);
   }
 
   componentWillMount() {
