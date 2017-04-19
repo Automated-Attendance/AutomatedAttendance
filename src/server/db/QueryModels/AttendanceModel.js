@@ -66,13 +66,15 @@ export default class AttendanceModel extends AttendanceQueries {
     const getPendingUsersQuery = super.getPendingUsers();
     const [ users ] = await db.queryAsync(getPendingUsersQuery);
 
-    console.log(users);
+    console.log('users', users);
 
     await Promise.all(users.map(async (user) => {
       const userQuery = StudentQuery.getStudentInformation(user.user_id)
       const [ userInfo ] = await db.queryAsync(userQuery);
       arrayOfUser.push(userInfo);
     }));
+
+    console.log('arrayOfUser', arrayOfUser);
     await sendWarningEmails(arrayOfUser);
   }
 }
