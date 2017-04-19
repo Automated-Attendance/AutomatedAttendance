@@ -49,4 +49,8 @@ export default class AttendanceQueries {
     RIGHT JOIN attendance_record ON users.users_id=attendance_record.user_id;`;
   }
 
+  deleteRecordByDay(date) {
+    return `DELETE FROM attendance_record where cutoff_time LIKE '${date}%';`
+  }
+
 }
