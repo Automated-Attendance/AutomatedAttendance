@@ -30,3 +30,7 @@ src/public/dist/bundle.js
 
 # mocha-webpack .tmp dir
 .tmp/
+
+# nyc reporting
+.nyc_output/
+serverCoverage/
