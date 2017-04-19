@@ -15,11 +15,14 @@ export default class Student extends React.Component {
     };
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
+    this.getAttendance.bind(this);
+  }
+
+  async getAttendance() {
     const userEmail = this.props.userPrivs.userEmail;
     const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach((item) => {
-      item.date = tableHelpers.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
@@ -65,7 +68,7 @@ export default class Student extends React.Component {
             Class
           </TableHeaderColumn>
                     <TableHeaderColumn
-            dataField = 'checkin_time'
+            dataField = 'cutoff_time'
             width = '30%'
             dataAlign = 'right'
             dataFormat = {tableHelpers.dateFormatter}
