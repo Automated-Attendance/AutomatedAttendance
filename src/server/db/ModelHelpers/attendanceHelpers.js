@@ -16,7 +16,6 @@ exports.storeRecords = async (req, res) => {
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
       if(currentTimeString === recordedTimeString) {
-        console.log('currenttime and recorded time are same');
         const pendingStudents = Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
