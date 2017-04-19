@@ -10,7 +10,7 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
-    let warningEmail = setInterval( ()=> {
+    let warningEmail = setInterval(() => {
       let warningTime = moment(time).subtract(10, 'minute');
       let currentTime = moment();
       let currentTimeString = currentTime.format('h:mm');
