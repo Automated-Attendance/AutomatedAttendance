@@ -4,7 +4,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import Enrollment from '../src/public/components/Enrollment';
+import Enrollment from '../../src/public/components/Enrollment';
 
 describe('<Enrollment />', function() {
 

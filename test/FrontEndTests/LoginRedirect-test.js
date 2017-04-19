@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { Link } from 'react-router-dom';
-import LoginRedirect from '../src/public/components/LoginRedirect';
+import LoginRedirect from '../../src/public/components/LoginRedirect';
 
 
 describe('<LoginRedirect />', function() {
