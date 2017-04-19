@@ -10,17 +10,23 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
+    // sending out warning emails 10mins before the time
     let warningEmail = setInterval( ()=> {
       let warningTime = moment(time).subtract(10, 'minute');
       let currentTime = moment();
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
+
+      console.log( 'currentTimeString', currentTimeString );
+      console.log('recordedTimeString', recordedTimeString );
+
       if(currentTimeString === recordedTimeString) {
         const pendingStudents = Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
     }, 5000);
 
+    //sending out late emails 
     var absentInterval = setInterval( () => {
       let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
       if(currentTime > time) {
