@@ -74,10 +74,8 @@ export default class AttendanceModel extends AttendanceQueries {
 
     await sendWarningEmails(arrayOfUser);
   }
-  async updateAttendanceStatus(data) {
-    const selectedName = data.selectedStudent.value;
-    const selectedStatus = data.selectedStatus;
-    const selectedDate = data.selectedDate;
+  async updateAttendanceStatus({ selectedDate, selectedStudent, selectedStatus }) {
+    const selectedName = selectedStudent.value;
     const timeString = selectedDate.slice(0,10);
     const getQuery = super.updateUserStatus(selectedName, timeString, selectedStatus);
     await db.queryAsync(getQuery);

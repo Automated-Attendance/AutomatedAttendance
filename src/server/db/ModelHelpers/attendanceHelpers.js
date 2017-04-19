@@ -25,7 +25,6 @@ exports.storeRecords = async (req, res) => {
     var absentInterval = setInterval( () => {
       let currentTime = moment();
       if( currentTime.isAfter(time) ) {
-        console.log('sending the absent emails')
         Attendance.emailLateStudents();
         clearInterval(absentInterval);
       };
