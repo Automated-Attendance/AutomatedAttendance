@@ -42,7 +42,7 @@ const nameSort = (a, b, order) => {
 }
 
 const dateFormatter = (cell) => {
-  var date = Moment(cell);
+  const date = Moment(cell);
   return `${days[date.day()]}, ${months[date.month()]} ${date.date()}, ${date.year()}`;
 }
 
@@ -50,7 +50,7 @@ const timeFormatter = (cell) => {
   if (cell === null) {
     return '';
   }
-  var time = Moment(cell);
+  const time = Moment(cell);
   return `${time.hour()}:${zeroFill(time.minute(), 2)}:${zeroFill(time.second(), 2)}`;
 }
 
