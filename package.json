@@ -9,7 +9,7 @@
     "build": "node_modules/.bin/webpack --watch",
     "db": "mysql -u root -h localhost -p",
     "test": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "servertest": "mocha-webpack --webpack-config mocha-webpack.config.js \"test/ServerSideTests/*.js\"",
+    "servertest": "NODE_ENV=test nyc mocha-webpack --webpack-config mocha-webpack.config.js \"test/ServerSideTests/*.js\"",
     "coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
@@ -60,10 +60,16 @@
     "spin.js": "^2.3.2",
     "twilio": "^2.11.1"
   },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "exclude": [
+      ".tmp",
+      "test"
+    ],
+    "report-dir": "./serverCoverage"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -105,6 +111,7 @@
     "mocha-webpack": "^0.7.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.5.2",
+    "nyc": "^10.2.0",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
     "sass-loader": "^6.0.3",
