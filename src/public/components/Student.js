@@ -13,10 +13,11 @@ export default class Student extends React.Component {
       emails: {},
       statuses: {}
     };
+    this.getAttendance.bind(this)
   }
 
   async componentWillMount() {
-    this.getAttendance.bind(this);
+    this.getAttendance;
   }
 
   async getAttendance() {
