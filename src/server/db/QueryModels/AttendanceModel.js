@@ -1,11 +1,10 @@
 import AttendanceQueries from '../QuerySelectors/AttendanceQueries';
 import Promise from 'bluebird';
 import db from '../index.js';
-import { sendAbsentEmails, sendWarningEmails, sendTardyEmails } from '../../mailgun/mailgunHelpers';
+import { sendAbsentEmails, sendWarningEmails, sendTardyEmails } from '../../mailgun/mailGunHelpers';
 import StudentQueries from '../QuerySelectors/StudentQueries'
 import StudentModel from '../QueryModels/StudentModel';
 import moment from 'moment';
-
 
 Promise.promisifyAll(db);
 

@@ -1,7 +1,7 @@
 import StudentModel from '../QueryModels/StudentModel';
 import { upload } from '../../cloudinary/cloudHelpers';
 import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
-import { sendMailForArrival } from '../../mailgun/mailgunHelpers';
+import { sendMailForArrival } from '../../mailgun/mailGunHelpers';
 import moment from 'moment';
 
 const Student = new StudentModel();

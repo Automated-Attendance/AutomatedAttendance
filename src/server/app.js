@@ -15,7 +15,7 @@ import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
 import userHelpers from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
-import mailGun from './mailgun/mailGunHelpers';
+import mailgunHelpers from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 
@@ -98,7 +98,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailGun.sendMailLate);
+app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailgunHelpers.sendMailLate);
 
 /******************/
 /**** Wildcard ****/
