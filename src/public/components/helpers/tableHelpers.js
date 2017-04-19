@@ -1,3 +1,5 @@
+import Moment from 'moment';
+
 const months = {
   0: 'January',
   1: 'February',
@@ -23,33 +25,6 @@ const days = {
   6: 'Saturday'
 }
 
-const parseDateAndTime = (oldDate) => {
-  var newDate = {
-    year: oldDate.slice(0, 4),
-    month: oldDate.slice(5, 7),
-    day: oldDate.slice(8, 10),
-    hour: oldDate.slice(11, 13),
-    minute: oldDate.slice(14, 16),
-    second: oldDate.slice(17, 19),
-    millisecond: oldDate.slice(20, 23)
-  };
-  newDate.month--;
-  newDate.hour -= 7;
-  if (newDate.hour < 0) {
-    newDate.hour += 24;
-    newDate.day -= 1;
-  }
-  return new Date(
-    newDate.year,
-    newDate.month,
-    newDate.day,
-    newDate.hour,
-    newDate.minute,
-    newDate.second,
-    newDate.millisecond
-  );
-}
-
 const nameSort = (a, b, order) => {
   if (order === 'desc') {
     if (a.last_name !== b.last_name) {
@@ -67,33 +42,31 @@ const nameSort = (a, b, order) => {
 }
 
 const dateFormatter = (cell) => {
-  return `${days[cell.getDay()]}, ${months[cell.getMonth()]} ${cell.getDate()}, ${cell.getFullYear()}`;
+  const date = Moment(cell);
+  return `${days[date.day()]}, ${months[date.month()]} ${date.date()}, ${date.year()}`;
 }
 
 const timeFormatter = (cell) => {
-  var suffix;
-  var hours = cell.getHours();
-  var minutes = cell.getMinutes();
-  if (hours >= 12) {
-    suffix = 'PM';
-    hours -= 12;
-  } else {
-    suffix = 'AM';
+  if (cell === null) {
+    return '';
   }
-  if (hours === 0) {
-    hours = 12;
+  const time = Moment(cell);
+  return `${time.hour()}:${zeroFill(time.minute(), 2)}:${zeroFill(time.second(), 2)}`;
+}
+
+const zeroFill = (number, width) => {
+  width -= number.toString().length;
+  if ( width > 0 ) {
+    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
   }
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  return `${hours}:${minutes}:${cell.getSeconds()} ${suffix}`;
+  return number + '';
 }
 
 module.exports = {
   months: months,
   days: days,
   nameSort: nameSort,
-  parseDateAndTime: parseDateAndTime,
   dateFormatter: dateFormatter,
-  timeFormatter: timeFormatter
+  timeFormatter: timeFormatter,
+  zeroFill: zeroFill
 }

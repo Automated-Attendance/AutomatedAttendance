@@ -20,18 +20,6 @@ describe('<tableHelpers />', function() {
     sandbox.restore();
   });
 
-  it('should parse date and time to return Date object', () => {
-    var dateAndTime = tableHelpers.parseDateAndTime('1999-12-31T23:59:59.999Z');
-    expect(dateAndTime.getFullYear()).to.equal(1999);
-    expect(dateAndTime.getMonth()).to.equal(11);
-    expect(dateAndTime.getDate()).to.equal(31);
-    expect(dateAndTime.getDay()).to.equal(5);
-    expect(dateAndTime.getHours()).to.equal(16);
-    expect(dateAndTime.getMinutes()).to.equal(59);
-    expect(dateAndTime.getSeconds()).to.equal(59);
-    expect(dateAndTime.getMilliseconds()).to.equal(999);
-  });
-  
   it('should convert month from number to string', () => {
     expect(tableHelpers.months[0]).to.equal('January');
     expect(tableHelpers.months[1]).to.equal('February');
@@ -58,17 +46,27 @@ describe('<tableHelpers />', function() {
   });
   
   it('should format date to string', () => {
-    var date = tableHelpers.dateFormatter(new Date(2017, 3, 12));
+    const date = tableHelpers.dateFormatter('2017-04-12 04:21:36');
     expect(date).to.equal('Wednesday, April 12, 2017');
   });
   
   it('should format time to string', () => {
-    var time = tableHelpers.timeFormatter(new Date(2017, 3, 12, 16, 33, 21));
-    expect(time).to.equal('4:33:21 PM');
+    const time = tableHelpers.timeFormatter('2017-04-12 04:21:36');
+    expect(time).to.equal('4:21:36');
   });
   
+  it('should format time string with padding zeros', () => {
+    const time = tableHelpers.timeFormatter('2017-04-12 04:01:06');
+    expect(time).to.equal('4:01:06');
+  });
+
+  it('should return an empty string if provided with NULL date', () => {
+    const time = tableHelpers.timeFormatter(null);
+    expect(time).to.equal('');
+  });
+
   it('should sort full names by last name', () => {
-    var names = tableHelpers.nameSort(
+    const names = tableHelpers.nameSort(
       {
         'first_name': 'Andrew',
         'last_name': 'Bobby'
@@ -83,7 +81,7 @@ describe('<tableHelpers />', function() {
   });
   
   it('should sort full names by first name', () => {
-    var names = tableHelpers.nameSort(
+    const names = tableHelpers.nameSort(
       {
         'first_name': 'Bobby',
         'last_name': 'Alonis'
@@ -95,5 +93,17 @@ describe('<tableHelpers />', function() {
       'desc'
     );
     expect(names).to.equal(-1);
+  });
+
+  it('should pad numbers with zeros to specified width', () => {
+    const num = tableHelpers.zeroFill(123, 5);
+    expect(num).to.equal('00123');
+  });
+
+  it('should return unmodified number as a string if provided with no width or width <= 0', () => {
+    let num = tableHelpers.zeroFill(123);
+    expect(num).to.equal('123');
+    num = tableHelpers.zeroFill(123, -1);
+    expect(num).to.equal('123');
   });
 });
