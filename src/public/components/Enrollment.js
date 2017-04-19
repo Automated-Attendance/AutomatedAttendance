@@ -106,7 +106,7 @@ export default class Enrollment extends React.Component {
 
   async handleClassAddSubmit() {
     if (this.state.createClassName === '') {
-      window.alert('Enter a Class Name!')
+      window.alert('Enter a Class Name!');
     } else {
       let data = { className: this.state.createClassName };
       this.setState({ spinner: true, classAdded: false });

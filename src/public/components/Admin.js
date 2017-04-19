@@ -148,16 +148,19 @@ export default class Admin extends React.Component {
   }
 
   async handleUpdateStatusSubmit(event) {
-    let data = {
-      selectedDate: this.state.selectedDate,
-      selectedStudent: this.state.selectedStudent,
-      selectedStatus: this.state.selectedStatus
-    };
-
-    this.setState({ spinner: true, statusUpdated: false });
-    this.setState({ statusUpdated: await changeAttendanceStatus(data) });
-    this.setState({ spinner: false });
-    await this.getAttendance();
+    if (this.state.selectedDate === '' || this.state.selectedStudent === '' || this.state.selectedStatus === '') {
+      window.alert('Enter a Date and Student and Status!');
+    } else {
+      let data = {
+        selectedDate: this.state.selectedDate,
+        selectedStudent: this.state.selectedStudent,
+        selectedStatus: this.state.selectedStatus
+      };
+      this.setState({ spinner: true, statusUpdated: false });
+      this.setState({ statusUpdated: await changeAttendanceStatus(data) });
+      this.setState({ spinner: false });
+      await this.getAttendance();
+    }
   }
 
   render() {
