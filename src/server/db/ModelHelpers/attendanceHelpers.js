@@ -15,7 +15,7 @@ exports.storeRecords = async (req, res) => {
       let currentTime = moment();
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
-      if(currentTimeString === recordedTimeString) {
+      if (currentTimeString === recordedTimeString) {
         const pendingStudents = Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
