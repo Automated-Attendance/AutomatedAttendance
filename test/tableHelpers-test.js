@@ -95,6 +95,36 @@ describe('<tableHelpers />', function() {
     expect(names).to.equal(-1);
   });
 
+  it('should sort full names by last name', () => {
+    var names = tableHelpers.nameSort(
+      {
+        'first_name': 'Andrew',
+        'last_name': 'Bobby'
+      },
+      {
+        'first_name': 'Andrew',
+        'last_name': 'Alonis'
+      },
+      'asc'
+    );
+    expect(names).to.equal(1);
+  });
+  
+  it('should sort full names by first name', () => {
+    var names = tableHelpers.nameSort(
+      {
+        'first_name': 'Bobby',
+        'last_name': 'Alonis'
+      },
+      {
+        'first_name': 'Andrew',
+        'last_name': 'Alonis'
+      },
+      'asc'
+    );
+    expect(names).to.equal(1);
+  });
+
   it('should pad numbers with zeros to specified width', () => {
     const num = tableHelpers.zeroFill(123, 5);
     expect(num).to.equal('00123');
