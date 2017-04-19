@@ -21,6 +21,13 @@ describe('<Admin />', function() {
     sandbox.restore();
   });
 
+  it('calls componentWillMount', async function() {
+    const componentWillMountSpy = sinon.spy(Admin.prototype, 'componentWillMount');
+    const wrapper = mount(<Admin />);
+    expect(Admin.prototype.componentWillMount.calledOnce).to.equal(true);
+    componentWillMountSpy.restore();
+  });
+
   it('should have a table', () => {
     const wrapper = mount(<Admin/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
