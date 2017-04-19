@@ -29,7 +29,7 @@ export default class AttendanceQueries {
   }
 
   userRecordDate(id) {
-    return `SELECT date FROM attendance_record WHERE user_id='${id}'`;
+    return `SELECT checkin_time FROM attendance_record WHERE user_id='${id}'`;
   }
 
   insertRecord(id, time) {
