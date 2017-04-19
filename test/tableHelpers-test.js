@@ -46,27 +46,27 @@ describe('<tableHelpers />', function() {
   });
   
   it('should format date to string', () => {
-    var date = tableHelpers.dateFormatter('2017-04-12 04:21:36');
+    const date = tableHelpers.dateFormatter('2017-04-12 04:21:36');
     expect(date).to.equal('Wednesday, April 12, 2017');
   });
   
   it('should format time to string', () => {
-    var time = tableHelpers.timeFormatter('2017-04-12 04:21:36');
+    const time = tableHelpers.timeFormatter('2017-04-12 04:21:36');
     expect(time).to.equal('4:21:36');
   });
   
   it('should format time string with padding zeros', () => {
-    var time = tableHelpers.timeFormatter('2017-04-12 04:01:06');
+    const time = tableHelpers.timeFormatter('2017-04-12 04:01:06');
     expect(time).to.equal('4:01:06');
   });
 
   it('should return an empty string if provided with NULL date', () => {
-    var time = tableHelpers.timeFormatter(null);
+    const time = tableHelpers.timeFormatter(null);
     expect(time).to.equal('');
   });
 
   it('should sort full names by last name', () => {
-    var names = tableHelpers.nameSort(
+    const names = tableHelpers.nameSort(
       {
         'first_name': 'Andrew',
         'last_name': 'Bobby'
@@ -81,7 +81,7 @@ describe('<tableHelpers />', function() {
   });
   
   it('should sort full names by first name', () => {
-    var names = tableHelpers.nameSort(
+    const names = tableHelpers.nameSort(
       {
         'first_name': 'Bobby',
         'last_name': 'Alonis'
@@ -96,14 +96,14 @@ describe('<tableHelpers />', function() {
   });
 
   it('should pad numbers with zeros to specified width', () => {
-    var num = tableHelpers.zeroFill(123, 5);
+    const num = tableHelpers.zeroFill(123, 5);
     expect(num).to.equal('00123');
   });
 
   it('should return unmodified number as a string if provided with no width or width <= 0', () => {
-    var num = tableHelpers.zeroFill(123);
+    const num = tableHelpers.zeroFill(123);
     expect(num).to.equal('123');
-    var num = tableHelpers.zeroFill(123, -1);
+    const num = tableHelpers.zeroFill(123, -1);
     expect(num).to.equal('123');
   });
 });
