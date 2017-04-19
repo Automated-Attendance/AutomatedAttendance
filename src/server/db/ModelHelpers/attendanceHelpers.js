@@ -1,5 +1,4 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
-import MomentTZ from 'moment-timezone';
 import moment from 'moment';
 
 
@@ -17,7 +16,7 @@ exports.storeRecords = async (req, res) => {
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
       if(currentTimeString === recordedTimeString) {
-        const pendingStudents = Attendance.emailWarningStudents();
+        Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
     }, 5000);

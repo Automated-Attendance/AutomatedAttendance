@@ -62,14 +62,13 @@ export default class Admin extends React.Component {
 
   async deleteRecord() {
     const momentDay = Moment().format("YYYY-MM-DD");
-    console.log(momentDay);
     await getAttendanceRecordDate({date: momentDay});
   }
 
   async componentWillMount() {
     await setInterval(async () => {
       await this.getAttendance();
-    }, 30000)
+    }, 3000)
     await this.getExistingUserList();
   }
 
