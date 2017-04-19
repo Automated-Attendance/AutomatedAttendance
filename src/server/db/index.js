@@ -44,7 +44,7 @@ db.connectAsync().then(function() {
   return db.queryAsync('USE ' + database);
 })
 .then(function() {
-  return createTables(db);
+  // return createTables(db);
 });
 
 module.exports = db;
