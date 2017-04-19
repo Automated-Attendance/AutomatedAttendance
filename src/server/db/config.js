@@ -1,4 +1,9 @@
+import Promise from 'bluebird';
+
 module.exports = async function(db) {
+  if (!db.queryAsync) {
+    db = Promise.promisifyAll(db);
+  }
   await db.queryAsync(`CREATE TABLE IF NOT EXISTS users (
     users_id int NOT NULL AUTO_INCREMENT,
     user_name varchar(50) NOT NULL,
