@@ -1,9 +1,12 @@
 import AttendanceQueries from '../QuerySelectors/AttendanceQueries';
 import Promise from 'bluebird';
 import db from '../index.js';
-import { sendAbsentEmails } from '../../mailgun/mailgunHelpers';
+import { sendAbsentEmails, sendWarningEmails } from '../../mailgun/mailgunHelpers';
+import StudentQueries from '../QuerySelectors/StudentQueries'
 
 Promise.promisifyAll(db);
+
+const StudentQuery = new StudentQueries();
 
 export default class AttendanceModel extends AttendanceQueries {
 
@@ -51,6 +54,24 @@ export default class AttendanceModel extends AttendanceQueries {
     });
     const [emails] = await db.queryAsync(getAllLateEmailsQuery);
     await sendAbsentEmails(emails);
+  }
+
+  async deleteRecordDate({ date }) {
+    const deleteQuery = super.deleteRecordByDay(date);
+    await db.queryAsync(deleteQuery);
+  }
+
+  async emailWarningStudents() {
+    let arrayOfUser = [];
+    const getPendingUsersQuery = super.getPendingUsers();
+    const [ users ] = await db.queryAsync(getPendingUsersQuery);
+
+    await Promise.all(users.map(async (user) => {
+      const userQuery = StudentQuery.getStudentInformation(user.user_id)
+      const [ userInfo ] = await db.queryAsync(userQuery);
+      arrayOfUser.push(userInfo);
+    }));
+    await sendWarningEmails(arrayOfUser);
   }
 }
 

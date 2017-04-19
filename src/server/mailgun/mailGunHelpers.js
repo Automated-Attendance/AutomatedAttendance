@@ -45,3 +45,15 @@ exports.sendAbsentEmails = async (emails) => {
     mailgun.messages().send(data);
   });
 };
+
+exports.sendWarningEmails = async (emails) => {
+  emails.forEach( (user) => {
+    let data = { 
+      from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
+      to: user[0].email,
+      subject: 'Warning Email',
+      text: 'Yo ass about to be late!'
+    };
+    mailgun.messages().send(data);
+  });
+};

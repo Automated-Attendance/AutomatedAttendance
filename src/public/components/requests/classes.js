@@ -1,5 +1,14 @@
 import axios from 'axios';
 
+const getAttendanceRecordDate = async (queryData) => {
+  try {
+    const reponse = await axios.post('/getAttendanceRecordDate', queryData) 
+    return response.status === 200;
+  } catch (err){
+    console.error(err);
+  }
+}
+
 const getAttendanceRecords = async (queryData) => {
   try {
     const { queryType, email } = queryData;
@@ -54,4 +63,4 @@ const getEnrollment = async () => {
   }
 }
 
-export { getAttendanceRecords, getClasses, addClasses, removeClasses, getEnrollment };
+export { getAttendanceRecords, getClasses, addClasses, removeClasses, getEnrollment, getAttendanceRecordDate };

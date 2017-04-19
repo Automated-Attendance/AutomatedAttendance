@@ -42,7 +42,6 @@ const emailLateStudents = async () => {
 
 const changeAttendanceStatus = async (data) => {
   try {
-    console.log('trying', data);
     const response = await axios.post('/changeAttendanceStatus', data);
     return response.status === 201;
   } catch (err) {

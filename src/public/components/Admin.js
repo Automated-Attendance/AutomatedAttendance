@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendanceRecords, getClasses } from './requests/classes';
+import { getAttendanceRecords, getClasses, getAttendanceRecordDate } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
@@ -14,6 +14,7 @@ import Select from 'react-select';
 import { getAllUsers } from './requests/users';
 import VirtualizedSelect from 'react-virtualized-select'
 import { changeAttendanceStatus } from './requests/students';
+import Spinner from './Spinner';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -57,8 +58,16 @@ export default class Admin extends React.Component {
     });
   }
 
+
+  async deleteRecord() {
+    const momentDay = Moment().format("YYYY-MM-DD");
+    await getAttendanceRecordDate({date: momentDay});
+  }
+
   async componentWillMount() {
-    await this.getAttendance();
+    setInterval(async () => {
+      await this.getAttendance();
+    }, 30000)
     await this.getExistingUserList();
   }
 
@@ -274,6 +283,11 @@ export default class Admin extends React.Component {
         </div><br/>
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
         {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
+
+        <div>          
+          <button className="deleteRecord" onClick={this.deleteRecord.bind(this)}>Delete Record</button>
+        </div>
+
       </div>
     );
   }
