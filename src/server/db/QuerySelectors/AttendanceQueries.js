@@ -50,7 +50,7 @@ export default class AttendanceQueries {
   }
 
   deleteRecordByDay(date) {
-    return `DELETE FROM attendance_record where date BETWEEN '${date} 00:00:00' and '${date} 23:59:59'; `
+    return `DELETE FROM attendance_record where cutoff_time LIKE '${date}%';`
   }
 
 }

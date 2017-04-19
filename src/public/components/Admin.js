@@ -53,6 +53,7 @@ export default class Admin extends React.Component {
     'handleSelectChange',
     'getExistingUserList',
     'updateSelectedDate',
+    'deleteRecord',
     'handleUpdateStatusSubmit'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -60,15 +61,15 @@ export default class Admin extends React.Component {
 
 
   async deleteRecord() {
-    const date = new Date();
     const momentDay = Moment().format("YYYY-MM-DD");
+    console.log(momentDay);
     await getAttendanceRecordDate({date: momentDay});
   }
 
   async componentWillMount() {
     await setInterval(async () => {
       await this.getAttendance();
-    }, 3000)
+    }, 30000)
     await this.getExistingUserList();
   }
 
@@ -286,7 +287,7 @@ export default class Admin extends React.Component {
         {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
 
         <div>          
-          <button className="deleteRecord" onClick={this.deleteRecord.bind(this)}>Delete Record</button>
+          <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
         </div>
 
       </div>
