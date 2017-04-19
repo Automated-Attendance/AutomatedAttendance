@@ -82,6 +82,7 @@ export default class Admin extends React.Component {
       }
       let fullName = `${item.first_name} ${item.last_name}`;
       item.full_name = fullName;
+      /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
         let thisEmail = this.state.emails;
         let thisStudent = this.state.students;
@@ -153,7 +154,7 @@ export default class Admin extends React.Component {
       <div>
         <h3>Start Daily Attendance</h3>
         Class:
-        <div onClick={!this.state.options.length && this.getSelectOptions}>
+        <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
           <Select 
             multi={true}
             simpleValue

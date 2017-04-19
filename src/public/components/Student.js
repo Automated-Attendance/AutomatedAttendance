@@ -24,6 +24,7 @@ export default class Student extends React.Component {
     const userEmail = this.props.userPrivs.userEmail;
     const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach((item) => {
+      /* istanbul ignore else  */
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
@@ -31,6 +32,7 @@ export default class Student extends React.Component {
           classes: thisClass
         });
       }
+      /* istanbul ignore else  */
       if (!this.state.statuses[item.status]) {
         let thisStatus = this.state.statuses;
         thisStatus[item.status] = item.status;
@@ -40,6 +42,7 @@ export default class Student extends React.Component {
       }
       let fullName = `${item.first_name} ${item.last_name}`;
       item.full_name = fullName;
+      /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
         let thisEmail = this.state.emails;
         thisEmail[item.email] = item.email;

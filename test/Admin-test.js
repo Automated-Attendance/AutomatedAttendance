@@ -21,6 +21,13 @@ describe('<Admin />', function() {
     sandbox.restore();
   });
 
+  it('calls componentWillMount', async function() {
+    const componentWillMountSpy = sinon.spy(Admin.prototype, 'componentWillMount');
+    const wrapper = mount(<Admin />);
+    expect(Admin.prototype.componentWillMount.calledOnce).to.equal(true);
+    componentWillMountSpy.restore();
+  });
+
   it('should have a table', () => {
     const wrapper = mount(<Admin/>);
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
@@ -34,5 +41,60 @@ describe('<Admin />', function() {
   it('should render a classes attendance records', () => {
     const wrapper = mount(<Admin/>);
     setTimeout(() => expect(wrapper.state().attendance).to.have.length(1), 2000);
+  });
+
+  it('should call sendLateEmails on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'sendLateEmails');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.lateStudentButton').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should call populateAttendanceRecord on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should store records on click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<Admin />);
+    let date = new Date();
+    wrapper.setState({ value: 'HRSF72', selectedTimeCutoff: date });
+    expect(wrapper.state().selectedTimeCutoff).to.equal(date);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
+
+
+describe('<Admin/> getSelectOptions', () => {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const classData = JSON.parse('[[{"class_name":"HRSF72"},{"class_name":"HRSF76"}],[{"catalog":"def","db":"automatedattendance","table":"classes","orgTable":"classes","name":"class_name","orgName":"class_name","charsetNr":33,"length":150,"type":253,"flags":4097,"decimals":0,"zeroFill":false,"protocol41":true}]]');
+    const resolved = new Promise((res) => res({ data: classData }));
+    sandbox.stub(axios, 'get').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('should call getSelectOptions on form click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'getSelectOptions');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.classSelect').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
   });
 });
