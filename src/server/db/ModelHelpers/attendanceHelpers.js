@@ -16,9 +16,6 @@ exports.storeRecords = async (req, res) => {
       let currentTime = moment();
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
-
-      // console.log( 'currentTimeString', currentTimeString );
-      // console.log('recordedTimeString', recordedTimeString );
       if(currentTimeString === recordedTimeString) {
         const pendingStudents = Attendance.emailWarningStudents();
         clearInterval(warningEmail);
@@ -27,12 +24,8 @@ exports.storeRecords = async (req, res) => {
 
     //sending out late emails 
     var absentInterval = setInterval( () => {
-      // let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
       let currentTime = moment();
-      console.log('currentTime', currentTime, '===', 'time', time)
-      console.log('testing to see if after or not:  ' moment().isAfter(time) )
-      if(currentTime > time) {
-        console.log('getting into sending late emails');
+      if(currentTime.isAfter(time)) {
         const pendingStudents = Attendance.emailLateStudents();
         clearInterval(absentInterval);
       };
