@@ -1,5 +1,5 @@
 import MailGun from 'mailgun-js'
-const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+const mailgunAPI = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
  
 exports.sendMailLate = (req, res) => {
   req.params.forEach( (person)=> {
@@ -10,7 +10,7 @@ exports.sendMailLate = (req, res) => {
       text: '1 minutes till class starts! Email communication@ if you are going to be late.'
     };
     
-    // mailgun.messages().send(data, function (error, body) {
+    // mailgunAPI.messages().send(data, function (error, body) {
     //   if (error) {
     //     res.status(500).send(error);
     //     return;
