@@ -21,7 +21,7 @@ exports.storeRecords = async (req, res) => {
       }
     }, 5000);
 
-    var absentInterval = setInterval( () => {
+    const absentInterval = setInterval( () => {
       let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
       if(currentTime > time) {
         const pendingStudents = Attendance.emailLateStudents();
