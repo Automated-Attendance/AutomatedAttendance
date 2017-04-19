@@ -4,7 +4,14 @@ import Promise from 'bluebird';
 let database;
 let connection;
 
-if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
+if (process.env.TRAVIS && process.env.CLOUD_TEST_DB) {
+  database = process.env.CLOUD_TEST_DB_NAME;
+  connection = mysql.createConnection({
+    host: process.env.CLOUD_TEST_DB_HOST,
+    user: process.env.CLOUD_TEST_DB_ADMIN,
+    password: process.env.CLOUD_TEST_DB_PASSWORD,
+  });
+} else if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
   database = process.env.CLOUD_TEST_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.CLOUD_TEST_DB_HOST,
