@@ -10,7 +10,7 @@ cache:
 env:
   - TRAVIS=true
 
-scripts:
+script:
   - npm test
   - npm run servertest
 
