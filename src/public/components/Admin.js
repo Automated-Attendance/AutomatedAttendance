@@ -68,7 +68,7 @@ export default class Admin extends React.Component {
   async componentWillMount() {
     await setInterval(async () => {
       await this.getAttendance();
-    }, 30000)
+    }, 30000);
     await this.getExistingUserList();
   }
 
@@ -121,7 +121,6 @@ export default class Admin extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    // let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
     let date = Moment(e);
     this.setState({ selectedTimeCutoff: date });
   }
