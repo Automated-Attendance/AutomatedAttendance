@@ -115,7 +115,7 @@ export default class Admin extends React.Component {
     if (this.state.value && this.state.selectedTimeCutoff) {
       await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
     } else {
-      alert('Select class(es) and cutoff time!');
+      alert('Select Class(es) and Date and Cutoff Time!');
     }
     await this.getAttendance();
   }
@@ -148,9 +148,7 @@ export default class Admin extends React.Component {
   }
 
   async handleUpdateStatusSubmit(event) {
-    if (this.state.selectedDate === '' || this.state.selectedStudent === '' || this.state.selectedStatus === '') {
-      window.alert('Enter a Date and Student and Status!');
-    } else {
+    if (this.state.selectedDate && this.state.selectedStudent && this.state.selectedStatus) {
       let data = {
         selectedDate: this.state.selectedDate,
         selectedStudent: this.state.selectedStudent,
@@ -160,6 +158,8 @@ export default class Admin extends React.Component {
       this.setState({ statusUpdated: await changeAttendanceStatus(data) });
       this.setState({ spinner: false });
       await this.getAttendance();
+    } else {
+      alert('Select Date and Student and Status!');
     }
   }
 

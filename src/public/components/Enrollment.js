@@ -88,9 +88,7 @@ export default class Enrollment extends React.Component {
   }
 
   async handleStudentAddSubmit() {
-    if (this.state.selectedClassAddStudent === '' || this.state.selectedStudentAddStudent === '' || this.state.studentPhoto === '') {
-      window.alert('Select a Class and Student and Photo!');
-    } else {
+    if (this.state.selectedClassAddStudent && this.state.selectedStudentAddStudent && this.state.studentPhoto) {
       let data = {
         selectedClass: this.state.selectedClassAddStudent,
         studentUserName: this.state.selectedStudentAddStudent.value,
@@ -101,13 +99,13 @@ export default class Enrollment extends React.Component {
       this.setState({ spinner: false });
       await this.populateTable();
       this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
+    } else {
+      alert('Select Class(es) and Student and Photo!');
     }
   }
 
   async handleClassAddSubmit() {
-    if (this.state.createClassName === '') {
-      window.alert('Enter a Class Name!');
-    } else {
+    if (this.state.createClassName) {
       let data = { className: this.state.createClassName };
       this.setState({ spinner: true, classAdded: false });
       this.setState({ classAdded: await addClasses(data) });
@@ -115,13 +113,13 @@ export default class Enrollment extends React.Component {
       await this.updateClassList();
       await this.populateTable();
       this.toggleOff('classAdded', 'createClassName');
+    } else {
+      alert('Enter Class Name!');
     }
   }
 
   async handleStudentRemoveSubmit() {
-    if (this.state.selectedClassRemoveStudent === '' || this.state.selectedStudentRemoveStudent === '') {
-      window.alert('Select a Class and Student!');
-    } else {
+    if (this.state.selectedClassRemoveStudent && this.state.selectedStudentRemoveStudent) {
       let data = {
         className: this.state.selectedClassRemoveStudent,
         studentUserName: this.state.selectedStudentRemoveStudent
@@ -131,13 +129,13 @@ export default class Enrollment extends React.Component {
       this.setState({ spinner: false });
       await this.populateTable();
       this.toggleOff('studentRemoved', 'selectedStudentRemoveStudent', 'selectedClassRemoveStudent');
+    } else {
+      alert('Select Class(es) and Student!');
     }
   }
 
   async handleClassRemoveSubmit() {
-    if (this.state.selectedClassRemoveClass === '') {
-      window.alert('Select a Class!');
-    } else {
+    if (this.state.selectedClassRemoveClass) {
       let data = { className: this.state.selectedClassRemoveClass };
       this.setState({ spinner: true, classRemoved: false });
       this.setState({ classRemoved: await removeClasses(data) });
@@ -145,6 +143,8 @@ export default class Enrollment extends React.Component {
       await this.updateClassList();
       await this.populateTable();
       this.toggleOff('classRemoved', 'selectedClassRemoveClass');
+    } else {
+      alert('Select Class(es)!');
     }
   }
 
