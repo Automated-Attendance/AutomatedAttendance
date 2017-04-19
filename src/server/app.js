@@ -78,6 +78,7 @@ app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate)
 app.get('/attendanceRecords', Attendance.getRecords);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
+app.post('/changeAttendanceStatus', Attendance.changeAttendanceStatus);
 
 // idk yet
 app.get('/allUsers', searchHelpers.getAllUsernames);

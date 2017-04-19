@@ -24,7 +24,7 @@ exports.storeRecords = async (req, res) => {
     //sending out late emails 
     var absentInterval = setInterval( () => {
       let currentTime = moment();
-      if(currentTime.isAfter(time)) {
+      if( currentTime.isAfter(time) ) {
         Attendance.emailLateStudents();
         clearInterval(absentInterval);
       };
@@ -63,8 +63,17 @@ exports.removeAttendanceRecordDate = async (req, res) => {
   try {
     await Attendance.deleteRecordDate(req.query);
   } catch (err) {
-    console.log(err.message);
-    res.status(500).send(err.message)
+    res.status(500).send(err.message);
+  }
+}
+
+exports.changeAttendanceStatus = async (req, res) => {
+  try {
+    let { data } = req.body
+    await Attendance.updateAttendanceStatus(data);
+    res.sendStatus(201);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 }
 

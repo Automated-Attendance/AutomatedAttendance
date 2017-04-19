@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAttendanceRecords, getClasses, getAttendanceRecordDate } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
-import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import { storeAttendanceRecord, emailLateStudents, changeAttendanceStatus } from './requests/students';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import 'react-select/dist/react-select.css';
 import 'react-widgets/lib/less/react-widgets.less';
@@ -13,7 +13,6 @@ import MomentTZ from 'moment-timezone';
 import Select from 'react-select';
 import { getAllUsers } from './requests/users';
 import VirtualizedSelect from 'react-virtualized-select'
-import { changeAttendanceStatus } from './requests/students';
 import Spinner from './Spinner';
 
 // init time localization for DateTimePicker
@@ -35,6 +34,7 @@ export default class Admin extends React.Component {
       selectedStatus: '',
       statusUpdated: false,
       studentOptions: [],
+      spinner: false,
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
@@ -68,7 +68,7 @@ export default class Admin extends React.Component {
   async componentWillMount() {
     await setInterval(async () => {
       await this.getAttendance();
-    }, 3000)
+    }, 30000);
     await this.getExistingUserList();
   }
 
@@ -121,7 +121,7 @@ export default class Admin extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
+    let date = Moment(e);
     this.setState({ selectedTimeCutoff: date });
   }
 
@@ -153,6 +153,7 @@ export default class Admin extends React.Component {
       selectedStudent: this.state.selectedStudent,
       selectedStatus: this.state.selectedStatus
     };
+
     this.setState({ spinner: true, statusUpdated: false });
     this.setState({ statusUpdated: await changeAttendanceStatus(data) });
     this.setState({ spinner: false });
@@ -283,11 +284,9 @@ export default class Admin extends React.Component {
           />
         </div><br/>
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
-        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
+        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.value}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
 
-        <div>          
-          <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
-        </div>
+        <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
 
       </div>
     );

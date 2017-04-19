@@ -50,7 +50,11 @@ export default class AttendanceQueries {
   }
 
   deleteRecordByDay(date) {
-    return `DELETE FROM attendance_record where cutoff_time LIKE '${date}%';`
+    return `DELETE FROM attendance_record where cutoff_time LIKE '${date}%';`;
+  }
+
+  updateUserStatus(user, date, status) {
+    return `UPDATE attendance_record SET status='${status}' WHERE cutoff_time LIKE '${date}%' AND user_id=(select users_id from users where user_name='${user}')`;
   }
 
 }
