@@ -121,7 +121,8 @@ export default class Admin extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
+    // let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
+    let date = Moment(e);
     this.setState({ selectedTimeCutoff: date });
   }
 

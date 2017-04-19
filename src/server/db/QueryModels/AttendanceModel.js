@@ -75,11 +75,11 @@ export default class AttendanceModel extends AttendanceQueries {
     await sendWarningEmails(arrayOfUser);
   }
   async updateAttendanceStatus(data) {
-    var selectedName = data.selectedStudent.value;
-    var selectedStatus = data.selectedStatus;
-    var selectedDate = data.selectedDate;
-    var timeString = selectedDate.slice(0,10)
-    const getQuery = super.updateUserStatus(selectedName, timeString, selectedStatus)
+    const selectedName = data.selectedStudent.value;
+    const selectedStatus = data.selectedStatus;
+    const selectedDate = data.selectedDate;
+    const timeString = selectedDate.slice(0,10);
+    const getQuery = super.updateUserStatus(selectedName, timeString, selectedStatus);
     await db.queryAsync(getQuery);
   }
 }
