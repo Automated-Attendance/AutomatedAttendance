@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const storeStudentData = async (studentData) => {
   try {
-    const response = await axios.post('/studentUpload', {date: studentData});
+    const response = await axios.post('/studentUpload', studentData);
     return response.status === 201;
   } catch (err) {
     // todo: better error handling
