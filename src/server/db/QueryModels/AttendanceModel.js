@@ -74,6 +74,10 @@ export default class AttendanceModel extends AttendanceQueries {
 
     await sendWarningEmails(arrayOfUser);
   }
+  async updateAttendanceStatus({ data }) {
+    console.log('data', data);
+    
+  }
 }
 
 
