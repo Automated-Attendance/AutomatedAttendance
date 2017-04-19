@@ -15,7 +15,7 @@ import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
 import userHelpers from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
-import mailGun from './mailgun/mailGunHelpers';
+import mailGun from './mailgun/mailGunHelpåers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 

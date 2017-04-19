@@ -48,10 +48,6 @@ exports.sendAbsentEmails = async (emails) => {
 
 exports.sendWarningEmails = async (emails) => {
   emails.forEach( (user) => {
-    console.log(user)
-    console.log(user[0])
-    console.log(user[0].email)
-    console.log('warning emails');
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user[0].email,
