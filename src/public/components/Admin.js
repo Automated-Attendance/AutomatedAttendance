@@ -34,6 +34,7 @@ export default class Admin extends React.Component {
       selectedStatus: '',
       statusUpdated: false,
       studentOptions: [],
+      spinner: false,
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
@@ -152,10 +153,10 @@ export default class Admin extends React.Component {
       selectedStudent: this.state.selectedStudent,
       selectedStatus: this.state.selectedStatus
     };
+
     this.setState({ spinner: true, statusUpdated: false });
     this.setState({ statusUpdated: await changeAttendanceStatus(data) });
     this.setState({ spinner: false });
-
     await this.getAttendance();
   }
 
@@ -283,11 +284,9 @@ export default class Admin extends React.Component {
           />
         </div><br/>
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
-        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
+        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.value}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
 
-        <div>          
-          <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
-        </div>
+        <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
 
       </div>
     );

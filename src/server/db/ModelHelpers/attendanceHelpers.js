@@ -63,16 +63,16 @@ exports.removeAttendanceRecordDate = async (req, res) => {
   try {
     await Attendance.deleteRecordDate(req.query);
   } catch (err) {
-    console.log(err.message);
     res.status(500).send(err.message);
   }
 }
 
 exports.changeAttendanceStatus = async (req, res) => {
   try {
-    await Attendance.updateAttendanceStatus(req.body);
+    let { data } = req.body
+    await Attendance.updateAttendanceStatus(data);
+    res.sendStatus(201);
   } catch (err) {
-    console.log(err.message);
     res.status(500).send(err.message);
   }
 }
