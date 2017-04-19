@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const getAttendanceRecordDate = async (queryData) => {
+const getAttendanceRecordDate = async ({date}) => {
   try {
-    const reponse = await axios.post('/getAttendanceRecordDate', queryData) 
+    const response = await axios.get(`/getAttendanceRecordDate?date=${date}`) 
     return response.status === 200;
   } catch (err){
     console.error(err);

@@ -23,7 +23,6 @@ const removeStudentData = async (studentData) => {
 
 const storeAttendanceRecord = async (classes, time) => {
   try {
-    console.log('STOREATTENDANCE RECORD TIME:   ', time);
     const reponse = await axios.post('/storeAttendanceRecord', { classes: classes.split(','), time: time });
     return reponse.status === 201;
   } catch (err) {

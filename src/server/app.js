@@ -74,10 +74,10 @@ app.post('/addClass', classHelpers.addClass);
 app.post('/removeClass', classHelpers.removeClass);
 
 // Attendance
+app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate)
 app.get('/attendanceRecords', Attendance.getRecords);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
-app.post('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate)
 
 // idk yet
 app.get('/allUsers', searchHelpers.getAllUsernames);

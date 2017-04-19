@@ -16,7 +16,6 @@ exports.storeRecords = async (req, res) => {
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
       if(currentTimeString === recordedTimeString) {
-        console.log('currenttime and recorded time are same');
         const pendingStudents = Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
@@ -61,7 +60,7 @@ exports.emailLateStudents = async (req, res) => {
 
 exports.removeAttendanceRecordDate = async (req, res) => {
   try {
-    await Attendance.deleteRecordDate(req.body);
+    await Attendance.deleteRecordDate(req.query);
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message)
