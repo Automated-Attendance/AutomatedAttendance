@@ -34,7 +34,7 @@ export default class Enrollment extends React.Component {
       classOptionsRemoveClass: [],
       classOptionsEnrollment: {},
       enrollmentRecords: []
-    },
+    };
 
     ['updateClassList',
     'handleInputChange',

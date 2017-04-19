@@ -33,6 +33,7 @@ export default class Admin extends React.Component {
       selectedStudent: '',
       selectedStatus: '',
       statusUpdated: false,
+      attendancePopulated: false,
       studentOptions: [],
       spinner: false,
       statusOptions: [
@@ -41,9 +42,9 @@ export default class Admin extends React.Component {
         {label: 'Absent', value: 'Absent'},
         {label: 'Pending', value: 'Pending'}
       ],
-      value: null,
-      selectedTimeCutoff: null
-    },
+      value: '',
+      selectedTimeCutoff: null,
+    };
 
     ['getAttendance',
     'sendLateEmails',
@@ -54,7 +55,8 @@ export default class Admin extends React.Component {
     'getExistingUserList',
     'updateSelectedDate',
     'deleteRecord',
-    'handleUpdateStatusSubmit'].forEach((method) => {
+    'handleUpdateStatusSubmit',
+    'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
@@ -113,11 +115,14 @@ export default class Admin extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) {
-      await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+      this.setState({ spinner: true, statusUpdated: false });
+      this.setState({ attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff) });
+      this.setState({ spinner: false });
     } else {
       alert('Select Class(es) and Date and Cutoff Time!');
     }
     await this.getAttendance();
+    this.toggleOff('attendancePopulated', 'value', 'selectedTimeCutoff');
   }
 
   updateSelectedTimeCutoff(e) {
@@ -158,9 +163,16 @@ export default class Admin extends React.Component {
       this.setState({ statusUpdated: await changeAttendanceStatus(data) });
       this.setState({ spinner: false });
       await this.getAttendance();
+      this.toggleOff('statusUpdated', 'selectedDate', 'selectedStudent', 'selectedStatus');
     } else {
       alert('Select Date and Student and Status!');
     }
+  }
+
+  toggleOff(status, state1, state2, state3) {
+    setTimeout(() => {
+      this.setState({ [status]: false, [state1]: '', [state2]: '', [state3]: '' });
+    }, 2000);
   }
 
   render() {
@@ -185,6 +197,7 @@ export default class Admin extends React.Component {
           onChange={this.updateSelectedTimeCutoff}
         /><br/>
         <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
+        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff}!</h5>}
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
         <h3>Attendance Records</h3>
