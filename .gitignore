@@ -28,5 +28,5 @@ babel_cache/
 # Webpack bundle
 src/public/dist/bundle.js
 
-# env vars with dotenv
-.env
+# mocha-webpack .tmp dir
+.tmp/
