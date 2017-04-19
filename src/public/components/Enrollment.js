@@ -87,7 +87,7 @@ export default class Enrollment extends React.Component {
     }, 2000);
   }
 
-  async handleStudentAddSubmit(event) {
+  async handleStudentAddSubmit() {
     let data = {
       studentUserName: this.state.selectedStudentAddStudent.value,
       selectedClass: this.state.selectedClassAddStudent,
@@ -101,17 +101,21 @@ export default class Enrollment extends React.Component {
 
   }
 
-  async handleClassAddSubmit(event) {
-    let data = { className: this.state.createClassName };
-    this.setState({ spinner: true, classAdded: false });
-    this.setState({ classAdded: await addClasses(data) });
-    this.setState({ spinner: false });
-    await this.updateClassList();
-    await this.populateTable();
-    this.toggleOff('classAdded');
+  async handleClassAddSubmit() {
+    if (this.state.createClassName === '') {
+      window.alert('Enter a Class Name!')
+    } else {
+      let data = { className: this.state.createClassName };
+      this.setState({ spinner: true, classAdded: false });
+      this.setState({ classAdded: await addClasses(data) });
+      this.setState({ spinner: false });
+      await this.updateClassList();
+      await this.populateTable();
+      this.toggleOff('classAdded');
+    }
   }
 
-  async handleStudentRemoveSubmit(event) {
+  async handleStudentRemoveSubmit() {
     let data = {
       studentUserName: this.state.selectedStudentRemoveStudent,
       className: this.state.selectedClassRemoveStudent,
@@ -123,7 +127,7 @@ export default class Enrollment extends React.Component {
     this.toggleOff('studentRemoved');
   }
 
-  async handleClassRemoveSubmit(event) {
+  async handleClassRemoveSubmit() {
     let data = { className: this.state.selectedClassRemoveClass };
     this.setState({ spinner: true, classRemoved: false });
     this.setState({ classRemoved: await removeClasses(data) });
@@ -170,7 +174,12 @@ export default class Enrollment extends React.Component {
         {this.state.spinner && <Spinner/>}
 
         <h3>Create Class</h3>
-        <input name="createClassName" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/><br/>
+        <input
+          name="createClassName"
+          type="text"
+          placeholder="Enter Class Name"
+          onChange={this.handleInputChange}
+        /><br/><br/>
         <button onClick={this.handleClassAddSubmit}>Create Class</button>
         {!this.state.classAdded ? null : <h5>{this.state.createClassName} created!</h5>}<hr/>
 
@@ -200,7 +209,12 @@ export default class Enrollment extends React.Component {
           action='/studentUpload' 
           method='post' 
           encType="multipart/form-data">
-          Enter Photo:<input type="file" name="sampleFile" onChange={this.previewFile} />
+          Enter Photo:
+          <input
+            type="file"
+            name="sampleFile"
+            onChange={this.previewFile}
+          />
           <img src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
