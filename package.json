@@ -9,6 +9,7 @@
     "build": "node_modules/.bin/webpack --watch",
     "db": "mysql -u root -h localhost -p",
     "test": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "servertest": "mocha test/ServerSideTests/*.js --timeout 10000",
     "chrometest": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start --browsers Chrome",
     "coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -101,6 +102,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     "mocha": "^3.2.0",
+    "mocha-webpack": "^0.7.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.5.2",
     "react-addons-test-utils": "^15.5.1",
@@ -109,6 +111,6 @@
     "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
-    "webpack": "^2.2.1"
+    "webpack": "^2.4.1"
   }
 }
