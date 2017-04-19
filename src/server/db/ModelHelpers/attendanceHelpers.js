@@ -30,11 +30,12 @@ exports.storeRecords = async (req, res) => {
     var absentInterval = setInterval( () => {
       // let currentTime = MomentTZ.tz(new Date(), "America/Los_angeles").format();
       let currentTime = moment();
+      console.log('currentTime', currentTime, '===', 'time', time)
       if(currentTime > time) {
         const pendingStudents = Attendance.emailLateStudents();
         clearInterval(absentInterval);
       };
-    }, 15000);
+    }, 5000);
 
     res.sendStatus(201);
   } catch (err) {
