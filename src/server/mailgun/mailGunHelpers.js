@@ -2,7 +2,6 @@ import MailGun from 'mailgun-js'
 const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
  
 exports.sendMailLate = (req, res) => {
-  console.log('sending LATE EMAIL');
   req.params.forEach( (person)=> {
     var data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -24,7 +23,6 @@ exports.sendMailLate = (req, res) => {
 };
   
 exports.sendMailForArrival = async (matchedUsers) => {
-  console.log('sending ARRIVAL EMAIL')
   matchedUsers.forEach((user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -37,7 +35,6 @@ exports.sendMailForArrival = async (matchedUsers) => {
 };
 
 exports.sendAbsentEmails = async (emails) => {
-  console.log('sending ABSENT EMAIL')
   emails.forEach((user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -45,12 +42,11 @@ exports.sendAbsentEmails = async (emails) => {
       subject: 'Absent',
       text: 'You are absent now'
     };
-    mailgun.messages().send(data);
+    // mailgun.messages().send(data);
   });
 };
 
 exports.sendWarningEmails = async (emails) => {
-  console.log('sending WARNING EMAIL')
   emails.forEach( (user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -58,6 +54,6 @@ exports.sendWarningEmails = async (emails) => {
       subject: 'Warning Email',
       text: 'Yo ass about to be late! 1 Minute from bell'
     };
-    mailgun.messages().send(data);
+    // mailgun.messages().send(data);
   });
 };
