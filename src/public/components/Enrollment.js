@@ -81,9 +81,9 @@ export default class Enrollment extends React.Component {
     this.setState({ [name]: event.target.value });
   }
 
-  toggleOff(status) {
+  toggleOff(status, state1, state2, state3) {
     setTimeout(() => {
-      this.setState({ [status]: false })
+      this.setState({ [status]: false, [state1]: '', [state2]: '', [state3]: '' });
     }, 2000);
   }
 
@@ -97,7 +97,7 @@ export default class Enrollment extends React.Component {
     this.setState({ studentAdded: await storeStudentData(data) });
     this.setState({ spinner: false });
     await this.populateTable();
-    this.toggleOff('studentAdded');
+    this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
 
   }
 
@@ -111,7 +111,7 @@ export default class Enrollment extends React.Component {
       this.setState({ spinner: false });
       await this.updateClassList();
       await this.populateTable();
-      this.toggleOff('classAdded');
+      this.toggleOff('classAdded', 'createClassName');
     }
   }
 
@@ -124,7 +124,7 @@ export default class Enrollment extends React.Component {
     this.setState({ studentRemoved: await removeStudentData(data) });
     this.setState({ spinner: false });
     await this.populateTable();
-    this.toggleOff('studentRemoved');
+    this.toggleOff('studentRemoved', 'selectedStudentRemoveStudent', 'selectedClassRemoveStudent');
   }
 
   async handleClassRemoveSubmit() {
@@ -134,7 +134,7 @@ export default class Enrollment extends React.Component {
     this.setState({ spinner: false });
     await this.updateClassList();
     await this.populateTable();
-    this.toggleOff('classRemoved');
+    this.toggleOff('classRemoved', 'selectedClassRemoveClass');
   }
 
   previewFile() {
@@ -178,6 +178,7 @@ export default class Enrollment extends React.Component {
           name="createClassName"
           type="text"
           placeholder="Enter Class Name"
+          value={this.state.createClassName}
           onChange={this.handleInputChange}
         /><br/><br/>
         <button onClick={this.handleClassAddSubmit}>Create Class</button>
