@@ -101,7 +101,7 @@ describe('<tableHelpers />', function() {
   });
 
   it('should return unmodified number as a string if provided with no width or width <= 0', () => {
-    const num = tableHelpers.zeroFill(123);
+    let num = tableHelpers.zeroFill(123);
     expect(num).to.equal('123');
     num = tableHelpers.zeroFill(123, -1);
     expect(num).to.equal('123');
