@@ -40,7 +40,7 @@ export default class StudentQueries {
         qs += `user_id='${user.users_id}' or `;
       }
     });
-    return `UPDATE attendance_record SET status='On time', date='${date}' WHERE ${qs}`;
+    return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE ${qs}`;
   }
 
   checkIfStudentIsEnrolled(userName, className) {
