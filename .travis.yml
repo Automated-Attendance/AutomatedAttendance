@@ -10,5 +10,9 @@ cache:
 env:
   - TRAVIS=true
 
+scripts:
+  - npm test
+  - npm run servertest
+
 after_success: 
   - npm run coveralls
