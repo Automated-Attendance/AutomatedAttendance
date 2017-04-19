@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAttendanceRecords, getClasses, getAttendanceRecordDate } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
-import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import { storeAttendanceRecord, emailLateStudents, changeAttendanceStatus } from './requests/students';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import 'react-select/dist/react-select.css';
 import 'react-widgets/lib/less/react-widgets.less';
@@ -13,7 +13,6 @@ import MomentTZ from 'moment-timezone';
 import Select from 'react-select';
 import { getAllUsers } from './requests/users';
 import VirtualizedSelect from 'react-virtualized-select'
-import { changeAttendanceStatus } from './requests/students';
 import Spinner from './Spinner';
 
 // init time localization for DateTimePicker
@@ -156,6 +155,7 @@ export default class Admin extends React.Component {
     this.setState({ spinner: true, statusUpdated: false });
     this.setState({ statusUpdated: await changeAttendanceStatus(data) });
     this.setState({ spinner: false });
+
     await this.getAttendance();
   }
 
