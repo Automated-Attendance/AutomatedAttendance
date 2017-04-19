@@ -116,15 +116,19 @@ export default class Enrollment extends React.Component {
   }
 
   async handleStudentRemoveSubmit() {
-    let data = {
-      studentUserName: this.state.selectedStudentRemoveStudent,
-      className: this.state.selectedClassRemoveStudent,
-    };
-    this.setState({ spinner: true, studentRemoved: false });
-    this.setState({ studentRemoved: await removeStudentData(data) });
-    this.setState({ spinner: false });
-    await this.populateTable();
-    this.toggleOff('studentRemoved', 'selectedStudentRemoveStudent', 'selectedClassRemoveStudent');
+    if (this.state.selectedClassRemoveStudent === '' || this.state.selectedStudentRemoveStudent === '') {
+      window.alert('Select a Class and Student!');
+    } else {
+      let data = {
+        className: this.state.selectedClassRemoveStudent,
+        studentUserName: this.state.selectedStudentRemoveStudent
+      };
+      this.setState({ spinner: true, studentRemoved: false });
+      this.setState({ studentRemoved: await removeStudentData(data) });
+      this.setState({ spinner: false });
+      await this.populateTable();
+      this.toggleOff('studentRemoved', 'selectedStudentRemoveStudent', 'selectedClassRemoveStudent');
+    }
   }
 
   async handleClassRemoveSubmit() {
