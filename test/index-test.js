@@ -19,7 +19,7 @@ describe('<App />', function() {
     sandbox.restore();
   });
   
-  it('calls componentWillMount', function() {
+  it('calls componentWillMount', async function() {
     const componentWillMountSpy = sinon.spy(App.prototype, 'componentWillMount');
     const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.calledOnce).to.equal(true);

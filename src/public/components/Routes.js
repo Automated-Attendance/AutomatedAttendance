@@ -9,6 +9,7 @@ import LoginRedirect from './LoginRedirect';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 const Routes = ({ userPrivs }) => {
+  /* istanbul ignore next */
   return (
     <div>
       <Route path="/About" component={About}/>
