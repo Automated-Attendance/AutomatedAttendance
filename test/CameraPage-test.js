@@ -40,4 +40,12 @@ describe('<CameraPage />', function() {
     expect(wrapper.find('img')).to.have.length(0);
   });
 
+  it('should update state when unmounted', () => {
+    const wrapper = mount(<CameraPage />);
+    wrapper.unmount();
+    setTimeout(() => {
+      expect(wrapper.state().mounted).to.equal(false);
+    }, 1000);
+  });
+
 });

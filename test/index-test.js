@@ -51,5 +51,12 @@ describe('<App />', function() {
     }, 1000);
   });
 
+  it('should register a login status', async function() {
+    const wrapper = await mount(<App/>);
+    setTimeout(() => {
+      expect(wrapper.state().loginStatus).to.be(boolean);
+    }, 1000);
+  });
+
 });
 
