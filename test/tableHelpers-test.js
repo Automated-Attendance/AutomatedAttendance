@@ -130,6 +130,11 @@ describe('<tableHelpers />', function() {
     expect(num).to.equal('00123');
   });
 
+  it('should pad decimal numbers with zeros to specified width', () => {
+    var num = tableHelpers.zeroFill(1.23, 5);
+    expect(num).to.equal('001.23');
+  });
+
   it('should return unmodified number as a string if provided with no width or width <= 0', () => {
     let num = tableHelpers.zeroFill(123);
     expect(num).to.equal('123');
