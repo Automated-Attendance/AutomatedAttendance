@@ -66,7 +66,6 @@ export default class Admin extends React.Component {
     const queryType = {queryType: 'allAttendance'};
     const attendanceRecords = await getAttendanceRecords(queryType);   
     attendanceRecords.forEach((item) => {
-      item.date = tableHelpers.parseDateAndTime(item.date);
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
@@ -102,13 +101,16 @@ export default class Admin extends React.Component {
   }
 
   async populateAttendanceRecord() {
-    if (this.state.value && this.state.selectedTimeCutoff) await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
-    else alert('Select class(es) and cutoff time!');
+    if (this.state.value && this.state.selectedTimeCutoff) {
+      await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
+    } else {
+      alert('Select class(es) and cutoff time!');
+    }
     await this.getAttendance();
   }
 
   updateSelectedTimeCutoff(e) {
-    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
     this.setState({ selectedTimeCutoff: date });
   }
 
@@ -130,7 +132,7 @@ export default class Admin extends React.Component {
   }
 
   updateSelectedDate(e) {
-    let date = MomentTZ.tz(new Date(e), "America/Los_angeles").format();
+    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
     this.setState({ selectedDate: date });
   }
 
@@ -208,7 +210,7 @@ export default class Admin extends React.Component {
             Name
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField = 'checkin_time'
+            dataField = 'cutoff_time'
             width = '30%'
             dataAlign = 'right'
             dataFormat = {tableHelpers.dateFormatter}
