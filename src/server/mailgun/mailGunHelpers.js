@@ -43,9 +43,9 @@ exports.sendAbsentEmails = async (emails) => {
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
       subject: 'Absent',
-      text: 'Refactor all the things!'
+      text: 'You are absent now'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };
 
@@ -56,8 +56,8 @@ exports.sendWarningEmails = async (emails) => {
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user[0].email,
       subject: 'Warning Email',
-      text: 'Yo ass about to be late!'
+      text: 'Yo ass about to be late! 1 Minute from bell'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };

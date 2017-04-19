@@ -66,9 +66,9 @@ export default class Admin extends React.Component {
   }
 
   async componentWillMount() {
-    setInterval(async () => {
+    await setInterval(async () => {
       await this.getAttendance();
-    }, 30000)
+    }, 3000)
     await this.getExistingUserList();
   }
 
