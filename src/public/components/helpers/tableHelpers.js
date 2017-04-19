@@ -47,6 +47,9 @@ const dateFormatter = (cell) => {
 }
 
 const timeFormatter = (cell) => {
+  if (cell === null) {
+    return '';
+  }
   var time = Moment(cell);
   return `${time.hour()}:${zeroFill(time.minute(), 2)}:${zeroFill(time.second(), 2)}`;
 }
@@ -56,11 +59,14 @@ const zeroFill = (number, width) => {
   if ( width > 0 ) {
     return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
   }
-  return number + "";
+  return number + '';
 }
 
 module.exports = {
+  months: months,
+  days: days,
   nameSort: nameSort,
   dateFormatter: dateFormatter,
-  timeFormatter: timeFormatter
+  timeFormatter: timeFormatter,
+  zeroFill: zeroFill
 }
