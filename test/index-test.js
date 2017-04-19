@@ -51,11 +51,12 @@ describe('<App />', function() {
     }, 1000);
   });
 
-  it('should populate class list', async function() {
+  it('should register a login status', async function() {
     const wrapper = await mount(<App/>);
     setTimeout(() => {
-      expect(wrapper.state().loginStatus).to.equal(true || false);
+      expect(wrapper.state().loginStatus).to.be(boolean);
     }, 1000);
   });
+
 });
 
