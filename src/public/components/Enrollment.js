@@ -88,17 +88,20 @@ export default class Enrollment extends React.Component {
   }
 
   async handleStudentAddSubmit() {
-    let data = {
-      studentUserName: this.state.selectedStudentAddStudent.value,
-      selectedClass: this.state.selectedClassAddStudent,
-      studentPhoto: this.state.studentPhoto
-    };
-    this.setState({ spinner: true, studentAdded: false });
-    this.setState({ studentAdded: await storeStudentData(data) });
-    this.setState({ spinner: false });
-    await this.populateTable();
-    this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
-
+    if (this.state.selectedClassAddStudent === '' || this.state.selectedStudentAddStudent === '' || this.state.studentPhoto === '') {
+      window.alert('Select a Class and Student and Photo!');
+    } else {
+      let data = {
+        selectedClass: this.state.selectedClassAddStudent,
+        studentUserName: this.state.selectedStudentAddStudent.value,
+        studentPhoto: this.state.studentPhoto
+      };
+      this.setState({ spinner: true, studentAdded: false });
+      this.setState({ studentAdded: await storeStudentData(data) });
+      this.setState({ spinner: false });
+      await this.populateTable();
+      this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
+    }
   }
 
   async handleClassAddSubmit() {
