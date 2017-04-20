@@ -111,6 +111,15 @@ describe('', function() {
       expect(response).to.have.status(200);
     });
 
+    it('/getAttendanceRecordDate remove attendance records from current day', async () => {
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"]}');
+      mockRequestBody.time = new Date();
+      const populateRecords = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      expect(populateRecords).to.have.status(201);
+      const response = await chai.request(server).get(`/getAttendanceRecordDate?date=${new Date()}`);
+      expect(response).to.have.status(202);
+    });
+
 
   });
 
