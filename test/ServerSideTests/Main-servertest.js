@@ -32,7 +32,6 @@ describe('', function() {
     await db.connectAsync();
     await db.queryAsync('DROP DATABASE IF EXISTS ' + dbName);
     await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + dbName);
-    console.log('Connected to ' + dbName + 'database as ID ' + db.threadId);
     await db.queryAsync('USE ' + dbName);
     await makeTables(db);
     server = app.listen(port);
@@ -227,7 +226,7 @@ describe('', function() {
     });
 
     // it('storeAndLogin should store if new user', async () => {
-      
+
     //   expect(response.text).to.equal('not logged in');
     // });
 
