@@ -4,6 +4,7 @@ import Promise from 'bluebird';
 let database;
 let connection;
 
+/* istanbul ignore next */
 if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
   // travis CI localhost
   database = 'automatedattendance';

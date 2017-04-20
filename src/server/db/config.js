@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 
 module.exports = async function(db) {
+  /* istanbul ignore next */
   if (!db.queryAsync) {
     db = Promise.promisifyAll(db);
   }
