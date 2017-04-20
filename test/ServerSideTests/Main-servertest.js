@@ -4,6 +4,7 @@ import chaiHttp from 'chai-http';
 import chai, { expect } from 'chai';
 import app from '../../src/server/app';
 import schema from '../../src/server/db/config';
+import httpMocks from 'node-mocks-http';
 import Promise from 'bluebird';
 
 // for stubbing requests
@@ -68,9 +69,9 @@ describe('', function() {
 
   // });
 
-  describe('Cloudinary Helpers', () => {
+  describe('Student Routes', () => {
 
-    it('should upload image to cloudinary', (done) => {
+    it('should store student in database', (done) => {
       // chai.request(server)
       //   .get('/login')
       //   .end((err, res) => {
