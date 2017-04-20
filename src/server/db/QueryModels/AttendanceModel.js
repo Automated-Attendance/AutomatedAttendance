@@ -3,6 +3,8 @@ import Promise from 'bluebird';
 import db from '../index.js';
 import { sendAbsentEmails, sendWarningEmails } from '../../mailgun/mailgunHelpers';
 import StudentQueries from '../QuerySelectors/StudentQueries'
+import moment from 'moment';
+
 
 Promise.promisifyAll(db);
 
@@ -33,8 +35,8 @@ export default class AttendanceModel extends AttendanceQueries {
       let userDateQuery = super.userRecordDate(user.users_id);
       let [userDate] = await db.queryAsync(userDateQuery);
       if (userDate.length) {
-        let existingDay = new Date(userDate[0].date).getDay();
-        let currentDay = new Date().getDay();
+        let existingDay = moment(userDate[0].cutoff_time).format('YYYY-MM-DD');
+        let currentDay = moment().format('YYYY-MM-DD');
         if (existingDay !== currentDay) {
           db.queryAsync(insertQuery);  
         }
