@@ -184,7 +184,7 @@ describe('', function() {
     });
 
     it('/removeClass should remove class from database', async () => {
-      const response = await chai.request(server).post('/removeClass').send({className: 'HRSF72,HRSF76'});
+      const response = await chai.request(server).post('/removeClass').send({className: 'fake1, fake2'});
       expect(response).to.have.status(202);
     });
 
