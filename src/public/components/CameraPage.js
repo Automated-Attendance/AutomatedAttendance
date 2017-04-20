@@ -50,12 +50,12 @@ export default class CameraPage extends React.Component {
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
   startCamera () {
-
-    let endTime = Moment().add(1, 'minute');
+    let end = Moment(this.state.selectedTimeCutoff);
     let startCam = setInterval( ()=> {
       let currentTime = Moment();
-      if ( currentTime.isAfter(endTime) ) {
-        takeScreenshot();
+      this.takeScreenshot();
+      if ( currentTime.isAfter(end) ) {
+        //stop taking pictures of the camera
         clearInterval(startCam)
       };
       console.log('still counting in setInteval')
@@ -78,7 +78,7 @@ export default class CameraPage extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    let date = Moment(e);
+    let date = Moment(e).format('YYYY-MM-DD HH:mm:ss');
     this.setState({ selectedTimeCutoff: date });
   }
 
@@ -111,7 +111,6 @@ export default class CameraPage extends React.Component {
 
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
-          <button className="startCamera" onClick={this.startCamera}>Start Camera</button>
         </div>
 
         {this.state.spinner && <Spinner/>}
@@ -139,11 +138,12 @@ export default class CameraPage extends React.Component {
         <button
           className="populateAttendanceRecord"
           onClick={async () => {
-            this.takeScreenshot();
             await this.populateAttendanceRecord();
+            this.startCamera();
+            // this.takeScreenshot();
           }}
-        >Take Screenshot and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
-        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMM Do, YYYY')}!</h5>}
+        >Start Camera and Populate Attendance Records and get ready to send emails</button><br/><br/>
+        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMM Do, YYYY')}!</h5>}
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
       </div>
