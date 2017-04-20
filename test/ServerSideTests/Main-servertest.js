@@ -15,6 +15,7 @@ const AuthQuery = new AuthQueries();
 chai.use(chaiHttp);
 
 describe('', function() {
+
   let db, server, port = 4568;
 
   beforeEach(async () => {
@@ -59,6 +60,7 @@ describe('', function() {
       let [result] = await db.queryAsync(`SELECT * FROM users`);
       expect(result).to.exist;
     });
+    
   });
 
 
@@ -151,6 +153,7 @@ describe('', function() {
       const response = await chai.request(server).post('/changeAttendanceStatus').send(updateData);
       expect(response).to.have.status(201);
     });
+
   });
 
 
@@ -183,6 +186,19 @@ describe('', function() {
       expect(response).to.have.status(202);
     });
 
-  })
+  });
+
+
+
+
+  describe('Search Helpers', () => {
+
+    it('/allUsers should return list of all usernames in database', async () => {
+      const response = await chai.request(server).get('/allUsers');
+      expect(response).to.have.status(200);
+    });
+
+  });
+
 
 });
