@@ -24,7 +24,6 @@ export default class Admin extends React.Component {
 
     this.state = {
       attendance: [],
-      options: [],
       classes: {},
       students: {},
       emails: {},
@@ -33,7 +32,6 @@ export default class Admin extends React.Component {
       selectedStudent: '',
       selectedStatus: '',
       statusUpdated: false,
-      attendancePopulated: false,
       studentOptions: [],
       spinner: false,
       statusOptions: [
@@ -41,17 +39,10 @@ export default class Admin extends React.Component {
         {label: 'Tardy', value: 'Tardy'},
         {label: 'Absent', value: 'Absent'},
         {label: 'Pending', value: 'Pending'}
-      ],
-      value: '',
-      selectedTimeCutoff: null,
+      ]
     };
 
     ['getAttendance',
-    'sendLateEmails',
-    'populateAttendanceRecord',
-    'updateSelectedTimeCutoff',
-    'getSelectOptions',
-    'handleSelectChange',
     'getExistingUserList',
     'updateSelectedDate',
     'deleteRecord',
@@ -61,18 +52,17 @@ export default class Admin extends React.Component {
     });
   }
 
-
-  async deleteRecord() {
-    const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
-  }
-
   async componentWillMount() {
     await this.getAttendance();
     await setInterval(async () => {
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
+  }
+
+  async deleteRecord() {
+    const momentDay = Moment().format("YYYY-MM-DD");
+    await getAttendanceRecordDate({date: momentDay});
   }
 
   async getAttendance() {
@@ -108,39 +98,6 @@ export default class Admin extends React.Component {
       }
     });
     this.setState({attendance: attendanceRecords});
-  }
-
-  async sendLateEmails () {
-    await emailLateStudents(this.state.selectedTimeCutoff);
-  }
-
-  async populateAttendanceRecord() {
-    if (this.state.value && this.state.selectedTimeCutoff) {
-      this.setState({ spinner: true, statusUpdated: false });
-      this.setState({ attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff) });
-      this.setState({ spinner: false });
-    } else {
-      alert('Select Class(es) and Cutoff Time!');
-    }
-    await this.getAttendance();
-    this.toggleOff('attendancePopulated', 'value', 'selectedTimeCutoff');
-  }
-
-  updateSelectedTimeCutoff(e) {
-    let date = Moment(e);
-    this.setState({ selectedTimeCutoff: date });
-  }
-
-  async getSelectOptions() {
-    const classList = await getClasses();
-    const classes = classList.classes.map((classname) => {
-      return { label: classname, value: classname };
-    });
-    this.setState({ options: classes });
-  }
-
-  handleSelectChange(value) {
-    this.setState({ value });
   }
 
   async getExistingUserList() {
@@ -182,29 +139,6 @@ export default class Admin extends React.Component {
   render() {
     return (
       <div>
-        <h3>Start Daily Attendance</h3>
-        Class:
-        <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
-          <Select 
-            multi={true}
-            simpleValue
-            disabled={this.state.disabled}
-            value={this.state.value}
-            placeholder="Select Class(es)..."
-            options={this.state.options}
-            onChange={this.handleSelectChange}
-          />
-        </div><br/>
-        Cutoff Time:
-        <DateTime
-          placeholder="Select Cutoff Time..."
-          onChange={this.updateSelectedTimeCutoff}
-          calendar={false}
-        /><br/>
-        <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
-        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMM Do, YYYY')}!</h5>}
-        <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
-
         <h3>Attendance Records</h3>
         <BootstrapTable
           data = {this.state.attendance}
