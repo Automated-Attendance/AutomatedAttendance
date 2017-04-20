@@ -60,7 +60,7 @@ describe('', function() {
       let [result] = await db.queryAsync(`SELECT * FROM users`);
       expect(result).to.exist;
     });
-    
+
   });
 
 
@@ -89,9 +89,9 @@ describe('', function() {
     // it('/studentUpload should return 201 when using mock data', async () => {
     //   const fakeStudentData = require('../FakeData/FakeStudentUploadData');
     //   await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
-    //     VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
+    //     VALUES ('Jukejc', 'Jason', 'Chambers', 'fakeemail@gmail.com');`);
     //   const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
-    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('jas.o.chambers@gmail.com'));
+    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('fakeemail@gmail.com'));
     //   expect(response).to.have.status(201);
     // });
 
