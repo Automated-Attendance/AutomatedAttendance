@@ -6,6 +6,9 @@ import app from '../../src/server/app';
 import makeTables from '../../src/server/db/config';
 import Promise from 'bluebird';
 import AuthQueries from '../../src/server/db/QuerySelectors/AuthQueries';
+import { storeAndLogin, retrieveData } from '../../src/server/db/ModelHelpers/userHelpers';
+import httpMocks from 'node-mocks-http';
+
 
 
 // Queries for tests
@@ -84,7 +87,7 @@ describe('', function() {
 
 
 
-  describe('Student Routes', () => {
+  describe('Student Helpers', () => {
 
     // it('/studentUpload should return 201 when using mock data', async () => {
     //   const fakeStudentData = require('../FakeData/FakeStudentUploadData');
@@ -196,6 +199,31 @@ describe('', function() {
     it('/allUsers should return list of all usernames in database', async () => {
       const response = await chai.request(server).get('/allUsers');
       expect(response).to.have.status(200);
+    });
+
+  });
+
+
+
+
+  describe('User Helpers', () => {
+
+    it('User.retrieveData should return user data', async () => {
+      let response = httpMocks.createResponse();
+      let request = { 
+        user: {
+          _json: {
+            email: 'jas.o.chambers@gmail.com' 
+          } 
+        }
+      };
+      await retrieveData(request, response);
+      expect(response.statusCode).to.equal(200);
+    });
+
+    it('/retrieveData should return nothing if not logged in', async () => {
+      const response = await chai.request(server).get('/retrieveUserData');
+      expect(response.text).to.equal('not logged in');
     });
 
   });
