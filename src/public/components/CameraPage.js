@@ -123,7 +123,13 @@ export default class CameraPage extends React.Component {
           onChange={this.updateSelectedTimeCutoff}
           calendar={false}
         /><br/>
-        <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
+        <button
+          className="populateAttendanceRecord"
+          onClick={async () =>
+            this.takeScreenshot;
+            await this.populateAttendanceRecord();
+          }
+        >Take Screenshot and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
         {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMM Do, YYYY')}!</h5>}
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 

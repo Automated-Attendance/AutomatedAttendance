@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendanceRecords, getClasses, getAttendanceRecordDate } from './requests/classes';
+import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
-import { storeAttendanceRecord, emailLateStudents, changeAttendanceStatus } from './requests/students';
+import { changeAttendanceStatus } from './requests/students';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import 'react-select/dist/react-select.css';
 import 'react-widgets/lib/less/react-widgets.less';
