@@ -103,6 +103,14 @@ describe('', function() {
       expect(response).to.have.status(200);
     });
 
+    it('/emailLateStudents should email late students', async () => {
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2017-04-20T01:30:00.000Z"}');
+      const populateRecords = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      expect(populateRecords).to.have.status(201);
+      const response = await chai.request(server).post('/emailLateStudents');
+      expect(response).to.have.status(200);
+    });
+
 
   });
 
