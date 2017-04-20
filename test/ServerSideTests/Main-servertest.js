@@ -93,6 +93,17 @@ describe('', function() {
       expect(response).to.have.status(201);
     });
 
+    it('/attendanceRecords should return all attendance', async () => {
+      const response = await chai.request(server).get(`/attendanceRecords?type=${'allAttendance'}&email=${undefined}`);
+      expect(response).to.have.status(200);
+    });
+
+    it('/attendanceRecords should return students attendance', async () => {
+      const response = await chai.request(server).get(`/attendanceRecords?type=${'studentAttendance'}&email=${'jas.o.chambers@gmail.com'}`);
+      expect(response).to.have.status(200);
+    });
+
+
   });
 
 });
