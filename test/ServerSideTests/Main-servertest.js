@@ -57,6 +57,23 @@ describe('', function() {
     });
   });
 
+  describe('Auth0 Helpers', () => {
+
+    it('should logout', (done) => {
+      chai.request(server)
+        .get('/logout')
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
+
+    it('have a database', async () => {
+      let [result] = await db.queryAsync(`SELECT * FROM users`);
+      expect(result).to.deep.equal([]);
+    });
+  });
+
   describe('Student Routes', () => {
 
     it('/studentUpload should return 201 when using mock data', async () => {
