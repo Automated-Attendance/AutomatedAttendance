@@ -170,7 +170,7 @@ export default class Enrollment extends React.Component {
         {this.state.spinner && <Spinner/>}
 
         <h3>Create Class</h3>
-        <input name="className" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/><br/>
+        <input name="createClassName" type="text" placeholder="Enter Class Name" onChange={this.handleInputChange}></input><br/><br/>
         <button onClick={this.handleClassAddSubmit}>Create Class</button>
         {!this.state.classAdded ? null : <h5>{this.state.createClassName} created!</h5>}<hr/>
 
