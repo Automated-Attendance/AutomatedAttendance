@@ -48,6 +48,7 @@ exports.storeRecords = async (req, res) => {
 
     res.sendStatus(201);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 }
@@ -62,6 +63,7 @@ exports.getRecords = async (req, res) => {
     }
     res.json(result);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 }
@@ -71,6 +73,7 @@ exports.emailLateStudents = async (req, res) => {
     await Attendance.emailLateStudents();
     res.sendStatus(200);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 }
@@ -80,6 +83,7 @@ exports.removeAttendanceRecordDate = async (req, res) => {
     await Attendance.deleteRecordDate(req.query);
     res.sendStatus(202);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 }
@@ -90,10 +94,7 @@ exports.changeAttendanceStatus = async (req, res) => {
     await Attendance.updateAttendanceStatus(data);
     res.sendStatus(201);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 }
-
-exports.emailStudentsWarning = async (req, res) => {
-
-};
