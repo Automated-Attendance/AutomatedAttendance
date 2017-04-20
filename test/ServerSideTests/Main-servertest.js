@@ -4,8 +4,12 @@ import chaiHttp from 'chai-http';
 import chai, { expect } from 'chai';
 import app from '../../src/server/app';
 import schema from '../../src/server/db/config';
-import httpMocks from 'node-mocks-http';
 import Promise from 'bluebird';
+import AuthQueries from '../../src/server/db/QuerySelectors/AuthQueries';
+
+
+// Queries for tests
+const AuthQuery = new AuthQueries();
 
 // for stubbing requests
 chai.use(chaiHttp);
@@ -51,33 +55,17 @@ describe('', function() {
       let [result] = await db.queryAsync(`SELECT * FROM users`);
       expect(result).to.deep.equal([]);
     });
-
   });
-
-  // describe('Auth0 Helpers', () => {
-
-  //   it('should render login page', (done) => {
-  //     chai.request(server)
-  //       .get('/login')
-  //       .end((err, res) => {
-  //         console.log(res);
-  //         expect(res.status).to.equal(200);
-  //         done();
-  //       });
-  //   });
-
-  // });
 
   describe('Student Routes', () => {
 
-    it('should store student in database', (done) => {
-      // chai.request(server)
-      //   .get('/login')
-      //   .end((err, res) => {
-      //     console.log(res);
-      //     expect(res.status).to.equal(200);
-          done();
-      //   });
+    it('/studentUpload should return 201 when using mock data', async () => {
+      const fakeStudentData = require('../FakeData/FakeStudentUploadData');
+      await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
+        VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
+      const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
+      const [user] = await db.queryAsync(AuthQuery.selectExistingUser('jas.o.chambers@gmail.com'));
+      expect(response).to.have.status(201);
     });
 
   });

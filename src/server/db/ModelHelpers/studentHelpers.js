@@ -13,7 +13,6 @@ exports.addToClass = async (req, res) => {
     for (let i = 0; i < classNames.length; i++) {
       req.body.selectedClass = classNames[i];
       let { studentPhoto, studentUserName, selectedClass } = req.body;
-      console.log(req.body);
       let [ enrolled ] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
       if (enrolled.length === 0) {
         const { url } = await upload(req.body);
