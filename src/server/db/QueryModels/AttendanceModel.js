@@ -34,12 +34,9 @@ export default class AttendanceModel extends AttendanceQueries {
       let insertQuery = super.insertRecord(user.users_id, time);
       let userDateQuery = super.userRecordDate(user.users_id);
       let [userDate] = await db.queryAsync(userDateQuery);
-      console.log(userDate);
       if (userDate.length) {
         let existingDay = moment(userDate[0].cutoff_time).format('YYYY-MM-DD');
         let currentDay = moment().format('YYYY-MM-DD');
-        console.log('existingDay', existingDay);
-        console.log('currentDay', currentDay);
         if (existingDay !== currentDay) {
           db.queryAsync(insertQuery);  
         }
