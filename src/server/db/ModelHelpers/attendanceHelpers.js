@@ -78,6 +78,7 @@ exports.emailLateStudents = async (req, res) => {
 exports.removeAttendanceRecordDate = async (req, res) => {
   try {
     await Attendance.deleteRecordDate(req.query);
+    res.sendStatus(202);
   } catch (err) {
     res.status(500).send(err.message);
   }
