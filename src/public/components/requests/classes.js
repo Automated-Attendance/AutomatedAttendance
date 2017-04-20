@@ -42,7 +42,7 @@ const addClasses = async (className) => {
 const removeClasses = async (className) => {
   try {
     const response = await axios.post('/removeClass', className);
-    return response.status === 200;
+    return response.status === 202;
   } catch (err) {
     console.error(err);
   }

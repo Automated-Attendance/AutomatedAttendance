@@ -37,7 +37,7 @@ exports.removeClass = async (req, res) => {
       await Class.removeClass(className);
       await removeGallery(className);
     }
-    res.sendStatus(200);
+    res.sendStatus(202);
   } catch (err) {
     /* istanbul ignore next */
     res.status(500).send(err.message);
