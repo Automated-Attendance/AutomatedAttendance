@@ -8,6 +8,7 @@ exports.getClass = async (req, res) => {
     const classes = await Class.getClassList();
     res.status(200).send(classes);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   } 
 };
@@ -23,6 +24,7 @@ exports.addClass = async (req, res) => {
       res.sendStatus(204);
     }
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 };
@@ -37,6 +39,7 @@ exports.removeClass = async (req, res) => {
     }
     res.sendStatus(200);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 };
@@ -46,6 +49,7 @@ exports.getEnrollment = async (req, res) => {
     const enrollment = await Class.getEnrollment();
     res.status(200).send(enrollment);
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 };
