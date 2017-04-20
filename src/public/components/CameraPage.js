@@ -53,7 +53,8 @@ export default class CameraPage extends React.Component {
     let end = Moment(this.state.selectedTimeCutoff);
     let startCam = setInterval( ()=> {
       let currentTime = Moment();
-      this.takeScreenshot();
+      //uncomment this if you are testing the automated camera
+      // this.takeScreenshot();
       if ( currentTime.isAfter(end) ) {
         //stop taking pictures of the camera
         clearInterval(startCam)
