@@ -40,6 +40,10 @@ describe('', function() {
     after(() => db.end());
   });
 
+
+
+
+
   describe('Starter Tests', () => {
 
     it('should 404 for unknown routes', (done) => {
@@ -57,6 +61,10 @@ describe('', function() {
     });
   });
 
+
+
+
+
   describe('Auth0 Helpers', () => {
 
     it('should logout', (done) => {
@@ -69,6 +77,10 @@ describe('', function() {
     });
 
   });
+
+
+
+
 
   describe('Student Routes', () => {
 
@@ -84,6 +96,10 @@ describe('', function() {
     ///// TODO: Remove student route
 
   });
+
+
+
+
 
   describe('Attendance Helpers', () => {
 
@@ -135,7 +151,23 @@ describe('', function() {
       const response = await chai.request(server).post('/changeAttendanceStatus').send(updateData);
       expect(response).to.have.status(201);
     });
-
   });
+
+
+
+
+  describe('Class Helpers', () => {
+
+    it('/classList should get list of classes', async () => {
+      const response = await chai.request(server).get('/classList');
+      expect(response).to.have.status(200);
+    });
+
+    it('/getEnrollment should get list of enrollments', async () => {
+      const response = await chai.request(server).get('/getEnrollment');
+      expect(response).to.have.status(200);
+    });
+
+  })
 
 });
