@@ -56,7 +56,17 @@ exports.checkInStudents = async (req, res) => {
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
+  }
+};
+
+exports.getByClass = async (req, res) => {
+  try {
+    const className = req.query.class;
+    const students = await Student.getStudentsByClass(className);
+    res.status(200).send(students[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 

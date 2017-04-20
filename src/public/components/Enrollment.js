@@ -1,5 +1,5 @@
 import React from 'react';
-import { storeStudentData, removeStudentData } from './requests/students';
+import { storeStudentData, removeStudentData, getStudentsByClass } from './requests/students';
 import Spinner from './Spinner';
 import { getClasses, addClasses, removeClasses, getEnrollment } from './requests/classes';
 import VirtualizedSelect from 'react-virtualized-select'
@@ -17,7 +17,7 @@ export default class Enrollment extends React.Component {
     this.state = {
       classes: '',
       selectedClassAddStudent: '',
-      selectedClassRemoveStudent: '',
+      selectedClassRemoveStudent: null,
       selectedClassRemoveClass: '',
       selectedStudentAddStudent: '',
       selectedStudentRemoveStudent: '',
@@ -29,6 +29,7 @@ export default class Enrollment extends React.Component {
       classRemoved: false,
       spinner: false,
       studentOptions: [],
+      studentOptionsByClass: [],
       classOptionsAddStudent: [],
       classOptionsRemoveStudent: [],
       classOptionsRemoveClass: [],
@@ -45,13 +46,16 @@ export default class Enrollment extends React.Component {
     'handleClassRemoveSubmit',
     'previewFile',
     'getExistingUserList',
-    'getSelectOptions'].forEach(method => {
+    'getSelectOptions',
+    'getStudentsByClass'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
 
   async componentWillMount() {
     await this.updateClassList();
+    await this.getExistingUserList();
+    await this.getStudentsByClass();
     await this.populateTable();
   }
 
@@ -179,6 +183,15 @@ export default class Enrollment extends React.Component {
     });
   }
 
+  async getStudentsByClass() {
+    if (this.state.selectedClassRemoveStudent) {
+      const students = await getStudentsByClass(this.state.selectedClassRemoveStudent);
+      this.setState({ studentOptionsByClass: students });
+    } else {
+      this.setState({ studentOptionsByClass: this.state.studentOptions});
+    }
+  }
+
   render() {
     return (
       <div>
@@ -251,19 +264,21 @@ export default class Enrollment extends React.Component {
         <h3>Remove Student from Class</h3>
         Class:
         <div onClick={this.getSelectOptions}>
-          <Select 
-            multi={true}
+          <Select
             simpleValue
             value={this.state.selectedClassRemoveStudent}
             placeholder="Select Class(es)..."
             options={this.state.classOptionsRemoveStudent}
-            onChange={(selectedClass) => this.setState({ selectedClassRemoveStudent: selectedClass })}
+            onChange={async (selectedClass) => {
+              await this.setState({ selectedClassRemoveStudent: selectedClass });
+              this.getStudentsByClass();
+            }}
           />
         </div><br/>
         Student:
-        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+        <div onClick={!this.state.studentOptionsByClass.length && this.getExistingUserList}>
           <VirtualizedSelect
-            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
+            options={this.state.studentOptionsByClass ? this.state.studentOptionsByClass : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedUser) => this.setState({ selectedStudentRemoveStudent: selectedUser })}
             value={this.state.selectedStudentRemoveStudent}
             placeholder="Select Student..."
