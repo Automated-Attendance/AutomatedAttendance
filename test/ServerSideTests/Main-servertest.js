@@ -168,6 +168,16 @@ describe('', function() {
       expect(response).to.have.status(200);
     });
 
+    it('/addClass should not add not add a class that already exists', async () => {
+      const response = await chai.request(server).post('/addClass').send({className: 'HRSF72'});
+      expect(response).to.have.status(204);
+    });
+
+    it('/addClass should add class if it doesnt exist in database', async () => {
+      const response = await chai.request(server).post('/addClass').send({className: 'Muahahah'});
+      expect(response).to.have.status(201);
+    });
+
   })
 
 });
