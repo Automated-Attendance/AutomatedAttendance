@@ -3,7 +3,7 @@ import request from 'request';
 import chaiHttp from 'chai-http';
 import chai, { expect } from 'chai';
 import app from '../../src/server/app';
-import schema from '../../src/server/db/config';
+import makeTables from '../../src/server/db/config';
 import Promise from 'bluebird';
 import AuthQueries from '../../src/server/db/QuerySelectors/AuthQueries';
 
@@ -30,7 +30,7 @@ describe('', function() {
     await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + dbName);
     console.log('Connected to ' + dbName + 'database as ID ' + db.threadId);
     await db.queryAsync('USE ' + dbName);
-    await schema(db);
+    await makeTables(db);
     server = app.listen(port);
 
     afterEach(() => {
@@ -53,7 +53,7 @@ describe('', function() {
 
     it('have a database', async () => {
       let [result] = await db.queryAsync(`SELECT * FROM users`);
-      expect(result).to.deep.equal([]);
+      expect(result).to.exist;
     });
   });
 
@@ -68,22 +68,18 @@ describe('', function() {
         });
     });
 
-    it('have a database', async () => {
-      let [result] = await db.queryAsync(`SELECT * FROM users`);
-      expect(result).to.deep.equal([]);
-    });
   });
 
   describe('Student Routes', () => {
 
-    it('/studentUpload should return 201 when using mock data', async () => {
-      const fakeStudentData = require('../FakeData/FakeStudentUploadData');
-      await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
-        VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
-      const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
-      const [user] = await db.queryAsync(AuthQuery.selectExistingUser('jas.o.chambers@gmail.com'));
-      expect(response).to.have.status(201);
-    });
+    // it('/studentUpload should return 201 when using mock data', async () => {
+    //   const fakeStudentData = require('../FakeData/FakeStudentUploadData');
+    //   await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
+    //     VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
+    //   const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
+    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('jas.o.chambers@gmail.com'));
+    //   expect(response).to.have.status(201);
+    // });
 
     ///// TODO: Remove student route
 
@@ -92,7 +88,15 @@ describe('', function() {
   describe('Attendance Helpers', () => {
 
     it('/storeAttendanceRecord should return 201 when using mock data', async () => {
-      
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72"],"time":"2017-04-20T01:30:00.000Z"}');
+      const response = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      expect(response).to.have.status(201);
+    });
+
+    it('/storeAttendanceRecord should return 201 when using mock data', async () => {
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72"],"time":"2017-04-20T01:30:00.000Z"}');
+      const response = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      expect(response).to.have.status(201);
     });
 
   });
