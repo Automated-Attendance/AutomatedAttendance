@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendanceRecords, getClasses, getAttendanceRecordDate } from './requests/classes';
+import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from './helpers/tableHelpers.js'
-import { storeAttendanceRecord, emailLateStudents, changeAttendanceStatus } from './requests/students';
+import { changeAttendanceStatus } from './requests/students';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import 'react-select/dist/react-select.css';
 import 'react-widgets/lib/less/react-widgets.less';
@@ -24,7 +24,6 @@ export default class Admin extends React.Component {
 
     this.state = {
       attendance: [],
-      options: [],
       classes: {},
       students: {},
       emails: {},
@@ -40,36 +39,30 @@ export default class Admin extends React.Component {
         {label: 'Tardy', value: 'Tardy'},
         {label: 'Absent', value: 'Absent'},
         {label: 'Pending', value: 'Pending'}
-      ],
-      value: null,
-      selectedTimeCutoff: null
-    },
+      ]
+    };
 
     ['getAttendance',
-    'sendLateEmails',
-    'populateAttendanceRecord',
-    'updateSelectedTimeCutoff',
-    'getSelectOptions',
-    'handleSelectChange',
     'getExistingUserList',
     'updateSelectedDate',
     'deleteRecord',
-    'handleUpdateStatusSubmit'].forEach((method) => {
+    'handleUpdateStatusSubmit',
+    'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
-
-  async deleteRecord() {
-    const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
-  }
-
   async componentWillMount() {
+    await this.getAttendance();
     await setInterval(async () => {
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
+  }
+
+  async deleteRecord() {
+    const momentDay = Moment().format("YYYY-MM-DD");
+    await getAttendanceRecordDate({date: momentDay});
   }
 
   async getAttendance() {
@@ -107,36 +100,6 @@ export default class Admin extends React.Component {
     this.setState({attendance: attendanceRecords});
   }
 
-  async sendLateEmails () {
-    await emailLateStudents(this.state.selectedTimeCutoff);
-  }
-
-  async populateAttendanceRecord() {
-    if (this.state.value && this.state.selectedTimeCutoff) {
-      await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff);
-    } else {
-      alert('Select class(es) and cutoff time!');
-    }
-    await this.getAttendance();
-  }
-
-  updateSelectedTimeCutoff(e) {
-    let date = Moment(e);
-    this.setState({ selectedTimeCutoff: date });
-  }
-
-  async getSelectOptions() {
-    const classList = await getClasses();
-    const classes = classList.classes.map((classname) => {
-      return { label: classname, value: classname };
-    });
-    this.setState({ options: classes });
-  }
-
-  handleSelectChange(value) {
-    this.setState({ value });
-  }
-
   async getExistingUserList() {
     const users = await getAllUsers();
     this.setState({ studentOptions: users });
@@ -148,42 +111,34 @@ export default class Admin extends React.Component {
   }
 
   async handleUpdateStatusSubmit(event) {
-    let data = {
-      selectedDate: this.state.selectedDate,
-      selectedStudent: this.state.selectedStudent,
-      selectedStatus: this.state.selectedStatus
-    };
+    if (this.state.selectedDate && this.state.selectedStudent && this.state.selectedStatus) {
+      let data = {
+        selectedDate: this.state.selectedDate,
+        selectedStudent: this.state.selectedStudent,
+        selectedStatus: this.state.selectedStatus
+      };
+      this.setState({ spinner: true, statusUpdated: false });
+      this.setState({ statusUpdated: await changeAttendanceStatus(data) });
+      this.setState({ spinner: false });
+      await this.getAttendance();
+      this.toggleOff('statusUpdated', 'selectedDate', 'selectedStudent', 'selectedStatus');
+    } else {
+      alert('Select Date and Student and Status!');
+    }
+  }
 
-    this.setState({ spinner: true, statusUpdated: false });
-    this.setState({ statusUpdated: await changeAttendanceStatus(data) });
-    this.setState({ spinner: false });
-    await this.getAttendance();
+  toggleOff(status, ...states) {
+    setTimeout(() => {
+      this.setState({ [status]: false });
+      states.forEach((state) => {
+        this.setState({ [state]: false});
+      });
+    }, 5000);
   }
 
   render() {
     return (
       <div>
-        <h3>Start Daily Attendance</h3>
-        Class:
-        <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
-          <Select 
-            multi={true}
-            simpleValue
-            disabled={this.state.disabled}
-            value={this.state.value}
-            placeholder="Select Class(es)..."
-            options={this.state.options}
-            onChange={this.handleSelectChange}
-          />
-        </div><br/>
-        Date and Cutoff Time:
-        <DateTime
-          placeholder="Select Date and Time..."
-          onChange={this.updateSelectedTimeCutoff}
-        /><br/>
-        <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
-        <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
-
         <h3>Attendance Records</h3>
         <BootstrapTable
           data = {this.state.attendance}

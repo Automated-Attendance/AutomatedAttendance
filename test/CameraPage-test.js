@@ -48,4 +48,60 @@ describe('<CameraPage />', function() {
     }, 1000);
   });
 
+  it('should call sendLateEmails on button click', () => {
+    const testFn = sinon.spy(CameraPage.prototype, 'sendLateEmails');
+    const wrapper = mount(<CameraPage />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.lateStudentButton').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should call populateAttendanceRecord on button click', () => {
+    const testFn = sinon.spy(CameraPage.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<CameraPage />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should store records on click', () => {
+    const testFn = sinon.spy(CameraPage.prototype, 'populateAttendanceRecord');
+    const wrapper = mount(<CameraPage />);
+    let date = new Date();
+    wrapper.setState({ value: 'HRSF72', selectedTimeCutoff: date });
+    expect(wrapper.state().selectedTimeCutoff).to.equal(date);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.populateAttendanceRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+});
+
+
+
+describe('<CameraPage/> getSelectOptions', () => {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const classData = JSON.parse('[[{"class_name":"HRSF72"},{"class_name":"HRSF76"}],[{"catalog":"def","db":"automatedattendance","table":"classes","orgTable":"classes","name":"class_name","orgName":"class_name","charsetNr":33,"length":150,"type":253,"flags":4097,"decimals":0,"zeroFill":false,"protocol41":true}]]');
+    const resolved = new Promise((res) => res({ data: classData }));
+    sandbox.stub(axios, 'get').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('should call getSelectOptions on form click', () => {
+    const testFn = sinon.spy(CameraPage.prototype, 'getSelectOptions');
+    const wrapper = mount(<CameraPage />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.classSelect').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
 });

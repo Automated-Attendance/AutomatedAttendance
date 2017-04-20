@@ -40,4 +40,9 @@ export default class StudentModel extends StudentQueries {
     return await db.queryAsync(queryString);
   }
 
+  async getStudentsByClass(className) {
+    const queryString = super.getStudentsByClass(className);
+    return await db.queryAsync(queryString);
+  }
+
 }

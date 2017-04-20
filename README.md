@@ -7,7 +7,7 @@
 
 # Automated Attendance
 
-> Pithy project description
+> A facial recognition based attendance system for Hack Reactor.
 
 ## Team
 
@@ -28,7 +28,10 @@
 
 ## Usage
 
-> Some usage instructions
+> Students sign in with GitHub to create an account.
+> Administrators control enrollment, attendance scheduling and editing.
+> Attendance is recorded when students are recognized walking through the front door.
+> Students receive confirmation emails and late notices.
 
 ## Requirements
 

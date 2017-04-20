@@ -23,8 +23,8 @@ const removeStudentData = async (studentData) => {
 
 const storeAttendanceRecord = async (classes, time) => {
   try {
-    const reponse = await axios.post('/storeAttendanceRecord', { classes: classes.split(','), time: time });
-    return reponse.status === 201;
+    const response = await axios.post('/storeAttendanceRecord', { classes: classes.split(','), time: time });
+    return response.status === 201;
   } catch (err) {
     // todo: better error handling
     console.warn(err);
@@ -45,7 +45,18 @@ const changeAttendanceStatus = async (data) => {
     const response = await axios.post('/changeAttendanceStatus', {data: data});
     return response.status === 201;
   } catch (err) {
-    console.warn(err)
+    console.warn(err);
+  }
+}
+
+const getStudentsByClass = async (className) => {
+  try {
+    const { data } = await axios.get(`/studentsByClass?class=${className}`);
+    return data.map((user) => {
+      return { label: user.first_name + ' ' + user.last_name + ' - ' + user.user_name, value: user.user_name };
+    });
+  } catch (err) {
+    console.warn(err);
   }
 }
 
@@ -54,5 +65,6 @@ export {
   storeAttendanceRecord,
   emailLateStudents,
   removeStudentData,
-  changeAttendanceStatus
+  changeAttendanceStatus,
+  getStudentsByClass
 };

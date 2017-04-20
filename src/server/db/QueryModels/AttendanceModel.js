@@ -30,20 +30,12 @@ export default class AttendanceModel extends AttendanceQueries {
   async storeRecords(classes, time) {
     const userListQuery = super.usersByClass(classes);
     const [users] = await db.queryAsync(userListQuery);
-    users.forEach(async (user) => {
-      let insertQuery = super.insertRecord(user.users_id, time);
-      let userDateQuery = super.userRecordDate(user.users_id);
-      let [userDate] = await db.queryAsync(userDateQuery);
-      if (userDate.length) {
-        let existingDay = moment(userDate[0].cutoff_time).format('YYYY-MM-DD');
-        let currentDay = moment().format('YYYY-MM-DD');
-        if (existingDay !== currentDay) {
-          db.queryAsync(insertQuery);  
-        }
-      } else {
+    const today = moment();
+    // if no records for class today
+      users.forEach(async (user) => {
+        let insertQuery = super.insertRecord(user.users_id, time);
         db.queryAsync(insertQuery);
-      }
-    });
+      });
   }
 
   async emailLateStudents() {

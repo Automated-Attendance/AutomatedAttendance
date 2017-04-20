@@ -64,6 +64,7 @@ app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 /******************/
 
 // Students
+app.get('/studentsByClass', studentHelpers.getByClass);
 app.post('/studentUpload', studentHelpers.addToClass);
 app.post('/removeStudent', studentHelpers.removeFromClass);
 

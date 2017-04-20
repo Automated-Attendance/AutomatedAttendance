@@ -53,4 +53,10 @@ export default class StudentQueries {
     return `SELECT * FROM users WHERE users_id='${id}'`;
   }
 
+  getStudentsByClass(className) {
+    return `SELECT * FROM users
+      JOIN class_user ON users.users_id=class_user.user_id
+      JOIN classes ON class_user.class_id=classes.classes_id AND classes.class_name='${className}'`;
+  }
+
 }
