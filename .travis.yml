@@ -27,6 +27,6 @@ env:
   - secure: nt2rfhKmcg66SixyQsAeaLVGtmvyVckIxzU5runZZoInugIWt1FMbSA0vAaupbFvrKrMVgDrLArBQKtTDzXw+OmktQoAmOsXLbeN1mUU9P4gs53VWqG5lc1NahnEsZBy+mmCfJtGF6gtIVNZEUYyxhWyCNl2alawfxXkg70sAy/8cr+nvyO3+Tv0mcfGY8q38hZ4KuxskkMWDWFRMe3yusxpKP9Wd5sph4inbweeSgZ1hr6oenulxiovSp6ieM5jXLaIi9JvBNRpaVvYSVeH8QqUEnaOSR220Aw+4ChaU6xtHHgzpr3nC7gIFSR20cS+K+4efY00YwVgbzxXpHFtpWEErY5dphipkz6Ns7h6i5xFBNgwQpKioVjDVQjhaY5NbRQC14NXytipq6F//dcCRuCK4zY2ZLSIm3BitHUVSBSoV8ZeOBiuKFyRGk9F6OavDS44v3KNYdXEjUGRnYSTfrDVSp2BQftrSWVrNzyEFKr9Y7kvd5ApVKjhoU4aGRs8RK7O6JidGUXc5EAY8BrBAqcdNp0Fh0yftmjqjzE5SSZiE9etgmmn6iEHdRwLirBZ2EQiHgtBMMl7mKjWkR1ESa2MkTxHgBK0DkdqFaQFawaWQjZNbsj4pWLcSt+OL46JkMXCsbxrpjCEkyNi9QckFB1vtQNGm/x8TAtEhP6LtHo=
 script:
 - npm test
-- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run servertest'
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then "npm run servertest"; fi'
 after_success:
 - npm run coveralls
