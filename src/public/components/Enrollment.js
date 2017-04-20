@@ -85,10 +85,13 @@ export default class Enrollment extends React.Component {
     this.setState({ [name]: event.target.value });
   }
 
-  toggleOff(status, state1, state2, state3) {
+  toggleOff(status, ...states) {
     setTimeout(() => {
-      this.setState({ [status]: false, [state1]: '', [state2]: '', [state3]: '' });
-    }, 2000);
+      this.setState({ [status]: false });
+      states.forEach((state) => {
+        this.setState({ [state]: false});
+      });
+    }, 5000);
   }
 
   async handleStudentAddSubmit() {
