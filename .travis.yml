@@ -28,6 +28,5 @@ env:
 script:
 - npm test
 - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run servertest'
-- npm run servertest
 after_success:
 - npm run coveralls
