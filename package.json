@@ -110,6 +110,8 @@
     "mocha": "^3.2.0",
     "mocha-webpack": "^0.7.0",
     "moxios": "^0.4.0",
+    "nock": "^9.0.13",
+    "node-mocks-http": "^1.6.1",
     "node-sass": "^4.5.2",
     "nyc": "^10.2.0",
     "react-addons-test-utils": "^15.5.1",
