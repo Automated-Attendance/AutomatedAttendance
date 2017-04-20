@@ -85,6 +85,16 @@ describe('', function() {
       expect(response).to.have.status(201);
     });
 
+    ///// TODO: Remove student route
+
+  });
+
+  describe('Attendance Helpers', () => {
+
+    it('/storeAttendanceRecord should return 201 when using mock data', async () => {
+      
+    });
+
   });
 
 });

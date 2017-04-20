@@ -9,7 +9,8 @@ exports.storeRecords = async (req, res) => {
     const { classes, time } = req.body;
     await Attendance.storeRecords(classes, time);
 
-    // sending out warning emails 10mins before the time
+    // sending out warning emails 10mins before the time (impossible to test)
+    /* istanbul ignore next */
     let warningEmail = setInterval( ()=> {
       let warningTime = moment(time).subtract(5, 'minute');
       let currentTime = moment();
@@ -21,9 +22,9 @@ exports.storeRecords = async (req, res) => {
       }
     }, 5000);
 
-    //sending out late emails 
-    //changing this to not 
-    var absentInterval = setInterval( ()=>{
+    //sending out late emails (impossible to test)
+    /* istanbul ignore next */
+    var absentInterval = setInterval( () => {
       let currentTime = moment();
       if( currentTime.isAfter(time) ) {
         // still send late emails 
