@@ -88,13 +88,7 @@ describe('', function() {
   describe('Attendance Helpers', () => {
 
     it('/storeAttendanceRecord should return 201 when using mock data', async () => {
-      const mockRequestBody = JSON.parse('{"classes":["HRSF72"],"time":"2017-04-20T01:30:00.000Z"}');
-      const response = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
-      expect(response).to.have.status(201);
-    });
-
-    it('/storeAttendanceRecord should return 201 when using mock data', async () => {
-      const mockRequestBody = JSON.parse('{"classes":["HRSF72"],"time":"2017-04-20T01:30:00.000Z"}');
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2017-04-20T01:30:00.000Z"}');
       const response = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
       expect(response).to.have.status(201);
     });
