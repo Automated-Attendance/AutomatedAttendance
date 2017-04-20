@@ -68,6 +68,7 @@ export default class Admin extends React.Component {
   }
 
   async componentWillMount() {
+    await this.getAttendance();
     await setInterval(async () => {
       await this.getAttendance();
     }, 30000);
@@ -119,7 +120,7 @@ export default class Admin extends React.Component {
       this.setState({ attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff) });
       this.setState({ spinner: false });
     } else {
-      alert('Select Class(es) and Date and Cutoff Time!');
+      alert('Select Class(es) and Cutoff Time!');
     }
     await this.getAttendance();
     this.toggleOff('attendancePopulated', 'value', 'selectedTimeCutoff');

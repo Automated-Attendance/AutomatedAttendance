@@ -23,8 +23,8 @@ const removeStudentData = async (studentData) => {
 
 const storeAttendanceRecord = async (classes, time) => {
   try {
-    const reponse = await axios.post('/storeAttendanceRecord', { classes: classes.split(','), time: time });
-    return reponse.status === 201;
+    const response = await axios.post('/storeAttendanceRecord', { classes: classes.split(','), time: time });
+    return response.status === 201;
   } catch (err) {
     // todo: better error handling
     console.warn(err);
