@@ -30,20 +30,19 @@ describe('', function() {
     server = app.listen(port);
 
     afterEach(() => {
-      // server.close();
+      server.close();
     });
 
     after(() => db.end());
   });
 
-  describe('dummy test', () => {
+  describe('Starter Tests', () => {
 
-    it('should work', (done) => {
+    it('should 404 for unknown routes', (done) => {
       chai.request(server)
         .get('/testingroute')
         .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.text).to.equal('idk man');
+          expect(res.status).to.equal(404);
           done();
         });
     });
@@ -77,7 +76,7 @@ describe('', function() {
       //   .end((err, res) => {
       //     console.log(res);
       //     expect(res.status).to.equal(200);
-      //     done();
+          done();
       //   });
     });
 

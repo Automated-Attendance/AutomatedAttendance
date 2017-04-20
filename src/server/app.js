@@ -48,10 +48,6 @@ app.get('/retrieveUserData', userHelpers.retrieveData);
 /**** Cloudinary ****/
 /********************/
 
-app.get('/testingroute', (req, res) => {
-  res.send('idk man');
-});
-
 // rip
 
 /***********************************/
