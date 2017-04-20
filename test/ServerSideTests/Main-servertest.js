@@ -226,6 +226,11 @@ describe('', function() {
       expect(response.text).to.equal('not logged in');
     });
 
+    // it('storeAndLogin should store if new user', async () => {
+      
+    //   expect(response.text).to.equal('not logged in');
+    // });
+
   });
 
 
