@@ -20,8 +20,7 @@ export default class CameraPage extends React.Component {
       value: '',
       selectedTimeCutoff: null,
       options: [],
-      attendancePopulated: false,
-
+      attendancePopulated: false
     };
 
     ['takeScreenshot',
