@@ -169,10 +169,13 @@ export default class Admin extends React.Component {
     }
   }
 
-  toggleOff(status, state1, state2, state3) {
+  toggleOff(status, ...states) {
     setTimeout(() => {
-      this.setState({ [status]: false, [state1]: '', [state2]: '', [state3]: '' });
-    }, 2000);
+      this.setState({ [status]: false });
+      states.forEach((state) => {
+        this.setState({ [state]: false});
+      });
+    }, 5000);
   }
 
   render() {
@@ -191,13 +194,14 @@ export default class Admin extends React.Component {
             onChange={this.handleSelectChange}
           />
         </div><br/>
-        Date and Cutoff Time:
+        Cutoff Time:
         <DateTime
-          placeholder="Select Date and Time..."
+          placeholder="Select Cutoff Time..."
           onChange={this.updateSelectedTimeCutoff}
+          calendar={false}
         /><br/>
         <button className="populateAttendanceRecord" onClick={this.populateAttendanceRecord}>Populate Attendance Records</button><br/><br/>
-        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff}!</h5>}
+        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMM Do, YYYY')}!</h5>}
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
         <h3>Attendance Records</h3>
