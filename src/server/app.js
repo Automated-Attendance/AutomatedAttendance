@@ -94,7 +94,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailgunHelpers.sendMailLate);
+// rip
 
 /******************/
 /**** Wildcard ****/
