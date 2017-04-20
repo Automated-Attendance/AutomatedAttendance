@@ -29,7 +29,7 @@ describe('', function() {
     server = app.listen(port);
 
     afterEach(() => {
-      server.close();
+      // server.close();
     });
 
     after(() => db.end());
@@ -48,8 +48,36 @@ describe('', function() {
     });
 
     it('have a database', async () => {
-      let result = await db.queryAsync(`SELECT * FROM users`);
-      console.log(result);
+      let [result] = await db.queryAsync(`SELECT * FROM users`);
+      expect(result).to.deep.equal([]);
+    });
+
+  });
+
+  // describe('Auth0 Helpers', () => {
+
+  //   it('should render login page', (done) => {
+  //     chai.request(server)
+  //       .get('/login')
+  //       .end((err, res) => {
+  //         console.log(res);
+  //         expect(res.status).to.equal(200);
+  //         done();
+  //       });
+  //   });
+
+  // });
+
+  describe('Cloudinary Helpers', () => {
+
+    it('should upload image to cloudinary', (done) => {
+      // chai.request(server)
+      //   .get('/login')
+      //   .end((err, res) => {
+      //     console.log(res);
+      //     expect(res.status).to.equal(200);
+      //     done();
+      //   });
     });
 
   });
