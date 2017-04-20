@@ -178,6 +178,11 @@ describe('', function() {
       expect(response).to.have.status(201);
     });
 
+    it('/removeClass should remove class from database', async () => {
+      const response = await chai.request(server).post('/removeClass').send({className: 'HRSF72,HRSF76'});
+      expect(response).to.have.status(202);
+    });
+
   })
 
 });
