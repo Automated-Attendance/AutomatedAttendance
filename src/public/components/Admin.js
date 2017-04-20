@@ -45,7 +45,6 @@ export default class Admin extends React.Component {
     ['getAttendance',
     'getExistingUserList',
     'updateSelectedDate',
-    'deleteRecord',
     'handleUpdateStatusSubmit',
     'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
@@ -54,15 +53,14 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    await setInterval(async () => {
+    this.interval = await setInterval(async () => {
       await this.getAttendance();
-    }, 30000);
+    }, 3000);
     await this.getExistingUserList();
   }
 
-  async deleteRecord() {
-    const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
+  async componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   async getAttendance() {
@@ -239,9 +237,7 @@ export default class Admin extends React.Component {
           />
         </div><br/>
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
-        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.value}'s attendance status for {this.state.selectedDate} to {this.state.selectedStatus}!</h5>}
-
-        <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
+        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
 
       </div>
     );
