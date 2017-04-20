@@ -9,6 +9,7 @@ import { getClasses } from './requests/classes';
 import Moment from 'moment';
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
 
+
 export default class CameraPage extends React.Component {
 
   constructor(props) {
@@ -42,12 +43,23 @@ export default class CameraPage extends React.Component {
     this.setState({ mounted: false });
   }
 
-  @keydown('space')
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ spinner: true });
     console.log( await queryGallery(screenshot) );
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
+  }
+  startCamera () {
+
+    let endTime = Moment().add(1, 'minute');
+    let startCam = setInterval( ()=> {
+      let currentTime = Moment();
+      if ( currentTime.isAfter(endTime) ) {
+        takeScreenshot();
+        clearInterval(startCam)
+      };
+      console.log('still counting in setInteval')
+    },5000)
   }
 
   async sendLateEmails () {
@@ -99,6 +111,7 @@ export default class CameraPage extends React.Component {
 
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
+          <button className="startCamera" onClick={this.startCamera}>Start Camera</button>
         </div>
 
         {this.state.spinner && <Spinner/>}
