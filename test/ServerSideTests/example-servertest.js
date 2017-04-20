@@ -1,49 +1,51 @@
-import chai, { expect } from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../../src/server/app';
-import Schema from '../../src/server/db/config';
 import mysql from 'mysql';
+import request from 'request';
+import chaiHttp from 'chai-http';
+import chai, { expect } from 'chai';
+import app from '../../src/server/app';
+import schema from '../../src/server/db/config';
 import Promise from 'bluebird';
 
 // for stubbing requests
 chai.use(chaiHttp);
 
-describe('', () => {
-
+describe('', function() {
   let db;
   let server;
-  let port = 3456;
-  const clearDB = async (connection, tablenames, done) => {
+  const port = 4568;
+
+  const clearDB = async (connection, tablenames, done, count = 0) => {
     try {
-      let count = 0;
-      tablenames.forEach(async (tablename) => {
-        connection.queryAsync('DROP TABLE IF EXISTS ' + tablename);
-        if (++count === tablenames.length) return Schema(db).then(done);
-      });
+      for (table of tablenames) {
+        await connection.queryAsync('DROP TABLE IF EXISTS ' + tablename);
+        if (++count === tablenames.length) return schema(db).then(done);
+      }
     } catch (err) {
-      return done(err.message);
+      done(err.message);
     }
   };
 
+  beforeEach(function(done) {
 
-
-  beforeEach((done) => {
-    db = mysql.createConnection({
-      host: process.env.CLOUD_TEST_DB_HOST,
-      user: process.env.CLOUD_TEST_DB_ADMIN,
-      password: process.env.CLOUD_TEST_DB_PASSWORD,
+    let connection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'automatedattendance'
     });
 
-    const tablenames = ['attendance_record', 'users', 'classes', 'class_user'];
+    db = Promise.promisifyAll(connection, { multiArgs: true });
+    const tablenames = ['users', 'classes', 'attendance_record', 'class_user'];
 
     db.connect(function(err) {
       if (err) { return done(err); }
-      clearDB(db, tablenames, () => {
+      clearDB(db, tablenames, function() {
         server = app.listen(port, done);
       });
     });
 
-    afterEach(() => server.close());
+    afterEach(() => server.close()); 
+
+    after(() => db.end());
   });
 
   describe('dummy test', () => {
@@ -56,6 +58,17 @@ describe('', () => {
           expect(res.text).to.equal('idk man');
           done();
         });
+    });
+
+    it('have a database', async () => {
+      let result = await db.queryAsync(`SELECT * FROM users`);
+      console.log(result);
+      result = await db.queryAsync(`SELECT * FROM users`);
+      console.log(result);
+      result = await db.queryAsync(`SELECT * FROM users`);
+      console.log(result);
+      result = await db.queryAsync(`SELECT * FROM users`);
+      console.log(result);
     });
 
   });
