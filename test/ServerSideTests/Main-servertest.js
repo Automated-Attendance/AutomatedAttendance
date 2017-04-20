@@ -120,6 +120,21 @@ describe('', function() {
       expect(response).to.have.status(202);
     });
 
+    it('/changeAttendanceStatus should update a students status from attendance table', async () => {
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"]}');
+      mockRequestBody.time = new Date();
+      const populateRecords = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      expect(populateRecords).to.have.status(201);
+      let updateData = { 
+        data: { 
+          selectedDate: '2017-04-20 03:23:00',
+          selectedStudent: { label: 'Jason Chambers - Jukejc', value: 'Jukejc' },
+          selectedStatus: 'Tardy' 
+        }
+      };
+      const response = await chai.request(server).post('/changeAttendanceStatus').send(updateData);
+      expect(response).to.have.status(201);
+    });
 
   });
 
