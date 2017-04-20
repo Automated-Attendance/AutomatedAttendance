@@ -4,14 +4,15 @@ import Promise from 'bluebird';
 let database;
 let connection;
 
-if (process.env.TRAVIS && process.env.CLOUD_TEST_DB) {
-  database = process.env.CLOUD_TEST_DB_NAME;
+if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
+  // travis CI localhost
+  database = 'automatedattendance';
   connection = mysql.createConnection({
-    host: process.env.CLOUD_TEST_DB_HOST,
-    user: process.env.CLOUD_TEST_DB_ADMIN,
-    password: process.env.CLOUD_TEST_DB_PASSWORD,
+    user: 'root',
+    password: ''
   });
 } else if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
+  // google cloud db
   database = process.env.CLOUD_TEST_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.CLOUD_TEST_DB_HOST,
@@ -19,12 +20,14 @@ if (process.env.TRAVIS && process.env.CLOUD_TEST_DB) {
     password: process.env.CLOUD_TEST_DB_PASSWORD,
   });
 } else if (process.env.LOCAL_ENV) {
+  // localhost
   database = process.env.MYSQL_DB_NAME_LOCAL;
   connection = mysql.createConnection({
     user: process.env.MYSQL_ADMIN_LOCAL,
     password: process.env.MYSQL_PASSWORD_LOCAL,
   });
 } else {
+  // heroku
   database = process.env.MYSQL_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.MYSQL_HOST,
