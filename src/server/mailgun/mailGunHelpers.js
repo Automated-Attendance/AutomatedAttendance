@@ -23,6 +23,7 @@ exports.sendMailLate = (req, res) => {
 };
   
 exports.sendMailForArrival = async (matchedUsers) => {
+  console.log('sending email for arrival')
   matchedUsers.forEach((user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -35,6 +36,7 @@ exports.sendMailForArrival = async (matchedUsers) => {
 };
 
 exports.sendAbsentEmails = async (emails) => {
+  console.log('sending absent emails')
   emails.forEach((user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -47,6 +49,7 @@ exports.sendAbsentEmails = async (emails) => {
 };
 
 exports.sendWarningEmails = async (emails) => {
+  console.log('sending warning emails')
   emails.forEach( (user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
