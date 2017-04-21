@@ -41,22 +41,4 @@ module.exports = async function(db) {
   await db.queryAsync(`ALTER TABLE attendance_record ADD FOREIGN KEY (user_id)
       REFERENCES users(users_id);`);
   await db.queryAsync(`set time_zone='-07:00'`);
-  await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
-  await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'myemailisthirtyninedigitslong@gmail.com');`);
-  await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
-  await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
-  await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
-  await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
-  await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
-  await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE email='myemailisthirtyninedigitslong@gmail.com'));`);
-  await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-      (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
-  await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-      VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
-      (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
 };
