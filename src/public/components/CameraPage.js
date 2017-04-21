@@ -56,7 +56,7 @@ export default class CameraPage extends React.Component {
     let startCam = setInterval( ()=> {
       let currentTime = Moment();
       //uncomment this if you are testing the automated camera
-      // this.takeScreenshot();
+      this.takeScreenshot();
       if ( currentTime.isAfter(end) ) {
         console.log('stopping the interval 1 minute after cutoff time')
         //stop taking pictures of the camera
@@ -143,8 +143,7 @@ export default class CameraPage extends React.Component {
           className="populateAttendanceRecord"
           onClick={async () => {
             await this.populateAttendanceRecord();
-            // this.startCamera();
-            // this.takeScreenshot();
+            this.startCamera();
           }}
         >Start Camera and Populate Attendance Records and get ready to send emails</button><br/><br/>
         {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMM Do, YYYY')}!</h5>}
