@@ -54,11 +54,11 @@ exports.checkInStudents = async (req, res) => {
     const [matchedUsers] = await Student.getMatchedUsers(matches);
     console.log('before', matchedUsers);
     for (let i = 0; i < matchedUsers.length; i++) {
-      let [cutOffDate] = await Student.getAttendanceStatus(matchedUsers[i].users_id, date.slice(0,10))
+      let [cutOffDate] = await Student.getAttendanceStatus(matchedUsers[i].users_id, date.slice(0, 10))
       if (cutOffDate[0].status === 'Pending') {
         await Student.checkInOnTime(matchedUsers[i].users_id, date);
       } else {
-        matchedUsers.splice(i, 0);
+        matchedUsers.splice(i, 1);
       }
     }
     console.log('after', matchedUsers);
