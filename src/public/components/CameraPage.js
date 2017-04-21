@@ -143,7 +143,7 @@ export default class CameraPage extends React.Component {
           className="populateAttendanceRecord"
           onClick={async () => {
             await this.populateAttendanceRecord();
-            this.startCamera();
+            // this.startCamera();
             // this.takeScreenshot();
           }}
         >Start Camera and Populate Attendance Records and get ready to send emails</button><br/><br/>

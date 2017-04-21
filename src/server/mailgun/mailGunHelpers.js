@@ -38,6 +38,7 @@ exports.sendMailForArrival = async (matchedUsers) => {
 exports.sendAbsentEmails = async (emails) => {
   console.log('sending absent emails')
   emails.forEach((user) => {
+    console.log(user)
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
@@ -60,3 +61,16 @@ exports.sendWarningEmails = async (emails) => {
     // mailgun.messages().send(data);
   });
 };
+
+exports.sendTardyEmails = async (users) => {
+  console.log('sending tardy emails')
+  users.forEach( (user) => {
+    let data = { 
+      from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
+      to: user.email,
+      subject: 'Tardy',
+      text: "It's 9AM you are still not in class,you will be if you get to class by 9:30"
+    };
+    // mailgun.messages().send(data);
+  });
+}

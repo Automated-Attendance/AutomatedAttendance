@@ -22,18 +22,28 @@ exports.storeRecords = async (req, res) => {
     }, 5000);
 
     //sending out late emails 
+    //changing this to not 
     var absentInterval = setInterval( ()=>{
       let currentTime = moment();
       if( currentTime.isAfter(time) ) {
-        Attendance.emailLateStudents();
+        // still send late emails 
+        // leave all late students to be pending;
+       Attendance.emailStudentAboutToBeTardy();
         clearInterval(absentInterval);
       };
     }, 5000);
 
-    var tardyIntervale = setInterval( ()=>{
+    // this is from 9:00-9:30am
+    var tardyInterval = setInterval( ()=>{
       let currentTime = moment();
       let tardyEmail = moment(time).add(10, 'minute');
-      if( currentTime.isAfter(tardyEmail)) {}
+      if( currentTime.isAfter(tardyEmail)) {
+        console.log('coming into the third setInterval and sending late emails')
+        // Attendance.
+        // in here i want everyone to finally be absent
+        Attendance.emailLateStudents();
+        clearInterval(tardyInterval)
+      }
 
     }, 5000)
 

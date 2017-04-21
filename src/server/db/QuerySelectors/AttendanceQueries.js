@@ -56,5 +56,8 @@ export default class AttendanceQueries {
   updateUserStatus(user, date, status) {
     return `UPDATE attendance_record SET status='${status}' WHERE cutoff_time LIKE '${date}%' AND user_id=(select users_id from users where user_name='${user}')`;
   }
+  getAllPendingUsersEmails() {
+    return `select users.email, users.first_name from users RIGHT JOIN attendance_record ON users.users_id=attendance_record.user_id where attendance_record.status="Pending"`
+  }
 
 }
