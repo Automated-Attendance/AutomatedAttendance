@@ -225,10 +225,36 @@ describe('', function() {
       expect(response.text).to.equal('not logged in');
     });
 
-    // it('storeAndLogin should store if new user', async () => {
+    it('storeAndLogin should store if new user and admin', async () => {
+      let data = {
+        user: {
+          _json: { 
+            email: 'fakeemail1@gmail.com', 
+            name: 'Freddy Fred', 
+            nickname: 'freddyfreddy', 
+            role: 'admin' 
+          }
+        }
+      }
+      let response = httpMocks.createResponse();
+      await storeAndLogin(data, response);
+      expect(response.statusCode).to.equal(302);
+    });
 
-    //   expect(response.text).to.equal('not logged in');
-    // });
+    it('storeAndLogin should store if new user and not admin', async () => {
+      let data = {
+        user: {
+          _json: { 
+            email: 'fakeemail1@gmail.com', 
+            name: 'Freddy Fred', 
+            nickname: 'freddyfreddy',  
+          }
+        }
+      }
+      let response = httpMocks.createResponse();
+      await storeAndLogin(data, response);
+      expect(response.statusCode).to.equal(302);
+    });
 
   });
 
