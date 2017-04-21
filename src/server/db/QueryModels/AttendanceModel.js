@@ -33,7 +33,7 @@ export default class AttendanceModel extends AttendanceQueries {
     const userListQuery = super.usersByClass(classes);
     const [users] = await db.queryAsync(userListQuery);
     const today = moment();
-    time = moment(time).format('YYYY-MM-DD hh:mm:ss');
+    time = moment(time).format('YYYY-MM-DD HH:mm:ss');
     users.forEach(async (user) => {
       let userId = user.users_id;
       let date = time.slice(0,10);

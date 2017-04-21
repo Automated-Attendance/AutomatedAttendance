@@ -50,7 +50,7 @@ exports.checkInStudents = async (req, res) => {
   try {
     const { url } = await upload(req.body);
     const matches = await recognize(url);
-    const date = await moment().format('YYYY-MM-DD hh:mm:ss');
+    const date = await moment().format('YYYY-MM-DD HH:mm:ss');
     const [matchedUsers] = await Student.getMatchedUsers(matches);
     for (let i = 0; i < matchedUsers.length; i++) {
       let userId = matchedUsers[i].users_id;
