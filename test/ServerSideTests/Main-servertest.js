@@ -34,6 +34,24 @@ describe('', function() {
     await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + dbName);
     await db.queryAsync('USE ' + dbName);
     await makeTables(db);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'myemailisthirtyninedigitslong@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
+    await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
+    await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='myemailisthirtyninedigitslong@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
+        (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
     server = app.listen(port);
 
     afterEach(() => {
@@ -104,9 +122,11 @@ describe('', function() {
     });
 
     it('should check in students if face recognized', async () => {
-      // let studentData = { className: 'HRSF72', studentUserName: { label: 'Jason Chambers - Jukejc', value: 'FakeBoy123' } };
-      // const response = await chai.request(server).post('/removeStudent').send(studentData);
-      // expect(response).to.have.status(200);
+      const fakeKairosImage = require('../FakeData/FakeKairosRecognizeData');
+      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2099-04-20T01:30:00.000Z"}');
+      await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      const response = await chai.request(server).post('/kairosGalleryRecognize').send(fakeKairosImage);
+      expect(response).to.have.status(201);
     });
 
   });
@@ -184,6 +204,7 @@ describe('', function() {
     });
 
     it('/addClass should not add not add a class that already exists', async () => {
+      await chai.request(server).post('/addClass').send({className: 'HRSF72'});
       const response = await chai.request(server).post('/addClass').send({className: 'HRSF72'});
       expect(response).to.have.status(204);
     });
