@@ -54,8 +54,6 @@ app.get('/retrieveUserData', userHelpers.retrieveData);
 /**** Kairos Facial Recognition ****/
 /***********************************/
 
-app.get('/galleryLists', kairos.test);
-app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
