@@ -45,6 +45,7 @@ exports.removeFromClass = async (req, res) => {
     }
     res.sendStatus(200);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
@@ -68,6 +69,7 @@ exports.checkInStudents = async (req, res) => {
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
@@ -78,6 +80,7 @@ exports.getByClass = async (req, res) => {
     const students = await Student.getStudentsByClass(className);
     res.status(200).send(students[0]);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
