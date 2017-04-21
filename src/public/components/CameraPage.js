@@ -58,11 +58,9 @@ export default class CameraPage extends React.Component {
       //uncomment this if you are testing the automated camera
       this.takeScreenshot();
       if ( currentTime.isAfter(end) ) {
-        console.log('stopping the interval 1 minute after cutoff time')
         //stop taking pictures of the camera
         clearInterval(startCam)
       };
-      console.log('still counting in setInteval')
     },5000)
   }
 

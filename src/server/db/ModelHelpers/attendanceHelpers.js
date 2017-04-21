@@ -38,8 +38,6 @@ exports.storeRecords = async (req, res) => {
       let currentTime = moment();
       let tardyEmail = moment(time).add(10, 'minute');
       if( currentTime.isAfter(tardyEmail)) {
-        console.log('coming into the third setInterval and sending late emails')
-        // Attendance.
         // in here i want everyone to finally be absent
         Attendance.emailLateStudents();
         clearInterval(tardyInterval)
