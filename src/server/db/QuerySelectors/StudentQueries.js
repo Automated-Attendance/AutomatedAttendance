@@ -32,14 +32,6 @@ export default class StudentQueries {
   }
 
   checkInQuery(user_id, date) {
-    // let qs = '';
-    // matches.forEach((user, index) => {
-    //   if (index === matches.length - 1) {
-    //     qs += `user_id='${user.users_id}'`;
-    //   } else {
-    //     qs += `user_id='${user.users_id}' or `;
-    //   }
-    // });
     return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE user_id = ${user_id}`;
   }
 
