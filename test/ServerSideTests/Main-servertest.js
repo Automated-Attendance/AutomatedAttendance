@@ -121,11 +121,11 @@ describe('', function() {
       expect(response).to.have.status(200);
     });
 
-    it('should check in students if face recognized', async () => {
-      const fakeKairosImage = require('../FakeData/FakeKairosRecognizeData');
-      const response = await chai.request(server).post('/kairosGalleryRecognize').send(fakeKairosImage);
-      expect(response).to.have.status(201);
-    });
+    // it('should check in students if face recognized', async () => {
+    //   const fakeKairosImage = require('../FakeData/FakeKairosRecognizeData');
+    //   const response = await chai.request(server).post('/kairosGalleryRecognize').send(fakeKairosImage);
+    //   expect(response).to.have.status(201);
+    // });
 
   });
 
