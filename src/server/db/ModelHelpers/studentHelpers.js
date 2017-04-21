@@ -58,6 +58,7 @@ exports.checkInStudents = async (req, res) => {
         await Student.checkInOnTime(matchedUsers[i].users_id, date);
       } else {
         matchedUsers.splice(i, 1);
+        i--;
       }
     }
     sendMailForArrival(matchedUsers);    
