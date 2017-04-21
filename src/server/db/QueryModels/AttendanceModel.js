@@ -3,12 +3,14 @@ import Promise from 'bluebird';
 import db from '../index.js';
 import { sendAbsentEmails, sendWarningEmails } from '../../mailgun/mailgunHelpers';
 import StudentQueries from '../QuerySelectors/StudentQueries'
+import StudentModel from '../QueryModels/StudentModel';
 import moment from 'moment';
 
 
 Promise.promisifyAll(db);
 
 const StudentQuery = new StudentQueries();
+const Student = new StudentModel();
 
 export default class AttendanceModel extends AttendanceQueries {
 
@@ -32,11 +34,15 @@ export default class AttendanceModel extends AttendanceQueries {
     const [users] = await db.queryAsync(userListQuery);
     const today = moment();
     time = moment(time).format('YYYY-MM-DD hh:mm:ss');
-    // if no records for class today
-      users.forEach(async (user) => {
+    users.forEach(async (user) => {
+      let userId = user.users_id;
+      let date = time.slice(0,10);
+      let [status] = await Student.getAttendanceStatus(userId, date);
+      if (!status[0]) {
         let insertQuery = super.insertRecord(user.users_id, time);
         db.queryAsync(insertQuery);
-      });
+      }
+    });
   }
 
   async emailLateStudents() {
