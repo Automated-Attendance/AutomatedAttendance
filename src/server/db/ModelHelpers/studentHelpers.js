@@ -52,7 +52,16 @@ exports.checkInStudents = async (req, res) => {
     const matches = await recognize(url);
     const date = await moment().format('YYYY-MM-DD hh:mm:ss');
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    await Student.checkInOnTime(matchedUsers, date);
+    for (let i = 0; i < matchedUsers.length; i++) {
+      let userId = matchedUsers[i].users_id;
+      let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10))
+      if (cutOffDate[0].status === 'Pending') {
+        await Student.checkInOnTime(userId, date);
+      } else {
+        matchedUsers.splice(i, 1);
+        i--;
+      }
+    }
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {

@@ -31,22 +31,18 @@ export default class StudentQueries {
     return `SELECT email, users_id FROM users where ${qs}`;
   }
 
-  checkInQuery(matches, date) {
-    let qs = '';
-    matches.forEach((user, index) => {
-      if (index === matches.length - 1) {
-        qs += `user_id='${user.users_id}'`;
-      } else {
-        qs += `user_id='${user.users_id}' or `;
-      }
-    });
-    return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE ${qs}`;
+  checkInQuery(user_id, date) {
+    return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE user_id = ${user_id}`;
   }
 
   checkIfStudentIsEnrolled(userName, className) {
     return `SELECT * FROM classes
       JOIN class_user ON classes.classes_id=class_user.class_id AND classes.class_name='${className}'
       JOIN users ON class_user.user_id=users.users_id AND users.user_name='${userName}'`;
+  }
+
+  getAttendanceStatus (user_id, date) {
+    return `SELECT status FROM attendance_record WHERE user_id=${user_id} AND cutoff_time LIKE '${date}%'`;
   }
 
   getStudentInformation(id) {
