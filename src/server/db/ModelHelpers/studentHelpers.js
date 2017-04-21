@@ -52,7 +52,6 @@ exports.removeFromClass = async (req, res) => {
 
 exports.checkInStudents = async (req, res) => {
   try {
-    console.log(req.body);
     const { url } = await upload(req.body);
     const matches = await recognize(url);
     const date = await moment().format('YYYY-MM-DD HH:mm:ss');

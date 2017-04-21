@@ -106,14 +106,14 @@ describe('', function() {
 
   describe('Student Helpers', () => {
 
-    // it('/studentUpload should return 201 when using mock data', async () => {
-    //   const fakeStudentData = require('../FakeData/FakeStudentUploadData');
-    //   await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
-    //     VALUES ('Jukejc', 'Jason', 'Chambers', 'fakeemail@gmail.com');`);
-    //   const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
-    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('fakeemail@gmail.com'));
-    //   expect(response).to.have.status(201);
-    // });
+    it('/studentUpload should return 201 when using mock data', async () => {
+      const fakeStudentData = require('../FakeData/FakeStudentUploadData');
+      await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
+        VALUES ('Jukejc', 'Jason', 'Chambers', 'fakeemail@gmail.com');`);
+      const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
+      const [user] = await db.queryAsync(AuthQuery.selectExistingUser('fakeemail@gmail.com'));
+      expect(response).to.have.status(201);
+    });
 
     it('should remove student from selected class', async () => {
       let studentData = { className: 'HRSF72', studentUserName: { label: 'Jason Chambers - Jukejc', value: 'FakeBoy123' } };
@@ -123,8 +123,8 @@ describe('', function() {
 
     it('should check in students if face recognized', async () => {
       const fakeKairosImage = require('../FakeData/FakeKairosRecognizeData');
-      const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2099-04-20T01:30:00.000Z"}');
-      await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
+      // const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2099-04-20T01:30:00.000Z"}');
+      // await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
       const response = await chai.request(server).post('/kairosGalleryRecognize').send(fakeKairosImage);
       expect(response).to.have.status(201);
     });
