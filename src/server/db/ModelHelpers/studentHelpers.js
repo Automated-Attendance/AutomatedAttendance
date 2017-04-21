@@ -52,10 +52,20 @@ exports.checkInStudents = async (req, res) => {
     const matches = await recognize(url);
     const date = await moment().format('YYYY-MM-DD hh:mm:ss');
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    await Student.checkInOnTime(matchedUsers, date);
+    console.log('before', matchedUsers);
+    for (let i = 0; i < matchedUsers.length; i++) {
+      let [cutOffDate] = await Student.getAttendanceStatus(matchedUsers[i].users_id, date.slice(0,10))
+      if (await Student.getAttendanceStatus(cutOffDate[0].status === 'Pending')) {
+        await Student.checkInOnTime(matchedUsers[i].users_id, date);
+      } else {
+        matchedUsers.splice(i, 0);
+      }
+    }
+    console.log('after', matchedUsers);
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
+    console.log(err.message);
     res.status(500).send(err.message);
   }
 };
