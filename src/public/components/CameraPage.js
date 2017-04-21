@@ -50,12 +50,15 @@ export default class CameraPage extends React.Component {
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
   }
   startCamera () {
-    let end = Moment(this.state.selectedTimeCutoff);
+    // testing purposes making it so its only 1 minute after cut off time
+    // put in however much time you need for how much time afterwards
+    let end = Moment(this.state.selectedTimeCutoff).add(1,'minute');
     let startCam = setInterval( ()=> {
       let currentTime = Moment();
       //uncomment this if you are testing the automated camera
       // this.takeScreenshot();
       if ( currentTime.isAfter(end) ) {
+        console.log('stopping the interval 1 minute after cutoff time')
         //stop taking pictures of the camera
         clearInterval(startCam)
       };
