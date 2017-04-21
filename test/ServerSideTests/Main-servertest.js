@@ -97,7 +97,11 @@ describe('', function() {
     //   expect(response).to.have.status(201);
     // });
 
-    ///// TODO: Remove student route
+    it('should remove student from selected class', async () => {
+      let studentData = { className: 'HRSF72', studentUserName: { label: 'Jason Chambers - Jukejc', value: 'FakeBoy123' } };
+      const response = await chai.request(server).post('/removeStudent').send(studentData);
+      expect(response).to.have.status(200);
+    });
 
   });
 
