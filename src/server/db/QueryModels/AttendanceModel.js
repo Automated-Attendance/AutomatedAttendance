@@ -34,7 +34,6 @@ export default class AttendanceModel extends AttendanceQueries {
     time = moment(time).format('YYYY-MM-DD hh:mm:ss');
     // if no records for class today
       users.forEach(async (user) => {
-        console.log('time', time);
         let insertQuery = super.insertRecord(user.users_id, time);
         db.queryAsync(insertQuery);
       });
