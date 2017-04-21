@@ -103,6 +103,12 @@ describe('', function() {
       expect(response).to.have.status(200);
     });
 
+    it('should check in students if face recognized', async () => {
+      // let studentData = { className: 'HRSF72', studentUserName: { label: 'Jason Chambers - Jukejc', value: 'FakeBoy123' } };
+      // const response = await chai.request(server).post('/removeStudent').send(studentData);
+      // expect(response).to.have.status(200);
+    });
+
   });
 
 
