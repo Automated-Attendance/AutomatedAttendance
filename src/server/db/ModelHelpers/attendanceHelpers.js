@@ -51,8 +51,9 @@ exports.storeRecords = async ({ body }, res) => {
   }
 }
 
-exports.getRecords = async ({ type, email }, res) => {
+exports.getRecords = async ({ query }, res) => {
   try {
+    let result, { type, email } = query;
     if (type === 'allAttendance') {
       [result] = await Attendance.getAllRecords();
     } else {
