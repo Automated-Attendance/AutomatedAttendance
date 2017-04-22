@@ -16,27 +16,27 @@ export default class StudentModel extends StudentQueries {
   }
 
   async updateUser(image, userName) {
-    let updateQuery = super.updateUser(image, userName);
+    const updateQuery = super.updateUser(image, userName);
     return await db.queryAsync(updateQuery);
   }
 
   async addToClass(userName, className) {
-    let addQuery = super.addToClass(userName, className);
+    const addQuery = super.addToClass(userName, className);
     return await db.queryAsync(addQuery);
   }
 
   async getMatchedUsers(matches) {
-    let matchedUsersQuery = super.getMatchedUsers(matches);
+    const matchedUsersQuery = super.getMatchedUsers(matches);
     return await db.queryAsync(matchedUsersQuery);
   }
 
   async checkInOnTime(matches, date) {
-    let checkInQuery = super.checkInQuery(matches, date);
+    const checkInQuery = super.checkInQuery(matches, date);
     return await db.queryAsync(checkInQuery);
   }
 
   async checkInTardy(matches, date) {
-    let checkInTardyQuery = super.checkInTardyQuery(matches, date);
+    const checkInTardyQuery = super.checkInTardyQuery(matches, date);
     return await db.queryAsync(checkInTardyQuery);
   }
 
