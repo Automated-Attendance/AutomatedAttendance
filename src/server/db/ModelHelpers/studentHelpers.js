@@ -37,8 +37,8 @@ exports.addToClass = async (req, res) => {
 exports.removeFromClass = async (req, res) => {
   try {
     const classNames = req.body.className.split(',');
-    for (let i = 0; i < classNames.length; i++) {
-      req.body.className = classNames[i];
+    for (let className of classNames) {
+      req.body.className = className;
       await Student.removeFromClass(req.body);
       await galleryRemoveUser(req.body);
     }
