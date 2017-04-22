@@ -102,6 +102,7 @@ export default class Enrollment extends React.Component {
     }, 5000);
   }
 
+  // changing student type to admin
   async handleToggleStatusSubmit () {
     if (this.state.selectedStudentToggleStatus && this.state.selectedToggleStatus) {
       let data = {
