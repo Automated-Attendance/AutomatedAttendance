@@ -8,14 +8,13 @@ const Student = new StudentModel();
 
 exports.addToClass = async (req, res) => {
   try {
-    var added = false;
+    let added = false;
     const classNames = req.body.selectedClass.split(',');
-    for (let i = 0; i < classNames.length; i++) {
-      req.body.selectedClass = classNames[i];
-      let { studentPhoto, studentUserName, selectedClass } = req.body;
-      let [ enrolled ] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
+    const { studentPhoto, studentUserName } = req.body;
+    for (let selectedClass of classNames) {
+      let [enrolled] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
       /* istanbul ignore else  */
-      if (enrolled.length === 0) {
+      if (!enrolled.length) {
         const { url } = await upload(req.body);
         await Student.updateUser(url, studentUserName);
         await Student.addToClass(studentUserName, selectedClass);
