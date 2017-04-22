@@ -49,6 +49,15 @@ const changeAttendanceStatus = async (data) => {
   }
 }
 
+const changeUserType = async (data) => {
+  try {
+    const response = await axios.post('/changeUserType', {data: data});
+    return response.status === 201;
+  } catch (err) {
+    console.warn(err);
+  }
+}
+
 const getStudentsByClass = async (className) => {
   try {
     const { data } = await axios.get(`/studentsByClass?class=${className}`);
