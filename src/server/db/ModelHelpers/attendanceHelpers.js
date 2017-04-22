@@ -34,7 +34,6 @@ exports.storeRecords = async (req, res) => {
       };
     }, 5000);
 
-    // this is from 9:00-9:30am
     var tardyInterval = setInterval( ()=>{
       let currentTime = moment();
       let tardyEmail = moment(time).add(10, 'minute');
