@@ -54,7 +54,7 @@ export default class StudentQueries {
   }
 
   getStudentInformation(id) {
-    return `SELECT * FROM users WHERE u wsers_id='${id}'`;
+    return `SELECT * FROM users WHERE users_id='${id}'`;
   }
 
   getStudentsByClass(className) {
