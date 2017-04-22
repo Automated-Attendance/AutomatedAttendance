@@ -58,6 +58,10 @@ app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 /**** Database ****/
 /******************/
 
+// Admins
+
+app.post('/changeUserType',studentHelpers.getByUserName)
+
 // Students
 app.get('/studentsByClass', studentHelpers.getByClass);
 app.post('/studentUpload', studentHelpers.addToClass);

@@ -92,3 +92,14 @@ exports.getByClass = async (req, res) => {
   }
 };
 
+exports.getByUserName = async (req, res) => {
+  try {
+    const userName = req.body
+    // now go change the data
+    res.status(200).send(students[0]);
+  } catch (err) {
+    /* istanbul ignore next  */
+    res.status(500).send(err.message);
+  }
+}
+
