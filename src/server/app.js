@@ -60,7 +60,7 @@ app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
 // Admins
 
-app.post('/changeUserType',studentHelpers.getByUserName)
+app.post('/changeUserType',studentHelpers.changeUserType)
 
 // Students
 app.get('/studentsByClass', studentHelpers.getByClass);
