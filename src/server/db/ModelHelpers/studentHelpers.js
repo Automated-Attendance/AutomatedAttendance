@@ -94,7 +94,7 @@ exports.getByClass = async (req, res) => {
 
 exports.changeUserType = async (req, res) => {
   try {
-    const { data } = req.body
+    const { data } = req.body;
     await Student.changeUserType(data.studentUserName.value, data.selectedToggleStatus.value);
     res.sendStatus(201);
   } catch (err) {
