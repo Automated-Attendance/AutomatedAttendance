@@ -45,6 +45,7 @@ exports.removeFromClass = async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     /* istanbul ignore next  */
+
     res.status(500).send(err.message);
   }
 };
@@ -83,8 +84,8 @@ exports.checkInStudents = async (req, res) => {
 exports.getByClass = async (req, res) => {
   try {
     const className = req.query.class;
-    const students = await Student.getStudentsByClass(className);
-    res.status(200).send(students[0]);
+    const [students] = await Student.getStudentsByClass(className);
+    res.status(200).send(students);
   } catch (err) {
     /* istanbul ignore next  */
     res.status(500).send(err.message);
