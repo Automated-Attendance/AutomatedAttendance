@@ -1,5 +1,5 @@
 import React from 'react';
-import { storeStudentData, removeStudentData, getStudentsByClass } from './requests/students';
+import { storeStudentData, removeStudentData, getStudentsByClass, changeUserType } from './requests/students';
 import Spinner from './Spinner';
 import { getClasses, addClasses, removeClasses, getEnrollment } from './requests/classes';
 import VirtualizedSelect from 'react-virtualized-select'
@@ -21,10 +21,17 @@ export default class Enrollment extends React.Component {
       selectedClassRemoveClass: '',
       selectedStudentAddStudent: '',
       selectedStudentRemoveStudent: '',
+      selectedStudentToggleStatus: '',
+      ToggleStatusOptions:[
+        {label: 'Student', value: 'Student'},
+        {label: 'Admin', value: 'Admin'}
+      ],
+      selectedToggleStatus:'',
       studentPhoto: '',
       createClassName: '',
       studentAdded: false,
       studentRemoved: false,
+      studentStatusToggled: false,
       classAdded: false,
       classRemoved: false,
       spinner: false,
@@ -44,6 +51,7 @@ export default class Enrollment extends React.Component {
     'handleClassAddSubmit',
     'handleStudentRemoveSubmit',
     'handleClassRemoveSubmit',
+    'handleToggleStatusSubmit',
     'previewFile',
     'getExistingUserList',
     'getSelectOptions',
@@ -92,6 +100,18 @@ export default class Enrollment extends React.Component {
         this.setState({ [state]: false});
       });
     }, 5000);
+  }
+
+  async handleToggleStatusSubmit () {
+    if (this.state.selectedStudentToggleStatus && this.state.selectedToggleStatus) {
+      let data = {
+        selectedToggleStatus: this.state.selectedToggleStatus,
+        studentUserName: this.state.selectedStudentToggleStatus
+      };
+      await changeUserType(data);
+    } else {
+      alert('Select Student and Status');
+    }
   }
 
   async handleStudentAddSubmit() {
@@ -289,6 +309,29 @@ export default class Enrollment extends React.Component {
         </div><br/>
         <button onClick={this.handleStudentRemoveSubmit}>Remove Student</button>
         {!this.state.studentRemoved ? null : <h5>{this.state.selectedStudentRemoveStudent.label.slice(0, this.state.selectedStudentRemoveStudent.label.indexOf('-') - 1)} removed from {this.state.selectedClassRemoveStudent}!</h5>}<hr/>
+
+        <h3>Change Access Status</h3>
+        Student:
+         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+          <VirtualizedSelect
+            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
+            onChange={(selectedUser) => this.setState({ selectedStudentToggleStatus: selectedUser })}
+            value={this.state.selectedStudentToggleStatus}
+            placeholder="Select Student..."
+          />
+        </div><br/>
+        Access status:
+        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+          <VirtualizedSelect
+            options={this.state.ToggleStatusOptions ? this.state.ToggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
+            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus })}
+            value={this.state.selectedToggleStatus}
+            placeholder="Select Status..."
+          />
+          <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
+          {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}<hr/>
+        </div><br/>
+
 
         <h3>Student Enrollments</h3>
         <BootstrapTable
