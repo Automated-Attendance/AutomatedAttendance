@@ -64,8 +64,6 @@ export default class StudentQueries {
   }
 
   changeUserType(user_name, typeChangedTo) {
-    return `UPDATE users
-    SET type='${typeChangedTo}' 
-    WHERE user_name='${user_name}'`
+    return `UPDATE users SET type='${typeChangedTo}' WHERE user_name='${user_name}'`;
   }
 }
