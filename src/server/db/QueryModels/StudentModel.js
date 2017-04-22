@@ -58,7 +58,7 @@ export default class StudentModel extends StudentQueries {
     const queryString = super.getAttendanceStatus(user_id, date);
     return await db.queryAsync(queryString);
   }
-  async changeStudentToAdmin(user_name, typeChangedTo) {
+  async changeUserType(user_name, typeChangedTo) {
     const queryString = super.changeUserType(user_name, typeChangedTo);
     return await db.queryAsync(queryString);
   }
