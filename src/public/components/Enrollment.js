@@ -22,7 +22,7 @@ export default class Enrollment extends React.Component {
       selectedStudentAddStudent: '',
       selectedStudentRemoveStudent: '',
       selectedStudentToggleStatus: '',
-      ToggleStatusOptions:[
+      toggleStatusOptions:[
         {label: 'Student', value: 'Student'},
         {label: 'Admin', value: 'Admin'}
       ],
@@ -323,7 +323,7 @@ export default class Enrollment extends React.Component {
         Access status:
         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
-            options={this.state.ToggleStatusOptions ? this.state.ToggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
+            options={this.state.toggleStatusOptions ? this.state.toggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
             onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus })}
             value={this.state.selectedToggleStatus}
             placeholder="Select Status..."
