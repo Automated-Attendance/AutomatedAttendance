@@ -12,9 +12,7 @@ import kairos from './kairosFR/kairosHelpers';
 import searchHelpers from './db/ModelHelpers/searchHelpers';
 import studentHelpers from './db/ModelHelpers/studentHelpers';
 import classHelpers from './db/ModelHelpers/classHelpers';
-import fileUpload from 'express-fileupload';
 import userHelpers from './db/ModelHelpers/userHelpers';
-import twilio from './twilio/twilioHelper';
 import mailgunHelpers from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
 
@@ -33,7 +31,6 @@ app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
-app.use(fileUpload());
 
 /************************/
 /**** Authentication ****/
@@ -86,7 +83,7 @@ app.get('/allUsers', searchHelpers.getAllUsernames);
 /**** Twillio ****/
 /*****************/
 
-app.post('/twilioMessage', twilio.twilioMessage);
+// no more twillio
 
 /*****************/
 /**** MailGun ****/
