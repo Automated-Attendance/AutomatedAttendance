@@ -11,7 +11,7 @@ exports.storeRecords = async (req, res) => {
 
     // sending out warning emails 10mins before the time
     let warningEmail = setInterval( ()=> {
-      let warningTime = moment(time).subtract(1, 'minute');
+      let warningTime = moment(time).subtract(5, 'minute');
       let currentTime = moment();
       let currentTimeString = currentTime.format('h:mm');
       let recordedTimeString = warningTime.format('h:mm');
@@ -22,13 +22,28 @@ exports.storeRecords = async (req, res) => {
     }, 5000);
 
     //sending out late emails 
-    var absentInterval = setInterval( () => {
+    //changing this to not 
+    var absentInterval = setInterval( ()=>{
       let currentTime = moment();
       if( currentTime.isAfter(time) ) {
-        Attendance.emailLateStudents();
+        // still send late emails 
+        // leave all late students to be pending;
+       Attendance.emailStudentAboutToBeTardy();
         clearInterval(absentInterval);
       };
     }, 5000);
+
+    // this is from 9:00-9:30am
+    var tardyInterval = setInterval( ()=>{
+      let currentTime = moment();
+      let tardyEmail = moment(time).add(10, 'minute');
+      if( currentTime.isAfter(tardyEmail)) {
+        // in here i want everyone to finally be absent
+        Attendance.emailLateStudents();
+        clearInterval(tardyInterval)
+      }
+
+    }, 5000)
 
     res.sendStatus(201);
   } catch (err) {
