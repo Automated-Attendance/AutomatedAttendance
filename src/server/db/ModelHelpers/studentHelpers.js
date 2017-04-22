@@ -54,10 +54,10 @@ exports.checkInStudents = async (req, res) => {
   try {
     const { url } = await upload(req.body);
     const matches = await recognize(url);
-    const date = await moment().format('YYYY-MM-DD HH:mm:ss');
-    const currentTime = await moment(date);
+    const date = moment().format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = moment(date);
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0,10));
-    const cutoffTimeObj = await moment(cutoffTime[0].cutoff_time);
+    const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
     for (let i = 0; i < matchedUsers.length; i++) {
       let userId = matchedUsers[i].users_id;
