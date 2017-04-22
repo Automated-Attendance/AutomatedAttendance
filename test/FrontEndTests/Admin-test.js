@@ -4,7 +4,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import Admin from '../src/public/components/Admin';
+import Admin from '../../src/public/components/Admin';
 
 describe('<Admin />', function() {
 

@@ -19,21 +19,10 @@ exports.removeGallery = async (className) => {
   return await client.galleryRemove(options);
 }
 
-exports.test = async (req, res) => {
-  const galleries = await client.galleryListAll();
-  res.send(galleries);
-}
-
 exports.testGalleryList = async (req, res) => {
   const options = { 'gallery_name': req.params.galleryName };
   const galleries = await client.galleryView(options);
   res.send(galleries);
-}
-
-exports.testGalleryRemove = async (req, res) => {
-  const options = { 'gallery_name': req.params.galleryName };
-  const clearedStatus = await client.galleryRemove(options);
-  res.send(clearedStatus);
 }
 
 exports.galleryRemoveUser = async ({ studentUserName, className }) => {

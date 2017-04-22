@@ -15,7 +15,7 @@ import classHelpers from './db/ModelHelpers/classHelpers';
 import fileUpload from 'express-fileupload';
 import userHelpers from './db/ModelHelpers/userHelpers';
 import twilio from './twilio/twilioHelper';
-import mailGun from './mailgun/mailGunHelpers';
+import mailgunHelpers from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 
@@ -54,8 +54,6 @@ app.get('/retrieveUserData', userHelpers.retrieveData);
 /**** Kairos Facial Recognition ****/
 /***********************************/
 
-app.get('/galleryLists', kairos.test);
-app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
@@ -75,7 +73,7 @@ app.post('/addClass', classHelpers.addClass);
 app.post('/removeClass', classHelpers.removeClass);
 
 // Attendance
-app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate)
+app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate);
 app.get('/attendanceRecords', Attendance.getRecords);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
@@ -94,7 +92,7 @@ app.post('/twilioMessage', twilio.twilioMessage);
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailGun.sendMailLate);
+// rip
 
 /******************/
 /**** Wildcard ****/

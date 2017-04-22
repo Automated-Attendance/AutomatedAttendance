@@ -4,7 +4,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import CameraPage from '../src/public/components/CameraPage';
+import CameraPage from '../../src/public/components/CameraPage';
 
 describe('<CameraPage />', function() {
 

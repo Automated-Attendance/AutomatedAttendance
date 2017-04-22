@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import Routes from '../src/public/components/Routes';
+import Routes from '../../src/public/components/Routes';
 
 
 describe('<Routes />', function() {

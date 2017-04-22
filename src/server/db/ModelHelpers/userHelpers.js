@@ -9,6 +9,7 @@ exports.storeAndLogin = async (req, res) => {
     const admin = await Auth.updateIfAdmin(user);
     admin ? res.redirect('/Admin') : res.redirect('/Student');
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err.message);
   }
 };
@@ -23,6 +24,7 @@ exports.retrieveData = async (req, res) => {
       res.send('not logged in');
     }
   } catch (err) {
+    /* istanbul ignore next */
     res.status(500).send(err);
   }
 };
