@@ -35,6 +35,10 @@ export default class StudentQueries {
     return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE user_id = ${user_id}`;
   }
 
+  checkInTardyQuery(user_id, date) {
+    return `UPDATE attendance_record SET status='Tardy', checkin_time='${date}' WHERE user_id=${user_id}`;
+  }
+
   checkIfStudentIsEnrolled(userName, className) {
     return `SELECT * FROM classes
       JOIN class_user ON classes.classes_id=class_user.class_id AND classes.class_name='${className}'
@@ -43,6 +47,10 @@ export default class StudentQueries {
 
   getAttendanceStatus (user_id, date) {
     return `SELECT status FROM attendance_record WHERE user_id=${user_id} AND cutoff_time LIKE '${date}%'`;
+  }
+
+  getCutoffTime (date) {
+    return `SELECT cutoff_time FROM attendance_record WHERE cutoff_time LIKE '${date}%' LIMIT 1`;
   }
 
   getStudentInformation(id) {
