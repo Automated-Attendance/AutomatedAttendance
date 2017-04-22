@@ -58,8 +58,8 @@ exports.checkInStudents = async (req, res) => {
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0,10));
     const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    for (let i = 0; i < matchedUsers.length; i++) {
-      let userId = matchedUsers[i].users_id;
+    for (let user of matchedUsers) {
+      let userId = user.users_id;
       let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
       if (cutOffDate[0].status === 'Pending') {
         if (currentTime.isAfter(cutoffTimeObj)) {
