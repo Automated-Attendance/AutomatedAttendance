@@ -63,4 +63,7 @@ export default class StudentQueries {
       JOIN classes ON class_user.class_id=classes.classes_id AND classes.class_name='${className}'`;
   }
 
+  changeUserType(user_name, typeChangedTo) {
+    return `UPDATE users SET type='${typeChangedTo}' WHERE user_name='${user_name}'`;
+  }
 }

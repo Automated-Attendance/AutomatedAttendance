@@ -75,5 +75,6 @@ export {
   emailLateStudents,
   removeStudentData,
   changeAttendanceStatus,
-  getStudentsByClass
+  getStudentsByClass,
+  changeUserType
 };
