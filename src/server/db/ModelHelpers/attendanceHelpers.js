@@ -4,8 +4,9 @@ import moment from 'moment';
 
 const Attendance = new AttendanceModel();
 
-exports.storeRecords = async ({ classes, time }, res) => {
+exports.storeRecords = async ({ body }, res) => {
   try {
+    const { classes, time } = body;
     await Attendance.storeRecords(classes, time);
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
@@ -22,7 +23,7 @@ exports.storeRecords = async ({ classes, time }, res) => {
 
     //sending out late emails (impossible to test)
     /* istanbul ignore next */
-    const absentInterval = setInterval( () => {
+    const absentInterval = setInterval(() => {
       const currentTime = moment();
       if (currentTime.isAfter(time)) {
         // still send late emails 
@@ -74,9 +75,9 @@ exports.emailLateStudents = async (req, res) => {
   }
 }
 
-exports.removeAttendanceRecordDate = async (req, res) => {
+exports.removeAttendanceRecordDate = async ({ query }, res) => {
   try {
-    await Attendance.deleteRecordDate(req.query);
+    await Attendance.deleteRecordDate(query);
     res.sendStatus(202);
   } catch (err) {
     /* istanbul ignore next */
@@ -84,9 +85,9 @@ exports.removeAttendanceRecordDate = async (req, res) => {
   }
 }
 
-exports.changeAttendanceStatus = async (req, res) => {
+exports.changeAttendanceStatus = async ({ body }, res) => {
   try {
-    let { data } = req.body
+    let { data } = body
     await Attendance.updateAttendanceStatus(data);
     res.sendStatus(201);
   } catch (err) {
