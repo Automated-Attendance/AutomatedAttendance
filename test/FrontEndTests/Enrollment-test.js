@@ -18,6 +18,12 @@ describe('<Enrollment />', function() {
     expect(wrapper.find('TableHeaderColumn')).to.have.length(2);
   });
 
+  it ('should have available toggle status options', () => {
+    const wrapper = mount(<Enrollment/>);
+    expect(wrapper.state().toggleStatusOptions[0].label).to.equal('Student');
+    expect(wrapper.state().toggleStatusOptions[1].label).to.equal('Admin')
+  })
+
 });
 
 
