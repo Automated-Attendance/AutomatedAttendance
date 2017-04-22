@@ -96,12 +96,9 @@ exports.changeUserType = async (req, res) => {
   console.log('hi getting in change user type')
   try {
     const { data } = req.body
-    // now go change the data
-    console.log('datea   :', data)
     await Student.changeUserType(data.studentUserName.value, data.selectedToggleStatus.value);
     res.sendStatus(201);
   } catch (err) {
-    console.log(err.message)
     /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
