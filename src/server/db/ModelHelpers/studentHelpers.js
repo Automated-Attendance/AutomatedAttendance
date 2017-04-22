@@ -93,7 +93,6 @@ exports.getByClass = async (req, res) => {
 };
 
 exports.changeUserType = async (req, res) => {
-  console.log('hi getting in change user type')
   try {
     const { data } = req.body
     await Student.changeUserType(data.studentUserName.value, data.selectedToggleStatus.value);
