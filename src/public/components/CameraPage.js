@@ -111,7 +111,7 @@ export default class CameraPage extends React.Component {
       states.forEach((state) => {
         this.setState({ [state]: false});
       });
-    }, 10000);
+    }, 15000);
   }
 
   render() {
