@@ -103,9 +103,17 @@ export default class CameraPage extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
-      this.setState({ [status]: false });
+      if (status) {
+        this.setState({ [status]: false });
+      }
       states.forEach((state) => {
-        this.setState({ [state]: false});
+        if (typeof this.state[state] === 'boolean') {
+          this.setState({ [state]: false});
+        } else if (Array.isArray(this.state[state])) {
+          this.setState({ [state]: [] })
+        } else {
+          this.setState({ [state]: null })
+        }
       });
     }, 5000);
   }
@@ -146,6 +154,7 @@ export default class CameraPage extends React.Component {
           className="populateAttendanceRecord"
           onClick={async () => {
             await this.populateAttendanceRecord();
+            this.toggleOff(null, 'options', 'selectedTimeCutoff');
             this.startCamera();
           }}
         >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
