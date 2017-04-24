@@ -40,7 +40,7 @@ export default class CameraPage extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.state.startCam) {
+    if (this.state.startCam) {
       clearInterval(this.state.startCam);
     }
     this.setState({ mounted: false });
