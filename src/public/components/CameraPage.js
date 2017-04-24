@@ -30,8 +30,7 @@ export default class CameraPage extends React.Component {
     'updateSelectedTimeCutoff',
     'getSelectOptions',
     'handleSelectChange',
-    'toggleOff',
-    'deleteRecord'].forEach((method) => {
+    'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
@@ -106,11 +105,6 @@ export default class CameraPage extends React.Component {
     }, 5000);
   }
 
-  async deleteRecord() {
-    const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
-  }
-
   render() {
     return (
       <div>
@@ -151,12 +145,6 @@ export default class CameraPage extends React.Component {
           }}
         >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
         {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMMM Do, YYYY')}!</h5>}
-        <button className="deleteRecord" onClick={() => {
-          let proceed = confirm('Are you sure?\nThis will delete all attendance records for today!');
-          if (proceed) {
-            this.deleteRecord();
-          }
-        }}>Delete Today's Records</button>
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
       </div>
