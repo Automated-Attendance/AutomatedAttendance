@@ -45,6 +45,7 @@ export default class Admin extends React.Component {
     ['getAttendance',
     'getExistingUserList',
     'updateSelectedDate',
+    'deleteRecord',
     'handleUpdateStatusSubmit',
     'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
@@ -53,14 +54,15 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    this.interval = await setInterval(async () => {
+    await setInterval(async () => {
       await this.getAttendance();
-    }, 3000);
+    }, 30000);
     await this.getExistingUserList();
   }
 
-  async componentWillUnmount() {
-    clearInterval(this.interval);
+  async deleteRecord() {
+    const momentDat = Moment().format('YYYY-MM-DD');
+    await getAttendanceRecordDate({date: momentDay});
   }
 
   async getAttendance() {
