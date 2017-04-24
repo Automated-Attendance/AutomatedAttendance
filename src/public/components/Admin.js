@@ -55,9 +55,11 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    this.setState({updateTable : await setInterval(async () => {
-                    await this.getAttendance();
-                  }, 3000)})
+    this.setState({
+      updateTable : await setInterval(async () => {
+        await this.getAttendance();
+      }, 3000);
+    });
     await this.getExistingUserList();
   }
   componentWillUnmount(){
@@ -194,7 +196,6 @@ export default class Admin extends React.Component {
           >
             Date
           </TableHeaderColumn>
-
           <TableHeaderColumn
             dataField = 'cutoff_time'
             width = '30%'
@@ -204,7 +205,6 @@ export default class Admin extends React.Component {
           >
             Cutoff Time
           </TableHeaderColumn>
-
           <TableHeaderColumn
             dataField = 'checkin_time'
             width = '15%'
