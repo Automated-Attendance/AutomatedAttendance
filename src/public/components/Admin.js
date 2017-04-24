@@ -61,7 +61,7 @@ export default class Admin extends React.Component {
   }
 
   async deleteRecord() {
-    const momentDat = Moment().format('YYYY-MM-DD');
+    const momentDay = Moment().format("YYYY-MM-DD");
     await getAttendanceRecordDate({date: momentDay});
   }
 
