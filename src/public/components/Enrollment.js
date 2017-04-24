@@ -176,7 +176,7 @@ export default class Enrollment extends React.Component {
   }
 
   previewFile() {
-    let preview = document.querySelector('img');
+    let preview = document.querySelector('.file-preview');
     let [file] = document.querySelector('input[type=file]').files;
     let reader = new FileReader();
     reader.addEventListener("load", () => {
@@ -263,7 +263,7 @@ export default class Enrollment extends React.Component {
             name="sampleFile"
             onChange={this.previewFile}
           />
-          <img src=""/>
+          <img className="file-preview" src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
         {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent.label.slice(0, this.state.selectedStudentAddStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
