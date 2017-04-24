@@ -34,6 +34,7 @@ export default class Admin extends React.Component {
       statusUpdated: false,
       studentOptions: [],
       spinner: false,
+      updateTable: null, 
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
@@ -54,10 +55,15 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    await setInterval(async () => {
-      await this.getAttendance();
-    }, 30000);
+    this.setState({
+      updateTable : await setInterval(async () => {
+        await this.getAttendance();
+      }, 3000)
+    });
     await this.getExistingUserList();
+  }
+  componentWillUnmount(){
+    clearInterval(this.state.updateTable);
   }
 
   async deleteRecord() {
@@ -136,6 +142,7 @@ export default class Admin extends React.Component {
     }, 5000);
   }
 
+
   render() {
     return (
       <div>
@@ -190,13 +197,22 @@ export default class Admin extends React.Component {
             Date
           </TableHeaderColumn>
           <TableHeaderColumn
+            dataField = 'cutoff_time'
+            width = '30%'
+            dataAlign = 'right'
+            dataFormat = {tableHelpers.timeFormatter}
+            dataSort
+          >
+            Cutoff Time
+          </TableHeaderColumn>
+          <TableHeaderColumn
             dataField = 'checkin_time'
             width = '15%'
             dataAlign = 'right'
             dataSort
             dataFormat = {tableHelpers.timeFormatter}
           >
-            Time
+            Checkin Time
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField = 'status'

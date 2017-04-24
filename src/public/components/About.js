@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Contact from './Contact';
 
 
 const About = () => {
   return (
     <div>
+
+      <Contact/>
       <h3 className="header">What are we doing here?</h3>
       <p>
         We are creating an automated attendance system for Hack Reactor...
@@ -16,8 +19,9 @@ const About = () => {
         Andrew Alonis<br></br>
         Jason Chambers<br></br>
         Duy Nguyen<br></br>
-        Han Zhou
+        Han Zhao
       </p>
+
     </div>
   );
 };

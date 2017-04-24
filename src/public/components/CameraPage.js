@@ -21,7 +21,8 @@ export default class CameraPage extends React.Component {
       value: '',
       selectedTimeCutoff: null,
       options: [],
-      attendancePopulated: false
+      attendancePopulated: false,
+      startCam: null
     };
 
     ['takeScreenshot',
@@ -40,6 +41,9 @@ export default class CameraPage extends React.Component {
   }
 
   componentWillUnmount() {
+    if (this.state.startCam) {
+      clearInterval(this.state.startCam);
+    }
     this.setState({ mounted: false });
   }
 
@@ -57,15 +61,17 @@ export default class CameraPage extends React.Component {
     // testing purposes making it so its only 1 minute after cut off time
     // put in however much time you need for how much time afterwards
     let end = Moment(this.state.selectedTimeCutoff).add(1,'minute');
-    let startCam = setInterval( ()=> {
-      let currentTime = Moment();
-      //uncomment this if you are testing the automated camera
-      // this.takeScreenshot();
-      if ( currentTime.isAfter(end) ) {
-        //stop taking pictures of the camera
-        clearInterval(startCam)
-      };
-    },5000)
+    this.setState({
+      startCam: setInterval( ()=> {
+        let currentTime = Moment();
+        //uncomment this if you are testing the automated camera
+        this.takeScreenshot();
+        if (currentTime.isAfter(end) ) {
+          //stop taking pictures of the camera
+          clearInterval(startCam);
+        };
+      }, 3000)
+    })
   }
 
   async sendLateEmails () {
@@ -106,7 +112,7 @@ export default class CameraPage extends React.Component {
       states.forEach((state) => {
         this.setState({ [state]: false});
       });
-    }, 5000);
+    }, 15000);
   }
 
   render() {
@@ -147,8 +153,14 @@ export default class CameraPage extends React.Component {
             await this.populateAttendanceRecord();
             this.startCamera();
           }}
-        >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
-        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMMM Do, YYYY')}!</h5>}
+
+        >Start Camera and Populate Attendance Records and get ready to send emails</button><br/><br/>
+        {!this.state.attendancePopulated ? null : 
+          <h5>
+            Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMM Do, YYYY')}! <br/>
+            Must remain on this page for the camera to continue monitoring attendance. <br/>
+            If you populated the wrong time, you must go to the Attendance page to delete today's records before resubmitting this form. 
+          </h5>}
         <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
 
       </div>
