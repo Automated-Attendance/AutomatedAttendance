@@ -6,6 +6,15 @@ body {
   background-color: #F7F7F7;
 }
 
+
+/*                    */
+
+
+/* App Navigation Bar */
+
+
+/*                    */
+
 .navbar-default {
   font-size: 1.15em;
   font-weight: 300;
@@ -110,5 +119,37 @@ body {
 }
 
 
-/* END Media Query 
-*/
+/* END Media Query */
+
+
+/*                            */
+
+
+/* Login Redirect Page Styles */
+
+
+/*                            */
+
+.error-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.error-actions {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.error-actions .btn {
+  margin-right: 10px;
+}
+
+
+
+/**/
+/**/
+/**/
+
+.login-button {
+  background-color: #0090D9;
+}
