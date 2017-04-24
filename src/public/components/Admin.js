@@ -58,7 +58,7 @@ export default class Admin extends React.Component {
     this.setState({
       updateTable : await setInterval(async () => {
         await this.getAttendance();
-      }, 3000);
+      }, 3000)
     });
     await this.getExistingUserList();
   }
