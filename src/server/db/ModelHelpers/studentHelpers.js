@@ -31,7 +31,6 @@ exports.addToClass = async (req, res) => {
     }
   } catch (err) {
     /* istanbul ignore next  */
-    console.log(err.message);
     res.status(500).send(err.message);
   }
 };
