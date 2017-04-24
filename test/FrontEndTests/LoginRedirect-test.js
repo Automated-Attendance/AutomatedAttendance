@@ -28,27 +28,31 @@ describe('<LoginRedirect />', function() {
   it('should render forbidden access Link if logged in and not adequate privileges', () => {
     const wrapper = shallow(<LoginRedirect userPrivs={loggedIn}/>);
     expect(wrapper.contains(
-      <Link to="/">You don't have correct access to view this page. 
-        <button>Click to go home.</button>
-      </Link>)).to.equal(true);
+      <div className="error-details">
+        You don't have correct privileges to acces this page.
+      </div>)).to.equal(true);
   });
 
   it('should not render forbidden access Link if not logged in', () => {
     const wrapper = shallow(<LoginRedirect userPrivs={notLoggedIn}/>);
     expect(wrapper.contains(
-      <Link to="/">You don't have correct access to view this page. 
-        <button>Click to go home.</button>
-      </Link>)).to.equal(false);
+      <div className="error-details">
+        You don't have correct privileges to acces this page.
+      </div>)).to.equal(false);
   });
 
   it('should render login Link if not logged in', () => {
     const wrapper = shallow(<LoginRedirect userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<a href="/login">login</a>)).to.equal(true);
+    expect(wrapper.contains(<a href="/login" className="login-button btn btn-primary btn-lg">
+      <span className="glyphicon glyphicon-user">
+      </span> Log Me In </a>)).to.equal(true);
   });
 
   it('should not render login Link if logged in', () => {
     const wrapper = shallow(<LoginRedirect userPrivs={loggedIn}/>);
-    expect(wrapper.contains(<a href="/login"><button>Login</button></a>)).to.equal(false);
+    expect(wrapper.contains(
+      <a href="/login" className="login-button btn btn-primary btn-lg">
+      <span className="glyphicon glyphicon-user"></span> Log Me In </a>)).to.equal(false);
   });
 
 });
