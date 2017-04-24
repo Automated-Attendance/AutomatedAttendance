@@ -47,7 +47,6 @@ export default class CameraPage extends React.Component {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ spinner: true });
     const checkedIn = await queryGallery(screenshot)
-    console.log(checkedIn);
     let checkedInStudents = [];
     checkedIn.forEach((student) => {
       checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
