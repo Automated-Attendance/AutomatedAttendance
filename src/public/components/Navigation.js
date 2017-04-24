@@ -27,9 +27,9 @@ const Navigation = ({ userPrivs }) => {
       </ul>
       <ul className="nav navbar-nav navbar-right">
         <li><Link to="/About">About</Link></li>
-        <li><Link to="/Contact">Contact</Link></li>
-        { !userPrivs.isLoggedIn && <li><a href="/login"><span className="glyphicon glyphicon-user" aria-hidden="true"/>Login</a></li> }
-        { userPrivs.isLoggedIn && <li><a href="/logout"><span className="glyphicon glyphicon-user" aria-hidden="true"/>Logout</a></li> }
+        <li><Link to="/Contact"><span className="glyphicon glyphicon-envelope" aria-hidden="true"/> Contact</Link></li>
+        { !userPrivs.isLoggedIn && <li><a href="/login"><span className="glyphicon glyphicon-user" aria-hidden="true"/>  Login</a></li> }
+        { userPrivs.isLoggedIn && <li><a href="/logout"><span className="glyphicon glyphicon-user" aria-hidden="true"/>  Logout</a></li> }
       </ul>
     </div>
   </div>
@@ -40,25 +40,3 @@ const Navigation = ({ userPrivs }) => {
 };
 
 export default Navigation;
-
-
-// <nav className="navbar navbar-inverse navbar-fixed-top">
-//       <div className="container">
-//         <div className="navbar-header">
-//           <Link to="/" className="navbar-brand" >Automated Attendance</Link>
-//         </div>
-
-//         <div id="navbar" className="navbar-collaspe">
-//           <ul className="nav navbar-nav navbar-right">
-//             { userPrivs.isLoggedIn && !userPrivs.isAdmin && <li><Link to="/Student">Attendance</Link></li> }
-//             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Admin">Attendance</Link></li> }
-//             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/CameraPage">Camera</Link></li> }
-//             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Enrollment">Enrollment</Link></li> }
-//             <li><Link to="/About">About</Link></li>
-//             <li><Link to="/Contact">Contact</Link></li>
-//             { !userPrivs.isLoggedIn && <li><a href="/login">Login / Signup</a></li> }
-//             { userPrivs.isLoggedIn && <li><a href="/logout">Logout</a></li> }
-//           </ul>
-//         </div>
-//       </div>
-//     </nav>
