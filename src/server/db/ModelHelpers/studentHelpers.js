@@ -31,6 +31,7 @@ exports.addToClass = async (req, res) => {
     }
   } catch (err) {
     /* istanbul ignore next  */
+    console.log(err.message);
     res.status(500).send(err.message);
   }
 };
@@ -74,7 +75,8 @@ exports.checkInStudents = async (req, res) => {
       }
     }
     sendMailForArrival(matchedUsers);    
-    res.sendStatus(201);
+    // res.sendStatus(201);
+    res.status(201).send(matchedUsers);
   } catch (err) {
     /* istanbul ignore next  */
     res.status(500).send(err.message);

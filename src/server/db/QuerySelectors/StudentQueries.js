@@ -28,7 +28,7 @@ export default class StudentQueries {
         qs += `user_name='${user.transaction.subject_id}' or `;
       }
     });
-    return `SELECT email, users_id FROM users where ${qs}`;
+    return `SELECT email, users_id, first_name, last_name FROM users where ${qs}`;
   }
 
   checkInQuery(user_id, date) {
