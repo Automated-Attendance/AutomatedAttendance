@@ -194,6 +194,17 @@ export default class Admin extends React.Component {
           >
             Date
           </TableHeaderColumn>
+
+          <TableHeaderColumn
+            dataField = 'cutoff_time'
+            width = '30%'
+            dataAlign = 'right'
+            dataFormat = {tableHelpers.timeFormatter}
+            dataSort
+          >
+            Cutoff Time
+          </TableHeaderColumn>
+
           <TableHeaderColumn
             dataField = 'checkin_time'
             width = '15%'
@@ -201,7 +212,7 @@ export default class Admin extends React.Component {
             dataSort
             dataFormat = {tableHelpers.timeFormatter}
           >
-            Time
+            Checkin Time
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField = 'status'
