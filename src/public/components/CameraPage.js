@@ -46,8 +46,12 @@ export default class CameraPage extends React.Component {
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ spinner: true });
-    console.log( await queryGallery(screenshot) );
-    this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
+    const checkedIn = await queryGallery(screenshot)
+    let checkedInStudents = [];
+    checkedIn.forEach((student) => {
+      checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
+    })
+    this.setState({ spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!` });
   }
   startCamera () {
     // testing purposes making it so its only 1 minute after cut off time
