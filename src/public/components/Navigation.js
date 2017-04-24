@@ -15,8 +15,6 @@ const Navigation = ({ userPrivs }) => {
             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Admin">Attendance</Link></li> }
             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/CameraPage">Camera</Link></li> }
             { userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Enrollment">Enrollment</Link></li> }
-            <li><Link to="/About">About</Link></li>
-            <li><Link to="/Contact">Contact</Link></li>
             { !userPrivs.isLoggedIn && <li><a href="/login">Login / Signup</a></li> }
             { userPrivs.isLoggedIn && <li><a href="/logout">Logout</a></li> }
           </ul>
