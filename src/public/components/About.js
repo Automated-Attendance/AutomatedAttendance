@@ -16,7 +16,7 @@ const About = () => {
         Andrew Alonis<br></br>
         Jason Chambers<br></br>
         Duy Nguyen<br></br>
-        Han Zhou
+        Han Zhao
       </p>
     </div>
   );
