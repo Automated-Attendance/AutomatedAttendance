@@ -51,7 +51,7 @@ export default class CameraPage extends React.Component {
     checkedIn.forEach((student) => {
       checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
     })
-    this.setState({ spinner: false, checkedinUser: `${checkedInStudents} checked in` });
+    this.setState({ spinner: false, checkedinUser: `${checkedInStudents.join(', ')} checked in` });
   }
   startCamera () {
     // testing purposes making it so its only 1 minute after cut off time
