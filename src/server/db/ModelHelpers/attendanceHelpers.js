@@ -36,7 +36,7 @@ exports.storeRecords = async (req, res) => {
 
     var tardyInterval = setInterval( ()=>{
       let currentTime = moment();
-      let tardyEmail = moment(time).add(10, 'minute');
+      let tardyEmail = moment(time).add(20, 'minute');
       if( currentTime.isAfter(tardyEmail)) {
         // in here i want everyone to finally be absent
         Attendance.emailLateStudents();
