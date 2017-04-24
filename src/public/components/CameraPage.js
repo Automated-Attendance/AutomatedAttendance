@@ -48,9 +48,11 @@ export default class CameraPage extends React.Component {
     this.setState({ spinner: true });
     const checkedIn = await queryGallery(screenshot)
     let checkedInStudents = [];
-    checkedIn.forEach((student) => {
-      checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
-    })
+    if (checkedIn.length) {
+      checkedIn.forEach((student) => {
+        checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
+      })
+    }
     this.setState({ spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!` });
   }
   startCamera () {
