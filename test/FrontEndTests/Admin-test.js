@@ -35,7 +35,7 @@ describe('<Admin />', function() {
   
   it('should have five columns in the table', () => {
     const wrapper = mount(<Admin/>);
-    expect(wrapper.find('TableHeaderColumn')).to.have.length(5);
+    expect(wrapper.find('TableHeaderColumn')).to.have.length(6);
   });
 
   it('should render a classes attendance records', () => {
