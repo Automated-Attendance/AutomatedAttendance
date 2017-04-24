@@ -33,7 +33,7 @@ describe('<Admin />', function() {
     expect(wrapper.find('BootstrapTable')).to.have.length(1);
   });
   
-  it('should have five columns in the table', () => {
+  it('should have six columns in the table', () => {
     const wrapper = mount(<Admin/>);
     expect(wrapper.find('TableHeaderColumn')).to.have.length(6);
   });
