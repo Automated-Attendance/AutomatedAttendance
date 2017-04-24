@@ -21,13 +21,7 @@ export default class CameraPage extends React.Component {
       spinner: false,
       checkedinUser: null,
       selectedTimeCutoff: null,
-<<<<<<< 42a68085cfcc5016ad7a318b55a530ee7ed4bd26
       attendancePopulated: false
-=======
-      options: [],
-      attendancePopulated: false,
-      startCam: null
->>>>>>> unmounted the set interval
     };
 
     'sendLateEmails',
