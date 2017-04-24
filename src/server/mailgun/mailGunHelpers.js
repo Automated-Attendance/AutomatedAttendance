@@ -1,5 +1,5 @@
 import MailGun from 'mailgun-js'
-const mailgun = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+const mailgunAPI = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
  
 exports.sendMailLate = (req, res) => {
   req.params.forEach( (person)=> {
@@ -10,7 +10,7 @@ exports.sendMailLate = (req, res) => {
       text: '1 minutes till class starts! Email communication@ if you are going to be late.'
     };
     
-    // mailgun.messages().send(data, function (error, body) {
+    // mailgunAPI.messages().send(data, function (error, body) {
     //   if (error) {
     //     res.status(500).send(error);
     //     return;
@@ -23,6 +23,7 @@ exports.sendMailLate = (req, res) => {
 };
   
 exports.sendMailForArrival = async (matchedUsers) => {
+  console.log('sending email for arrival')
   matchedUsers.forEach((user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -35,7 +36,9 @@ exports.sendMailForArrival = async (matchedUsers) => {
 };
 
 exports.sendAbsentEmails = async (emails) => {
+  console.log('sending absent emails')
   emails.forEach((user) => {
+    console.log(user)
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
@@ -47,6 +50,7 @@ exports.sendAbsentEmails = async (emails) => {
 };
 
 exports.sendWarningEmails = async (emails) => {
+  console.log('sending warning emails')
   emails.forEach( (user) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
@@ -57,3 +61,16 @@ exports.sendWarningEmails = async (emails) => {
     // mailgun.messages().send(data);
   });
 };
+
+exports.sendTardyEmails = async (users) => {
+  console.log('sending tardy emails')
+  users.forEach( (user) => {
+    let data = { 
+      from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
+      to: user.email,
+      subject: 'Tardy',
+      text: "It's 9AM you are still not in class,you will be if you get to class by 9:30"
+    };
+    // mailgun.messages().send(data);
+  });
+}

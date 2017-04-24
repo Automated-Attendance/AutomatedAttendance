@@ -104,7 +104,7 @@ export default class Admin extends React.Component {
   }
 
   updateSelectedDate(e) {
-    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD hh:mm:ss');
+    let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD HH:mm:ss');
     this.setState({ selectedDate: date });
   }
 

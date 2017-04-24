@@ -4,7 +4,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import Enrollment from '../src/public/components/Enrollment';
+import Enrollment from '../../src/public/components/Enrollment';
 
 describe('<Enrollment />', function() {
 
@@ -17,6 +17,12 @@ describe('<Enrollment />', function() {
     const wrapper = mount(<Enrollment/>);
     expect(wrapper.find('TableHeaderColumn')).to.have.length(2);
   });
+
+  it ('should have available toggle status options', () => {
+    const wrapper = mount(<Enrollment/>);
+    expect(wrapper.state().toggleStatusOptions[0].label).to.equal('Student');
+    expect(wrapper.state().toggleStatusOptions[1].label).to.equal('Admin')
+  })
 
 });
 

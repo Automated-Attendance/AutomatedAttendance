@@ -1,7 +1,7 @@
 import StudentModel from '../QueryModels/StudentModel';
 import { upload } from '../../cloudinary/cloudHelpers';
 import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
-import { sendMailForArrival } from '../../mailgun/mailgunHelpers';
+import { sendMailForArrival } from '../../mailgun/mailGunHelpers';
 import moment from 'moment';
 
 const Student = new StudentModel();
@@ -14,6 +14,7 @@ exports.addToClass = async (req, res) => {
       req.body.selectedClass = classNames[i];
       let { studentPhoto, studentUserName, selectedClass } = req.body;
       let [ enrolled ] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
+      /* istanbul ignore else  */
       if (enrolled.length === 0) {
         const { url } = await upload(req.body);
         await Student.updateUser(url, studentUserName);
@@ -22,12 +23,14 @@ exports.addToClass = async (req, res) => {
         added = true;
       }
     }
+    /* istanbul ignore else  */
     if (added) {
       res.sendStatus(201);
     } else {
       res.sendStatus(204);
     }
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
@@ -42,6 +45,7 @@ exports.removeFromClass = async (req, res) => {
     }
     res.sendStatus(200);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
@@ -50,12 +54,29 @@ exports.checkInStudents = async (req, res) => {
   try {
     const { url } = await upload(req.body);
     const matches = await recognize(url);
-    const date = await moment().format('YYYY-MM-DD hh:mm:ss');
+    const date = moment().format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = moment(date);
+    const [cutoffTime] = await Student.getCutoffTime(date.slice(0,10));
+    const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    await Student.checkInOnTime(matchedUsers, date);
+    for (let i = 0; i < matchedUsers.length; i++) {
+      let userId = matchedUsers[i].users_id;
+      let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
+      if (cutOffDate[0].status === 'Pending') {
+        if (currentTime.isAfter(cutoffTimeObj)) {
+          await Student.checkInTardy(userId, date)
+        } else {
+          await Student.checkInOnTime(userId, date);
+        }
+      } else {
+        matchedUsers.splice(i, 1);
+        i--;
+      }
+    }
     sendMailForArrival(matchedUsers);    
     res.sendStatus(201);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
@@ -66,7 +87,19 @@ exports.getByClass = async (req, res) => {
     const students = await Student.getStudentsByClass(className);
     res.status(200).send(students[0]);
   } catch (err) {
+    /* istanbul ignore next  */
     res.status(500).send(err.message);
   }
 };
+
+exports.changeUserType = async (req, res) => {
+  try {
+    const { data } = req.body;
+    await Student.changeUserType(data.studentUserName.value, data.selectedToggleStatus.value);
+    res.sendStatus(201);
+  } catch (err) {
+    /* istanbul ignore next  */
+    res.status(500).send(err.message);
+  }
+}
 

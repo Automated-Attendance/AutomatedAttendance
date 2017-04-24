@@ -2,6 +2,7 @@ import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 
 // Configure Passport to use Auth0
+/* istanbul ignore next */
 var strategy = new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
@@ -13,11 +14,14 @@ var strategy = new Auth0Strategy({
 
 passport.use(strategy);
 
-// you can use this section to keep a smaller payload
+/* istanbul ignore next */
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
+/* istanbul ignore next */
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
+
+// ignoring as Auth0 strategies tested by Auth0 themselves

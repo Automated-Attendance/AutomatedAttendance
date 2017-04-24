@@ -4,7 +4,16 @@ import Promise from 'bluebird';
 let database;
 let connection;
 
-if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
+/* istanbul ignore next */
+if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
+  // travis CI localhost
+  database = 'automatedattendance';
+  connection = mysql.createConnection({
+    user: 'root',
+    password: ''
+  });
+} else if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
+  // google cloud db
   database = process.env.CLOUD_TEST_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.CLOUD_TEST_DB_HOST,
@@ -12,6 +21,7 @@ if (process.env.LOCAL_ENV && process.env.CLOUD_TEST_DB) {
     password: process.env.CLOUD_TEST_DB_PASSWORD,
   });
 } else if (process.env.LOCAL_ENV) {
+  // localhost
   database = process.env.MYSQL_DB_NAME_LOCAL;
   connection = mysql.createConnection({
     user: process.env.MYSQL_ADMIN_LOCAL,
@@ -34,7 +44,7 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 db.connectAsync().then(function() {
   // keep the connection alive so server doesnt crash 
   // setInterval(() => db.queryAsync('SELECT 1'), 5000);
-  // return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
+  return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
 })
 .then(function() {
   console.log('Connected to ' + database + 'database as ID ' + db.threadId);
@@ -44,7 +54,7 @@ db.connectAsync().then(function() {
   return db.queryAsync('USE ' + database);
 })
 .then(function() {
-  // return createTables(db);
+  return createTables(db);
 });
 
 module.exports = db;

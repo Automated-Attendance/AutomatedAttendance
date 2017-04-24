@@ -9,6 +9,7 @@ import { getClasses } from './requests/classes';
 import Moment from 'moment';
 import { storeAttendanceRecord, emailLateStudents } from './requests/students';
 
+
 export default class CameraPage extends React.Component {
 
   constructor(props) {
@@ -43,12 +44,25 @@ export default class CameraPage extends React.Component {
     this.setState({ mounted: false });
   }
 
-  @keydown('space')
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ spinner: true });
     console.log( await queryGallery(screenshot) );
     this.setState({ spinner: false, checkedinUser: 'hardcoded guy checked in' });
+  }
+  startCamera () {
+    // testing purposes making it so its only 1 minute after cut off time
+    // put in however much time you need for how much time afterwards
+    let end = Moment(this.state.selectedTimeCutoff).add(1,'minute');
+    let startCam = setInterval( ()=> {
+      let currentTime = Moment();
+      //uncomment this if you are testing the automated camera
+      // this.takeScreenshot();
+      if ( currentTime.isAfter(end) ) {
+        //stop taking pictures of the camera
+        clearInterval(startCam)
+      };
+    },5000)
   }
 
   async sendLateEmails () {
@@ -67,7 +81,7 @@ export default class CameraPage extends React.Component {
   }
 
   updateSelectedTimeCutoff(e) {
-    let date = Moment(e);
+    let date = Moment(e).format('YYYY-MM-DD HH:mm:ss');
     this.setState({ selectedTimeCutoff: date });
   }
 
@@ -132,10 +146,10 @@ export default class CameraPage extends React.Component {
         <button
           className="populateAttendanceRecord"
           onClick={async () => {
-            this.takeScreenshot();
             await this.populateAttendanceRecord();
+            this.startCamera();
           }}
-        >Take Screenshot and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
+        >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
         {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {this.state.selectedTimeCutoff.format('dddd, MMMM Do, YYYY')}!</h5>}
         <button className="deleteRecord" onClick={() => {
           let proceed = confirm('Are you sure?\nThis will delete all attendance records for today!');

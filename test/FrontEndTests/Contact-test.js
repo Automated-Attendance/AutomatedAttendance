@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import Contact from '../src/public/components/Contact';
+import Contact from '../../src/public/components/Contact';
 
 
 describe('<Contact />', function() {

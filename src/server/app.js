@@ -12,10 +12,8 @@ import kairos from './kairosFR/kairosHelpers';
 import searchHelpers from './db/ModelHelpers/searchHelpers';
 import studentHelpers from './db/ModelHelpers/studentHelpers';
 import classHelpers from './db/ModelHelpers/classHelpers';
-import fileUpload from 'express-fileupload';
 import userHelpers from './db/ModelHelpers/userHelpers';
-import twilio from './twilio/twilioHelper';
-import mailGun from './mailgun/mailGunHelpers';
+import mailgunHelpers from './mailgun/mailGunHelpers';
 import Attendance from './db/ModelHelpers/attendanceHelpers';
 
 
@@ -33,7 +31,6 @@ app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
-app.use(fileUpload());
 
 /************************/
 /**** Authentication ****/
@@ -54,14 +51,16 @@ app.get('/retrieveUserData', userHelpers.retrieveData);
 /**** Kairos Facial Recognition ****/
 /***********************************/
 
-app.get('/galleryLists', kairos.test);
-app.get('/galleryRemove/:galleryName', kairos.testGalleryRemove);
 app.get('/usersInGallery/:galleryName', kairos.testGalleryList);
 app.post('/kairosGalleryRecognize', studentHelpers.checkInStudents);
 
 /******************/
 /**** Database ****/
 /******************/
+
+// Admins
+
+app.post('/changeUserType',studentHelpers.changeUserType);
 
 // Students
 app.get('/studentsByClass', studentHelpers.getByClass);
@@ -75,7 +74,7 @@ app.post('/addClass', classHelpers.addClass);
 app.post('/removeClass', classHelpers.removeClass);
 
 // Attendance
-app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate)
+app.get('/getAttendanceRecordDate', Attendance.removeAttendanceRecordDate);
 app.get('/attendanceRecords', Attendance.getRecords);
 app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
@@ -88,13 +87,13 @@ app.get('/allUsers', searchHelpers.getAllUsernames);
 /**** Twillio ****/
 /*****************/
 
-app.post('/twilioMessage', twilio.twilioMessage);
+// no more twillio
 
 /*****************/
 /**** MailGun ****/
 /*****************/
 
-app.post('/emailStudentsWarning', searchHelpers.getListOfUsers, mailGun.sendMailLate);
+// rip
 
 /******************/
 /**** Wildcard ****/
