@@ -20,6 +20,7 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-1']
         }
       },
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
       { test: /\.gif$/, loader: 'url-loader?mimetype=image/png' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
@@ -37,23 +38,23 @@ module.exports = {
             includePaths: ['./node_modules']
           }
         }]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: true,
-              importLoaders: 1,
-              localIdentName: '[name]--[local]--[hash:base64:8]'
-            }
-          },
-          'postcss-loader' // has separate config, see postcss.config.js nearby
-        ]
-      },
+      }
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: true,
+      //         sourceMap: true,
+      //         importLoaders: 1,
+      //         localIdentName: '[name]--[local]--[hash:base64:8]'
+      //       }
+      //     },
+      //     'postcss-loader' // has separate config, see postcss.config.js nearby
+      //   ]
+      // },
     ]
   }
 };
