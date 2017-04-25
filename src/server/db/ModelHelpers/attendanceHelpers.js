@@ -11,7 +11,7 @@ exports.storeRecords = async ({ body }, res) => {
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
     const warningEmail = setInterval(() => {
-      const warningTime = moment(time).subtract(5, 'minute');
+      const warningTime = moment(time).subtract(10, 'minute');
       const currentTime = moment();
       const currentTimeString = currentTime.format('h:mm');
       const recordedTimeString = warningTime.format('h:mm');

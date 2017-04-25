@@ -61,7 +61,7 @@ export default class CameraPage extends React.Component {
     // testing purposes making it so its only 1 minute after cut off time
     // put in however much time you need for how much time afterwards
 
-    let end = Moment(this.state.selectedTimeCutoff).add(1,'minute');
+    let end = Moment(this.state.selectedTimeCutoff).add(30,'minute');
     this.setState({
       startCam: setInterval( ()=> {
         let currentTime = Moment();
