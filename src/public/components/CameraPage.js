@@ -136,7 +136,10 @@ export default class CameraPage extends React.Component {
 
         <div className="col-md-4 start-attendance-form">
 
-          <h3>Start Daily Attendance</h3>
+          <h3 className="text-center">Start Daily Attendance</h3>
+
+          <hr />
+
           <h5 className="form-title">Class:</h5>
           <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
             <Select 
