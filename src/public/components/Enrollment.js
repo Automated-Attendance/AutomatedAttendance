@@ -12,6 +12,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from '../helpers/tableHelpers.js';
 import AddClass from './AddClass';
 import RemoveClass from './RemoveClass';
+import AddStudent from './AddStudent';
 
 export default class Enrollment extends React.Component {
   constructor(props) {
@@ -43,7 +44,10 @@ export default class Enrollment extends React.Component {
       classOptionsRemoveStudent: [],
       classOptionsRemoveClass: [],
       classOptionsEnrollment: {},
-      enrollmentRecords: []
+      enrollmentRecords: [],
+      imageSource: '',
+      imageValue: '',
+      imageHeight: ''
     };
 
     ['updateClassList',
@@ -65,6 +69,8 @@ export default class Enrollment extends React.Component {
   }
 
   async componentWillMount() {
+    await this.getSelectOptions();
+    await this.getExistingUserList();
     await this.updateClassList();
     await this.getExistingUserList();
     await this.getStudentsByClass();
@@ -121,9 +127,11 @@ export default class Enrollment extends React.Component {
 
   clearDOMrefs() {
     setTimeout(() => {
-      this.refs.imageUpload.src = 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==';
-      this.refs.imageUpload.height='0px';
-      this.refs.preview.value=''
+      this.setState({
+        imageSource: 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+        imageHeight: '0px',
+        imageValue: ''
+      });
     }, 4950);
   }
 
@@ -256,45 +264,22 @@ export default class Enrollment extends React.Component {
           handleSubmit={this.handleClassAddSubmit}
         />
         <hr/>
-
-        <h3>Add Student to Class</h3>
-        Class:
-        <div onClick={this.getSelectOptions}>
-          <Select 
-            multi={true}
-            simpleValue
-            value={this.state.selectedClassAddStudent}
-            placeholder="Select Class(es)..."
-            options={this.state.classOptionsAddStudent}
-            onChange={(selectedClass) => this.setState({ selectedClassAddStudent: selectedClass })}
-          />
-        </div><br/>
-        Student:
-        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-          <VirtualizedSelect
-            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedUser) => this.setState({ selectedStudentAddStudent: selectedUser })}
-            value={this.state.selectedStudentAddStudent}
-            placeholder="Select Student..."
-          />
-        </div><br/>
-        <form ref='uploadForm'
-          id='uploadForm' 
-          action='/studentUpload' 
-          method='post' 
-          encType="multipart/form-data">
-          Enter Photo:
-          <input
-            type="file"
-            name="sampleFile"
-            onChange={this.previewFile}
-            ref="preview"
-          />
-          <img ref="imageUpload" className="file-preview" src=""/>
-        </form><br/>
-        <button onClick={this.handleStudentAddSubmit}>Add Student</button>
-        {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent.label.slice(0, this.state.selectedStudentAddStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
-
+        <AddStudent
+          studentAdded={this.state.studentAdded}
+          selectedClass={this.state.selectedClassAddStudent}
+          selectedStudent={this.state.selectedStudentAddStudent}
+          classOptions={this.state.classOptionsAddStudent}
+          studentOptions={this.state.studentOptions}
+          getClassOptions={this.getSelectOptions}
+          getStudentOptions={this.getExistingUserList}
+          preview={this.previewFile}
+          handleChange={this.handleSelectChange}
+          handleSubmit={this.handleStudentAddSubmit}
+          imageSource={this.state.imageSource}
+          imageValue={this.state.imageValue}
+          imageHeight={this.state.imageHeight}
+        />
+        <hr/>
         <RemoveClass
           classRemoved={this.state.classRemoved}
           selectedClass={this.state.selectedClassRemoveClass}
@@ -304,7 +289,6 @@ export default class Enrollment extends React.Component {
           handleSubmit={this.handleClassRemoveSubmit}
         />
         <hr/>
-
         <h3>Remove Student from Class</h3>
         Class:
         <div onClick={this.getSelectOptions}>
