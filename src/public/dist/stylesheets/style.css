@@ -3,7 +3,7 @@ html,
 body {
   font-family: 'Lato', serif;
   padding-top: 50px;
-  background-color: #E6E2EB;
+  background-color: #F7F7F7;
 }
 
 
@@ -151,11 +151,17 @@ body {
 /**/
 /**/
 
+.start-attendance-form {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 2em;
+}
+
 .login-button {
   background-color: #0090D9;
 }
 
 video {
-  border-radius: 20px;
-  box-shadow: 0 0 0 5px #0090D9;
+  border-radius: 5px;
+  box-shadow: 0 0 0 2px #0090D9;
 }
