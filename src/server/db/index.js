@@ -33,7 +33,8 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     host: process.env.RDS_HOSTNAME,
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
-    port: process.env.RDS_PORT
+    port: process.env.RDS_PORT,
+    database: process.env.RDS_DATABASE
   });
 }
 
@@ -55,6 +56,9 @@ db.connectAsync().then(function() {
 })
 .then(function() {
   return createTables(db);
+})
+.catch(function(err) {
+  console.log(err.message);
 });
 
 module.exports = db;
