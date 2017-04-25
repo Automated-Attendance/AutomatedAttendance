@@ -231,6 +231,29 @@ video {
 }
 
 .works-step {
-  background-color: white;
-  border: 1px solid #ddd;
+  position: inline-block;
+}
+
+.works-img {
+  position: relative;
+}
+
+.content-heading {
+  padding-top: 20px;
+  font-weight: 400;
+}
+
+.span4 img {
+    margin-right: 10px;
+}
+.span4 .img-left {
+    float: left;
+    padding-right: 100px;
+}
+.span4 .img-right {
+    float: right;
+}
+
+.step-text {
+  font-size: 18px;
 }
