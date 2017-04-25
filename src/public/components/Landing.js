@@ -13,8 +13,14 @@ const Landing = () => {
         </div>
       </div>
 
-      <div className="how-it-works">
-      How it works here.
+      <div className="how-it-works container">
+        <h1 className="text-center"> How it works </h1>
+        <div>
+          <span className="col-md-3 works-step">
+            <img src="/images/LoginLogoLanding.png" alt="Login Image" />
+            <h4 className="text-center">Login or create an account.</h4>
+          </span>
+        </div>
       </div>
 
     </div>
