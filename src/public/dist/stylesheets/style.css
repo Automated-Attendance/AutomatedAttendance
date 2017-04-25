@@ -153,3 +153,7 @@ body {
 .login-button {
   background-color: #0090D9;
 }
+
+video {
+  border-radius: 20px;
+}
