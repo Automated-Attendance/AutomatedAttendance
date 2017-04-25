@@ -71,34 +71,23 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-1": "^6.22.0",
-    "twilio": "^2.11.1"
-  },
-  "nyc": {
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "exclude": [
-      ".tmp",
-      "test"
-    ],
-    "report-dir": "./serverCoverage"
-  },
-  "devDependencies": {
+    "twilio": "^2.11.1",
     "babel-cli": "^6.7.5",
     "babel-plugin-istanbul": "^4.1.1",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.1",
+    "file-loader": "^0.11.1",
+    "css-loader": "^0.28.0",
+    "json-loader": "^0.5.4",
+    "less-loader": "^4.0.3",
+    "sass-loader": "^6.0.3",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "coveralls": "^2.13.0",
     "cross-env": "^4.0.0",
-    "css-loader": "^0.28.0",
     "enzyme": "^2.8.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "file-loader": "^0.11.1",
-    "json-loader": "^0.5.4",
     "karma": "^1.6.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",
@@ -109,7 +98,6 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "less": "^2.7.2",
-    "less-loader": "^4.0.3",
     "mocha": "^3.2.0",
     "mocha-webpack": "^0.7.0",
     "moxios": "^0.4.0",
@@ -124,11 +112,22 @@
     "postcss-mixins": "^5.4.1",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
-    "sass-loader": "^6.0.3",
     "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-node-externals": "^1.5.4"
-  }
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "exclude": [
+      ".tmp",
+      "test"
+    ],
+    "report-dir": "./serverCoverage"
+  },
+  "devDependencies": {}
 }
