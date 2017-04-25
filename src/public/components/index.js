@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Routes from './Routes';
 import Navigation from './Navigation';
-import { getUserData } from '../requests/users';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import {getUserData} from '../requests/users';
+import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,13 +23,10 @@ export default class App extends React.Component {
     return (
       <Router>
         <div className="container homepage-container">
-
           <Navigation userPrivs={this.state}/>
-
           <Routes userPrivs={this.state}/>
-
         </div>
       </Router>
     );
   }
-}
+};
