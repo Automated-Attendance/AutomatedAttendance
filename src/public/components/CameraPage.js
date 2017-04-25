@@ -162,18 +162,15 @@ export default class CameraPage extends React.Component {
           /><br/>
           
           <button
-            className="populateAttendanceRecord"
+            className="populateAttendanceRecord login-button btn btn-primary"
             onClick={async () => {
               await this.populateAttendanceRecord();
               this.toggleOff(null, 'options', 'selectedTimeCutoff');
               this.clearDOMValue('DateTime');
               this.startCamera();
             }}>
-            Start Camera and Populate Attendance Records (and get ready to send emails)
+            Start Camera and Populate Attendance Records
           </button>
-
-          <br/>
-          <br/>
 
           {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMMM Do, YYYY')}!</h5>}
           <hr/>
