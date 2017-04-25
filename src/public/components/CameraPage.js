@@ -131,10 +131,6 @@ export default class CameraPage extends React.Component {
 
         { this.state.mounted && <div className="col-md-8 webcam-component"><Webcam ref='webcam'/></div> }
 
-        <div>
-          <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
-        </div>
-
         {this.state.spinner && <Spinner/>}
         {this.state.checkedinUser}
 
@@ -142,7 +138,7 @@ export default class CameraPage extends React.Component {
 
         <div className="col-md-4 start-attendance-form">
           <h3>Start Daily Attendance</h3>
-          Class:
+          <h5 className="form-title">Class:</h5>
           <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
             <Select 
               multi={true}
@@ -153,7 +149,7 @@ export default class CameraPage extends React.Component {
               onChange={this.handleSelectChange}
             />
           </div><br/>
-          Cutoff Time:
+          <h5 className="form-title">Cutoff Time:</h5>
           <DateTime
             placeholder="Select Cutoff Time..."
             onChange={this.updateSelectedTimeCutoff}
