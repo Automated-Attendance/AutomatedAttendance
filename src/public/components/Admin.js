@@ -242,7 +242,7 @@ export default class Admin extends React.Component {
           transitionLeaveTimeout={500}>
           {this.state.changeNeeded ? 
             <div className="col-md-5 attendance-page-form">
-              <h3>Change Attendance Records</h3>
+              <h3 className="text-center">Change Attendance Records</h3>
 
               Date:
               <DateTime
