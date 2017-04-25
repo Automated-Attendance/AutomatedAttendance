@@ -6,8 +6,6 @@ import Contact from './Contact';
 const About = () => {
   return (
     <div>
-
-      <Contact/>
       <h3 className="header">What are we doing here?</h3>
       <p>
         We are creating an automated attendance system for Hack Reactor...
