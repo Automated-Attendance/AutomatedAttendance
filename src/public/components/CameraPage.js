@@ -160,7 +160,9 @@ export default class CameraPage extends React.Component {
             onChange={this.updateSelectedTimeCutoff}
             calendar={false}
             ref='DateTime'
-          /><br/>
+          />
+
+          <br/>
           
           <button
             className="populateAttendanceRecord login-button btn btn-primary"
@@ -174,7 +176,6 @@ export default class CameraPage extends React.Component {
           </button>
 
           {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMMM Do, YYYY')}!</h5>}
-          <hr/>
         </div>
 
       </div>
