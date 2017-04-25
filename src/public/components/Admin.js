@@ -34,6 +34,7 @@ export default class Admin extends React.Component {
       statusUpdated: false,
       studentOptions: [],
       spinner: false,
+      attendanceInterval: null,
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
@@ -54,10 +55,16 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    await setInterval(async () => {
+    let attendanceInterval = setInterval(async () => {
+      console.log('fetching attednance')
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
+    this.setState({ attendanceInterval });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.attendanceInterval);
   }
 
   async deleteRecord() {
