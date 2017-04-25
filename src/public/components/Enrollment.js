@@ -55,7 +55,8 @@ export default class Enrollment extends React.Component {
     'previewFile',
     'getExistingUserList',
     'getSelectOptions',
-    'getStudentsByClass'].forEach(method => {
+    'getStudentsByClass',
+    'clearDOMrefs'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
@@ -111,10 +112,12 @@ export default class Enrollment extends React.Component {
     }, 5000);
   }
 
-  clearDOMValue(ref) {
+  clearDOMrefs() {
     setTimeout(() => {
-      this.refs[ref]._values.value = null
-    }, 4000);
+      this.refs.imageUpload.src = 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==';
+      this.refs.imageUpload.height='0px';
+      this.refs.preview.value=''
+    }, 4950);
   }
 
   async handleToggleStatusSubmit () {
@@ -144,6 +147,8 @@ export default class Enrollment extends React.Component {
       this.setState({ spinner: false });
       await this.populateTable();
       this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
+      this.clearDOMrefs();
+   ;
     } else {
       alert('Select Class(es) and Student and Photo!');
     }
@@ -280,8 +285,9 @@ export default class Enrollment extends React.Component {
             type="file"
             name="sampleFile"
             onChange={this.previewFile}
+            ref="preview"
           />
-          <img className="file-preview" src=""/>
+          <img ref="imageUpload" className="file-preview" src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
         {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent.label.slice(0, this.state.selectedStudentAddStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
