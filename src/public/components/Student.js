@@ -1,6 +1,6 @@
 import React from 'react';
-import tableHelpers from './helpers/tableHelpers.js'
-import { getAttendanceRecords } from './requests/classes';
+import tableHelpers from '../helpers/tableHelpers.js'
+import { getAttendanceRecords } from '../requests/classes';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 export default class Student extends React.Component {

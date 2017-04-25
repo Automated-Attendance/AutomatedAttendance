@@ -5,16 +5,16 @@ import Select from 'react-select';
 import MomentTZ from 'moment-timezone';
 import { Link } from 'react-router-dom';
 import 'react-select/dist/react-select.css';
-import { getAllUsers } from './requests/users';
+import { getAllUsers } from '../requests/users';
 import 'react-widgets/lib/less/react-widgets.less';
-import tableHelpers from './helpers/tableHelpers.js'
+import tableHelpers from '../helpers/tableHelpers.js'
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import VirtualizedSelect from 'react-virtualized-select';
-import { changeAttendanceStatus } from './requests/students';
+import { changeAttendanceStatus } from '../requests/students';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
+import { getAttendanceRecords, getAttendanceRecordDate } from '../requests/classes';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);

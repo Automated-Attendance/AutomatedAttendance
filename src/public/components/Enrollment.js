@@ -1,15 +1,15 @@
 import React from 'react';
-import { storeStudentData, removeStudentData, getStudentsByClass, changeUserType } from './requests/students';
+import { storeStudentData, removeStudentData, getStudentsByClass, changeUserType } from '../requests/students';
 import Spinner from './Spinner';
-import { getClasses, addClasses, removeClasses, getEnrollment } from './requests/classes';
+import { getClasses, addClasses, removeClasses, getEnrollment } from '../requests/classes';
 import VirtualizedSelect from 'react-virtualized-select'
 import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
-import { getAllUsers } from './requests/users';
+import { getAllUsers } from '../requests/users';
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import tableHelpers from './helpers/tableHelpers.js'
+import tableHelpers from '../helpers/tableHelpers.js'
 
 export default class Enrollment extends React.Component {
   constructor(props) {
