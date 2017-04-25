@@ -10,7 +10,8 @@
     "db": "mysql -u root -h localhost -p",
     "test": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "servertest": "NODE_ENV=test nyc mocha-webpack -t 15000 --webpack-config mocha-webpack.config.js \"test/ServerSideTests/*.js\"",
-    "coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "heroku-postbuild": "node_modules/.bin/webpack -p"
   },
   "repository": {
     "type": "git",
