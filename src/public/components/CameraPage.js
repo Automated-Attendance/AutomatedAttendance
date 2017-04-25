@@ -21,7 +21,8 @@ export default class CameraPage extends React.Component {
       spinner: false,
       checkedinUser: null,
       selectedTimeCutoff: null,
-      attendancePopulated: false
+      attendancePopulated: false,
+      intervalId: null
     };
 
     'sendLateEmails',
@@ -42,7 +43,7 @@ export default class CameraPage extends React.Component {
 
   componentWillUnmount() {
     this.setState({ mounted: false });
-    clearInterval(startCam);
+    clearInterval(this.state.intervalId);
   }
 
   async takeScreenshot() {
@@ -63,19 +64,16 @@ export default class CameraPage extends React.Component {
   }
 
   startCamera () {
-    // testing purposes making it so its only 1 minute after cut off time
-    // put in however much time you need for how much time afterwards
     let end = Moment(this.state.selectedTimeCutoff).add(1, 'minute');
-    window.startCam = setInterval(() => {
+    let intervalId = setInterval(() => {
       let currentTime = Moment();
-      console.log('taking images');
       //uncomment this if you are testing the automated camera
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
-        //stop taking pictures of the camera
-        clearInterval(startCam);
+        clearInterval(intervalId);
       };
-    }, 3000)
+    }, 3000);
+    this.setState({ intervalId });
   }
 
   async sendLateEmails () {
