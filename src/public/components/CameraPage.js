@@ -149,12 +149,16 @@ export default class CameraPage extends React.Component {
           placeholder="Select Cutoff Time..."
           onChange={this.updateSelectedTimeCutoff}
           calendar={false}
+          ref='DateTime'
         /><br/>
         <button
           className="populateAttendanceRecord"
           onClick={async () => {
             await this.populateAttendanceRecord();
             this.toggleOff(null, 'options', 'selectedTimeCutoff');
+            setTimeout(() => {
+              this.refs.DateTime._values.value = null
+            }, 4000);
             this.startCamera();
           }}
         >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
