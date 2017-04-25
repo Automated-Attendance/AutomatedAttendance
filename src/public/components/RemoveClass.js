@@ -7,18 +7,18 @@ export default class RemoveClass extends React.Component {
       <div>
         <h3>Delete Class</h3>
         Class:
-        <div onClick={this.getOptions}>
+        <div>
           <Select 
             placeholder="Select Class(es)..."
             value={this.props.selectedClass}
             options={this.props.classOptions}
-            onChange={this.props.handleChange(this.props.selectedClass, event)}
+            onChange={event => this.props.handleChange('selectedClassRemoveClass', event)}
             simpleValue
             multi
           />
         </div><br/>
         <button onClick={this.props.handleSubmit}>Delete Class</button>
-        {!this.props.classRemoved ? null : <h5>{this.props.selectedClass} deleted!</h5>}
+        {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
       </div>
     );
   }
