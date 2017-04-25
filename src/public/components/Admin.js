@@ -195,7 +195,7 @@ export default class Admin extends React.Component {
             </TableHeaderColumn>
             <TableHeaderColumn
               dataField = 'cutoff_time'
-              width = '30%'
+              width = '15%'
               dataAlign = 'right'
               dataFormat = {tableHelpers.dateFormatter}
               dataSort
@@ -203,6 +203,15 @@ export default class Admin extends React.Component {
               filter = {{
                 type: 'TextFilter',
               }}
+            >
+              Date
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'cutoff_time'
+              width = '15%'
+              dataAlign = 'right'
+              dataFormat = {tableHelpers.timeFormatter}
+              dataSort
             >
               Date
             </TableHeaderColumn>
