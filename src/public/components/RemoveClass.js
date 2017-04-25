@@ -11,8 +11,8 @@ export default class RemoveClass extends React.Component {
           <Select 
             placeholder="Select Class(es)..."
             value={this.props.selectedClass}
-            options={this.props.classOptions}
-            onChange={event => this.props.handleChange('selectedClassRemoveClass', event)}
+            options={this.props.classOptions ? this.props.classOptions : [{label: 'Error loading data...'}]}
+            onChange={selectedClass => this.props.handleChange('selectedClassRemoveClass', selectedClass)}
             simpleValue
             multi
           />

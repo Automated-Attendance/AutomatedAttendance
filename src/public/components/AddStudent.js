@@ -12,8 +12,8 @@ export default class AddStudent extends React.Component {
           <Select 
             placeholder="Select Class(es)..."
             value={this.props.selectedClass}
-            options={this.props.classOptions}
-            onChange={event => this.props.handleChange('selectedClassAddStudent', event)}
+            options={this.props.classOptions ? this.props.classOptions : [{label: 'Error loading data...'}]}
+            onChange={selectedClass => this.props.handleChange('selectedClassAddStudent', selectedClass)}
             simpleValue
             multi
           />
@@ -23,8 +23,8 @@ export default class AddStudent extends React.Component {
           <VirtualizedSelect
             placeholder="Select Student..."
             value={this.props.selectedStudent}
-            options={this.props.studentOptions ? this.props.studentOptions : [{label: 'Error loading data..', value: ''}]}
-            onChange={event => this.props.handleChange('selectedStudentAddStudent', event)}
+            options={this.props.studentOptions ? this.props.studentOptions : [{label: 'Error loading data...'}]}
+            onChange={selectedStudent => this.props.handleChange('selectedStudentAddStudent', selectedStudent)}
           />
         </div><br/>
         <form
