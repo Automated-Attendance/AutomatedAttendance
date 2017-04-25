@@ -23,20 +23,25 @@ if (process.env.HEROKU_ENV === 'production') {
   });
 }
 
-const initConnection = async () => {
-  try {
-    const db = Promise.promisifyAll(connection, { multiArgs: true });
-    await db.connectAsync();
-    // await db.queryAsync('DROP DATABASE IF EXISTS ' + database);
-    console.log('Connected to ' + database + 'database as ID ' + db.threadId);
-    await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + database);
-    await db.queryAsync('USE ' + database);
-    await createTables(db);
-    setInterval(() => db.queryAsync('SELECT 1'), 5000);
-    module.exports = db;
-  } catch (err) {
-    console.log(err.message, 'there was an error connecting to the database');
-  }
-};
+const db = Promise.promisifyAll(connection, { multiArgs: true });
 
-initConnection();
+db.connectAsync().then(function() {
+  // keep the connection alive so server doesnt crash 
+  setInterval(() => db.queryAsync('SELECT 1'), 5000);
+  return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
+})
+.then(function() {
+  console.log('Connected to ' + database + 'database as ID ' + db.threadId);
+  return db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + database);
+})
+.then(function() {
+  return db.queryAsync('USE ' + database);
+})
+.then(function() {
+  return createTables(db);
+})
+.catch(function(err) {
+  console.log(err.message);
+});
+
+module.exports = db;
