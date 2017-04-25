@@ -181,3 +181,23 @@ video {
   border: 1px solid #ddd;
   padding: 2em;
 }
+
+/* change attendance transition */
+
+.attendance-change-enter {
+  opacity: 0.01;
+}
+
+.attendance-change-enter.attendance-change-enter-active {
+  opacity: 1;
+  transition: opacity 700ms ease-in;
+}
+
+.attendance-change-leave {
+  opacity: 1;
+}
+
+.attendance-change-leave.attendance-change-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
