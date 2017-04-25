@@ -212,6 +212,19 @@ video {
 
 /* Landing Page */
 
-.top-level-landing {
-  height: 400px; 
+.landing-title {
+  color: #0090D9;
+}
+
+.landing-slogan {
+  padding-top: 20px;
+}
+
+
+#top-level-landing {
+  width: 100%;
+  margin-top: -30px;
+  padding-top: 100px;
+  background-color: white; 
+  height: 500px; 
 }
