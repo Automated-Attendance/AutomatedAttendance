@@ -35,7 +35,8 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
     port: process.env.RDS_PORT,
-    database: process.env.RDS_DATABASE
+    database: process.env.RDS_DATABASE,
+    timeout: 60000
   });
   console.log(process.env.RDS_HOSTNAME);
 }
