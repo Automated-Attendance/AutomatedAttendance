@@ -28,7 +28,6 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     password: process.env.MYSQL_PASSWORD_LOCAL,
   });
 } else {
-  console.log('else')
   database = process.env.RDS_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.RDS_HOSTNAME,
@@ -36,7 +35,7 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     password: process.env.RDS_PASSWORD,
     port: process.env.RDS_PORT,
     database: process.env.RDS_DATABASE,
-    timeout: 60000
+    connectTimeout: 60000
   });
   console.log(process.env.RDS_HOSTNAME);
 }
@@ -61,7 +60,7 @@ db.connectAsync().then(function() {
   return createTables(db);
 })
 .catch(function(err) {
-  console.log(err.message);
+  console.log(err);
 });
 
 module.exports = db;
