@@ -148,9 +148,7 @@ body {
 
 /**/
 
-
 /* Camera Page */
-
 
 /**/
 
@@ -173,4 +171,13 @@ body {
 video {
   border-radius: 5px;
   box-shadow: 0 0 0 2px #0090D9;
+}
+
+
+/* attendance page */
+
+.attendance-page-form {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 2em;
 }

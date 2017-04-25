@@ -146,86 +146,96 @@ export default class Admin extends React.Component {
   render() {
     return (
       <div>
-        <h3>Attendance Records</h3>
-        <BootstrapTable
-          data = {this.state.attendance}
-          csvFileName = {'Attendance.csv'}
-          maxHeight = '750px'
-          scrollTop = {'Top'}
-          multiColumnSort = {5}
-          striped
-          hover
-          condensed
-          exportCSV
-        >
-          <TableHeaderColumn
-            isKey
-            dataField = 'class_name'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.classes
-            }}
+
+        <div className="attendance-page-form">
+          <h3 className="text-center">Attendance Records</h3>
+
+          <BootstrapTable
+            data = {this.state.attendance}
+            csvFileName = {'Attendance.csv'}
+            maxHeight = '750px'
+            scrollTop = {'Top'}
+            multiColumnSort = {5}
+            striped
+            hover
+            condensed
+            exportCSV
           >
-            Class
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'full_name'
-            width = '25%'
-            dataSort
-            sortFunc = {tableHelpers.nameSort}
-            filterFormatted
-            filter = {{
-              type: 'TextFilter'
-            }}
-          >
-            Name
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'cutoff_time'
-            width = '30%'
-            dataAlign = 'right'
-            dataFormat = {tableHelpers.dateFormatter}
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'TextFilter',
-            }}
-          >
-            Date
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'checkin_time'
-            width = '15%'
-            dataAlign = 'right'
-            dataSort
-            dataFormat = {tableHelpers.timeFormatter}
-          >
-            Time
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'status'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.statuses
-            }}
-          >
-            Status
-          </TableHeaderColumn>
-        </BootstrapTable><hr/>
+            <TableHeaderColumn
+              isKey
+              dataField = 'class_name'
+              width = '15%'
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'SelectFilter',
+                options: this.state.classes
+              }}
+            >
+              Class
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'full_name'
+              width = '25%'
+              dataSort
+              sortFunc = {tableHelpers.nameSort}
+              filterFormatted
+              filter = {{
+                type: 'TextFilter'
+              }}
+            >
+              Name
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'cutoff_time'
+              width = '30%'
+              dataAlign = 'right'
+              dataFormat = {tableHelpers.dateFormatter}
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'TextFilter',
+              }}
+            >
+              Date
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'checkin_time'
+              width = '15%'
+              dataAlign = 'right'
+              dataSort
+              dataFormat = {tableHelpers.timeFormatter}
+            >
+              Time
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'status'
+              width = '15%'
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'SelectFilter',
+                options: this.state.statuses
+              }}
+            >
+              Status
+            </TableHeaderColumn>
+          </BootstrapTable>
+        </div>
+
+        <hr/>
 
         <h3>Change Attendance Records</h3>
+
         Date:
         <DateTime
           onChange={this.updateSelectedDate}
           placeholder="Select Date..."
           time={false}
-        /><br/>
+        />
+
+        <br/>
+
         Student:
         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
@@ -234,7 +244,10 @@ export default class Admin extends React.Component {
             value={this.state.selectedStudent}
             placeholder="Select Student..."
           />
-        </div><br/>
+        </div>
+
+        <br/>
+
         Status:
         <div>
           <Select
@@ -244,7 +257,10 @@ export default class Admin extends React.Component {
             options={this.state.statusOptions}
             onChange={selected => this.setState({ selectedStatus: selected })}
           />
-        </div><br/>
+        </div>
+
+        <br/>
+
         <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
         {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
         <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
