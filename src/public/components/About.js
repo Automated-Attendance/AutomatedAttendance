@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Contact from './Contact';
 
 
 const About = () => {
@@ -16,8 +17,9 @@ const About = () => {
         Andrew Alonis<br></br>
         Jason Chambers<br></br>
         Duy Nguyen<br></br>
-        Han Zhou
+        Han Zhao
       </p>
+
     </div>
   );
 };

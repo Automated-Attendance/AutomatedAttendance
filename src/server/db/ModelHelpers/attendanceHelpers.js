@@ -11,7 +11,7 @@ exports.storeRecords = async ({ body }, res) => {
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
     const warningEmail = setInterval(() => {
-      const warningTime = moment(time).subtract(5, 'minute');
+      const warningTime = moment(time).subtract(10, 'minute');
       const currentTime = moment();
       const currentTimeString = currentTime.format('h:mm');
       const recordedTimeString = warningTime.format('h:mm');
@@ -35,13 +35,12 @@ exports.storeRecords = async ({ body }, res) => {
 
     const tardyInterval = setInterval(() => {
       const currentTime = moment();
-      const tardyEmail = moment(time).add(10, 'minute');
+      const tardyEmail = moment(time).add(30, 'minute');
       if( currentTime.isAfter(tardyEmail)) {
         // in here i want everyone to finally be absent
         Attendance.emailLateStudents();
         clearInterval(tardyInterval);
       }
-
     }, 5000)
 
     res.sendStatus(201);
