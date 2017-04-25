@@ -14,7 +14,7 @@ export default class RemoveClass extends React.Component {
             options={this.props.classOptions}
             onChange={this.props.handleChange(this.props.selectedClass, event)}
             simpleValue
-            multi={true}
+            multi
           />
         </div><br/>
         <button onClick={this.props.handleSubmit}>Delete Class</button>
