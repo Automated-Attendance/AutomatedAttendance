@@ -95,11 +95,26 @@ export default class Enrollment extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
+      if (status) {
+        this.setState({ [status]: false })
+      }
       this.setState({ [status]: false });
       states.forEach((state) => {
-        this.setState({ [state]: false});
+        if (typeof this.state[state] === 'boolean') {
+          this.setState({ [state]: false});
+        } else if (Array.isArray(this.state[state])) {
+          this.setState({ [state]: [] })
+        } else {
+          this.setState({ [state]: '' })
+        }
       });
     }, 5000);
+  }
+
+  clearDOMValue(ref) {
+    setTimeout(() => {
+      this.refs[ref]._values.value = null
+    }, 4000);
   }
 
   async handleToggleStatusSubmit () {
@@ -109,6 +124,7 @@ export default class Enrollment extends React.Component {
         studentUserName: this.state.selectedStudentToggleStatus
       };
       await changeUserType(data);
+      this.toggleOff('selectedStudentToggleStatus', 'selectedToggleStatus');
     } else {
       alert('Select Student and Status');
     }
