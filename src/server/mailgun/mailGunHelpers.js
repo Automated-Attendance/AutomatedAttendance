@@ -31,7 +31,7 @@ exports.sendMailForArrival = async (matchedUsers) => {
       subject: 'Class Arrival',
       text: 'Welcome to class! You have checked in today!'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };
 
@@ -45,7 +45,7 @@ exports.sendAbsentEmails = async (emails) => {
       subject: 'Absent',
       text: 'You are absent now'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };
 
@@ -56,9 +56,9 @@ exports.sendWarningEmails = async (emails) => {
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user[0].email,
       subject: 'Warning Email',
-      text: 'Yo ass about to be late! 1 Minute from bell'
+      text: 'You\'re about to be late! 1 Minute from bell'
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 };
 
@@ -71,6 +71,6 @@ exports.sendTardyEmails = async (users) => {
       subject: 'Tardy',
       text: "It's 9AM you are still not in class,you will be if you get to class by 9:30"
     };
-    // mailgun.messages().send(data);
+    mailgun.messages().send(data);
   });
 }
