@@ -1,8 +1,5 @@
 import StudentQueries from '../QuerySelectors/StudentQueries';
-import Promise from 'bluebird';
-import db from '../index.js';
-
-Promise.promisifyAll(db);
+import db from '../index';
 
 export default class StudentModel extends StudentQueries {
 

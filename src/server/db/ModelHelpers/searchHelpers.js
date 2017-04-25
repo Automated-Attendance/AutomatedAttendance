@@ -1,9 +1,5 @@
-import mysql from 'mysql';
-import Promise from 'bluebird';
-import db from '../index';
 import SearchModel from '../QueryModels/SearchModel';
 
-Promise.promisifyAll(db);
 const Search = new SearchModel();
 
 exports.getAllUsernames = async (req, res) => {

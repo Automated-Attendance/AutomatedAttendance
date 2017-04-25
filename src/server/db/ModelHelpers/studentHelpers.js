@@ -8,14 +8,13 @@ const Student = new StudentModel();
 
 exports.addToClass = async (req, res) => {
   try {
-    var added = false;
+    let added = false;
     const classNames = req.body.selectedClass.split(',');
-    for (let i = 0; i < classNames.length; i++) {
-      req.body.selectedClass = classNames[i];
-      let { studentPhoto, studentUserName, selectedClass } = req.body;
-      let [ enrolled ] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
+    const { studentPhoto, studentUserName } = req.body;
+    for (let selectedClass of classNames) {
+      let [enrolled] = await Student.checkIfStudentIsEnrolled(studentUserName, selectedClass);
       /* istanbul ignore else  */
-      if (enrolled.length === 0) {
+      if (!enrolled.length) {
         const { url } = await upload(req.body);
         await Student.updateUser(url, studentUserName);
         await Student.addToClass(studentUserName, selectedClass);
@@ -38,14 +37,15 @@ exports.addToClass = async (req, res) => {
 exports.removeFromClass = async (req, res) => {
   try {
     const classNames = req.body.className.split(',');
-    for (let i = 0; i < classNames.length; i++) {
-      req.body.className = classNames[i];
+    for (let className of classNames) {
+      req.body.className = className;
       await Student.removeFromClass(req.body);
       await galleryRemoveUser(req.body);
     }
     res.sendStatus(200);
   } catch (err) {
     /* istanbul ignore next  */
+
     res.status(500).send(err.message);
   }
 };
@@ -59,8 +59,8 @@ exports.checkInStudents = async (req, res) => {
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0,10));
     const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
-    for (let i = 0; i < matchedUsers.length; i++) {
-      let userId = matchedUsers[i].users_id;
+    for (let user of matchedUsers) {
+      let userId = user.users_id;
       let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
       if (cutOffDate[0].status === 'Pending') {
         if (currentTime.isAfter(cutoffTimeObj)) {
@@ -84,8 +84,8 @@ exports.checkInStudents = async (req, res) => {
 exports.getByClass = async (req, res) => {
   try {
     const className = req.query.class;
-    const students = await Student.getStudentsByClass(className);
-    res.status(200).send(students[0]);
+    const [students] = await Student.getStudentsByClass(className);
+    res.status(200).send(students);
   } catch (err) {
     /* istanbul ignore next  */
     res.status(500).send(err.message);

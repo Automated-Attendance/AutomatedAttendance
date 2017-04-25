@@ -16,20 +16,20 @@ export default class CameraPage extends React.Component {
     super(props);
 
     this.state = {
+      value: '',
+      options: [],
       spinner: false,
       checkedinUser: null,
-      value: '',
       selectedTimeCutoff: null,
-      options: [],
       attendancePopulated: false
     };
 
-    ['takeScreenshot',
     'sendLateEmails',
-    'populateAttendanceRecord',
-    'updateSelectedTimeCutoff',
+    ['takeScreenshot',
     'getSelectOptions',
     'handleSelectChange',
+    'populateAttendanceRecord',
+    'updateSelectedTimeCutoff',
     'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -46,26 +46,25 @@ export default class CameraPage extends React.Component {
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
     this.setState({ spinner: true });
-    const checkedIn = await queryGallery(screenshot)
+    const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn.length) {
-      checkedIn.forEach((student) => {
-        checkedInStudents.push(`${student.first_name}  ${student.last_name}`)
-      })
+      checkedIn.forEach((student) => checkedInStudents.push(`${student.first_name}  ${student.last_name}`));
     }
     this.setState({ spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!` });
   }
+
   startCamera () {
     // testing purposes making it so its only 1 minute after cut off time
     // put in however much time you need for how much time afterwards
-    let end = Moment(this.state.selectedTimeCutoff).add(1,'minute');
-    let startCam = setInterval( ()=> {
+    let end = Moment(this.state.selectedTimeCutoff).add(1, 'minute');
+    let startCam = setInterval(() => {
       let currentTime = Moment();
       //uncomment this if you are testing the automated camera
       // this.takeScreenshot();
-      if ( currentTime.isAfter(end) ) {
+      if (currentTime.isAfter(end)) {
         //stop taking pictures of the camera
-        clearInterval(startCam)
+        clearInterval(startCam);
       };
     },5000)
   }

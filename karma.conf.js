@@ -77,7 +77,7 @@ module.exports = function(config) {
     },
 
     client: {
-      captureConsole: true
+      captureConsole: false
     },
     
     port: 9876,

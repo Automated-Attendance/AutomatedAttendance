@@ -4,7 +4,7 @@ const Auth = new AuthModel();
 
 exports.storeAndLogin = async (req, res) => {
   try {
-    let user = req.user._json;
+    const user = req.user._json;
     await Auth.storeIfNew(user);
     const admin = await Auth.updateIfAdmin(user);
     admin ? res.redirect('/Admin') : res.redirect('/Student');
@@ -25,6 +25,6 @@ exports.retrieveData = async (req, res) => {
     }
   } catch (err) {
     /* istanbul ignore next */
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };

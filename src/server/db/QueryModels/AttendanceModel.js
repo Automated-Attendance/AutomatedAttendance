@@ -1,12 +1,9 @@
 import AttendanceQueries from '../QuerySelectors/AttendanceQueries';
-import Promise from 'bluebird';
-import db from '../index.js';
+import db from '../index';
 import { sendAbsentEmails, sendWarningEmails, sendTardyEmails } from '../../mailgun/mailGunHelpers';
 import StudentQueries from '../QuerySelectors/StudentQueries'
 import StudentModel from '../QueryModels/StudentModel';
 import moment from 'moment';
-
-Promise.promisifyAll(db);
 
 const StudentQuery = new StudentQueries();
 const Student = new StudentModel();
@@ -27,7 +24,6 @@ export default class AttendanceModel extends AttendanceQueries {
     return await db.queryAsync(queryString);
   }
 
-  // todo: find a way to parse dates for a common time, stores duplicate records after 5pm PDT
   async storeRecords(classes, time) {
     const userListQuery = super.usersByClass(classes);
     const [users] = await db.queryAsync(userListQuery);
@@ -37,9 +33,10 @@ export default class AttendanceModel extends AttendanceQueries {
       let userId = user.users_id;
       let date = time.slice(0,10);
       let [status] = await Student.getAttendanceStatus(userId, date);
+      /* istanbul ignore else */
       if (!status[0]) {
         let insertQuery = super.insertRecord(user.users_id, time);
-        db.queryAsync(insertQuery);
+        await db.queryAsync(insertQuery);
       }
     });
   }
@@ -52,9 +49,7 @@ export default class AttendanceModel extends AttendanceQueries {
 
   async emailLateStudents() {
     const getPendingUsersQuery = super.getPendingUsers();
-    // const getAllPendingUsersEmails = super.getAllPendingUsersEmails();
     const [users] = await db.queryAsync(getPendingUsersQuery);
-    // dont want to change them to pending absent anymore leave users to be pending
 
     users.forEach(async (user) => {
       let lateQuery = super.pendingToAbsent(user.user_id);
@@ -62,9 +57,8 @@ export default class AttendanceModel extends AttendanceQueries {
     });
 
     const getLateStudentsEmails = super.getAllLateUserEmails();
-    const [lateUsers] = await db.queryAsync(getLateStudentsEmails)
-    await sendAbsentEmails(lateUsers)
-    // const [emails] = await db.queryAsync(getPendingUsersQuery);
+    const [lateUsers] = await db.queryAsync(getLateStudentsEmails);
+    await sendAbsentEmails(lateUsers);
   }
 
   async deleteRecordDate({ date }) {
@@ -73,17 +67,17 @@ export default class AttendanceModel extends AttendanceQueries {
   }
 
   async emailWarningStudents() {
-    let arrayOfUser = [];
+    let arrayOfUsers = [];
     const getPendingUsersQuery = super.getPendingUsers();
-    const [ users ] = await db.queryAsync(getPendingUsersQuery);
+    const [users] = await db.queryAsync(getPendingUsersQuery);
 
     await Promise.all(users.map(async (user) => {
       const userQuery = StudentQuery.getStudentInformation(user.user_id)
-      const [ userInfo ] = await db.queryAsync(userQuery);
-      arrayOfUser.push(userInfo);
+      const [userInfo] = await db.queryAsync(userQuery);
+      arrayOfUsers.push(userInfo);
     }));
 
-    await sendWarningEmails(arrayOfUser);
+    await sendWarningEmails(arrayOfUsers);
   }
   async updateAttendanceStatus({ selectedDate, selectedStudent, selectedStatus }) {
     const selectedName = selectedStudent.value;

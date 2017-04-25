@@ -16,8 +16,8 @@ exports.getClass = async (req, res) => {
 exports.addClass = async (req, res) => {
   try {
     const { className } = req.body;
-    const [ exists ] = await Class.checkIfClassExists(className);
-    if (exists.length === 0) {
+    const [exists] = await Class.checkIfClassExists(className);
+    if (!exists.length) {
       await Class.addClass(className);
       res.sendStatus(201);
     } else {
@@ -32,8 +32,7 @@ exports.addClass = async (req, res) => {
 exports.removeClass = async (req, res) => {
   try {
     const classNames = req.body.className.split(',');
-    for (let i = 0; i < classNames.length; i++) {
-      const { className } = { className: classNames[i] };
+    for (let className of classNames) {
       await Class.removeClass(className);
       await removeGallery(className);
     }

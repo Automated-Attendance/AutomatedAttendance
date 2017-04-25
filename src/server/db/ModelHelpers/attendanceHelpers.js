@@ -4,19 +4,18 @@ import moment from 'moment';
 
 const Attendance = new AttendanceModel();
 
-exports.storeRecords = async (req, res) => {
+exports.storeRecords = async ({ body }, res) => {
   try {
-    const { classes, time } = req.body;
+    const { classes, time } = body;
     await Attendance.storeRecords(classes, time);
-
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
-    let warningEmail = setInterval( ()=> {
-      let warningTime = moment(time).subtract(5, 'minute');
-      let currentTime = moment();
-      let currentTimeString = currentTime.format('h:mm');
-      let recordedTimeString = warningTime.format('h:mm');
-      if(currentTimeString === recordedTimeString) {
+    const warningEmail = setInterval(() => {
+      const warningTime = moment(time).subtract(5, 'minute');
+      const currentTime = moment();
+      const currentTimeString = currentTime.format('h:mm');
+      const recordedTimeString = warningTime.format('h:mm');
+      if (currentTimeString === recordedTimeString) {
         Attendance.emailWarningStudents();
         clearInterval(warningEmail);
       }
@@ -24,9 +23,9 @@ exports.storeRecords = async (req, res) => {
 
     //sending out late emails (impossible to test)
     /* istanbul ignore next */
-    var absentInterval = setInterval( () => {
-      let currentTime = moment();
-      if( currentTime.isAfter(time) ) {
+    const absentInterval = setInterval(() => {
+      const currentTime = moment();
+      if (currentTime.isAfter(time)) {
         // still send late emails 
         // leave all late students to be pending;
        Attendance.emailStudentAboutToBeTardy();
@@ -34,13 +33,13 @@ exports.storeRecords = async (req, res) => {
       };
     }, 5000);
 
-    var tardyInterval = setInterval( ()=>{
-      let currentTime = moment();
-      let tardyEmail = moment(time).add(10, 'minute');
+    const tardyInterval = setInterval(() => {
+      const currentTime = moment();
+      const tardyEmail = moment(time).add(10, 'minute');
       if( currentTime.isAfter(tardyEmail)) {
         // in here i want everyone to finally be absent
         Attendance.emailLateStudents();
-        clearInterval(tardyInterval)
+        clearInterval(tardyInterval);
       }
 
     }, 5000)
@@ -52,9 +51,9 @@ exports.storeRecords = async (req, res) => {
   }
 }
 
-exports.getRecords = async (req, res) => {
+exports.getRecords = async ({ query }, res) => {
   try {
-    let result, { type, email } = req.query;
+    let result, { type, email } = query;
     if (type === 'allAttendance') {
       [result] = await Attendance.getAllRecords();
     } else {
@@ -77,9 +76,9 @@ exports.emailLateStudents = async (req, res) => {
   }
 }
 
-exports.removeAttendanceRecordDate = async (req, res) => {
+exports.removeAttendanceRecordDate = async ({ query }, res) => {
   try {
-    await Attendance.deleteRecordDate(req.query);
+    await Attendance.deleteRecordDate(query);
     res.sendStatus(202);
   } catch (err) {
     /* istanbul ignore next */
@@ -87,9 +86,9 @@ exports.removeAttendanceRecordDate = async (req, res) => {
   }
 }
 
-exports.changeAttendanceStatus = async (req, res) => {
+exports.changeAttendanceStatus = async ({ body }, res) => {
   try {
-    let { data } = req.body
+    let { data } = body
     await Attendance.updateAttendanceStatus(data);
     res.sendStatus(201);
   } catch (err) {

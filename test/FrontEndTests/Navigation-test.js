@@ -31,52 +31,52 @@ describe('<Navigation />', function() {
 
   it('shows the Student page to student accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={studentProps}/>);
-    expect(wrapper.contains(<li><Link to="/Student">Attendance</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/Student"><span className="glyphicon glyphicon-th-list" aria-hidden="true"/> Attendance</Link></li>)).to.equal(true);
   });
 
   it('hides the Student page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/Student">Attendance</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/Student"><span className="glyphicon glyphicon-th-list" aria-hidden="true"/> Attendance</Link></li>)).to.equal(false);
   });
 
   it('shows the Admin page to admin accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={adminProps}/>);
-    expect(wrapper.contains(<li><Link to="/Admin">Attendance</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/Admin"><span className="glyphicon glyphicon-th-list" aria-hidden="true"/> Attendance</Link></li>)).to.equal(true);
   });
 
   it('hides the Admin page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/Admin">Attendance</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/Admin"><span className="glyphicon glyphicon-th-list" aria-hidden="true"/> Attendance</Link></li>)).to.equal(false);
   });
 
   it('shows the Camera page to admin accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={adminProps}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage">Camera</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/CameraPage"><span className="glyphicon glyphicon-camera" aria-hidden="true"/> Camera</Link></li>)).to.equal(true);
   });
 
   it('hides the Camera page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage">Camera</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/CameraPage"><span className="glyphicon glyphicon-camera" aria-hidden="true"/> Camera</Link></li>)).to.equal(false);
   });
 
   it('shows the login link to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><a href="/login">Login / Signup</a></li>)).to.equal(true);
+    expect(wrapper.contains(<li><a href="/login"><span className="glyphicon glyphicon-user" aria-hidden="true"/> Login</a></li>)).to.equal(true);
   });
 
   it('hides the login link to users logged in', () => {
     const wrapper = shallow(<Navigation userPrivs={studentProps}/>);
-    expect(wrapper.contains(<li><a href="/login">Login / Signup</a></li>)).to.equal(false);
+    expect(wrapper.contains(<li><a href="/login"><span className="glyphicon glyphicon-user" aria-hidden="true"/> Login</a></li>)).to.equal(false);
   });
 
   it('shows the logout link to users logged in', () => {
     const wrapper = shallow(<Navigation userPrivs={studentProps}/>);
-    expect(wrapper.contains(<li><a href="/logout">Logout</a></li>)).to.equal(true);
+    expect(wrapper.contains(<li><a href="/logout"><span className="glyphicon glyphicon-user" aria-hidden="true"/> Logout</a></li>)).to.equal(true);
   });
 
   it('hides the logout link to users not logged in', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><a href="/logout">Logout</a></li>)).to.equal(false);
+    expect(wrapper.contains(<li><a href="/logout"><span className="glyphicon glyphicon-user" aria-hidden="true"/> Logout</a></li>)).to.equal(false);
   });
 
 });
