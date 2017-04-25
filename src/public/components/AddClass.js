@@ -13,7 +13,7 @@ export default class AddClass extends React.Component {
           onChange={this.props.handleChange}
         /><br/><br/>
         <button onClick={this.props.handleSubmit}>Create Class</button>
-        {!this.props.classAdded ? null : <h5>{this.props.className} created!</h5>}
+        {!this.props.classAdded ? null : <h5>Created {this.props.className}!</h5>}
       </div>
     );
   }
