@@ -14,6 +14,7 @@ import AddClass from './AddClass';
 import RemoveClass from './RemoveClass';
 import AddStudent from './AddStudent';
 import RemoveStudent from './RemoveStudent';
+import ToggleStatus from './ToggleStatus';
 
 export default class Enrollment extends React.Component {
   constructor(props) {
@@ -27,8 +28,8 @@ export default class Enrollment extends React.Component {
       selectedStudentRemoveStudent: '',
       selectedStudentToggleStatus: '',
       toggleStatusOptions:[
-        {label: 'Student', value: 'Student'},
-        {label: 'Admin', value: 'Admin'}
+        {label: 'Student', value: 'student'},
+        {label: 'Admin', value: 'admin'}
       ],
       selectedToggleStatus:'',
       studentPhoto: '',
@@ -304,27 +305,15 @@ export default class Enrollment extends React.Component {
           handleSubmit={this.handleStudentRemoveSubmit}
         />
         <hr/>
-        <h3>Change Access Status</h3>
-        Student:
-         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-          <VirtualizedSelect
-            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedUser) => this.setState({ selectedStudentToggleStatus: selectedUser })}
-            value={this.state.selectedStudentToggleStatus}
-            placeholder="Select Student..."
-          />
-        </div><br/>
-        Access status:
-        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-          <VirtualizedSelect
-            options={this.state.toggleStatusOptions ? this.state.toggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus.value })}
-            value={this.state.selectedToggleStatus}
-            placeholder="Select Status..."
-          />
-        </div><br/>
-        <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
-       {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}
+        <ToggleStatus
+          statusToggled={this.state.studentStatusToggled}
+          selectedUser={this.state.selectedStudentToggleStatus}
+          selectedStatus={this.state.selectedToggleStatus}
+          studentOptions={this.state.studentOptions}
+          statusOptions={this.state.toggleStatusOptions}
+          handleChange={this.handleSelectChange}
+          handleSubmit={this.handleToggleStatusSubmit}
+        />
         <hr/>
 
 
