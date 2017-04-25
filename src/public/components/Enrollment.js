@@ -13,6 +13,7 @@ import tableHelpers from '../helpers/tableHelpers.js';
 import AddClass from './AddClass';
 import RemoveClass from './RemoveClass';
 import AddStudent from './AddStudent';
+import RemoveStudent from './RemoveStudent';
 
 export default class Enrollment extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ export default class Enrollment extends React.Component {
     ['updateClassList',
     'handleInputChange',
     'handleSelectChange',
+    'handleSelectChangeRemoveStudent',
     'toggleOff',
     'handleStudentAddSubmit',
     'handleClassAddSubmit',
@@ -105,6 +107,11 @@ export default class Enrollment extends React.Component {
 
   handleSelectChange(state, selection) {
     this.setState({ [state]: selection });
+  }
+
+  async handleSelectChangeRemoveStudent(state, selection) {
+    await this.setState({ [state]: selection });
+    this.getStudentsByClass();
   }
 
   toggleOff(status, ...states) {
@@ -270,51 +277,33 @@ export default class Enrollment extends React.Component {
           selectedStudent={this.state.selectedStudentAddStudent}
           classOptions={this.state.classOptionsAddStudent}
           studentOptions={this.state.studentOptions}
-          getClassOptions={this.getSelectOptions}
-          getStudentOptions={this.getExistingUserList}
-          preview={this.previewFile}
-          handleChange={this.handleSelectChange}
-          handleSubmit={this.handleStudentAddSubmit}
           imageSource={this.state.imageSource}
           imageValue={this.state.imageValue}
           imageHeight={this.state.imageHeight}
+          preview={this.previewFile}
+          handleChange={this.handleSelectChange}
+          handleSubmit={this.handleStudentAddSubmit}
         />
         <hr/>
         <RemoveClass
           classRemoved={this.state.classRemoved}
           selectedClass={this.state.selectedClassRemoveClass}
           classOptions={this.state.classOptionsRemoveClass}
-          getOptions={this.getSelectOptions}
           handleChange={this.handleSelectChange}
           handleSubmit={this.handleClassRemoveSubmit}
         />
         <hr/>
-        <h3>Remove Student from Class</h3>
-        Class:
-        <div onClick={this.getSelectOptions}>
-          <Select
-            simpleValue
-            value={this.state.selectedClassRemoveStudent}
-            placeholder="Select Class(es)..."
-            options={this.state.classOptionsRemoveStudent}
-            onChange={async (selectedClass) => {
-              await this.setState({ selectedClassRemoveStudent: selectedClass });
-              this.getStudentsByClass();
-            }}
-          />
-        </div><br/>
-        Student:
-        <div onClick={!this.state.studentOptionsByClass.length && this.getExistingUserList}>
-          <VirtualizedSelect
-            options={this.state.studentOptionsByClass ? this.state.studentOptionsByClass : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedUser) => this.setState({ selectedStudentRemoveStudent: selectedUser })}
-            value={this.state.selectedStudentRemoveStudent}
-            placeholder="Select Student..."
-          />
-        </div><br/>
-        <button onClick={this.handleStudentRemoveSubmit}>Remove Student</button>
-        {!this.state.studentRemoved ? null : <h5>{this.state.selectedStudentRemoveStudent.label.slice(0, this.state.selectedStudentRemoveStudent.label.indexOf('-') - 1)} removed from {this.state.selectedClassRemoveStudent}!</h5>}<hr/>
-
+        <RemoveStudent
+          studentRemoved={this.state.studentRemoved}
+          selectedClass={this.state.selectedClassRemoveStudent}
+          selectedStudent={this.state.selectedStudentRemoveStudent}
+          classOptions={this.state.classOptionsRemoveStudent}
+          studentOptions={this.state.studentOptionsByClass}
+          handleClassChange={this.handleSelectChangeRemoveStudent}
+          handleStudentChange={this.handleSelectChange}
+          handleSubmit={this.handleStudentRemoveSubmit}
+        />
+        <hr/>
         <h3>Change Access Status</h3>
         Student:
          <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
