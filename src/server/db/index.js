@@ -34,10 +34,8 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
     port: process.env.RDS_PORT,
-    database: process.env.RDS_DATABASE,
-    connectTimeout: 60000
+    database: process.env.RDS_DATABASE
   });
-  console.log(process.env.RDS_HOSTNAME);
 }
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -60,7 +58,7 @@ db.connectAsync().then(function() {
   return createTables(db);
 })
 .catch(function(err) {
-  console.log(err);
+  console.log(err.message);
 });
 
 module.exports = db;
