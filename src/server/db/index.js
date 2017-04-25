@@ -11,7 +11,8 @@ if (process.env.HEROKU_ENV === 'production') {
   connection = mysql.createConnection({
     host: process.env.GCP_PROD_DB_HOST,
     user: process.env.GCP_PROD_DB_ADMIN,
-    password: process.env.GCP_PROD_DB_PASSWORD
+    password: process.env.GCP_PROD_DB_PASSWORD,
+    database: database
   });
 } else if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
   // travis CI localhost
