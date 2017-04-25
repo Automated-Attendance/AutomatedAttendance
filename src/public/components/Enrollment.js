@@ -148,7 +148,6 @@ export default class Enrollment extends React.Component {
       await this.populateTable();
       this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
       this.clearDOMrefs();
-   ;
     } else {
       alert('Select Class(es) and Student and Photo!');
     }
