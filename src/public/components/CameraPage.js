@@ -163,9 +163,6 @@ export default class CameraPage extends React.Component {
           onClick={async () => {
             await this.populateAttendanceRecord();
             this.toggleOff(null, 'options', 'selectedTimeCutoff');
-            // setTimeout(() => {
-            //   this.refs.DateTime._values.value = null
-            // }, 4000);
             this.clearDOMValue('DateTime');
             this.startCamera();
           }}
