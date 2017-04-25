@@ -129,7 +129,7 @@ export default class CameraPage extends React.Component {
     return (
       <div>
 
-        { this.state.mounted && <div><Webcam ref='webcam'/></div> }
+        { this.state.mounted && <div className="col-md-8 webcam-component"><Webcam ref='webcam'/></div> }
 
         <div>
           <button className="screenShotButton" onClick={this.takeScreenshot}>Take Screenshot</button>
@@ -139,36 +139,39 @@ export default class CameraPage extends React.Component {
         {this.state.checkedinUser}
 
         <hr/>
-        <h3>Start Daily Attendance</h3>
-        Class:
-        <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
-          <Select 
-            multi={true}
-            simpleValue
-            value={this.state.value}
-            placeholder="Select Class(es)..."
-            options={this.state.options}
-            onChange={this.handleSelectChange}
-          />
-        </div><br/>
-        Cutoff Time:
-        <DateTime
-          placeholder="Select Cutoff Time..."
-          onChange={this.updateSelectedTimeCutoff}
-          calendar={false}
-          ref='DateTime'
-        /><br/>
-        <button
-          className="populateAttendanceRecord"
-          onClick={async () => {
-            await this.populateAttendanceRecord();
-            this.toggleOff(null, 'options', 'selectedTimeCutoff');
-            this.clearDOMValue('DateTime');
-            this.startCamera();
-          }}
-        >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
-        {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMMM Do, YYYY')}!</h5>}
-        <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
+
+        <div className="col-md-4">
+          <h3>Start Daily Attendance</h3>
+          Class:
+          <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
+            <Select 
+              multi={true}
+              simpleValue
+              value={this.state.value}
+              placeholder="Select Class(es)..."
+              options={this.state.options}
+              onChange={this.handleSelectChange}
+            />
+          </div><br/>
+          Cutoff Time:
+          <DateTime
+            placeholder="Select Cutoff Time..."
+            onChange={this.updateSelectedTimeCutoff}
+            calendar={false}
+            ref='DateTime'
+          /><br/>
+          <button
+            className="populateAttendanceRecord"
+            onClick={async () => {
+              await this.populateAttendanceRecord();
+              this.toggleOff(null, 'options', 'selectedTimeCutoff');
+              this.clearDOMValue('DateTime');
+              this.startCamera();
+            }}
+          >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
+          {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMMM Do, YYYY')}!</h5>}
+          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
+        </div>
 
       </div>
     );
