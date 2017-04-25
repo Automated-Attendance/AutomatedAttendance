@@ -1,19 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import tableHelpers from './helpers/tableHelpers.js'
-import { changeAttendanceStatus } from './requests/students';
-import DateTime from 'react-widgets/lib/DateTimePicker';
-import 'react-select/dist/react-select.css';
-import 'react-widgets/lib/less/react-widgets.less';
 import Moment from 'moment';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import MomentTZ from 'moment-timezone';
-import Select from 'react-select';
-import { getAllUsers } from './requests/users';
-import VirtualizedSelect from 'react-virtualized-select'
 import Spinner from './Spinner';
+import Select from 'react-select';
+import MomentTZ from 'moment-timezone';
+import { Link } from 'react-router-dom';
+import 'react-select/dist/react-select.css';
+import { getAllUsers } from './requests/users';
+import 'react-widgets/lib/less/react-widgets.less';
+import tableHelpers from './helpers/tableHelpers.js'
+import DateTime from 'react-widgets/lib/DateTimePicker';
+import VirtualizedSelect from 'react-virtualized-select';
+import { changeAttendanceStatus } from './requests/students';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -34,6 +35,8 @@ export default class Admin extends React.Component {
       statusUpdated: false,
       studentOptions: [],
       spinner: false,
+      attendanceInterval: null,
+      changeNeeded: false,
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
@@ -47,6 +50,7 @@ export default class Admin extends React.Component {
     'updateSelectedDate',
     'deleteRecord',
     'handleUpdateStatusSubmit',
+    'toggleChangeAttendance',
     'toggleOff'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -54,10 +58,16 @@ export default class Admin extends React.Component {
 
   async componentWillMount() {
     await this.getAttendance();
-    await setInterval(async () => {
+    let attendanceInterval = setInterval(async () => {
+      console.log('fetching attednance');
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
+    this.setState({ attendanceInterval });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.attendanceInterval);
   }
 
   async deleteRecord() {
@@ -136,111 +146,144 @@ export default class Admin extends React.Component {
     }, 5000);
   }
 
+  toggleChangeAttendance() {
+    this.setState({ changeNeeded: !this.state.changeNeeded });
+  }
+
   render() {
     return (
       <div>
-        <h3>Attendance Records</h3>
-        <BootstrapTable
-          data = {this.state.attendance}
-          csvFileName = {'Attendance.csv'}
-          maxHeight = '750px'
-          scrollTop = {'Top'}
-          multiColumnSort = {5}
-          striped
-          hover
-          condensed
-          exportCSV
-        >
-          <TableHeaderColumn
-            isKey
-            dataField = 'class_name'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.classes
-            }}
-          >
-            Class
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'full_name'
-            width = '25%'
-            dataSort
-            sortFunc = {tableHelpers.nameSort}
-            filterFormatted
-            filter = {{
-              type: 'TextFilter'
-            }}
-          >
-            Name
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'cutoff_time'
-            width = '30%'
-            dataAlign = 'right'
-            dataFormat = {tableHelpers.dateFormatter}
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'TextFilter',
-            }}
-          >
-            Date
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'checkin_time'
-            width = '15%'
-            dataAlign = 'right'
-            dataSort
-            dataFormat = {tableHelpers.timeFormatter}
-          >
-            Time
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'status'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.statuses
-            }}
-          >
-            Status
-          </TableHeaderColumn>
-        </BootstrapTable><hr/>
 
-        <h3>Change Attendance Records</h3>
-        Date:
-        <DateTime
-          onChange={this.updateSelectedDate}
-          placeholder="Select Date..."
-          time={false}
-        /><br/>
-        Student:
-        <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-          <VirtualizedSelect
-            options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
-            value={this.state.selectedStudent}
-            placeholder="Select Student..."
-          />
-        </div><br/>
-        Status:
-        <div>
-          <Select
-            simpleValue
-            value={this.state.selectedStatus}
-            placeholder="Select Status..."
-            options={this.state.statusOptions}
-            onChange={selected => this.setState({ selectedStatus: selected })}
-          />
-        </div><br/>
-        <button onClick={this.handleUpdateStatusSubmit}>Change Attendance Status</button>
-        {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
-        <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
+        <div className="attendance-page-form">
+          <h3 className="text-center">Attendance Records</h3>
+
+          <BootstrapTable
+            data = {this.state.attendance}
+            csvFileName = {'Attendance.csv'}
+            maxHeight = '750px'
+            scrollTop = {'Top'}
+            multiColumnSort = {5}
+            striped
+            hover
+            condensed
+            exportCSV
+          >
+            <TableHeaderColumn
+              isKey
+              dataField = 'class_name'
+              width = '15%'
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'SelectFilter',
+                options: this.state.classes
+              }}
+            >
+              Class
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'full_name'
+              width = '25%'
+              dataSort
+              sortFunc = {tableHelpers.nameSort}
+              filterFormatted
+              filter = {{
+                type: 'TextFilter'
+              }}
+            >
+              Name
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'cutoff_time'
+              width = '30%'
+              dataAlign = 'right'
+              dataFormat = {tableHelpers.dateFormatter}
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'TextFilter',
+              }}
+            >
+              Date
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'checkin_time'
+              width = '15%'
+              dataAlign = 'right'
+              dataSort
+              dataFormat = {tableHelpers.timeFormatter}
+            >
+              Time
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField = 'status'
+              width = '15%'
+              dataSort
+              filterFormatted
+              filter = {{
+                type: 'SelectFilter',
+                options: this.state.statuses
+              }}
+            >
+              Status
+            </TableHeaderColumn>
+          </BootstrapTable>
+
+          <hr/>
+
+          <button className="login-button btn btn-primary" onClick={this.toggleChangeAttendance}>
+            <span className="glyphicon glyphicon-edit"/> Edit Attendance
+          </button>
+        </div>
+
+        <CSSTransitionGroup 
+          transitionName="attendance-change"
+          transitionEnterTimeout={700}
+          transitionLeaveTimeout={500}>
+          {this.state.changeNeeded ? 
+            <div className="col-md-5 attendance-page-form">
+              <h3 className="text-center">Change Attendance Records</h3>
+
+              Date:
+              <DateTime
+                onChange={this.updateSelectedDate}
+                placeholder="Select Date..."
+                time={false}
+              />
+
+              <br/>
+
+              Student:
+              <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+                <VirtualizedSelect
+                  options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
+                  onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
+                  value={this.state.selectedStudent}
+                  placeholder="Select Student..."
+                />
+              </div>
+
+              <br/>
+
+              Status:
+              <div>
+                <Select
+                  simpleValue
+                  value={this.state.selectedStatus}
+                  placeholder="Select Status..."
+                  options={this.state.statusOptions}
+                  onChange={selected => this.setState({ selectedStatus: selected })}
+                />
+              </div>
+
+              <br/>
+
+              <button className="btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
+              <button className="deleteRecord btn btn-danger pull-right" onClick={this.deleteRecord}><span className="glyphicon glyphicon-trash"/> Delete Today's Record</button>
+              {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
+            </div>
+          : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

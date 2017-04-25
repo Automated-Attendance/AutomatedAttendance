@@ -1,7 +1,7 @@
 import React from 'react';
+import tableHelpers from './helpers/tableHelpers.js'
 import { getAttendanceRecords } from './requests/classes';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import tableHelpers from './helpers/tableHelpers.js'
 
 export default class Student extends React.Component {
 
@@ -56,7 +56,11 @@ export default class Student extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="attendance-page-form">
+        <h3 className="text-center">My Attendance History</h3>
+
+        <br/>
+        
         <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'} striped hover condensed>
           <TableHeaderColumn
             isKey
