@@ -28,6 +28,7 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     password: process.env.MYSQL_PASSWORD_LOCAL,
   });
 } else {
+  console.log('else')
   database = process.env.RDS_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.RDS_HOSTNAME,
@@ -36,6 +37,7 @@ if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
     port: process.env.RDS_PORT,
     database: process.env.RDS_DATABASE
   });
+  console.log(process.env.RDS_HOSTNAME);
 }
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
