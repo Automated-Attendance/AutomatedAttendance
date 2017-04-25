@@ -32,6 +32,7 @@ const initConnection = async () => {
     await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + database);
     await db.queryAsync('USE ' + database);
     await createTables(db);
+    setInterval(() => db.queryAsync('SELECT 1'), 5000);
     module.exports = db;
   } catch (err) {
     console.log(err.message, 'there was an error connecting to the database');
