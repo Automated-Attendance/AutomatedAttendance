@@ -6,6 +6,7 @@ let connection;
 
 /* istanbul ignore next */
 if (process.env.HEROKU_ENV === 'production') {
+  console.log('connecting to heroku');
   database = process.env.GCP_PROD_DB_NAME;
   connection = mysql.createConnection({
     host: process.env.GCP_PROD_DB_HOST,
@@ -47,7 +48,7 @@ if (process.env.HEROKU_ENV === 'production') {
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
 
-
+console.log('ABOUT TO CONNECT TO DB', db);
 
 db.connectAsync().then(function() {
   // keep the connection alive so server doesnt crash 
@@ -66,7 +67,7 @@ db.connectAsync().then(function() {
   return createTables(db);
 })
 .catch(function(err) {
-  console.log(err.message);
+  console.log(err.message, 'there was an error connecting to the database');
 });
 
 module.exports = db;
