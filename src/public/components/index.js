@@ -23,7 +23,7 @@ export default class App extends React.Component {
   render () {
     return (
       <Router>
-        <div className="container homepage-container">
+        <div>
 
           <Navigation userPrivs={this.state}/>
 

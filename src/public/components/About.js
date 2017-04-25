@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 const About = () => {
   return (
-    <div>
+    <div className="container">
       <h3 className="header">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff.<br/></h3>
       <hr/>
       <h4>Accounts:</h4>

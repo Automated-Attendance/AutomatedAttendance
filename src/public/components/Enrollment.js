@@ -239,7 +239,7 @@ export default class Enrollment extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.state.spinner && <Spinner/>}
 
         <h3>Create Class</h3>
