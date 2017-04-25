@@ -31,6 +31,7 @@ app.use(session({ secret: 'shhhhhhhhh', resave: true, saveUninitialized: true })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '/../public/dist')));
+app.use(favicon(path.join(__dirname, '/../public/dist/images', 'faviconlogo.ico')));
 
 /************************/
 /**** Authentication ****/
