@@ -9,7 +9,8 @@ import 'react-virtualized-select/styles.css'
 import { getAllUsers } from '../requests/users';
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import tableHelpers from '../helpers/tableHelpers.js'
+import tableHelpers from '../helpers/tableHelpers.js';
+import AddClass from './AddClass';
 
 export default class Enrollment extends React.Component {
   constructor(props) {
@@ -135,6 +136,20 @@ export default class Enrollment extends React.Component {
     }
   }
 
+  async handleClassAddSubmit() {
+    if (this.state.createClassName) {
+      let data = {className: this.state.createClassName};
+      this.setState({spinner: true, classAdded: false});
+      this.setState({classAdded: await addClasses(data)});
+      this.setState({spinner: false});
+      await this.updateClassList();
+      await this.populateTable();
+      this.toggleOff('classAdded', 'createClassName');
+    } else {
+      alert('Enter Class Name!');
+    }
+  }
+
   async handleStudentAddSubmit() {
     if (this.state.selectedClassAddStudent && this.state.selectedStudentAddStudent && this.state.studentPhoto) {
       let data = {
@@ -150,20 +165,6 @@ export default class Enrollment extends React.Component {
       this.clearDOMrefs();
     } else {
       alert('Select Class(es) and Student and Photo!');
-    }
-  }
-
-  async handleClassAddSubmit() {
-    if (this.state.createClassName) {
-      let data = { className: this.state.createClassName };
-      this.setState({ spinner: true, classAdded: false });
-      this.setState({ classAdded: await addClasses(data) });
-      this.setState({ spinner: false });
-      await this.updateClassList();
-      await this.populateTable();
-      this.toggleOff('classAdded', 'createClassName');
-    } else {
-      alert('Enter Class Name!');
     }
   }
 
@@ -242,16 +243,13 @@ export default class Enrollment extends React.Component {
       <div>
         {this.state.spinner && <Spinner/>}
 
-        <h3>Create Class</h3>
-        <input
-          name="createClassName"
-          type="text"
-          placeholder="Enter Class Name"
-          value={this.state.createClassName}
-          onChange={this.handleInputChange}
-        /><br/><br/>
-        <button onClick={this.handleClassAddSubmit}>Create Class</button>
-        {!this.state.classAdded ? null : <h5>{this.state.createClassName} created!</h5>}<hr/>
+        <AddClass
+          classAdded={this.state.classAdded}
+          className={this.state.createClassName}
+          handleChange={this.handleInputChange}
+          handleSubmit={this.handleClassAddSubmit}
+        />
+        <hr/>
 
         <h3>Add Student to Class</h3>
         Class:
