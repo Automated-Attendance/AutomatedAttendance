@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class AddClass extends React.Component {
-  componentWillMount() {
-    console.log('props', this.props);
-  }
-
   render() {
     return (
       <div>
