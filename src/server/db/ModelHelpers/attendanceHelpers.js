@@ -41,7 +41,6 @@ exports.storeRecords = async ({ body }, res) => {
         Attendance.emailLateStudents();
         clearInterval(tardyInterval);
       }
-
     }, 5000)
 
     res.sendStatus(201);
