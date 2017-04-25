@@ -11,6 +11,7 @@ import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import tableHelpers from '../helpers/tableHelpers.js';
 import AddClass from './AddClass';
+import RemoveClass from './RemoveClass';
 
 export default class Enrollment extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class Enrollment extends React.Component {
 
     ['updateClassList',
     'handleInputChange',
+    'handleSelectChange',
     'toggleOff',
     'handleStudentAddSubmit',
     'handleClassAddSubmit',
@@ -93,6 +95,10 @@ export default class Enrollment extends React.Component {
   handleInputChange(event) {
     let name = event.target.name;
     this.setState({ [name]: event.target.value });
+  }
+
+  handleSelectChange(state, selection) {
+    this.setState({ [state]: selection });
   }
 
   toggleOff(status, ...states) {
@@ -289,21 +295,15 @@ export default class Enrollment extends React.Component {
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
         {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent.label.slice(0, this.state.selectedStudentAddStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
 
-
-        <h3>Delete Class</h3>
-        Class:
-        <div onClick={this.getSelectOptions}>
-          <Select 
-            multi={true}
-            simpleValue
-            value={this.state.selectedClassRemoveClass}
-            placeholder="Select Class(es)..."
-            options={this.state.classOptionsRemoveClass}
-            onChange={(selectedClass) => this.setState({ selectedClassRemoveClass: selectedClass })}
-          />
-        </div><br/>
-        <button onClick={this.handleClassRemoveSubmit}>Delete Class</button>
-        {!this.state.classRemoved ? null : <h5>{this.state.selectedClassRemoveClass} deleted!</h5>}<hr/>
+        <RemoveClass
+          classRemoved={this.state.classRemoved}
+          selectedClass={this.state.selectedClassRemoveClass}
+          classOptions={this.state.classOptionsRemoveClass}
+          getOptions={this.getSelectOptions}
+          handleChange={this.handleSelectChange}
+          handleSubmit={this.handleClassRemoveSubmit}
+        />
+        <hr/>
 
         <h3>Remove Student from Class</h3>
         Class:
