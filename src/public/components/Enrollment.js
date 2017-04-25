@@ -123,8 +123,10 @@ export default class Enrollment extends React.Component {
         selectedToggleStatus: this.state.selectedToggleStatus,
         studentUserName: this.state.selectedStudentToggleStatus
       };
-      await changeUserType(data);
-      this.toggleOff('selectedStudentToggleStatus', 'selectedToggleStatus');
+      this.setState({ spinner: true, studentStatusToggled: false });
+      this.setState({ studentStatusToggled: await changeUserType(data) });
+      this.setState({ spinner: false });
+      this.toggleOff('studentStatusToggled','selectedStudentToggleStatus', 'selectedToggleStatus');
     } else {
       alert('Select Student and Status');
     }
@@ -340,13 +342,14 @@ export default class Enrollment extends React.Component {
         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
             options={this.state.toggleStatusOptions ? this.state.toggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus })}
+            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus.value })}
             value={this.state.selectedToggleStatus}
             placeholder="Select Status..."
           />
-          <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
-          {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}<hr/>
         </div><br/>
+        <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
+       {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}
+        <hr/>
 
 
         <h3>Student Enrollments</h3>
