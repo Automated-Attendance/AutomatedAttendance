@@ -5,7 +5,14 @@ let database;
 let connection;
 
 /* istanbul ignore next */
-if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
+if (process.env.HEROKU_ENV === 'production') {
+  database = process.env.GCP_PROD_DB_NAME;
+  connection = mysql.createConnection({
+    host: process.env.GCP_PROD_DB_HOST,
+    user: process.env.GCP_PROD_DB_ADMIN,
+    password: process.env.GCP_PROD_DB_PASSWORD
+  });
+} else if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
   // travis CI localhost
   database = 'automatedattendance';
   connection = mysql.createConnection({
