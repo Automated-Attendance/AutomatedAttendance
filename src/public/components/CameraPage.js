@@ -134,8 +134,6 @@ export default class CameraPage extends React.Component {
         {this.state.spinner && <Spinner/>}
         {this.state.checkedinUser}
 
-        <hr/>
-
         <div className="col-md-4 start-attendance-form">
 
           <h3>Start Daily Attendance</h3>
