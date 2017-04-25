@@ -7,11 +7,11 @@ let connection;
 /* istanbul ignore next */
 if (process.env.HEROKU_ENV === 'production') {
   console.log('connecting to heroku');
-  database = process.env.GCP_PROD_DB_NAME;
+  database = process.env.MYSQL_DB_NAME;
   connection = mysql.createConnection({
-    host: process.env.GCP_PROD_DB_HOST,
-    user: process.env.GCP_PROD_DB_ADMIN,
-    password: process.env.GCP_PROD_DB_PASSWORD,
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_ADMIN,
+    password: process.env.MYSQL_PASSWORD,
     database: database
   });
 } else if (process.env.TRAVIS && process.env.NODE_ENV === 'test') {
@@ -36,26 +36,15 @@ if (process.env.HEROKU_ENV === 'production') {
     user: process.env.MYSQL_ADMIN_LOCAL,
     password: process.env.MYSQL_PASSWORD_LOCAL,
   });
-} else {
-  database = process.env.RDS_DB_NAME;
-  connection = mysql.createConnection({
-    host: process.env.RDS_HOSTNAME,
-    user: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    port: process.env.RDS_PORT,
-    database: process.env.RDS_DATABASE
-  });
 }
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
 
-console.log('ABOUT TO CONNECT TO DB', db);
-
 db.connectAsync().then(function() {
   // keep the connection alive so server doesnt crash 
   // setInterval(() => db.queryAsync('SELECT 1'), 5000);
-  return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
-  console.log('connected to db');
+  // return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
+  console.log('connected to db', database);
 })
 .then(function() {
   console.log('Connected to ' + database + 'database as ID ' + db.threadId);
