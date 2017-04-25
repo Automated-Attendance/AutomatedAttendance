@@ -234,57 +234,56 @@ export default class Admin extends React.Component {
           <button className="login-button btn btn-primary" onClick={this.toggleChangeAttendance}>
             <span className="glyphicon glyphicon-edit"/> Edit Attendance
           </button>
-
-          <CSSTransitionGroup 
-            transitionName="attendance-change"
-            transitionEnterTimeout={700}
-            transitionLeaveTimeout={500}>
-            {this.state.changeNeeded ? 
-              <div>
-                <h3>Change Attendance Records</h3>
-
-                Date:
-                <DateTime
-                  onChange={this.updateSelectedDate}
-                  placeholder="Select Date..."
-                  time={false}
-                />
-
-                <br/>
-
-                Student:
-                <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-                  <VirtualizedSelect
-                    options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
-                    onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
-                    value={this.state.selectedStudent}
-                    placeholder="Select Student..."
-                  />
-                </div>
-
-                <br/>
-
-                Status:
-                <div>
-                  <Select
-                    simpleValue
-                    value={this.state.selectedStatus}
-                    placeholder="Select Status..."
-                    options={this.state.statusOptions}
-                    onChange={selected => this.setState({ selectedStatus: selected })}
-                  />
-                </div>
-
-                <br/>
-
-                <button className="login-button btn btn-primary" onClick={this.handleUpdateStatusSubmit}>Submit Changes</button>
-                <button className="deleteRecord btn btn-danger" onClick={this.deleteRecord}>Delete Today's Record</button>
-                {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
-              </div>
-            : null}
-          </CSSTransitionGroup>
-
         </div>
+
+        <CSSTransitionGroup 
+          transitionName="attendance-change"
+          transitionEnterTimeout={700}
+          transitionLeaveTimeout={500}>
+          {this.state.changeNeeded ? 
+            <div className="col-md-5 attendance-page-form">
+              <h3>Change Attendance Records</h3>
+
+              Date:
+              <DateTime
+                onChange={this.updateSelectedDate}
+                placeholder="Select Date..."
+                time={false}
+              />
+
+              <br/>
+
+              Student:
+              <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
+                <VirtualizedSelect
+                  options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
+                  onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
+                  value={this.state.selectedStudent}
+                  placeholder="Select Student..."
+                />
+              </div>
+
+              <br/>
+
+              Status:
+              <div>
+                <Select
+                  simpleValue
+                  value={this.state.selectedStatus}
+                  placeholder="Select Status..."
+                  options={this.state.statusOptions}
+                  onChange={selected => this.setState({ selectedStatus: selected })}
+                />
+              </div>
+
+              <br/>
+
+              <button className="login-button btn btn-primary" onClick={this.handleUpdateStatusSubmit}>Submit Changes</button>
+              <button className="deleteRecord btn btn-danger pull-right" onClick={this.deleteRecord}>Delete Today's Record</button>
+              {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
+            </div>
+          : null}
+        </CSSTransitionGroup>
       </div>
     );
   }
