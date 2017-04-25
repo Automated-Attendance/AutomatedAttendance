@@ -1,19 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import tableHelpers from './helpers/tableHelpers.js'
-import { changeAttendanceStatus } from './requests/students';
-import DateTime from 'react-widgets/lib/DateTimePicker';
-import 'react-select/dist/react-select.css';
-import 'react-widgets/lib/less/react-widgets.less';
 import Moment from 'moment';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import MomentTZ from 'moment-timezone';
-import Select from 'react-select';
-import { getAllUsers } from './requests/users';
-import VirtualizedSelect from 'react-virtualized-select'
 import Spinner from './Spinner';
+import Select from 'react-select';
+import MomentTZ from 'moment-timezone';
+import { Link } from 'react-router-dom';
+import 'react-select/dist/react-select.css';
+import { getAllUsers } from './requests/users';
+import 'react-widgets/lib/less/react-widgets.less';
+import tableHelpers from './helpers/tableHelpers.js'
+import DateTime from 'react-widgets/lib/DateTimePicker';
+import VirtualizedSelect from 'react-virtualized-select';
+import { changeAttendanceStatus } from './requests/students';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { getAttendanceRecords, getAttendanceRecordDate } from './requests/classes';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -58,7 +59,7 @@ export default class Admin extends React.Component {
   async componentWillMount() {
     await this.getAttendance();
     let attendanceInterval = setInterval(async () => {
-      console.log('fetching attednance')
+      console.log('fetching attednance');
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
@@ -234,6 +235,10 @@ export default class Admin extends React.Component {
             <span className="glyphicon glyphicon-edit"/> Edit Attendance
           </button>
 
+          <CSSTransitionGroup 
+            transitionName="attendance-change"
+            transitionEnterTimeout={700}
+            transitionLeaveTimeout={500}>
           {this.state.changeNeeded ? 
             <div>
               <h3>Change Attendance Records</h3>
@@ -277,6 +282,7 @@ export default class Admin extends React.Component {
               <button className="deleteRecord" onClick={this.deleteRecord}>Delete Today's Record</button>
             </div>
           : null}
+          </CSSTransitionGroup>
 
         </div>
       </div>
