@@ -3,7 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import axios from 'axios';
-import * as users from '../../src/public/components/requests/users';
+import * as users from '../../src/public/requests/users';
 import App from '../../src/public/components/index';
 
 describe('<App />', function() {
