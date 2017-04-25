@@ -137,6 +137,7 @@ export default class CameraPage extends React.Component {
         <hr/>
 
         <div className="col-md-4 start-attendance-form">
+
           <h3>Start Daily Attendance</h3>
           <h5 className="form-title">Class:</h5>
           <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
@@ -148,7 +149,10 @@ export default class CameraPage extends React.Component {
               options={this.state.options}
               onChange={this.handleSelectChange}
             />
-          </div><br/>
+          </div>
+
+          <br/>
+
           <h5 className="form-title">Cutoff Time:</h5>
           <DateTime
             placeholder="Select Cutoff Time..."
@@ -156,6 +160,7 @@ export default class CameraPage extends React.Component {
             calendar={false}
             ref='DateTime'
           /><br/>
+          
           <button
             className="populateAttendanceRecord"
             onClick={async () => {
@@ -163,10 +168,15 @@ export default class CameraPage extends React.Component {
               this.toggleOff(null, 'options', 'selectedTimeCutoff');
               this.clearDOMValue('DateTime');
               this.startCamera();
-            }}
-          >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>
+            }}>
+            Start Camera and Populate Attendance Records (and get ready to send emails)
+          </button>
+
+          <br/>
+          <br/>
+
           {!this.state.attendancePopulated ? null : <h5>Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMMM Do, YYYY')}!</h5>}
-          <button className="lateStudentButton" onClick={this.sendLateEmails}>Send Email to Late Students</button><hr/>
+          <hr/>
         </div>
 
       </div>
