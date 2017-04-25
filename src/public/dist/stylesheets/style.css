@@ -224,7 +224,13 @@ video {
 #top-level-landing {
   width: 100%;
   margin-top: -30px;
-  padding-top: 100px;
+  padding-top: 75px;
   background-color: white; 
-  height: 500px; 
+  height: 500px;
+  border-bottom: 1px solid #ddd;
+}
+
+.works-step {
+  background-color: white;
+  border: 1px solid #ddd;
 }
