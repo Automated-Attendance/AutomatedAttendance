@@ -30,7 +30,8 @@ export default class CameraPage extends React.Component {
     'handleSelectChange',
     'populateAttendanceRecord',
     'updateSelectedTimeCutoff',
-    'toggleOff'].forEach((method) => {
+    'toggleOff', 
+    'clearDOMValue'].forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
@@ -52,6 +53,12 @@ export default class CameraPage extends React.Component {
       checkedIn.forEach((student) => checkedInStudents.push(`${student.first_name}  ${student.last_name}`));
     }
     this.setState({ spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!` });
+  }
+
+  clearDOMValue(ref) {
+    setTimeout(() => {
+      this.refs[ref]._values.value = null
+    }, 4000);
   }
 
   startCamera () {
@@ -103,9 +110,17 @@ export default class CameraPage extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
-      this.setState({ [status]: false });
+      if (status) {
+        this.setState({ [status]: false });
+      }
       states.forEach((state) => {
-        this.setState({ [state]: false});
+        if (typeof this.state[state] === 'boolean') {
+          this.setState({ [state]: false});
+        } else if (Array.isArray(this.state[state])) {
+          this.setState({ [state]: [] })
+        } else {
+          this.setState({ [state]: null })
+        }
       });
     }, 5000);
   }
@@ -141,11 +156,14 @@ export default class CameraPage extends React.Component {
           placeholder="Select Cutoff Time..."
           onChange={this.updateSelectedTimeCutoff}
           calendar={false}
+          ref='DateTime'
         /><br/>
         <button
           className="populateAttendanceRecord"
           onClick={async () => {
             await this.populateAttendanceRecord();
+            this.toggleOff(null, 'options', 'selectedTimeCutoff');
+            this.clearDOMValue('DateTime');
             this.startCamera();
           }}
         >Start Camera and Populate Attendance Records (and get ready to send emails)</button><br/><br/>

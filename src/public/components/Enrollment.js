@@ -55,7 +55,8 @@ export default class Enrollment extends React.Component {
     'previewFile',
     'getExistingUserList',
     'getSelectOptions',
-    'getStudentsByClass'].forEach(method => {
+    'getStudentsByClass',
+    'clearDOMrefs'].forEach(method => {
       this[method] = this[method].bind(this);
     })
   }
@@ -95,11 +96,28 @@ export default class Enrollment extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
+      if (status) {
+        this.setState({ [status]: false })
+      }
       this.setState({ [status]: false });
       states.forEach((state) => {
-        this.setState({ [state]: false});
+        if (typeof this.state[state] === 'boolean') {
+          this.setState({ [state]: false});
+        } else if (Array.isArray(this.state[state])) {
+          this.setState({ [state]: [] })
+        } else {
+          this.setState({ [state]: '' })
+        }
       });
     }, 5000);
+  }
+
+  clearDOMrefs() {
+    setTimeout(() => {
+      this.refs.imageUpload.src = 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==';
+      this.refs.imageUpload.height='0px';
+      this.refs.preview.value=''
+    }, 4950);
   }
 
   async handleToggleStatusSubmit () {
@@ -108,7 +126,10 @@ export default class Enrollment extends React.Component {
         selectedToggleStatus: this.state.selectedToggleStatus,
         studentUserName: this.state.selectedStudentToggleStatus
       };
-      await changeUserType(data);
+      this.setState({ spinner: true, studentStatusToggled: false });
+      this.setState({ studentStatusToggled: await changeUserType(data) });
+      this.setState({ spinner: false });
+      this.toggleOff('studentStatusToggled','selectedStudentToggleStatus', 'selectedToggleStatus');
     } else {
       alert('Select Student and Status');
     }
@@ -126,6 +147,7 @@ export default class Enrollment extends React.Component {
       this.setState({ spinner: false });
       await this.populateTable();
       this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
+      this.clearDOMrefs();
     } else {
       alert('Select Class(es) and Student and Photo!');
     }
@@ -262,8 +284,9 @@ export default class Enrollment extends React.Component {
             type="file"
             name="sampleFile"
             onChange={this.previewFile}
+            ref="preview"
           />
-          <img className="file-preview" src=""/>
+          <img ref="imageUpload" className="file-preview" src=""/>
         </form><br/>
         <button onClick={this.handleStudentAddSubmit}>Add Student</button>
         {!this.state.studentAdded ? null : <h5>{this.state.selectedStudentAddStudent.label.slice(0, this.state.selectedStudentAddStudent.label.indexOf('-') - 1)} added to {this.state.selectedClassAddStudent}!</h5>}<hr/>
@@ -324,13 +347,14 @@ export default class Enrollment extends React.Component {
         <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
           <VirtualizedSelect
             options={this.state.toggleStatusOptions ? this.state.toggleStatusOptions : [{ label: 'Error loading data..', value: '' }]}
-            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus })}
+            onChange={(selectedStatus) => this.setState({ selectedToggleStatus: selectedStatus.value })}
             value={this.state.selectedToggleStatus}
             placeholder="Select Status..."
           />
-          <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
-          {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}<hr/>
         </div><br/>
+        <button onClick={this.handleToggleStatusSubmit}>Change Status</button>
+       {!this.state.studentStatusToggled ? null : <h5>{this.state.selectedStudentToggleStatus.label.slice(0, this.state.selectedStudentToggleStatus.label.indexOf('-') - 1)} changed to {this.state.selectedToggleStatus}!</h5>}
+        <hr/>
 
 
         <h3>Student Enrollments</h3>
