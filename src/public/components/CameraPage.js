@@ -69,7 +69,7 @@ export default class CameraPage extends React.Component {
         this.takeScreenshot();
           if (currentTime.isAfter(end)) {
             //stop taking pictures of the camera
-            clearInterval(startCam)
+            clearInterval(this.state.startCam)
           };
       },3000)})
   }
