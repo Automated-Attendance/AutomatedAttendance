@@ -4,7 +4,6 @@ const mailgunAPI = MailGun({apiKey: process.env.MAILGUN_API_KEY, domain: process
 exports.sendMailForArrival = async (matchedUsers) => {
   console.log('sending email for arrival');
   matchedUsers.forEach((user) => {
-    console.log(user);
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
@@ -18,7 +17,6 @@ exports.sendMailForArrival = async (matchedUsers) => {
 exports.sendAbsentEmails = async (emails) => {
   console.log('sending absent emails')
   emails.forEach((user) => {
-    console.log(user)
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
