@@ -16,19 +16,22 @@ const Footer = () => {
 
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/v1493176209/testimonialimage1_ykgrzd.jpg"/>
-          <h4> Jason Chambers </h4>
+          <h4 className="testimonials-text"> Jason Chambers </h4>
         </div>
 
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492023045/rtmjuvcktfvssigjecma.png"/>
+          <h4 className="testimonials-text"> Andrew Alonis </h4>
         </div>
 
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492903911/hanzh.png"/>
+          <h4 className="testimonials-text"> Han Zhao </h4>
         </div>
 
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492904220/Duy12312313.png"/>
+          <h4 className="testimonials-text"> Duy Nguyen </h4>
         </div>
       </div>
     </div>
