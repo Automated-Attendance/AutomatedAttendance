@@ -34,6 +34,30 @@ const Testimonials = () => {
           </div>
         </div>
 
+        <div className="block works-step works-step-right">
+          <div className="row">
+            <div className="span4">
+              <img className="img-left img-circle" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492903911/hanzh.png" alt="testimonial three" />
+              <div className="content-heading testimonials-text"><h4>Han Zhou[ao], Software Engineer</h4></div>
+              <hr/>
+              <p className="testimonials-text testimonials-text-p"> Han's testimonial will go here when he eventually gets around to it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="block works-step works-step-right">
+          <div className="row">
+            <div className="span4">
+              <img className="img-left img-circle" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492904220/Duy12312313.png" alt="testimonial four" />
+              <div className="content-heading testimonials-text"><h4>Lil D, Software Engineer</h4></div>
+              <hr/>
+              <p className="testimonials-text testimonials-text-p"> Lil D's testimonial will go here when he eventually gets around to it.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
