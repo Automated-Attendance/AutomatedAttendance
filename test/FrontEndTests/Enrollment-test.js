@@ -20,8 +20,8 @@ describe('<Enrollment />', function() {
 
   it ('should have available toggle status options', () => {
     const wrapper = mount(<Enrollment/>);
-    expect(wrapper.state().toggleStatusOptions[0].label).to.equal('Student');
-    expect(wrapper.state().toggleStatusOptions[1].label).to.equal('Admin')
+    expect(wrapper.state().statusOptions[0].label).to.equal('Student');
+    expect(wrapper.state().statusOptions[1].label).to.equal('Admin')
   })
 
 });
@@ -52,7 +52,7 @@ describe('<Enrollment/> populateTable()', function() {
 
 
 
-describe('<Enrollment/> updateClassList()', function() {
+describe('<Enrollment/> getClassOptions()', function() {
 
   let sandbox;
   beforeEach(() => {
@@ -68,8 +68,8 @@ describe('<Enrollment/> updateClassList()', function() {
   });
 
 
-  it('should call updateClassList on mount', async function() {
-    const testFn = sinon.spy(Enrollment.prototype, 'updateClassList');
+  it('should call getClassOptions on mount', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'getClassOptions');
     expect(testFn.called).to.equal(false);
     const wrapper = mount(<Enrollment />);
     expect(testFn.called).to.equal(true);

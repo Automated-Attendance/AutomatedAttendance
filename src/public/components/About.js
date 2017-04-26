@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => {
   return (
     <div>
-      <h3 className="header">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff.<br/></h3>
+      <h3 className="header">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff</h3>
       <hr/>
       <h4>Accounts:</h4>
       <p>

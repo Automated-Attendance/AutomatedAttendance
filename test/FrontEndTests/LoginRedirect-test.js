@@ -29,7 +29,7 @@ describe('<LoginRedirect />', function() {
     const wrapper = shallow(<LoginRedirect userPrivs={loggedIn}/>);
     expect(wrapper.contains(
       <div className="error-details">
-        You don't have correct privileges to acces this page.
+        You do not have privileges to access this page.
       </div>)).to.equal(true);
   });
 

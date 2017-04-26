@@ -10,7 +10,7 @@ const LoginRedirect = ({userPrivs}) => {
               <h1>Oops!</h1>
               <h2>Access Denied</h2>
               <div className="error-details">
-                You don't have privileges to access this page.
+                You do not have privileges to access this page.
               </div>
               <div className="error-actions">
                 <a href="/" className="login-button btn btn-primary btn-lg"><span className="glyphicon glyphicon-home"></span>Take Me Home</a>
