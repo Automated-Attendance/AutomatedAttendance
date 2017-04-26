@@ -17,6 +17,10 @@ const About = () => {
           <li className="question-block">
             <a className="about-link" href="#admin-privs">What privileges do admins have?</a>
           </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#admin-how-do-i-use">I'm an admin, how do I use your app?</a>
+          </li>
         </ul>
       </div>
 
@@ -27,11 +31,21 @@ const About = () => {
           <p>To create an account, simply login with your github credentials.</p>
         </div>
 
-        <div>
+        <div className="answer-text-block">
           <h4 id="admin-privs" className="testimonials-text negative-margin-link"> What privileges do Admins have?</h4>
           <p>Admins can toggle existing accounts between 'admin' and 'student' status. 
           They can also add and remove students to classes. 
           Admins can create and delete classes.</p>
+        </div>
+
+        <div className="answer-text-block">
+          <h4 id="admin-how-do-i-use" className="testimonials-text negative-margin-link"> I'm an admin, how do I use your app?</h4>
+          <p>Log in and navigate to the camera page.
+          Select a class and a 'late' cutoff time for todays attendance. <br/>
+          Click 'Start Today's Attendance'. <br/>
+          The attached webcam will begin running, taking photos of the entryway once per second.
+          Attendance records are populated for all students for the selected class, giving them a 'pending' status. <br/>
+          Using facial recognition, the students' attendance status is updated in real time as they enter the room.</p>
         </div>
 
 
