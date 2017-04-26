@@ -71,7 +71,7 @@ const About = () => {
         </div>
 
         <hr/>
-        <h4>Developed by the AAAllstars: Meet the Developers</h4>
+        <h4>Developed by the AAAllstars: <a className="about-link" href="/#meet-devs">Meet the Developers</a></h4>
       </div>
     </div>
   );
