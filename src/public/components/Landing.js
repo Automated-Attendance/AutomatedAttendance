@@ -14,12 +14,13 @@ const Landing = () => {
       </div>
 
       <div className="how-it-works container">
-        <h1 className="text-center landing-title"> How it works </h1>
-        <div className="block">
+        <h1 className="text-center"> How it works </h1>
+
+        <div className="block works-step works-step-right">
           <div className="row">
             <div className="span4">
               <img className="img-left" src="/images/LoginLogoLanding.png" alt="Login Image" />
-              <div className="content-heading"><h2>Login or create an account</h2></div>
+              <div className="content-heading landing-title"><h2>Login or create an account</h2></div>
               <hr/>
               <p className="step-text"> Login with your Github <i className="fa fa-github fa-4" aria-hidden="true"></i> to automatically generate and account
                 and be able to check on your attendance status in real time.
@@ -27,6 +28,20 @@ const Landing = () => {
             </div>
           </div>
         </div>
+
+        <div className="block works-step works-step-left">
+          <div className="row">
+            <div className="span4">
+              <img className="img-right" src="/images/LoginLogoLanding.png" alt="Login Image" />
+              <div className="content-heading landing-title"><h2>Login or create an account</h2></div>
+              <hr/>
+              <p className="step-text step-text-right"> Login with your Github <i className="fa fa-github" aria-hidden="true"></i> to automatically generate and account
+                and be able to check on your attendance status in real time.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>

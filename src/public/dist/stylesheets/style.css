@@ -231,7 +231,15 @@ video {
 }
 
 .works-step {
-  position: inline-block;
+  padding-bottom: 100px;
+}
+
+.works-step-right {
+  padding-right: 50px;
+}
+
+.works-step-left {
+  padding-left: 50px;
 }
 
 .works-img {
@@ -252,6 +260,7 @@ video {
 }
 .span4 .img-right {
     float: right;
+    padding-left: 100px;
 }
 
 .step-text {
