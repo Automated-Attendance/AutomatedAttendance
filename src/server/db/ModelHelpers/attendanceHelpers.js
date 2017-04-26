@@ -22,8 +22,8 @@ exports.storeRecords = async ({ body }, res) => {
     /* istanbul ignore next */
     const setAbsentInterval = setInterval(() => {
       const currentTime = moment();
-      const tardyTime = moment(time).add(30, 'minute');
-      if (currentTime.isAfter(tardyTime)) {
+      const absentUpdateTime = moment(time).add(30, 'minute');
+      if (currentTime.isAfter(absentUpdateTime)) {
         Attendance.emailLateStudents();
         clearInterval(setAbsentInterval);
       }
