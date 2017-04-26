@@ -31,15 +31,15 @@ const Footer = () => {
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492903911/hanzh.png"/>
           <h4 className="testimonials-text"> Han Zhao </h4>
-          <a href="https://www.linkedin.com/in/jasonochambers/"><i className="fa fa-linkedin-square fa-3x social"></i></a>
-          <a href="https://github.com/Jukejc"><i className="fa fa-github-square fa-3x social"></i></a>
+          <a href="https://www.linkedin.com/in/hansheng-zhao-a0a43394/"><i className="fa fa-linkedin-square fa-3x social"></i></a>
+          <a href="https://github.com/hanshengzhao1993"><i className="fa fa-github-square fa-3x social"></i></a>
         </div>
 
         <div className="col-md-3 meet-dev-block">
           <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492904220/Duy12312313.png"/>
           <h4 className="testimonials-text"> Duy Nguyen </h4>
-          <a href="https://www.linkedin.com/in/jasonochambers/"><i className="fa fa-linkedin-square fa-3x social"></i></a>
-          <a href="https://github.com/Jukejc"><i className="fa fa-github-square fa-3x social"></i></a>
+          <a href="https://www.linkedin.com/in/aiden-nguyen/"><i className="fa fa-linkedin-square fa-3x social"></i></a>
+          <a href="https://github.com/nguyenaiden"><i className="fa fa-github-square fa-3x social"></i></a>
         </div>
       </div>
     </div>
@@ -47,8 +47,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-        // <a href="https://www.facebook.com/bootsnipp"><i className="fa fa-facebook-square fa-3x social"></i></a>
-        // <a href="https://twitter.com/bootsnipp"><i className="fa fa-twitter-square fa-3x social"></i></a>
-        // <a href="https://plus.google.com/+Bootsnipp-page"><i className="fa fa-google-plus-square fa-3x social"></i></a>
-        // <a href="mailto:bootsnipp@gmail.com"><i className="fa fa-envelope-square fa-3x social"></i></a>
