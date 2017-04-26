@@ -294,6 +294,29 @@ video {
 
 /* footer */
 
+.dev-img {
+  -webkit-transform: scale(1);
+  /* Browser Variations: */
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  height: 100px;
+  width: 100px;
+  box-shadow: 1px 3px 1px #888888;
+}
+
+.dev-img:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+
+.meet-dev-block {
+  padding-bottom: 20px;
+}
+
 .footer-container {
   height: 125px;
 }

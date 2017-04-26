@@ -1,6 +1,12 @@
 import React from 'react';
 
 const Footer = () => {
+
+  const imgResize = {
+    height: '100px',
+    width: '100px'
+  };
+
   return (
     <div className="footer-container">
       <div className="text-center center-block">
@@ -8,19 +14,19 @@ const Footer = () => {
 
         <br />
 
-        <div className="col-md-3">
-        1
+        <div className="col-md-3 meet-dev-block">
+        <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/v1493176209/testimonialimage1_ykgrzd.jpg"/>
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 meet-dev-block">
         2
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 meet-dev-block">
         3
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 meet-dev-block">
         4
         </div>
       </div>
