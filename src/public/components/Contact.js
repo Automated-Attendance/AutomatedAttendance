@@ -10,6 +10,9 @@ const Contact = () => {
       <br/><br/>
       <h4>For technical issues, contact:</h4>
       <a href="mailto:AAAllstars@gmail.com?Subject=Automated%20Attendance%20Support">AAAllstars@gmail.com</a>
+      <br/>
+      <br/>
+      <h4>Developed by the AAAllstars: <a className="about-link" href="/#meet-devs">Meet the Developers</a></h4>
     </div>
   );
 };
