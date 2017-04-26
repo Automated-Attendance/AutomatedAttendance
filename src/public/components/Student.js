@@ -50,7 +50,7 @@ export default class Student extends React.Component {
 
   render() {
     return (
-      <div className="attendance-page-form">
+      <div className="attendance-page-form container">
         <h3 className="text-center">My Attendance History</h3>
         <hr/>
         <StudentAttendanceTable

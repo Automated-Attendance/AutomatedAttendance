@@ -127,7 +127,7 @@ export default class CameraPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
 
         { this.state.mounted && <div className="col-md-8 webcam-component"><Webcam ref='webcam'/></div> }
 

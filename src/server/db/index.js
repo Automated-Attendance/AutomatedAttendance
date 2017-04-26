@@ -27,7 +27,6 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 db.connectAsync().then(function() {
   // keep the connection alive so server doesnt crash 
-  // return db.queryAsync('DROP DATABASE IF EXISTS ' + database);
   setInterval(() => db.queryAsync('SELECT 1'), 5000);
 })
 .then(function() {

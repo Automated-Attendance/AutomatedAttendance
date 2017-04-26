@@ -2,42 +2,76 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div>
-      <h3 className="header">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff</h3>
+    <div className="container">
+      <h3 className="header text-center">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff.<br/></h3>
+    
       <hr/>
-      <h4>Accounts:</h4>
-      <p>
-        To create an account, simply log in with your GitHub credentials.<br/>
-        Admin(istrator)s can toggle existing accounts between 'admin' and 'student' status.<br/>
-        Admins can add and remove students to classes.<br/>
-        Admins can create and delete classes.
-      </p><br/>
-      <h4>Daily Use:</h4>
-      <p>
-        As an admin, log in and navigate to the camera page.<br/>
-        Select class(es) and a 'late' cutoff time for today.<br/>
-        Click 'Start Today's Attendance'.<br/>
-        The attached webcam begins running, taking photos of the entryway once per second.<br/>
-        Attendance records are populated for all students in each selected class, giving them a 'pending' status.<br/>
-        Using facial recognition, students' attendance status is updated as they enter.<br/>
-        Students receive a confirmation email upon recognition.<br/>
-        Students receive late warnings and absent notices if not checked in.<br/>
-        The camera shuts off and all 'pending' students are marked 'absent' 30 minutes after the specified cutoff time.
-      </p><br/>
-      <h4>View Attendance:</h4>
-      <p>
-        Admins can view and edit attendance records for all students and classes.<br/>
-        Students can view their personal attendance records.<br/>
-        Attendance records can be sorted, filtered, and exported.
-      </p>
-      <hr/>
-      <h4>Developed by the AAAllstars:</h4>
-      <p>
-        Andrew Alonis<br/>
-        Jason Chambers<br/>
-        Duy Nguyen<br/>
-        Han Zhou
-      </p>
+
+      <div className="col-md-4">
+        <ul>
+          <li className="question-block">
+            <a className="about-link" href="#create-account">How do I create an account?</a>
+          </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#admin-privs">What privileges do admins have?</a>
+          </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#admin-how-do-i-use">I'm an admin, how do I use your app?</a>
+          </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#student-how-do-i-use">I'm a student, how do I use your app?</a>
+          </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#view-attendance">What can I do with the attendance records?</a>
+          </li>
+        </ul>
+      </div>
+
+      <div className="col-md-8 about-answers-block">
+
+        <div className="answer-text-block">
+          <h4 id ="create-account"className="testimonials-text negative-margin-link"> How do I create an account?</h4>
+          <p>To create an account, simply login with your github credentials.</p>
+        </div>
+
+        <div className="answer-text-block">
+          <h4 id="admin-privs" className="testimonials-text negative-margin-link"> What privileges do Admins have?</h4>
+          <p>Admins can toggle existing accounts between 'admin' and 'student' status. 
+          They can also add and remove students to classes. 
+          Admins can create and delete classes.</p>
+        </div>
+
+        <div className="answer-text-block">
+          <h4 id="admin-how-do-i-use" className="testimonials-text negative-margin-link"> I'm an admin, how do I use your app?</h4>
+          <p>Log in and navigate to the camera page.
+          Select a class and a 'late' cutoff time for todays attendance. <br/>
+          Click 'Start Today's Attendance'. <br/>
+          The attached webcam will begin running, taking photos of the entryway once per second.
+          Attendance records are populated for all students for the selected class, giving them a 'pending' status. <br/>
+          Using facial recognition, the students' attendance status is updated in real time as they enter the room.</p>
+        </div>
+
+        <div className="answer-text-block">
+          <h4 id="student-how-do-i-use" className="testimonials-text negative-margin-link"> I'm an student, how do I use your app?</h4>
+          <p> Log in to the application with github account to view your own attendance records. When checking in every morning, all
+          you need to do is walk through the entryway and the facial recognition will do the rest. You will receive an e-mail for every
+          successful checkin. If you're running late you will receive a warning e-mail stating that class is about to start.</p>
+        </div>
+
+        <div className="answer-text-block">
+          <h4 id="view-attendance" className="testimonials-text negative-margin-link"> What can I do with the attendance records?</h4>
+          <p>Admins can view and edit attendance records for all students and classes.<br/>
+          Students can only view their personal attendance records.<br/>
+          Attendance records can be sorted, filtered, and exported.</p>
+        </div>
+
+        <hr/>
+        <h4>Developed by the AAAllstars: <a className="about-link" href="/#meet-devs">Meet the Developers</a></h4>
+      </div>
     </div>
   );
 };

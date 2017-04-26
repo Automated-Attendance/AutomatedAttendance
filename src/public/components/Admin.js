@@ -150,7 +150,7 @@ export default class Admin extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
           <hr/>
