@@ -42,7 +42,7 @@ export default class Student extends React.Component {
         thisStatus[item.status] = item.status;
         this.setState({statuses: thisStatus});
       }
-      let fullName = `${item.first_name} ${item.last_name}`;
+      let fullName = `${item.first_name}${item.last_name ? ' ' + item.last_name : ''}`;
       item.full_name = fullName;
     });
     this.setState({attendance: attendanceRecords});
