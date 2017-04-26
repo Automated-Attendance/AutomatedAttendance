@@ -55,9 +55,6 @@ export default class AttendanceModel extends AttendanceQueries {
       let lateQuery = super.pendingToAbsent(user.user_id);
       await db.queryAsync(lateQuery);
     });
-    const getLateStudentsEmails = super.getAllLateUserEmails();
-    const [lateUsers] = await db.queryAsync(getLateStudentsEmails);
-    await sendTardyEmails(lateUsers);
   }
 
   async deleteRecordDate({ date }) {
