@@ -19,7 +19,7 @@ if (process.env.HEROKU_ENV === 'production') {
   database = 'automatedattendance';
   connection = mysql.createConnection({
     user: 'root',
-    password: 'cake'
+    password: ''
   });
 }
 
