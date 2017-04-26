@@ -8,8 +8,6 @@ moment.tz.setDefault("America/Los_Angeles");
 exports.storeRecords = async ({ body }, res) => {
   try {
     const { classes, time } = body;
-    console.log(time, 'what is time that is being passed in!!!!!!!!!!!!!')
-    console.log('changing the time zone what is this time?')
     await Attendance.storeRecords(classes, time);
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
