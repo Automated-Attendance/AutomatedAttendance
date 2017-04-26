@@ -1,5 +1,6 @@
 import React from 'react';
 import {getAttendanceRecords} from '../requests/classes';
+import StudentAttendanceTable from './tables/StudentAttendanceTable';
 
 export default class Student extends React.Component {
   constructor(props) {
