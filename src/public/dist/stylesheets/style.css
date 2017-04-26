@@ -285,3 +285,11 @@ video {
 .testimonials-text {
   color: #4A4A4A;
 }
+
+.testimonials-title {
+  padding-bottom: 50px;
+}
+
+.testimonials-text-p {
+  font-size: 16px;
+}
