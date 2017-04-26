@@ -32,29 +32,29 @@ export default class CameraPage extends React.Component {
     'populateAttendanceRecord',
     'updateSelectedTimeCutoff',
     'toggleOff', 
-    'clearDOMValue'].forEach((method) => {
+    'clearDOMValue'].forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillMount() {
-    this.setState({ mounted: true });
+    this.setState({mounted: true});
   }
 
   componentWillUnmount() {
-    this.setState({ mounted: false });
+    this.setState({mounted: false});
     clearInterval(this.state.intervalId);
   }
 
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({ spinner: true });
+    this.setState({spinner: true});
     const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn.length) {
-      checkedIn.forEach((student) => checkedInStudents.push(`${student.first_name}  ${student.last_name}`));
+      checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name ? ' ' + student.last_name : ''}`));
     }
-    this.setState({ spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!` });
+    this.setState({spinner: false, checkedinUser: `Checked in: ${checkedInStudents.join(', ')}!`});
   }
 
   clearDOMValue(ref) {
@@ -67,13 +67,12 @@ export default class CameraPage extends React.Component {
     let end = Moment(this.state.selectedTimeCutoff).add(30, 'minute');
     let intervalId = setInterval(() => {
       let currentTime = Moment();
-      //uncomment this if you are testing the automated camera
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
         clearInterval(intervalId);
       };
     }, 3000);
-    this.setState({ intervalId });
+    this.setState({intervalId});
   }
 
   async sendLateEmails () {
@@ -82,9 +81,9 @@ export default class CameraPage extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) {
-      this.setState({ spinner: true, statusUpdated: false });
-      this.setState({ attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff) });
-      this.setState({ spinner: false });
+      this.setState({spinner: true, statusUpdated: false});
+      this.setState({attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff)});
+      this.setState({spinner: false});
     } else {
       alert('Select Class(es) and Cutoff Time!');
     }
@@ -93,33 +92,33 @@ export default class CameraPage extends React.Component {
 
   updateSelectedTimeCutoff(e) {
     let date = Moment(e).format('YYYY-MM-DD HH:mm:ss');
-    this.setState({ selectedTimeCutoff: date });
+    this.setState({selectedTimeCutoff: date});
   }
 
   async getSelectOptions() {
     const classList = await getClasses();
-    const classes = classList.classes.map((classname) => {
-      return { label: classname, value: classname };
+    const classes = classList.classes.map(classname => {
+      return {label: classname, value: classname};
     });
-    this.setState({ options: classes });
+    this.setState({options: classes});
   }
 
   handleSelectChange(value) {
-    this.setState({ value });
+    this.setState({value});
   }
 
   toggleOff(status, ...states) {
     setTimeout(() => {
       if (status) {
-        this.setState({ [status]: false });
+        this.setState({[status]: false});
       }
-      states.forEach((state) => {
+      states.forEach(state => {
         if (typeof this.state[state] === 'boolean') {
-          this.setState({ [state]: false});
+          this.setState({[state]: false});
         } else if (Array.isArray(this.state[state])) {
-          this.setState({ [state]: [] })
+          this.setState({[state]: []})
         } else {
-          this.setState({ [state]: null })
+          this.setState({[state]: null})
         }
       });
     }, 5000);
@@ -143,12 +142,11 @@ export default class CameraPage extends React.Component {
           <h5 className="form-title">Class:</h5>
           <div className="classSelect" onClick={!this.state.options.length && this.getSelectOptions}>
             <Select 
-              multi={true}
-              simpleValue
-              value={this.state.value}
               placeholder="Select Class(es)..."
+              value={this.state.value}
               options={this.state.options}
               onChange={this.handleSelectChange}
+              simpleValue
             />
           </div>
 
@@ -172,13 +170,13 @@ export default class CameraPage extends React.Component {
               this.clearDOMValue('DateTime');
               this.startCamera();
             }}>
-            Start Camera and Populate Attendance Records
+            Start Today's Attendance
           </button>
 
           {!this.state.attendancePopulated ? null : 
             <h5>
-              Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMM Do, YYYY')}! <br/>
-              Must remain on this page for the camera to continue monitoring attendance. <br/>
+              Populated daily attendance for {this.state.value} on {Moment(this.state.selectedTimeCutoff).format('dddd, MMM Do, YYYY')}!<br/>
+              You must remain on this page for the camera to continue monitoring attendance.<br/>
               If you populated the wrong time, you must go to the Attendance page to delete today's records before resubmitting this form. 
             </h5>
           }
