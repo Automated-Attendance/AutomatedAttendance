@@ -54,7 +54,7 @@ const getEnrollment = async () => {
     let enrollment = data[0].map((record) => {
       return {
         class: record.class_name,
-        student: `${record.first_name} ${record.last_name}`
+        student: `${record.first_name}${record.last_name ? ' ' + record.last_name : ''}`
       };
     });
     return {enrollment: enrollment};

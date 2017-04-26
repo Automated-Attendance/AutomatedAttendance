@@ -29,7 +29,7 @@ export default class EnrollmentTable extends React.Component {
             Class
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField='full_name'
+            dataField='student'
             width='50%'
             filter={{type: 'TextFilter'}}
             sortFunc={tableHelpers.nameSort}
