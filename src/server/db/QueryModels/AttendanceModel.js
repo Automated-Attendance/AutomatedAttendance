@@ -3,10 +3,11 @@ import db from '../index';
 import { sendAbsentEmails, sendWarningEmails, sendTardyEmails } from '../../mailgun/mailGunHelpers';
 import StudentQueries from '../QuerySelectors/StudentQueries'
 import StudentModel from '../QueryModels/StudentModel';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const StudentQuery = new StudentQueries();
 const Student = new StudentModel();
+moment.tz.setDefault("America/Los_Angeles");
 
 export default class AttendanceModel extends AttendanceQueries {
 

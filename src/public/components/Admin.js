@@ -153,88 +153,6 @@ export default class Admin extends React.Component {
       <div className="container">
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
-
-          <BootstrapTable
-            data = {this.state.attendance}
-            csvFileName = {'Attendance.csv'}
-            maxHeight = '750px'
-            scrollTop = {'Top'}
-            multiColumnSort = {5}
-            striped
-            hover
-            condensed
-            exportCSV
-          >
-            <TableHeaderColumn
-              isKey
-              dataField = 'class_name'
-              width = '15%'
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'SelectFilter',
-                options: this.state.classes
-              }}
-            >
-              Class
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'full_name'
-              width = '20%'
-              dataSort
-              sortFunc = {tableHelpers.nameSort}
-              filterFormatted
-              filter = {{
-                type: 'TextFilter'
-              }}
-            >
-              Name
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'cutoff_time'
-              width = '20%'
-              dataAlign = 'right'
-              dataFormat = {tableHelpers.dateFormatter}
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'TextFilter',
-              }}
-            >
-              Date
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'cutoff_time'
-              width = '15%'
-              dataAlign = 'right'
-              dataFormat = {tableHelpers.timeFormatter}
-              dataSort
-            >
-              Date
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'checkin_time'
-              width = '15%'
-              dataAlign = 'right'
-              dataSort
-              dataFormat = {tableHelpers.timeFormatter}
-            >
-              Time
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'status'
-              width = '15%'
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'SelectFilter',
-                options: this.state.statuses
-              }}
-            >
-              Status
-            </TableHeaderColumn>
-          </BootstrapTable>
-
           <hr/>
           <AllAttendanceTable
             attendance={this.state.attendance}
@@ -289,7 +207,7 @@ export default class Admin extends React.Component {
 
               <br/>
 
-              <button className="handleUpdateStatusSubmit btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
+              <button className="btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
               <button className="deleteRecord btn btn-danger pull-right" onClick={this.deleteRecord}><span className="glyphicon glyphicon-trash"/> Delete Today's Record</button>
               {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
             </div>

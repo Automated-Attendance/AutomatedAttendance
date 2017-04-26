@@ -1,12 +1,15 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 
 const Attendance = new AttendanceModel();
+moment.tz.setDefault("America/Los_Angeles");
 
 exports.storeRecords = async ({ body }, res) => {
   try {
     const { classes, time } = body;
+    console.log(time, 'what is time that is being passed in!!!!!!!!!!!!!')
+    console.log('changing the time zone what is this time?')
     await Attendance.storeRecords(classes, time);
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
@@ -33,9 +36,11 @@ exports.storeRecords = async ({ body }, res) => {
       };
     }, 5000);
 
+
     const tardyInterval = setInterval(() => {
       const currentTime = moment();
       const tardyEmail = moment(time).add(30, 'minute');
+      console.log('WHY IS EVERYONE ABSENT times', currentTime, tardyEmail )
       if( currentTime.isAfter(tardyEmail)) {
         // in here i want everyone to finally be absent
         Attendance.emailLateStudents();
