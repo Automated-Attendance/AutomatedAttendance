@@ -1,6 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
+import 'react-select/dist/react-select.css'
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
 export default class ToggleStatus extends React.Component {
   render() {
@@ -22,7 +25,7 @@ export default class ToggleStatus extends React.Component {
             placeholder="Select Status..."
             value={this.props.selectedStatus}
             options={this.props.statusOptions ? this.props.statusOptions : [{label: 'Error loading data...'}]}
-            onChange={selectedStatus => this.props.handleChange('selectedToggleStatus', selectedStatus)}
+            onChange={selectedStatus => this.props.handleChange('selectedStatus', selectedStatus)}
           />
         </div><br/>
         <button onClick={this.props.handleSubmit}>Change Status</button>
