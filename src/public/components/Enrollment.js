@@ -20,7 +20,7 @@ export default class Enrollment extends React.Component {
       selectedStudentAddStudent: '',
       selectedStudentRemoveStudent: '',
       selectedStudentToggleStatus: '',
-      selectedStatus:'',      
+      selectedStatus:'',
       createClassName: '',
       studentPhoto: '',
       classAdded: false,
@@ -56,7 +56,7 @@ export default class Enrollment extends React.Component {
     'handleSubmitRemoveStudent',
     'handleSubmitToggleStatus',
     'previewFile',
-    'toggleOff',    
+    'toggleOff',
     'clearDOMRefs'].forEach(method => {
       this[method] = this[method].bind(this);
     });
