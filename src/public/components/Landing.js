@@ -32,11 +32,11 @@ const Landing = () => {
         <div className="block works-step works-step-left">
           <div className="row">
             <div className="span4">
-              <img className="img-right" src="/images/LoginLogoLanding.png" alt="Login Image" />
-              <div className="content-heading landing-title"><h2>Login or create an account</h2></div>
+              <img className="img-right" src="/images/CreateClass.png" alt="Create Class Image" />
+              <div className="content-heading landing-title"><h2>Create a class</h2></div>
               <hr/>
-              <p className="step-text step-text-right"> Login with your Github <i className="fa fa-github" aria-hidden="true"></i> to automatically generate and account
-                and be able to check on your attendance status in real time.
+              <p className="step-text step-text-right"> Search through the database of students to create your class and be able to track their
+                attendance habits on a day to day basis.
               </p>
             </div>
           </div>
