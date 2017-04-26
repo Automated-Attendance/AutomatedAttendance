@@ -74,7 +74,7 @@ exports.checkInStudents = async (req, res) => {
         i--;
       }
     }
-    // sendMailForArrival(matchedUsers);    
+    sendMailForArrival(matchedUsers);    
     res.status(201).send(matchedUsers);
   } catch (err) {
     /* istanbul ignore next  */
