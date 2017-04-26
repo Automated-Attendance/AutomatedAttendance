@@ -50,7 +50,7 @@ export default class Admin extends React.Component {
     'deleteRecord',
     'handleUpdateStatusSubmit',
     'toggleChangeAttendance',
-    'toggleOff'].forEach((method) => {
+    'toggleOff'].forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -76,20 +76,16 @@ export default class Admin extends React.Component {
   async getAttendance() {
     const queryType = {queryType: 'allAttendance'};
     const attendanceRecords = await getAttendanceRecords(queryType);   
-    attendanceRecords.forEach((item) => {
+    attendanceRecords.forEach(item => {
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
-        this.setState({
-          classes: thisClass
-        });
+        this.setState({classes: thisClass});
       }
       if (!this.state.statuses[item.status]) {
         let thisStatus = this.state.statuses;
         thisStatus[item.status] = item.status;
-        this.setState({
-          statuses: thisStatus
-        });
+        this.setState({statuses: thisStatus});
       }
       let fullName = `${item.first_name} ${item.last_name}`;
       item.full_name = fullName;
@@ -99,10 +95,7 @@ export default class Admin extends React.Component {
         let thisStudent = this.state.students;
         thisEmail[item.email] = item.email;
         thisStudent[fullName] = fullName;
-        this.setState({
-          emails: thisEmail,
-          students: thisStudent
-        });
+        this.setState({emails: thisEmail, students: thisStudent});
       }
     });
     this.setState({attendance: attendanceRecords});
@@ -110,12 +103,12 @@ export default class Admin extends React.Component {
 
   async getExistingUserList() {
     const users = await getAllUsers();
-    this.setState({ studentOptions: users });
+    this.setState({studentOptions: users});
   }
 
   updateSelectedDate(e) {
     let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD HH:mm:ss');
-    this.setState({ selectedDate: date });
+    this.setState({selectedDate: date});
   }
 
   async handleUpdateStatusSubmit() {
@@ -125,9 +118,9 @@ export default class Admin extends React.Component {
         selectedStudent: this.state.selectedStudent,
         selectedStatus: this.state.selectedStatus
       };
-      this.setState({ spinner: true, statusUpdated: false });
-      this.setState({ statusUpdated: await changeAttendanceStatus(data) });
-      this.setState({ spinner: false });
+      this.setState({spinner: true, statusUpdated: false});
+      this.setState({statusUpdated: await changeAttendanceStatus(data)});
+      this.setState({spinner: false});
       await this.getAttendance();
       this.toggleOff('statusUpdated', 'selectedDate', 'selectedStudent', 'selectedStatus');
     } else {
@@ -137,9 +130,9 @@ export default class Admin extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
-      this.setState({ [status]: false });
-      states.forEach((state) => {
-        this.setState({ [state]: false});
+      this.setState({[status]: false});
+      states.forEach(state => {
+        this.setState({[state]: false});
       });
     }, 5000);
   }
@@ -201,7 +194,7 @@ export default class Admin extends React.Component {
                   value={this.state.selectedStatus}
                   placeholder="Select Status..."
                   options={this.state.statusOptions}
-                  onChange={selected => this.setState({ selectedStatus: selected })}
+                  onChange={selected => this.setState({selectedStatus: selected})}
                 />
               </div>
 
