@@ -63,8 +63,8 @@ export default class CameraPage extends React.Component {
     }, 4000);
   }
 
-  startCamera () {
-    let end = Moment(this.state.selectedTimeCutoff).add(1, 'minute');
+  startCamera() {
+    let end = Moment(this.state.selectedTimeCutoff).add(30, 'minute');
     let intervalId = setInterval(() => {
       let currentTime = Moment();
       //uncomment this if you are testing the automated camera
