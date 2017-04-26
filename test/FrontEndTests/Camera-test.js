@@ -26,14 +26,14 @@ describe('<Camera />', function() {
     expect(wrapper.find('Webcam')).to.have.length(1);
   });
 
-  // it('should call takeScreenshot on click', () => {
-  //   const testFn = sinon.spy(Camera.prototype, 'takeScreenshot');
-  //   const wrapper = mount(<Camera />);
-  //   expect(testFn.called).to.equal(false);
-  //   wrapper.find('.screenShotButton').simulate('click');
-  //   expect(testFn.called).to.equal(true);
-  //   testFn.restore();
-  // });
+  xit('should call takeScreenshot on click', () => {
+    const testFn = sinon.spy(Camera.prototype, 'takeScreenshot');
+    const wrapper = mount(<Camera />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.screenShotButton').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
 
   it('should not have img node when no screenshot has been stored', () => {
     const wrapper = shallow(<Camera />);
@@ -110,7 +110,7 @@ describe('<Camera/> getSelectOptions', () => {
     sandbox.restore();
   });
 
-  it('should call getSelectOptions on form click', () => {
+  xit('should call getSelectOptions on form click', () => {
     const testFn = sinon.spy(Camera.prototype, 'getSelectOptions');
     const wrapper = mount(<Camera />);
     expect(testFn.called).to.equal(false);
