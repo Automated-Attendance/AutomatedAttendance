@@ -120,7 +120,7 @@ export default class Admin extends React.Component {
     this.setState({ selectedDate: date });
   }
 
-  async handleUpdateStatusSubmit(event) {
+  async handleUpdateStatusSubmit() {
     if (this.state.selectedDate && this.state.selectedStudent && this.state.selectedStatus) {
       let data = {
         selectedDate: this.state.selectedDate,
