@@ -43,4 +43,56 @@ describe('<Admin />', function() {
     setTimeout(() => expect(wrapper.state().attendance).to.have.length(1), 2000);
   });
 
+  it('Should have five buttons', () => {
+    const wrapper = mount(<Admin/>);
+    wrapper.find('.login-button').simulate('click');
+    expect(wrapper.find('button')).to.have.length(5);
+  });
+
+  it('should delete attendance record on click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'deleteRecord');
+    const wrapper = mount(<Admin/>);
+    wrapper.find('.login-button').simulate('click');
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.deleteRecord').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should call handleUpdateStatusSubmit on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'handleUpdateStatusSubmit');
+    const wrapper = mount(<Admin />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.login-button').simulate('click');
+    wrapper.find('.handleUpdateStatusSubmit').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();  
+  });
+
+  it('should change records on button click', () => {
+    const testFn = sinon.spy(Admin.prototype, 'handleUpdateStatusSubmit');
+    const wrapper = mount(<Admin />);
+    wrapper.find('.login-button').simulate('click');
+    const andrew = {
+      label: "Andrew Alonis - andrewaaalonis",
+      value: "andrewaaalonis"
+    }
+    wrapper.setState({ selectedStudent : andrew})
+    wrapper.setState({ selectedStatus: 'On time' });
+    wrapper.setState({ selectedDate: "2017-04-17 16:01:00" })
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleUpdateStatusSubmit').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();  
+  });
+
+   it('should update state when unmounted', () => {
+    const testFn = sinon.spy(Admin.prototype, 'componentWillUnmount');
+    const wrapper = mount(<Admin />);
+    wrapper.unmount();
+    setTimeout(() => {
+      expect(clearInterval.calledOnce).to.equal(true);
+    }, 1000);
+  });
+
 });

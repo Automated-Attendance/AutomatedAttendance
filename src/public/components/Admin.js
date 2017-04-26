@@ -207,7 +207,7 @@ export default class Admin extends React.Component {
 
               <br/>
 
-              <button className="btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
+              <button className="handleUpdateStatusSubmit btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
               <button className="deleteRecord btn btn-danger pull-right" onClick={this.deleteRecord}><span className="glyphicon glyphicon-trash"/> Delete Today's Record</button>
               {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
             </div>
