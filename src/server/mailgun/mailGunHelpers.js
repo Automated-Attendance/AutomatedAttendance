@@ -23,7 +23,7 @@ exports.sendAbsentEmails = async (emails) => {
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
       subject: 'You did not check in!',
-      text: 'Where are you? You have been marked absent today.'
+      text: 'Where are you? You\'re late for class!'
     };
     mailgunAPI.messages().send(data);
   });
