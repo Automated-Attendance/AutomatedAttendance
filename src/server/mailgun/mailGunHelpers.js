@@ -23,7 +23,7 @@ exports.sendMailLate = (req, res) => {
 };
   
 exports.sendMailForArrival = async (matchedUsers) => {
-  console.log('sending email for arrival')
+  console.log('sending email for arrival');
   matchedUsers.forEach((user) => {
     console.log(user);
     let data = { 
