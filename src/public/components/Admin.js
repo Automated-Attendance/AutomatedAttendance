@@ -32,7 +32,8 @@ export default class Admin extends React.Component {
         {label: 'Tardy', value: 'Tardy'},
         {label: 'Absent', value: 'Absent'},
         {label: 'Pending', value: 'Pending'}
-      ]
+      ],
+      recordDeleted: false
     };
 
     ['populateTable',
@@ -121,7 +122,11 @@ export default class Admin extends React.Component {
 
   async deleteRecord() {
     const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
+    this.setState({spinner: true, recordDeleted: false});
+    this.setState({recordDeleted: await getAttendanceRecordDate({date: momentDay})});
+    this.setState({spinner: false});
+    await this.populateTable();
+    this.toggleOff('recordDeleted');
   }
 
   toggleEditAttendance() {
@@ -164,6 +169,7 @@ export default class Admin extends React.Component {
           {this.state.changeNeeded ? 
             <EditAttendance
               statusUpdated={this.state.statusUpdated}
+              recordDeleted={this.state.recordDeleted}
               selectedStudent={this.state.selectedStudent}
               selectedStatus={this.state.selectedStatus}
               studentOptions={this.state.studentOptions}

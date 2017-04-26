@@ -53,12 +53,18 @@ export default class EditAttendance extends React.Component {
         </button>
         <button
           className="deleteRecord btn btn-danger pull-right"
-          onClick={this.props.deleteRecord}
+          onClick={() => {
+            let proceed = confirm('Are you sure?\nThis will delete all attendance records for today!');
+            if (proceed) {
+              this.props.deleteRecord();
+            }
+          }}
         >
           <span className="glyphicon glyphicon-trash"/>
           Delete Today's Record
         </button>
         {!this.props.statusUpdated ? null : <h5>Changed {this.props.selectedStudent.label.slice(0, this.props.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.props.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.props.selectedStatus}'!</h5>}
+        {!this.props.recordDeleted ? null : <h5>Deleted today's attendance records for all classes!</h5>}
       </div>
     );
   }
