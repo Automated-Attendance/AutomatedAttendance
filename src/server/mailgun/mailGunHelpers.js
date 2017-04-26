@@ -11,7 +11,7 @@ exports.sendMailForArrival = async (matchedUsers) => {
       subject: 'You checked in!',
       text: 'Welcome to class! You have checked in on time today!'
     };
-    // mailgunAPI.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -25,7 +25,7 @@ exports.sendAbsentEmails = async (emails) => {
       subject: 'You did not check in!',
       text: 'Where are you? You have been marked absent today.'
     };
-    // mailgunAPI.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -38,7 +38,7 @@ exports.sendWarningEmails = async (emails) => {
       subject: 'Check in reminder!',
       text: 'You\'re about to be late! The gong sounds in 10 minutes.'
     };
-    // mailgunAPI.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -51,6 +51,6 @@ exports.sendTardyEmails = async (users) => {
       subject: 'You checked in late!',
       text: "Welcome to class! You have checked in late today."
     };
-    // mailgunAPI.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 }
