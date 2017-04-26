@@ -54,13 +54,10 @@ const About = () => {
 
         <div className="answer-text-block">
           <h4 id="student-how-do-i-use" className="testimonials-text negative-margin-link"> I'm an student, how do I use your app?</h4>
-          <p> studentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadf</p>
+          <p> Log in to the application with github account to view your own attendance records. When checking in every morning, all
+          you need to do is walk through the entryway and the facial recognition will do the rest. You will receive an e-mail for every
+          successful checkin. If you're running late you will receive a warning e-mail stating that class is about to start.</p>
         </div>
-
-
-          Students receive a confirmation email upon recognition.<br/>
-          Students receive late warnings and absent notices if not checked in.<br/>
-          The camera shuts off and all 'pending' students are marked 'absent' 30 minutes after the specified cutoff time.
 
         <h4>View Attendance:</h4>
         <p>
