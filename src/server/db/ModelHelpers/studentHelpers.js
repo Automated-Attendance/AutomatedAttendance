@@ -1,7 +1,7 @@
 import StudentModel from '../QueryModels/StudentModel';
 import { upload } from '../../cloudinary/cloudHelpers';
 import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
-import { sendMailForArrival } from '../../mailgun/mailGunHelpers';
+import { sendMailForArrival, sendTardyEmails } from '../../mailgun/mailGunHelpers';
 import moment from 'moment-timezone';
 
 const Student = new StudentModel();
@@ -62,13 +62,16 @@ exports.checkInStudents = async (req, res) => {
     const [matchedUsers] = await Student.getMatchedUsers(matches);
 
     for (let i = 0; i < matchedUsers.length; i++) {
-      let userId = matchedUsers[i].users_id;
+      let user = matchedUsers[i];
+      let userId = user.users_id;
       let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
       if (cutOffDate[0].status === 'Pending') {
         if (currentTime.isAfter(cutoffTimeObj)) {
-          await Student.checkInTardy(userId, date, date.slice(0, 10))
+          await Student.checkInTardy(userId, date, date.slice(0, 10));
+          sendTardyEmails([user]);
         } else {
           await Student.checkInOnTime(userId, date, date.slice(0, 10));
+          sendMailForArrival([user]);
         }
       } else {
         matchedUsers.splice(i, 1);
@@ -76,7 +79,6 @@ exports.checkInStudents = async (req, res) => {
       }
     }
 
-    if (matchedUsers.length) sendMailForArrival(matchedUsers);    
     res.status(201).send(matchedUsers);
   } catch (err) {
     /* istanbul ignore next  */
