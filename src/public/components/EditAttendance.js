@@ -1,11 +1,15 @@
 import React from 'react';
 import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Select from 'react-select';
 import VirtualizedSelect from 'react-virtualized-select'
 import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
+
+// init time localization for DateTimePicker
+momentLocalizer(Moment);
 
 export default class EditAttendance extends React.Component {
   render() {
@@ -40,8 +44,20 @@ export default class EditAttendance extends React.Component {
           />
         </div>
         <br/>
-        <button className="btn btn-success" onClick={this.props.handleSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
-        <button className="deleteRecord btn btn-danger pull-right" onClick={this.props.deleteRecord}><span className="glyphicon glyphicon-trash"/>Delete Today's Record</button>
+        <button
+          className="btn btn-success"
+          onClick={this.props.handleSubmit}
+        >
+          <span className="glyphicon glyphicon-ok"/>
+          Submit Changes
+        </button>
+        <button
+          className="deleteRecord btn btn-danger pull-right"
+          onClick={this.props.deleteRecord}
+        >
+          <span className="glyphicon glyphicon-trash"/>
+          Delete Today's Record
+        </button>
         {!this.props.statusUpdated ? null : <h5>Changed {this.props.selectedStudent.label.slice(0, this.props.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.props.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.props.selectedStatus}'!</h5>}
       </div>
     );

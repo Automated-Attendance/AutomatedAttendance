@@ -48,8 +48,8 @@ export default class Enrollment extends React.Component {
     'getStudentOptions',
     'getStudentsByClass',
     'handleInputChange',
-    'handleSelectChange',
-    'handleSelectChangeRemoveStudent',
+    'handleChangeSelect',
+    'handleChangeSelectRemoveStudent',
     'handleSubmitAddClass',
     'handleSubmitAddStudent',
     'handleSubmitRemoveClass',
@@ -108,11 +108,11 @@ export default class Enrollment extends React.Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSelectChange(state, selection) {
+  handleChangeSelect(state, selection) {
     this.setState({[state]: selection});
   }
 
-  async handleSelectChangeRemoveStudent(state, selection) {
+  async handleChangeSelectRemoveStudent(state, selection) {
     await this.setState({[state]: selection});
     this.getStudentsByClass();
   }
@@ -256,7 +256,7 @@ export default class Enrollment extends React.Component {
           imageValue={this.state.imageValue}
           imageHeight={this.state.imageHeight}
           preview={this.previewFile}
-          handleChange={this.handleSelectChange}
+          handleChange={this.handleChangeSelect}
           handleSubmit={this.handleSubmitAddStudent}
         />
         <hr/>
@@ -264,7 +264,7 @@ export default class Enrollment extends React.Component {
           classRemoved={this.state.classRemoved}
           selectedClass={this.state.selectedClassRemoveClass}
           classOptions={this.state.classOptions}
-          handleChange={this.handleSelectChange}
+          handleChange={this.handleChangeSelect}
           handleSubmit={this.handleSubmitRemoveClass}
         />
         <hr/>
@@ -274,8 +274,8 @@ export default class Enrollment extends React.Component {
           selectedStudent={this.state.selectedStudentRemoveStudent}
           classOptions={this.state.classOptions}
           studentOptions={this.state.studentOptionsByClass}
-          handleClassChange={this.handleSelectChangeRemoveStudent}
-          handleStudentChange={this.handleSelectChange}
+          handleClassChange={this.handleChangeSelectRemoveStudent}
+          handleStudentChange={this.handleChangeSelect}
           handleSubmit={this.handleSubmitRemoveStudent}
         />
         <hr/>
@@ -285,7 +285,7 @@ export default class Enrollment extends React.Component {
           selectedStatus={this.state.selectedStatus}
           studentOptions={this.state.studentOptions}
           statusOptions={this.state.statusOptions}
-          handleChange={this.handleSelectChange}
+          handleChange={this.handleChangeSelect}
           handleSubmit={this.handleSubmitToggleStatus}
         />
         <hr/>
