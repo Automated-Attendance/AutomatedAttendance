@@ -7,13 +7,22 @@ export default class Student extends React.Component {
     this.state = {
       attendance: [],
       classes: {},
-      statuses: {}
+      statuses: {},
+      attendanceInterval: null
     };
     this.getAttendance = this.getAttendance.bind(this);
   }
 
   async componentWillMount() {
-    this.getAttendance();
+    await this.getAttendance();
+    let attendanceInterval = setInterval(async () => {
+      await this.getAttendance();
+    }, 30000);
+    this.setState({attendanceInterval});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.attendanceInterval);
   }
 
   async getAttendance() {
