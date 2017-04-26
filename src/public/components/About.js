@@ -21,6 +21,10 @@ const About = () => {
           <li className="question-block">
             <a className="about-link" href="#admin-how-do-i-use">I'm an admin, how do I use your app?</a>
           </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#student-how-do-i-use">I'm a student, how do I use your app?</a>
+          </li>
         </ul>
       </div>
 
@@ -48,19 +52,16 @@ const About = () => {
           Using facial recognition, the students' attendance status is updated in real time as they enter the room.</p>
         </div>
 
+        <div className="answer-text-block">
+          <h4 id="student-how-do-i-use" className="testimonials-text negative-margin-link"> I'm an student, how do I use your app?</h4>
+          <p> studentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadtudentstufasddsadf</p>
+        </div>
 
-        <h4>Daily Use:</h4>
-        <p>
-          As an admin, log in and navigate to the camera page.<br/>
-          Select class(es) and a 'late' cutoff time for today.<br/>
-          Click 'Start Today's Attendance'.<br/>
-          The attached webcam begins running, taking photos of the entryway once per second.<br/>
-          Attendance records are populated for all students in each selected class, giving them a 'pending' status.<br/>
-          Using facial recognition, students' attendance status is updated as they enter.<br/>
+
           Students receive a confirmation email upon recognition.<br/>
           Students receive late warnings and absent notices if not checked in.<br/>
           The camera shuts off and all 'pending' students are marked 'absent' 30 minutes after the specified cutoff time.
-        </p><br/>
+
         <h4>View Attendance:</h4>
         <p>
           Admins can view and edit attendance records for all students and classes.<br/>
