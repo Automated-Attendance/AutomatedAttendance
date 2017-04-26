@@ -55,7 +55,7 @@ export default class AllAttendanceTable extends React.Component {
             dataFormat={tableHelpers.timeFormatter}
             dataSort
           >
-            Date
+            Cutoff Time
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField='checkin_time'
@@ -64,7 +64,7 @@ export default class AllAttendanceTable extends React.Component {
             dataFormat={tableHelpers.timeFormatter}
             dataSort
           >
-            Time
+            Arrival Time
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField='status'
