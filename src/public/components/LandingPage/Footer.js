@@ -9,25 +9,26 @@ const Footer = () => {
 
   return (
     <div className="footer-container">
-      <div className="text-center center-block">
+      <div className="container text-center center-block">
         <h4>- Meet the Developers -</h4>
 
         <br />
 
         <div className="col-md-3 meet-dev-block">
-        <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/v1493176209/testimonialimage1_ykgrzd.jpg"/>
+          <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/v1493176209/testimonialimage1_ykgrzd.jpg"/>
+          <h4> Jason Chambers </h4>
         </div>
 
         <div className="col-md-3 meet-dev-block">
-        2
+          <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492023045/rtmjuvcktfvssigjecma.png"/>
         </div>
 
         <div className="col-md-3 meet-dev-block">
-        3
+          <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492903911/hanzh.png"/>
         </div>
 
         <div className="col-md-3 meet-dev-block">
-        4
+          <img className="img-rounded dev-img" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492904220/Duy12312313.png"/>
         </div>
       </div>
     </div>
