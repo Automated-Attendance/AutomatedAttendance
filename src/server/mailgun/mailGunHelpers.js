@@ -25,13 +25,14 @@ exports.sendMailLate = (req, res) => {
 exports.sendMailForArrival = async (matchedUsers) => {
   console.log('sending email for arrival')
   matchedUsers.forEach((user) => {
+    console.log(user);
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
       subject: 'Class Arrival',
       text: 'Welcome to class! You have checked in today!'
     };
-    mailgun.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -45,7 +46,7 @@ exports.sendAbsentEmails = async (emails) => {
       subject: 'Absent',
       text: 'You are absent now'
     };
-    mailgun.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -58,7 +59,7 @@ exports.sendWarningEmails = async (emails) => {
       subject: 'Warning Email',
       text: 'You\'re about to be late! 1 Minute from bell'
     };
-    mailgun.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 };
 
@@ -71,6 +72,6 @@ exports.sendTardyEmails = async (users) => {
       subject: 'Tardy',
       text: "It's 9AM you are still not in class,you will be if you get to class by 9:30"
     };
-    mailgun.messages().send(data);
+    mailgunAPI.messages().send(data);
   });
 }
