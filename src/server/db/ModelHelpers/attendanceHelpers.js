@@ -11,8 +11,6 @@ exports.storeRecords = async ({ body }, res) => {
     await Attendance.storeRecords(classes, time);
     // sending out warning emails 10mins before the time (impossible to test)
     /* istanbul ignore next */
-
-
     const warningEmail = setInterval(() => {
       const warningTime = moment(time).subtract(10, 'minute');
       const currentTime = moment();
@@ -27,8 +25,6 @@ exports.storeRecords = async ({ body }, res) => {
     const absentInterval = setInterval(() => {
       const currentTime = moment();
       if (currentTime.isAfter(time)) {
-        // still send late emails 
-        // leave all late students to be pending;
        Attendance.emailStudentAboutToBeTardy();
         clearInterval(absentInterval);
       };
