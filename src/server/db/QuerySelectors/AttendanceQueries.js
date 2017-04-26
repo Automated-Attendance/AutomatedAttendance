@@ -41,7 +41,7 @@ export default class AttendanceQueries {
   }
 
   pendingToAbsent(id) {
-    return `UPDATE attendance_record SET status='Absent' WHERE user_id='${id}'`;
+    return `UPDATE attendance_record SET status='Absent' WHERE user_id='${id} AND status='Pending'`;
   }
 
   getAllLateUserEmails() {
