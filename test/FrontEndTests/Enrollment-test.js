@@ -26,7 +26,60 @@ describe('<Enrollment />', function() {
 
 });
 
+// describe('<Enrollment /> clearDOMrefs', () =>  {
+//   it ('should call clearDOMrefs on addStudent', () => {
+//     const testFn = sinon.spy(Enrollment.prototype, 'clearDOMrefs');
+//     const wrapper = mount(<Enrollment />);
+//     expect(testFn.called).to.equal(false);
+//     wrapper.setState({})
+//   })
 
+// })
+
+describe('<Enrollment/> handleToggleStatusSubmit()', () => {
+
+  it ('should call handleToggleStatusSubmit on form click', () => {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleToggleStatusSubmit');
+    const wrapper = mount(<Enrollment/>);
+    wrapper.setState({selectedStudentToggleStatus: {label: 'Duy Nguyen - nguyenaiden' , value: 'nguyenaiden'}, selectedToggleStatus: 'Student'});
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleToggleStatusSubmit').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  })
+
+  it ('should not toggle status if states are empty', () => {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleToggleStatusSubmit');
+    const wrapper = shallow(<Enrollment/>);
+    wrapper.find('.handleToggleStatusSubmit').simulate('click');
+    expect(wrapper.state().studentStatusToggled).to.equal(false);
+    testFn.restore();
+  })
+
+})
+
+// describe('<Enrollment/> handleClassAddSubmit()', () => {
+
+//   it ('should call handleClassAddSubmit on form click', () => {
+//     const testFn = sinon.spy(Enrollment.prototype, 'handleClassAddSubmit');
+//     const wrapper = mount(<Enrollment />);
+//     wrapper.setState({createClassName: 'testClass'});
+//     expect(testFn.called).to.equal(false);
+//     wrapper.find('.handleClassAddSubmit').simulate('click');
+//     expect(testFn.called).to.equal(true);
+//     testFn.restore();
+//   })
+
+//   it ('should not call handleClassAddSubmit if states are empty', () => {
+//     const testFn = sinon.spy(Enrollment.prototype, 'handleClassAddSubmit');
+//     const wrapper = mount(<Enrollment />);
+//     expect(testFn.called).to.equal(false);
+//     wrapper.find('.handleClassAddSubmit').simulate('click');
+//     expect(testFn.called).to.equal(false);
+//     testFn.restore();
+//   })
+
+// })
 
 describe('<Enrollment/> populateTable()', function() {
 
