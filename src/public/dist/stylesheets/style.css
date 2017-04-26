@@ -292,3 +292,10 @@ video {
 .testimonials-text-p {
   font-size: 16px;
 }
+
+
+/* footer */
+
+.footer-container {
+  height: 125px;
+}
