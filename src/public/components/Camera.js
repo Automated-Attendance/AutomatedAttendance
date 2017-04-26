@@ -7,7 +7,7 @@ import {queryGallery} from '../requests/gallery';
 import {storeAttendanceRecord, emailLateStudents} from '../requests/students';
 import StartAttendance from './StartAttendance';
 
-export default class CameraPage extends React.Component {
+export default class Camera extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

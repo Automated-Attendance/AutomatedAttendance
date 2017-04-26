@@ -19,7 +19,7 @@ const Navigation = ({userPrivs}) => {
           <ul className="nav navbar-nav">
             {userPrivs.isLoggedIn && !userPrivs.isAdmin && <li><Link to="/Student"><span className="glyphicon glyphicon-th-list" aria-hidden/>Attendance</Link></li>}
             {userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Admin"><span className="glyphicon glyphicon-th-list" aria-hidden/>Attendance</Link></li>}
-            {userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/CameraPage"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>}
+            {userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Camera"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>}
             {userPrivs.isLoggedIn && userPrivs.isAdmin && <li><Link to="/Enrollment"><span className="glyphicon glyphicon-list-alt" aria-hidden/>Enrollment</Link></li>}
           </ul>
           <ul className="nav navbar-nav navbar-right">

@@ -1,5 +1,5 @@
 import React from 'react';
-import CameraPage from './CameraPage';
+import Camera from './Camera';
 import Student from './Student';
 import Admin from './Admin';
 import About from './About';
@@ -17,7 +17,7 @@ const Routes = ({userPrivs}) => {
       <Route path="/About" component={About}/>
       <Route path="/Contact" component={Contact}/>
       <Route path="/Student" component={() => userPrivs.isLoggedIn && !userPrivs.isAdmin ? <Student userPrivs={userPrivs}/> : <LoginRedirect userPrivs={userPrivs}/>}/>
-      <Route path="/CameraPage" component={() => userPrivs.isAdmin ? <CameraPage/> : <LoginRedirect userPrivs={userPrivs}/>}/>
+      <Route path="/Camera" component={() => userPrivs.isAdmin ? <Camera/> : <LoginRedirect userPrivs={userPrivs}/>}/>
       <Route path="/Admin" component={() => userPrivs.isAdmin ? <Admin/> : <LoginRedirect userPrivs={userPrivs}/>}/>
       <Route path="/Enrollment" component={() => userPrivs.isAdmin ? <Enrollment/> : <LoginRedirect userPrivs={userPrivs}/>}/>
     </div>
