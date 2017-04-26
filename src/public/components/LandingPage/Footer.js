@@ -1,12 +1,6 @@
 import React from 'react';
 
 const Footer = () => {
-
-  const imgResize = {
-    height: '100px',
-    width: '100px'
-  };
-
   return (
     <div className="footer-container">
       <div className="container text-center center-block">
