@@ -22,6 +22,18 @@ const Testimonials = () => {
           </div>
         </div>
 
+        <div className="block works-step works-step-right">
+          <div className="row">
+            <div className="span4">
+              <img className="img-left img-circle" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492023045/rtmjuvcktfvssigjecma.png" alt="testimonial two" />
+              <div className="content-heading testimonials-text"><h4>Andrew Alonis, Software Engineer</h4></div>
+              <hr/>
+              <p className="testimonials-text testimonials-text-p"> Andrew's testimonial will go here when he eventually gets around to it.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
