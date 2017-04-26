@@ -55,6 +55,19 @@ const Landing = () => {
           </div>
         </div>
 
+        <div className="block works-step works-step-left">
+          <div className="row">
+            <div className="span4">
+              <img className="img-right" src="/images/Relax.png" alt="Create Class Image" />
+              <div className="content-heading landing-title"><h2>Now relax</h2></div>
+              <hr/>
+              <p className="step-text step-text-right"> Sit back and relax as we take care of the rest. Our system will automatically 
+                compare students images against your class gallery and check them in as they arrive in real time.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
