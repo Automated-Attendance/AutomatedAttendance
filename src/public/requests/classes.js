@@ -3,7 +3,7 @@ import axios from 'axios';
 const getAttendanceRecordDate = async ({date}) => {
   try {
     const response = await axios.get(`/getAttendanceRecordDate?date=${date}`) 
-    return response.status === 200;
+    return response.status === 202;
   } catch (err){
     console.error(err);
   }
