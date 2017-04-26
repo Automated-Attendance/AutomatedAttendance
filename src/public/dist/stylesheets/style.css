@@ -6,6 +6,10 @@ body {
   background-color: #F7F7F7;
 }
 
+ul {
+  list-style-type: none;
+}
+
 
 /*                    */
 
@@ -152,6 +156,18 @@ body {
 /* Camera Page */
 
 
+/* Camera Page */
+
+
+/* Camera Page */
+
+
+/* Camera Page */
+
+
+/* Camera Page */
+
+
 /**/
 
 .form-title {
@@ -271,6 +287,18 @@ video {
 
 /* testimonials */
 
+
+/* testimonials */
+
+
+/* testimonials */
+
+
+/* testimonials */
+
+
+/* testimonials */
+
 .testimonials-container {
   width: 100%;
   padding-top: 25px;
@@ -290,6 +318,18 @@ video {
 .testimonials-text-p {
   font-size: 16px;
 }
+
+
+/* footer */
+
+
+/* footer */
+
+
+/* footer */
+
+
+/* footer */
 
 
 /* footer */
@@ -335,4 +375,45 @@ video {
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
+}
+
+
+/* About / FAQ */
+
+
+/* About / FAQ */
+
+
+/* About / FAQ */
+
+
+/* About / FAQ */
+
+
+/* About / FAQ */
+
+
+.about-answers-block {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 2em;
+}
+
+.about-link:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  color: #1F69C1;
+}
+
+.about-link {
+  -webkit-transform: scale(1);
+  /* Browser Variations: */
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  color: #4A90E2;
+  cursor: pointer;
 }
