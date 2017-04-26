@@ -95,4 +95,13 @@ describe('<Admin />', function() {
     }, 1000);
   });
 
+  //  it('should update state every 3 secs when mounted', () => {
+  //   const testFn = sinon.spy(Admin.prototype, 'componentWillMount');
+  //   const wrapper = mount(<Admin />);
+  //   wrapper.mount();
+  //   setTimeout(() => {
+  //     expect(console.log.calledOnce).to.equal(true);
+  //   }, 1000);
+  // });
+
 });
