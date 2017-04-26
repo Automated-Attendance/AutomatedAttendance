@@ -11,7 +11,7 @@ const Landing = () => {
 
     <HowItWorks />
 
-    <Testimonials />
+    <Testimonials className="container"/>
 
     </div>
   );

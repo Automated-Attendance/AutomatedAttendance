@@ -270,3 +270,18 @@ video {
 .img-record {
   height: 175px;
 }
+
+/* testimonials */
+
+.testimonials-container {
+  width: 100%;
+  padding-top: 25px;
+  background-color: #0090D9; 
+  height: 500px;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+.testimonials-text {
+  color: white;
+}
