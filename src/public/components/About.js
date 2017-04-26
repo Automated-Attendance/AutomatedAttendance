@@ -25,6 +25,10 @@ const About = () => {
           <li className="question-block">
             <a className="about-link" href="#student-how-do-i-use">I'm a student, how do I use your app?</a>
           </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#view-attendance">What can I do with the attendance records?</a>
+          </li>
         </ul>
       </div>
 
@@ -59,20 +63,15 @@ const About = () => {
           successful checkin. If you're running late you will receive a warning e-mail stating that class is about to start.</p>
         </div>
 
-        <h4>View Attendance:</h4>
-        <p>
-          Admins can view and edit attendance records for all students and classes.<br/>
-          Students can view their personal attendance records.<br/>
-          Attendance records can be sorted, filtered, and exported.
-        </p>
+        <div className="answer-text-block">
+          <h4 id="view-attendance" className="testimonials-text negative-margin-link"> What can I do with the attendance records?</h4>
+          <p>Admins can view and edit attendance records for all students and classes.<br/>
+          Students can only view their personal attendance records.<br/>
+          Attendance records can be sorted, filtered, and exported.</p>
+        </div>
+
         <hr/>
-        <h4>Developed by the AAAllstars:</h4>
-        <p>
-          Andrew Alonis<br/>
-          Jason Chambers<br/>
-          Duy Nguyen<br/>
-          Han Zhou
-        </p>
+        <h4>Developed by the AAAllstars: Meet the Developers</h4>
       </div>
     </div>
   );
