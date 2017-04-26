@@ -11,7 +11,7 @@ const HowItWorks = () => {
             <img className="img-left" src="/images/LoginLogoLanding.png" alt="Login Image" />
             <div className="content-heading landing-title"><h2>Login or create an account</h2></div>
             <hr/>
-            <p className="step-text"> Login with your Github <i className="fa fa-github fa-4" aria-hidden="true"></i> to automatically generate and account
+            <p className="step-text"> Login with your Github <i className="fa fa-github fa-4" aria-hidden="true"></i> to automatically generate an account
               and be able to check on your attendance status in real time.
             </p>
           </div>
