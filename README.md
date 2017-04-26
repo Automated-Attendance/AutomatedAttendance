@@ -66,17 +66,14 @@ npm run s
 npm test
 ```
 > Then view code coverage by opening ~/coverage/report/index.html
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_DOC)
-
+ßß
 ### Technology
 
 - React, NodeJS, ExpressJS, MySQL
 - Kairos API (facial recoginition)
 - Cloudinary API (photo storage)
 - Mailgun API (emails)
+- OAuth API (accounts)
 
 ## Contributing
 
