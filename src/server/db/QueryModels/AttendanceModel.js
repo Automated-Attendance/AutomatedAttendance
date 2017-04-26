@@ -45,7 +45,7 @@ export default class AttendanceModel extends AttendanceQueries {
   async emailStudentAboutToBeTardy() {
     const getAllPendingUsersEmails = super.getAllPendingUsersEmails();
     const [users] = await db.queryAsync(getAllPendingUsersEmails);
-    await sendAbsentEmails(lateUsers);
+    await sendAbsentEmails(users);
   }
 
   async emailLateStudents() {
