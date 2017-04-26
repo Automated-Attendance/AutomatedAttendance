@@ -42,6 +42,19 @@ const Landing = () => {
           </div>
         </div>
 
+        <div className="block works-step works-step-right">
+          <div className="row">
+            <div className="span4">
+              <img className="img-left img-record" src="/images/PopulateRecordsImage.png" alt="Populate Records Image" />
+              <div className="content-heading landing-title"><h2>Populate your attendance records</h2></div>
+              <hr/>
+              <p className="step-text"> Once your class has been set up, head on over to the camera page to populate the attendance records
+                for the day.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
