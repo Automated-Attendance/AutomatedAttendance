@@ -77,6 +77,10 @@ exports.checkInStudents = async (req, res) => {
     res.status(201).send(matchedUsers);
   } catch (err) {
     /* istanbul ignore next  */
+    console.log(err.message);
+    console.log(err.message);
+    console.log(err.message);
+    console.log(err.message);
     res.status(500).send(err.message);
   }
 };
