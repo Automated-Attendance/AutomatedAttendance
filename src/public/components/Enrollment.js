@@ -77,7 +77,7 @@ export default class Enrollment extends React.Component {
           thisClass[item.class] = item.class;
           this.setState({classOptionsEnrollment: thisClass});
         }
-        let fullName = `${item.first_name} ${item.last_name ? item.last_name : ''}`;
+        let fullName = `${item.first_name}${item.last_name ? ' ' + item.last_name : ''}`;
         item.full_name = fullName;
         /* istanbul ignore else  */
         if (!this.state.emails[item.email]) {

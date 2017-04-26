@@ -74,7 +74,7 @@ export default class Admin extends React.Component {
         thisStatus[item.status] = item.status;
         this.setState({statuses: thisStatus});
       }
-      let fullName = `${item.first_name} ${item.last_name ? item.last_name : ''}`;
+      let fullName = `${item.first_name}${item.last_name ? ' ' + item.last_name : ''}`;
       item.full_name = fullName;
       /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
