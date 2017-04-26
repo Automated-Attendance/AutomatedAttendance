@@ -1,13 +1,13 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import keydown, { Keys } from 'react-keydown';
-import { queryGallery } from './requests/gallery';
+import { queryGallery } from '../requests/gallery';
 import Select from 'react-select';
 import Spinner from './Spinner';
 import DateTime from 'react-widgets/lib/DateTimePicker';
-import { getClasses } from './requests/classes';
+import { getClasses } from '../requests/classes';
 import Moment from 'moment';
-import { storeAttendanceRecord, emailLateStudents } from './requests/students';
+import { storeAttendanceRecord, emailLateStudents } from '../requests/students';
 
 
 export default class CameraPage extends React.Component {

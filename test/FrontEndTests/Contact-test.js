@@ -13,9 +13,11 @@ describe('<Contact />', function() {
 
   it('should contain a header asking about questions or comments', () => {
     const wrapper = shallow(<Contact/>);
-    expect(wrapper.contains(<h3 className="header">
-        Questions or comments?
-      </h3>)).to.equal(true);
+    expect(wrapper.contains(
+      <h3 className="header">
+        Running late? Or ran into a bug?
+      </h3>
+    )).to.equal(true);
   });
 
 });

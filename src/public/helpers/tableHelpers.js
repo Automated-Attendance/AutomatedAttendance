@@ -13,7 +13,7 @@ const months = {
   9: 'October',
   10: 'November',
   11: 'December'
-}
+};
 
 const days = {
   0: 'Sunday',
@@ -23,7 +23,7 @@ const days = {
   4: 'Thursday',
   5: 'Friday',
   6: 'Saturday'
-}
+};
 
 const nameSort = (a, b, order) => {
   if (order === 'desc') {
@@ -39,12 +39,12 @@ const nameSort = (a, b, order) => {
       return a.first_name.localeCompare(b.first_name);
     }
   }
-}
+};
 
 const dateFormatter = (cell) => {
   const date = Moment(cell);
   return `${days[date.day()]}, ${months[date.month()]} ${date.date()}, ${date.year()}`;
-}
+};
 
 const timeFormatter = (cell) => {
   if (cell === null) {
@@ -52,15 +52,15 @@ const timeFormatter = (cell) => {
   }
   const time = Moment(cell);
   return `${time.hour()}:${zeroFill(time.minute(), 2)}:${zeroFill(time.second(), 2)}`;
-}
+};
 
 const zeroFill = (number, width) => {
   width -= number.toString().length;
-  if ( width > 0 ) {
-    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+  if (width > 0) {
+    return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
   }
   return number + '';
-}
+};
 
 module.exports = {
   months: months,
@@ -69,4 +69,4 @@ module.exports = {
   dateFormatter: dateFormatter,
   timeFormatter: timeFormatter,
   zeroFill: zeroFill
-}
+};

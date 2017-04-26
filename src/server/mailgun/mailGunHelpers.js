@@ -29,8 +29,8 @@ exports.sendMailForArrival = async (matchedUsers) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
-      subject: 'Class Arrival',
-      text: 'Welcome to class! You have checked in today!'
+      subject: 'You checked in!',
+      text: 'Welcome to class! You have checked in on time today!'
     };
     mailgunAPI.messages().send(data);
   });
@@ -43,8 +43,8 @@ exports.sendAbsentEmails = async (emails) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
-      subject: 'Absent',
-      text: 'You are absent now'
+      subject: 'You did not check in!',
+      text: 'Where are you? You have been marked absent today.'
     };
     mailgunAPI.messages().send(data);
   });
@@ -56,8 +56,8 @@ exports.sendWarningEmails = async (emails) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user[0].email,
-      subject: 'Warning Email',
-      text: 'You\'re about to be late! 1 Minute from bell'
+      subject: 'Check in reminder!',
+      text: 'You\'re about to be late! The gong sounds in 10 minutes.'
     };
     mailgunAPI.messages().send(data);
   });
@@ -69,8 +69,8 @@ exports.sendTardyEmails = async (users) => {
     let data = { 
       from: 'AA Support Team <no-reply@mail.automatedattendance.com>',
       to: user.email,
-      subject: 'Tardy',
-      text: "It's 9AM you are still not in class,you will be if you get to class by 9:30"
+      subject: 'You checked in late!',
+      text: "Welcome to class! You have checked in late today."
     };
     mailgunAPI.messages().send(data);
   });

@@ -1,55 +1,49 @@
 import React from 'react';
-import tableHelpers from './helpers/tableHelpers.js'
-import { getAttendanceRecords } from './requests/classes';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import {getAttendanceRecords} from '../requests/classes';
+import StudentAttendanceTable from './tables/StudentAttendanceTable';
 
 export default class Student extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       attendance: [],
       classes: {},
-      emails: {},
-      statuses: {}
+      statuses: {},
+      attendanceInterval: null
     };
     this.getAttendance = this.getAttendance.bind(this);
   }
 
   async componentWillMount() {
-    this.getAttendance();
+    await this.getAttendance();
+    let attendanceInterval = setInterval(async () => {
+      await this.getAttendance();
+    }, 30000);
+    this.setState({attendanceInterval});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.attendanceInterval);
   }
 
   async getAttendance() {
     const userEmail = this.props.userPrivs.userEmail;
     const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
-    attendanceRecords.forEach((item) => {
+    attendanceRecords.forEach(item => {
       /* istanbul ignore else  */
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
-        this.setState({
-          classes: thisClass
-        });
+        this.setState({classes: thisClass});
       }
       /* istanbul ignore else  */
       if (!this.state.statuses[item.status]) {
         let thisStatus = this.state.statuses;
         thisStatus[item.status] = item.status;
-        this.setState({
-          statuses: thisStatus
-        });
+        this.setState({statuses: thisStatus});
       }
       let fullName = `${item.first_name} ${item.last_name}`;
       item.full_name = fullName;
-      /* istanbul ignore else  */
-      if (!this.state.emails[item.email]) {
-        let thisEmail = this.state.emails;
-        thisEmail[item.email] = item.email;
-        this.setState({
-          emails: thisEmail,
-        });
-      }
     });
     this.setState({attendance: attendanceRecords});
   }
@@ -58,58 +52,12 @@ export default class Student extends React.Component {
     return (
       <div className="attendance-page-form container">
         <h3 className="text-center">My Attendance History</h3>
-
-        <br/>
-        
-        <BootstrapTable data={this.state.attendance} height='250px' scrollTop={'Top'} striped hover condensed>
-          <TableHeaderColumn
-            isKey
-            dataField = 'class_name'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.classes
-            }}
-          >
-            Class
-          </TableHeaderColumn>
-                    <TableHeaderColumn
-            dataField = 'cutoff_time'
-            width = '30%'
-            dataAlign = 'right'
-            dataFormat = {tableHelpers.dateFormatter}
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'TextFilter',
-            }}
-          >
-            Date
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'checkin_time'
-            width = '15%'
-            dataAlign = 'right'
-            dataSort
-            dataFormat = {tableHelpers.timeFormatter}
-          >
-            Time
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField = 'status'
-            width = '15%'
-            dataSort
-            filterFormatted
-            filter = {{
-              type: 'SelectFilter',
-              options: this.state.statuses
-            }}
-          >
-            Status
-          </TableHeaderColumn>
-        </BootstrapTable>
+        <hr/>
+        <StudentAttendanceTable
+          attendance={this.state.attendance}
+          classes={this.state.classes}
+          statuses={this.state.statuses}
+        />
       </div>
     );
   }
