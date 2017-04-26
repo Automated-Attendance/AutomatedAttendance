@@ -4,7 +4,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
-import tableHelpers from '../../src/public/components/helpers/tableHelpers';
+import tableHelpers from '../../src/public/helpers/tableHelpers';
 
 describe('<tableHelpers />', function() {
 

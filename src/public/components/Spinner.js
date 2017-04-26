@@ -8,7 +8,6 @@ export default class Spinner extends React.Component {
   }
 
   componentDidMount() {
-
     const options = {
       lines: 13,
       length: 28,
@@ -34,10 +33,9 @@ export default class Spinner extends React.Component {
 
     this.spinner = new CircleSpinner(options);
     this.spinner.spin(this.refs.spinnercircle);
-
   }
 
   render() {
-    return ( <div ref="spinnercircle"/> );
+    return (<div ref="spinnercircle"/>);
   }
 }
