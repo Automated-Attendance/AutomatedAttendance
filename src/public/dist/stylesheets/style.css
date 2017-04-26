@@ -148,7 +148,9 @@ body {
 
 /**/
 
+
 /* Camera Page */
+
 
 /**/
 
@@ -182,6 +184,7 @@ video {
   padding: 2em;
 }
 
+
 /* change attendance transition */
 
 .attendance-change-enter {
@@ -203,13 +206,6 @@ video {
 }
 
 
-
-
-
-
-
-
-
 /* Landing Page */
 
 .landing-title {
@@ -220,12 +216,11 @@ video {
   padding-top: 20px;
 }
 
-
 #top-level-landing {
   width: 100%;
   margin-top: -30px;
   padding-top: 75px;
-  background-color: white; 
+  background-color: white;
   height: 500px;
   border-bottom: 1px solid #ddd;
 }
@@ -252,15 +247,17 @@ video {
 }
 
 .span4 img {
-    margin-right: 10px;
+  margin-right: 10px;
 }
+
 .span4 .img-left {
-    float: left;
-    padding-right: 100px;
+  float: left;
+  padding-right: 100px;
 }
+
 .span4 .img-right {
-    float: right;
-    padding-left: 100px;
+  float: right;
+  padding-left: 100px;
 }
 
 .step-text {
@@ -270,6 +267,7 @@ video {
 .img-record {
   height: 175px;
 }
+
 
 /* testimonials */
 
@@ -298,4 +296,20 @@ video {
 
 .footer-container {
   height: 125px;
+}
+
+.social:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.social {
+  -webkit-transform: scale(0.8);
+  /* Browser Variations: */
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
 }
