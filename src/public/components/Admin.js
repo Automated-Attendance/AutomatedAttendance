@@ -4,7 +4,7 @@ import Spinner from './Spinner';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {getAllUsers} from '../requests/users';
 import {changeAttendanceStatus} from '../requests/students';
-import {populateTableRecords, populateTableRecordDate} from '../requests/classes';
+import {getAttendanceRecords, getAttendanceRecordDate} from '../requests/classes';
 import AllAttendanceTable from './tables/AllAttendanceTable';
 import EditAttendance from './EditAttendance';
 import 'react-select/dist/react-select.css';
@@ -62,7 +62,7 @@ export default class Admin extends React.Component {
 
   async populateTable() {
     const queryType = {queryType: 'allAttendance'};
-    const attendanceRecords = await populateTableRecords(queryType);
+    const attendanceRecords = await getAttendanceRecords(queryType);
     attendanceRecords.forEach(item => {
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
@@ -74,7 +74,7 @@ export default class Admin extends React.Component {
         thisStatus[item.status] = item.status;
         this.setState({statuses: thisStatus});
       }
-      let fullName = `${item.first_name} ${item.last_name}`;
+      let fullName = `${item.first_name} ${item.last_name ? item.last_name : ''}`;
       item.full_name = fullName;
       /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
@@ -121,7 +121,7 @@ export default class Admin extends React.Component {
 
   async deleteRecord() {
     const momentDay = Moment().format("YYYY-MM-DD");
-    await populateTableRecordDate({date: momentDay});
+    await getAttendanceRecordDate({date: momentDay});
   }
 
   toggleEditAttendance() {
