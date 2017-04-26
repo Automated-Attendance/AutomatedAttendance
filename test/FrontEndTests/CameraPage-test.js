@@ -66,6 +66,8 @@ describe('<CameraPage />', function() {
     testFn.restore();
   });
 
+
+
   it('should store records on click', () => {
     const testFn = sinon.spy(CameraPage.prototype, 'populateAttendanceRecord');
     const wrapper = mount(<CameraPage />);
@@ -77,6 +79,18 @@ describe('<CameraPage />', function() {
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
+
+  //  it('should take screenshot when startCamera is called', () => {
+  //   const testFn = sinon.spy(CameraPage.prototype, 'startCamera');
+  //   const wrapper = mount(<CameraPage />);
+  //   setTimeout(() => {
+  //     expect(takeScreenshot.calledOnce).to.equal(true);
+  //   }, 3000);
+  //   // expect(testFn.called).to.equal(false);
+  //   // wrapper.find('.populateAttendanceRecord').simulate('click');
+  //   // expect(testFn.called).to.equal(true);
+  //   testFn.restore();
+  // });
 
 });
 

@@ -2,9 +2,10 @@ import StudentModel from '../QueryModels/StudentModel';
 import { upload } from '../../cloudinary/cloudHelpers';
 import { storeInGallery, recognize, galleryRemoveUser } from '../../kairosFR/kairosHelpers';
 import { sendMailForArrival } from '../../mailgun/mailGunHelpers';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const Student = new StudentModel();
+moment.tz.setDefault("America/Los_Angeles");
 
 exports.addToClass = async (req, res) => {
   try {
@@ -106,4 +107,3 @@ exports.changeUserType = async (req, res) => {
     res.status(500).send(err.message);
   }
 }
-

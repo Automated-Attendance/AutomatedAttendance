@@ -1,8 +1,9 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 
 const Attendance = new AttendanceModel();
+moment.tz.setDefault("America/Los_Angeles");
 
 exports.storeRecords = async ({ body }, res) => {
   try {
@@ -32,6 +33,7 @@ exports.storeRecords = async ({ body }, res) => {
         clearInterval(absentInterval);
       };
     }, 5000);
+
 
     const tardyInterval = setInterval(() => {
       const currentTime = moment();
