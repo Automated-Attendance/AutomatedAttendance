@@ -12,9 +12,9 @@ import DateTime from 'react-widgets/lib/DateTimePicker';
 import VirtualizedSelect from 'react-virtualized-select';
 import { changeAttendanceStatus } from '../requests/students';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { getAttendanceRecords, getAttendanceRecordDate } from '../requests/classes';
+import AllAttendanceTable from './tables/AllAttendanceTable';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -22,7 +22,6 @@ momentLocalizer(Moment);
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       attendance: [],
       classes: {},
@@ -59,11 +58,10 @@ export default class Admin extends React.Component {
   async componentWillMount() {
     await this.getAttendance();
     let attendanceInterval = setInterval(async () => {
-      console.log('fetching attednance');
       await this.getAttendance();
     }, 30000);
     await this.getExistingUserList();
-    this.setState({ attendanceInterval });
+    this.setState({attendanceInterval});
   }
 
   componentWillUnmount() {
@@ -147,101 +145,23 @@ export default class Admin extends React.Component {
   }
 
   toggleChangeAttendance() {
-    this.setState({ changeNeeded: !this.state.changeNeeded });
+    this.setState({changeNeeded: !this.state.changeNeeded});
   }
 
   render() {
     return (
       <div>
-
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
-
-          <BootstrapTable
-            data = {this.state.attendance}
-            csvFileName = {'Attendance.csv'}
-            maxHeight = '750px'
-            scrollTop = {'Top'}
-            multiColumnSort = {5}
-            striped
-            hover
-            condensed
-            exportCSV
-          >
-            <TableHeaderColumn
-              isKey
-              dataField = 'class_name'
-              width = '15%'
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'SelectFilter',
-                options: this.state.classes
-              }}
-            >
-              Class
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'full_name'
-              width = '25%'
-              dataSort
-              sortFunc = {tableHelpers.nameSort}
-              filterFormatted
-              filter = {{
-                type: 'TextFilter'
-              }}
-            >
-              Name
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'cutoff_time'
-              width = '15%'
-              dataAlign = 'right'
-              dataFormat = {tableHelpers.dateFormatter}
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'TextFilter',
-              }}
-            >
-              Date
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'cutoff_time'
-              width = '15%'
-              dataAlign = 'right'
-              dataFormat = {tableHelpers.timeFormatter}
-              dataSort
-            >
-              Date
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'checkin_time'
-              width = '15%'
-              dataAlign = 'right'
-              dataSort
-              dataFormat = {tableHelpers.timeFormatter}
-            >
-              Time
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField = 'status'
-              width = '15%'
-              dataSort
-              filterFormatted
-              filter = {{
-                type: 'SelectFilter',
-                options: this.state.statuses
-              }}
-            >
-              Status
-            </TableHeaderColumn>
-          </BootstrapTable>
-
           <hr/>
-
+          <AllAttendanceTable
+            attendance={this.state.attendance}
+            classes={this.state.classes}
+            statuses={this.state.statuses}
+          />
+          <hr/>
           <button className="login-button btn btn-primary" onClick={this.toggleChangeAttendance}>
-            <span className="glyphicon glyphicon-edit"/> Edit Attendance
+            <span className="glyphicon glyphicon-edit"/>Edit Attendance
           </button>
         </div>
 
