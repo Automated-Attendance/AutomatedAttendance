@@ -42,24 +42,19 @@ export default class AttendanceModel extends AttendanceQueries {
     });
   }
 
-  async emailStudentAboutToBeTardy () {
+  async emailStudentAboutToBeTardy() {
     const getAllPendingUsersEmails = super.getAllPendingUsersEmails();
     const [users] = await db.queryAsync(getAllPendingUsersEmails);
-    await sendTardyEmails(users);
+    await sendAbsentEmails(users);
   }
 
   async emailLateStudents() {
     const getPendingUsersQuery = super.getPendingUsers();
     const [users] = await db.queryAsync(getPendingUsersQuery);
-
     users.forEach(async (user) => {
       let lateQuery = super.pendingToAbsent(user.user_id);
       await db.queryAsync(lateQuery);
     });
-
-    const getLateStudentsEmails = super.getAllLateUserEmails();
-    const [lateUsers] = await db.queryAsync(getLateStudentsEmails);
-    await sendAbsentEmails(lateUsers);
   }
 
   async deleteRecordDate({ date }) {

@@ -1,7 +1,6 @@
 import AttendanceModel from '../QueryModels/AttendanceModel';
 import moment from 'moment-timezone';
 
-
 const Attendance = new AttendanceModel();
 moment.tz.setDefault("America/Los_Angeles");
 
@@ -21,24 +20,23 @@ exports.storeRecords = async ({ body }, res) => {
     }, 5000);
 
     /* istanbul ignore next */
-    const absentInterval = setInterval(() => {
+    const setAbsentInterval = setInterval(() => {
       const currentTime = moment();
-      if (currentTime.isAfter(time)) {
-       Attendance.emailStudentAboutToBeTardy();
-        clearInterval(absentInterval);
-      };
+      const absentUpdateTime = moment(time).add(30, 'minute');
+      if (currentTime.isAfter(absentUpdateTime)) {
+        Attendance.emailLateStudents();
+        clearInterval(setAbsentInterval);
+      }
     }, 5000);
 
     /* istanbul ignore next */
-    const tardyInterval = setInterval(() => {
+    const emailTardyInterval = setInterval(() => {
       const currentTime = moment();
-      const tardyEmail = moment(time).add(30, 'minute');
-      if( currentTime.isAfter(tardyEmail)) {
-        Attendance.emailLateStudents();
-        clearInterval(tardyInterval);
-      }
-
-    }, 5000)
+      if (currentTime.isAfter(time)) {
+       Attendance.emailStudentAboutToBeTardy();
+        clearInterval(emailTardyInterval);
+      };
+    }, 5000);
 
     res.sendStatus(201);
   } catch (err) {
