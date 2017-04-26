@@ -417,3 +417,11 @@ video {
   color: #4A90E2;
   cursor: pointer;
 }
+
+.negative-margin-link {
+  border-top: 75px solid transparent;
+  margin-top: -75px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}

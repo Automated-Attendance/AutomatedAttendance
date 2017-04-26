@@ -11,13 +11,20 @@ const About = () => {
       <div className="col-md-3">
         <ul>
           <li>
-          How do I login?
+          <a className="about-link" href="#create-account">How do I create an account?</a>
           </li>
         </ul>
       </div>
 
       <div className="col-md-8 about-answers-block">
-        <h4 className="about-link">Accounts:</h4>
+
+        <div>
+          <h4 id ="create-account"className="testimonials-text negative-margin-link"> How do I create an account?</h4>
+          <p>To create an account, simply login with your github credentials.</p>
+        </div>
+
+
+        <h4>Accounts:</h4>
         <p>
           To create an account, simply log in with your GitHub credentials.<br/>
           Admin(istrator)s can toggle existing accounts between 'admin' and 'student' status.<br/>
