@@ -31,12 +31,12 @@ export default class StudentQueries {
     return `SELECT email, users_id, first_name, last_name FROM users where ${qs}`;
   }
 
-  checkInQuery(user_id, date) {
-    return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE user_id = ${user_id}`;
+  checkInQuery(user_id, date, cutoff_date) {
+    return `UPDATE attendance_record SET status='On time', checkin_time='${date}' WHERE user_id = ${user_id} AND cutoff_time LIKE '${cutoff_date}%'`;
   }
 
-  checkInTardyQuery(user_id, date) {
-    return `UPDATE attendance_record SET status='Tardy', checkin_time='${date}' WHERE user_id=${user_id}`;
+  checkInTardyQuery(user_id, date, cutoff_date) {
+    return `UPDATE attendance_record SET status='Tardy', checkin_time='${date}' WHERE user_id=${user_id} AND cutoff_time LIKE '${cutoff_date}%'`;
   }
 
   checkIfStudentIsEnrolled(userName, className) {

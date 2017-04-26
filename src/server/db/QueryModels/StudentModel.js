@@ -27,13 +27,13 @@ export default class StudentModel extends StudentQueries {
     return await db.queryAsync(matchedUsersQuery);
   }
 
-  async checkInOnTime(matches, date) {
-    const checkInQuery = super.checkInQuery(matches, date);
+  async checkInOnTime(matches, date, cutoff_date) {
+    const checkInQuery = super.checkInQuery(matches, date, cutoff_date);
     return await db.queryAsync(checkInQuery);
   }
 
-  async checkInTardy(matches, date) {
-    const checkInTardyQuery = super.checkInTardyQuery(matches, date);
+  async checkInTardy(matches, date, cutoff_date) {
+    const checkInTardyQuery = super.checkInTardyQuery(matches, date, cutoff_date);
     return await db.queryAsync(checkInTardyQuery);
   }
 
