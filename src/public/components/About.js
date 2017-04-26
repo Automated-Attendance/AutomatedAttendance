@@ -8,29 +8,33 @@ const About = () => {
       <h3 className="header text-center">This is an automated attendance application for <a href="https://www.hackreactor.com/">Hack Reactor</a> students and staff.<br/></h3>
       <hr/>
 
-      <div className="col-md-3">
+      <div className="col-md-4">
         <ul>
-          <li>
-          <a className="about-link" href="#create-account">How do I create an account?</a>
+          <li className="question-block">
+            <a className="about-link" href="#create-account">How do I create an account?</a>
+          </li>
+
+          <li className="question-block">
+            <a className="about-link" href="#admin-privs">What privileges do admins have?</a>
           </li>
         </ul>
       </div>
 
       <div className="col-md-8 about-answers-block">
 
-        <div>
+        <div className="answer-text-block">
           <h4 id ="create-account"className="testimonials-text negative-margin-link"> How do I create an account?</h4>
           <p>To create an account, simply login with your github credentials.</p>
         </div>
 
+        <div>
+          <h4 id="admin-privs" className="testimonials-text negative-margin-link"> What privileges do Admins have?</h4>
+          <p>Admins can toggle existing accounts between 'admin' and 'student' status. 
+          They can also add and remove students to classes. 
+          Admins can create and delete classes.</p>
+        </div>
 
-        <h4>Accounts:</h4>
-        <p>
-          To create an account, simply log in with your GitHub credentials.<br/>
-          Admin(istrator)s can toggle existing accounts between 'admin' and 'student' status.<br/>
-          Admins can add and remove students to classes.<br/>
-          Admins can create and delete classes.
-        </p><br/>
+
         <h4>Daily Use:</h4>
         <p>
           As an admin, log in and navigate to the camera page.<br/>
