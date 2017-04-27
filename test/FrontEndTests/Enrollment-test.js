@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import axios from 'axios';
 import Enrollment from '../../src/public/components/Enrollment';
 import ToggleStatus from '../../src/public/components/ToggleStatus';
+import Landing from '../../src/public/components/LandingPage/LandingIndex';
 
 const setTimeoutAsync = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -252,6 +253,14 @@ describe('<Enrollment/> toggleOff()', function() {
     const wrapper = mount(<Enrollment />);
     wrapper.instance().toggleOff('classAdded', 'studentOptionsByClass', 'statusToggled','selectedStudentToggleStatus', 'selectedStatus');
     setTimeout(() => done(), 5100);
+  });
+
+});
+
+describe('<Landing/>', function() {
+
+  it('Should mount', function() {
+    const wrapper = mount(<Landing />);
   });
 
 });
