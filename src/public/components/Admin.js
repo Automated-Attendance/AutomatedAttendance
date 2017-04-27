@@ -153,6 +153,7 @@ export default class Admin extends React.Component {
             classes={this.state.classes}
             statuses={this.state.statuses}
           />
+          <br/>
           <button
             className="login-button btn btn-primary"
             onClick={this.toggleEditAttendance}
