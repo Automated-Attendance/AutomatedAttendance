@@ -5,12 +5,14 @@ import StudentAttendanceTable from './tables/StudentAttendanceTable';
 export default class Student extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       attendance: [],
       classes: {},
       statuses: {},
       attendanceInterval: null
     };
+
     this.getAttendance = this.getAttendance.bind(this);
   }
 
@@ -18,7 +20,7 @@ export default class Student extends React.Component {
     await this.getAttendance();
     let attendanceInterval = setInterval(async () => {
       await this.getAttendance();
-    }, 30000);
+    }, 5000);
     this.setState({attendanceInterval});
   }
 
