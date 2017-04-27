@@ -8,8 +8,8 @@ export default class RemoveClass extends React.Component {
   render() {
     return (
       <div>
-        <h3 className="text-center">Delete Class</h3>
         <div className="col-md-6 enrollment-input">
+        <h3 className="text-center">Delete Class</h3>
           Class:
           <Select 
             placeholder="Select Class(es)..."
