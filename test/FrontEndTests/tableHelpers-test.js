@@ -75,11 +75,11 @@ describe('<tableHelpers />', function() {
     expect(time).to.equal('');
   });
 
-  it('should sort full names by last name', () => {
+  it('should sort full names by last name in descending order', () => {
     const names = tableHelpers.nameSort(
       {
         'first_name': 'Andrew',
-        'last_name': 'Bobby'
+        'last_name': 'Brown'
       },
       {
         'first_name': 'Andrew',
@@ -90,7 +90,7 @@ describe('<tableHelpers />', function() {
     expect(names).to.equal(-1);
   });
   
-  it('should sort full names by first name', () => {
+  it('should sort full names by first name in descending order', () => {
     const names = tableHelpers.nameSort(
       {
         'first_name': 'Bobby',
@@ -105,11 +105,11 @@ describe('<tableHelpers />', function() {
     expect(names).to.equal(-1);
   });
 
-  it('should sort full names by last name', () => {
-    var names = tableHelpers.nameSort(
+  it('should sort full names by last name in ascending order', () => {
+    const names = tableHelpers.nameSort(
       {
         'first_name': 'Andrew',
-        'last_name': 'Bobby'
+        'last_name': 'Brown'
       },
       {
         'first_name': 'Andrew',
@@ -120,7 +120,7 @@ describe('<tableHelpers />', function() {
     expect(names).to.equal(1);
   });
   
-  it('should sort full names by first name', () => {
+  it('should sort full names by first name in ascending order', () => {
     var names = tableHelpers.nameSort(
       {
         'first_name': 'Bobby',
@@ -135,6 +135,32 @@ describe('<tableHelpers />', function() {
     expect(names).to.equal(1);
   });
 
+  it('should extract first and last name from student property', () => {
+    var names = tableHelpers.nameSort(
+      {
+        'student': 'Andrew Brown'
+      },
+      {
+        'student': 'Andrew Alonis'
+      },
+      'asc'
+    );
+    expect(names).to.equal(1);
+  });
+  
+  it('should extract first and last name from student property when only one name', () => {
+    var names = tableHelpers.nameSort(
+      {
+        'student': 'Andrew'
+      },
+      {
+        'student': 'Bobby'
+      },
+      'asc'
+    );
+    expect(names).to.equal(-1);
+  });
+  
   it('should pad numbers with zeros to specified width', () => {
     const num = tableHelpers.zeroFill(123, 5);
     expect(num).to.equal('00123');
