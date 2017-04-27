@@ -8,8 +8,8 @@ export default class RemoveClass extends React.Component {
   render() {
     return (
       <div>
-        <div className="col-md-6 enrollment-input">
         <h3 className="text-center">Delete Class</h3>
+        <div className="col-md-6 enrollment-input">
           Class:
           <Select 
             placeholder="Select Class(es)..."
@@ -22,7 +22,7 @@ export default class RemoveClass extends React.Component {
 
           <button type="button" className="deleteRecord btn btn-danger pull-left" data-toggle="modal" data-target="#myModal">
             <span className="glyphicon glyphicon-trash"/>
-            Delete Class -Han
+            Delete Class
           </button>
 
           {this.props.selectedClass.length ?  
