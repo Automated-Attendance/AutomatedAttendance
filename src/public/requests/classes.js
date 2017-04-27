@@ -3,7 +3,7 @@ import axios from 'axios';
 const getAttendanceRecordDate = async ({date}) => {
   try {
     const response = await axios.get(`/getAttendanceRecordDate?date=${date}`) 
-    return response.status === 200;
+    return response.status === 202;
   } catch (err){
     console.error(err);
   }
@@ -54,7 +54,7 @@ const getEnrollment = async () => {
     let enrollment = data[0].map((record) => {
       return {
         class: record.class_name,
-        student: `${record.first_name} ${record.last_name}`
+        student: `${record.first_name}${record.last_name ? ' ' + record.last_name : ''}`
       };
     });
     return {enrollment: enrollment};

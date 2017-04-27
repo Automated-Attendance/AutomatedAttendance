@@ -51,12 +51,12 @@ describe('<Navigation />', function() {
 
   it('shows the Camera page to admin accounts', () => {
     const wrapper = shallow(<Navigation userPrivs={adminProps}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>)).to.equal(true);
+    expect(wrapper.contains(<li><Link to="/Camera"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>)).to.equal(true);
   });
 
   it('hides the Camera page to users not authorized', () => {
     const wrapper = shallow(<Navigation userPrivs={notLoggedIn}/>);
-    expect(wrapper.contains(<li><Link to="/CameraPage"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>)).to.equal(false);
+    expect(wrapper.contains(<li><Link to="/Camera"><span className="glyphicon glyphicon-camera" aria-hidden/>Camera</Link></li>)).to.equal(false);
   });
 
   it('shows the login link to users not authorized', () => {

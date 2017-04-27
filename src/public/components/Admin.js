@@ -1,23 +1,14 @@
 import React from 'react';
 import Moment from 'moment';
 import Spinner from './Spinner';
-import Select from 'react-select';
-import MomentTZ from 'moment-timezone';
-import { Link } from 'react-router-dom';
-import 'react-select/dist/react-select.css';
-import { getAllUsers } from '../requests/users';
-import 'react-widgets/lib/less/react-widgets.less';
-import tableHelpers from '../helpers/tableHelpers.js'
-import DateTime from 'react-widgets/lib/DateTimePicker';
-import VirtualizedSelect from 'react-virtualized-select';
-import { changeAttendanceStatus } from '../requests/students';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { getAttendanceRecords, getAttendanceRecordDate } from '../requests/classes';
+import {getAllUsers} from '../requests/users';
+import {changeAttendanceStatus} from '../requests/students';
+import {getAttendanceRecords, getAttendanceRecordDate} from '../requests/classes';
 import AllAttendanceTable from './tables/AllAttendanceTable';
-
-// init time localization for DateTimePicker
-momentLocalizer(Moment);
+import EditAttendance from './EditAttendance';
+import 'react-select/dist/react-select.css';
+import 'react-widgets/lib/less/react-widgets.less';
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -32,35 +23,37 @@ export default class Admin extends React.Component {
       selectedStudent: '',
       selectedStatus: '',
       statusUpdated: false,
-      studentOptions: [],
       spinner: false,
-      attendanceInterval: null,
       changeNeeded: false,
+      attendanceInterval: null,
+      studentOptions: [],
       statusOptions: [
         {label: 'On time', value: 'On time'},
         {label: 'Tardy', value: 'Tardy'},
         {label: 'Absent', value: 'Absent'},
         {label: 'Pending', value: 'Pending'}
-      ]
+      ],
+      recordDeleted: false
     };
 
-    ['getAttendance',
-    'getExistingUserList',
-    'updateSelectedDate',
+    ['populateTable',
+    'getStudentOptions',
+    'handleChangeDate',
+    'handleChangeSelect',
+    'handleSubmitUpdateStatus',
     'deleteRecord',
-    'handleUpdateStatusSubmit',
-    'toggleChangeAttendance',
-    'toggleOff'].forEach((method) => {
+    'toggleEditAttendance',
+    'toggleOff'].forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   async componentWillMount() {
-    await this.getAttendance();
+    await this.populateTable();
     let attendanceInterval = setInterval(async () => {
-      await this.getAttendance();
+      await this.populateTable();
     }, 30000);
-    await this.getExistingUserList();
+    await this.getStudentOptions();
     this.setState({attendanceInterval});
   }
 
@@ -68,30 +61,21 @@ export default class Admin extends React.Component {
     clearInterval(this.state.attendanceInterval);
   }
 
-  async deleteRecord() {
-    const momentDay = Moment().format("YYYY-MM-DD");
-    await getAttendanceRecordDate({date: momentDay});
-  }
-
-  async getAttendance() {
+  async populateTable() {
     const queryType = {queryType: 'allAttendance'};
-    const attendanceRecords = await getAttendanceRecords(queryType);   
-    attendanceRecords.forEach((item) => {
+    const attendanceRecords = await getAttendanceRecords(queryType);
+    attendanceRecords.forEach(item => {
       if (!this.state.classes[item.class_name]) {
         let thisClass = this.state.classes;
         thisClass[item.class_name] = item.class_name;
-        this.setState({
-          classes: thisClass
-        });
+        this.setState({classes: thisClass});
       }
       if (!this.state.statuses[item.status]) {
         let thisStatus = this.state.statuses;
         thisStatus[item.status] = item.status;
-        this.setState({
-          statuses: thisStatus
-        });
+        this.setState({statuses: thisStatus});
       }
-      let fullName = `${item.first_name} ${item.last_name}`;
+      let fullName = `${item.first_name}${item.last_name ? ' ' + item.last_name : ''}`;
       item.full_name = fullName;
       /* istanbul ignore else  */
       if (!this.state.emails[item.email]) {
@@ -99,53 +83,63 @@ export default class Admin extends React.Component {
         let thisStudent = this.state.students;
         thisEmail[item.email] = item.email;
         thisStudent[fullName] = fullName;
-        this.setState({
-          emails: thisEmail,
-          students: thisStudent
-        });
+        this.setState({emails: thisEmail, students: thisStudent});
       }
     });
     this.setState({attendance: attendanceRecords});
   }
 
-  async getExistingUserList() {
+  async getStudentOptions() {
     const users = await getAllUsers();
-    this.setState({ studentOptions: users });
+    this.setState({studentOptions: users});
   }
 
-  updateSelectedDate(e) {
+  handleChangeDate(e) {
     let date = Moment([e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes()]).format('YYYY-MM-DD HH:mm:ss');
-    this.setState({ selectedDate: date });
+    this.setState({selectedDate: date});
   }
 
-  async handleUpdateStatusSubmit() {
+  handleChangeSelect(state, selection) {
+    this.setState({[state]: selection});
+  }
+
+  async handleSubmitUpdateStatus() {
     if (this.state.selectedDate && this.state.selectedStudent && this.state.selectedStatus) {
       let data = {
         selectedDate: this.state.selectedDate,
         selectedStudent: this.state.selectedStudent,
         selectedStatus: this.state.selectedStatus
       };
-      this.setState({ spinner: true, statusUpdated: false });
-      this.setState({ statusUpdated: await changeAttendanceStatus(data) });
-      this.setState({ spinner: false });
-      await this.getAttendance();
+      this.setState({spinner: true, statusUpdated: false});
+      this.setState({statusUpdated: await changeAttendanceStatus(data)});
+      this.setState({spinner: false});
+      await this.populateTable();
       this.toggleOff('statusUpdated', 'selectedDate', 'selectedStudent', 'selectedStatus');
     } else {
       alert('Select Date and Student and Status!');
     }
   }
 
-  toggleOff(status, ...states) {
-    setTimeout(() => {
-      this.setState({ [status]: false });
-      states.forEach((state) => {
-        this.setState({ [state]: false});
-      });
-    }, 5000);
+  async deleteRecord() {
+    const momentDay = Moment().format("YYYY-MM-DD");
+    this.setState({spinner: true, recordDeleted: false});
+    this.setState({recordDeleted: await getAttendanceRecordDate({date: momentDay})});
+    this.setState({spinner: false});
+    await this.populateTable();
+    this.toggleOff('recordDeleted');
   }
 
-  toggleChangeAttendance() {
+  toggleEditAttendance() {
     this.setState({changeNeeded: !this.state.changeNeeded});
+  }
+
+  toggleOff(status, ...states) {
+    setTimeout(() => {
+      this.setState({[status]: false});
+      states.forEach(state => {
+        this.setState({[state]: false});
+      });
+    }, 5000);
   }
 
   render() {
@@ -159,61 +153,36 @@ export default class Admin extends React.Component {
             classes={this.state.classes}
             statuses={this.state.statuses}
           />
-          <hr/>
-          <button className="login-button btn btn-primary" onClick={this.toggleChangeAttendance}>
-            <span className="glyphicon glyphicon-edit"/>Edit Attendance
+          <button
+            className="login-button btn btn-primary"
+            onClick={this.toggleEditAttendance}
+          >
+            <span className="glyphicon glyphicon-edit"/>
+            Edit Attendance
           </button>
         </div>
-
         <CSSTransitionGroup 
           transitionName="attendance-change"
           transitionEnterTimeout={700}
-          transitionLeaveTimeout={500}>
+          transitionLeaveTimeout={500}
+        >
           {this.state.changeNeeded ? 
-            <div className="col-md-5 attendance-page-form">
-              <h3 className="text-center">Change Attendance Records</h3>
-
-              Date:
-              <DateTime
-                onChange={this.updateSelectedDate}
-                placeholder="Select Date..."
-                time={false}
-              />
-
-              <br/>
-
-              Student:
-              <div onClick={!this.state.studentOptions.length && this.getExistingUserList}>
-                <VirtualizedSelect
-                  options={this.state.studentOptions ? this.state.studentOptions : [{ label: 'Error loading data..', value: '' }]}
-                  onChange={selectedUser => this.setState({ selectedStudent: selectedUser })}
-                  value={this.state.selectedStudent}
-                  placeholder="Select Student..."
-                />
-              </div>
-
-              <br/>
-
-              Status:
-              <div>
-                <Select
-                  simpleValue
-                  value={this.state.selectedStatus}
-                  placeholder="Select Status..."
-                  options={this.state.statusOptions}
-                  onChange={selected => this.setState({ selectedStatus: selected })}
-                />
-              </div>
-
-              <br/>
-
-              <button className="btn btn-success" onClick={this.handleUpdateStatusSubmit}><span className="glyphicon glyphicon-ok"/> Submit Changes</button>
-              <button className="deleteRecord btn btn-danger pull-right" onClick={this.deleteRecord}><span className="glyphicon glyphicon-trash"/> Delete Today's Record</button>
-              {!this.state.statusUpdated ? null : <h5>Changed {this.state.selectedStudent.label.slice(0, this.state.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.state.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.state.selectedStatus}'!</h5>}
-            </div>
-          : null}
+            <EditAttendance
+              statusUpdated={this.state.statusUpdated}
+              recordDeleted={this.state.recordDeleted}
+              selectedStudent={this.state.selectedStudent}
+              selectedStatus={this.state.selectedStatus}
+              studentOptions={this.state.studentOptions}
+              statusOptions={this.state.statusOptions}
+              handleChangeDate={this.handleChangeDate}
+              handleChange={this.handleChangeSelect}
+              handleSubmit={this.handleSubmitUpdateStatus}
+              deleteRecord={this.deleteRecord}
+            /> :
+            null
+          }
         </CSSTransitionGroup>
       </div>
     );
   }
-}
+};

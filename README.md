@@ -7,7 +7,9 @@
 
 # Automated Attendance
 
-> A facial recognition based attendance system for Hack Reactor.
+> A facial recognition based automated attendance system for Hack Reactor students and staff.
+> <a href="https://automatedattendance.herokuapp.com/">automatedattendance.herokuapp.com</a>"
+
 
 ## Team
 
@@ -51,10 +53,27 @@ npm install
 bower install
 ```
 
-### Roadmap
+### Local development
 
-View the project roadmap [here](LINK_TO_DOC)
+```sh
+npm run build
+npm run s
+```
 
+### Testing
+
+```sh
+npm test
+```
+> Then view code coverage by opening ~/coverage/report/index.html
+ßß
+### Technology
+
+- React, NodeJS, ExpressJS, MySQL
+- Kairos API (facial recoginition)
+- Cloudinary API (photo storage)
+- Mailgun API (emails)
+- OAuth API (accounts)
 
 ## Contributing
 
