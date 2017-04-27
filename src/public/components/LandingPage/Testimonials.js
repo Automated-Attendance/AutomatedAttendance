@@ -18,7 +18,7 @@ const Testimonials = () => {
                 Not having to check in every morning has increased my morning productivity by a thousand times.
                 As soon as I walk through the door I get an email saying I have been checked in for the day.
                 It's one less thing to tackle every morning which is great.
-                This app is the greatest thing since the internet.
+                I'd recommend this app to anyone with a need for increased productivity.
               </p>
             </div>
           </div>
