@@ -52,7 +52,7 @@ export default class Admin extends React.Component {
     await this.populateTable();
     let attendanceInterval = setInterval(async () => {
       await this.populateTable();
-    }, 30000);
+    }, 3000);
     await this.getStudentOptions();
     this.setState({attendanceInterval});
   }
