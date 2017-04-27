@@ -12,6 +12,7 @@ export default class StudentAttendanceTable extends React.Component {
           maxHeight='750px'
           scrollTop={'Top'}
           multiColumnSort={5}
+          options={{defaultSortName: 'cutoff_time'}}
           striped
           hover
           condensed
