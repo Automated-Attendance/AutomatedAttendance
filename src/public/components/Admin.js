@@ -145,6 +145,7 @@ export default class Admin extends React.Component {
   render() {
     return (
       <div className="container">
+        {this.state.spinner && <Spinner/>}
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
           <AllAttendanceTable
