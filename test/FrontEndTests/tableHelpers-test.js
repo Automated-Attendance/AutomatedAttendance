@@ -50,18 +50,28 @@ describe('<tableHelpers />', function() {
     expect(date).to.equal('Wednesday, April 12, 2017');
   });
   
-  it('should format time to string', () => {
-    const time = tableHelpers.timeFormatter('2017-04-12 04:21:36');
+  it('should format cutoff time to string', () => {
+    const time = tableHelpers.cutoffTimeFormatter('2017-04-12 04:21:36');
+    expect(time).to.equal('4:21');
+  });
+  
+  it('should format checkin time to string', () => {
+    const time = tableHelpers.checkinTimeFormatter('2017-04-12 04:21:36');
     expect(time).to.equal('4:21:36');
   });
   
   it('should format time string with padding zeros', () => {
-    const time = tableHelpers.timeFormatter('2017-04-12 04:01:06');
+    const time = tableHelpers.checkinTimeFormatter('2017-04-12 04:01:06');
     expect(time).to.equal('4:01:06');
   });
 
-  it('should return an empty string if provided with NULL date', () => {
-    const time = tableHelpers.timeFormatter(null);
+  it('should return an empty string if provided with NULL cutoff date', () => {
+    const time = tableHelpers.cutoffTimeFormatter(null);
+    expect(time).to.equal('');
+  });
+
+  it('should return an empty string if provided with NULL checkin date', () => {
+    const time = tableHelpers.checkinTimeFormatter(null);
     expect(time).to.equal('');
   });
 
