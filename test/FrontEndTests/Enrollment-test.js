@@ -40,9 +40,9 @@ describe('<Enrollment/> handleSubmitToggleStatus()', () => {
     testFn.restore();
   });
 
-  xit ('should not toggle status if states are empty', () => {
+  it ('should not toggle status if states are empty', () => {
     const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitToggleStatus');
-    const wrapper = shallow(<ToggleStatus/>);
+    const wrapper = mount(<Enrollment/>);
     wrapper.find('.handleSubmitToggleStatus').simulate('click');
     expect(wrapper.state().statusToggled).to.equal(false);
     testFn.restore();
