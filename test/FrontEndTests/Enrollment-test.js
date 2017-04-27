@@ -209,3 +209,38 @@ describe('<Enrollment/> handleSubmitRemoveStudent()', function() {
     testFn.restore();
   });
 });
+
+describe('<Enrollment/> handleSubmitRemoveClass()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitRemoveClass on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveClass');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassRemoveClass: 'testing' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveClass');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
