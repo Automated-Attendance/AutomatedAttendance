@@ -13,6 +13,7 @@ import 'react-widgets/lib/less/react-widgets.less';
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       attendance: [],
       classes: {},
