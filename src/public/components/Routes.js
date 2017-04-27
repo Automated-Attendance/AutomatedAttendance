@@ -9,7 +9,7 @@ import LoginRedirect from './LoginRedirect';
 import Landing from './LandingPage/LandingIndex';
 import {Route} from 'react-router-dom';
 
-const Routes = ({userPrivs}) => {
+const Routes = ({userPrivs, toggleSpinner}) => {
   /* istanbul ignore next */
   return (
     <div>
@@ -17,9 +17,9 @@ const Routes = ({userPrivs}) => {
       <Route path="/About" component={About}/>
       <Route path="/Contact" component={Contact}/>
       <Route path="/Student" component={() => userPrivs.isLoggedIn && !userPrivs.isAdmin ? <Student userPrivs={userPrivs}/> : <LoginRedirect userPrivs={userPrivs}/>}/>
-      <Route path="/Camera" component={() => userPrivs.isAdmin ? <Camera/> : <LoginRedirect userPrivs={userPrivs}/>}/>
+      <Route path="/Camera" component={() => userPrivs.isAdmin ? <Camera toggleSpinner={toggleSpinner}/> : <LoginRedirect userPrivs={userPrivs}/>}/>
       <Route path="/Admin" component={() => userPrivs.isAdmin ? <Admin/> : <LoginRedirect userPrivs={userPrivs}/>}/>
-      <Route path="/Enrollment" component={() => userPrivs.isAdmin ? <Enrollment/> : <LoginRedirect userPrivs={userPrivs}/>}/>
+      <Route path="/Enrollment" component={() => userPrivs.isAdmin ? <Enrollment toggleSpinner={toggleSpinner}/> : <LoginRedirect userPrivs={userPrivs}/>}/>
     </div>
   );
 };
