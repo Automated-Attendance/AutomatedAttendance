@@ -215,6 +215,7 @@ export default class Enrollment extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
+      /* istanbul ignore else */
       if (status) {
         this.setState({[status]: false});
       }

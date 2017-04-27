@@ -244,3 +244,14 @@ describe('<Enrollment/> handleSubmitRemoveClass()', function() {
     testFn.restore();
   });
 });
+
+describe('<Enrollment/> toggleOff()', function() {
+
+  it('toggleOff should change states', function(done) {
+    this.timeout(6000);
+    const wrapper = mount(<Enrollment />);
+    wrapper.instance().toggleOff('classAdded', 'studentOptionsByClass', 'statusToggled','selectedStudentToggleStatus', 'selectedStatus');
+    setTimeout(() => done(), 5100);
+  });
+
+});
