@@ -51,18 +51,34 @@ export default class EditAttendance extends React.Component {
           <span className="glyphicon glyphicon-ok"/>
           Submit Changes
         </button>
-        <button
-          className="deleteRecord btn btn-danger pull-right"
-          onClick={() => {
-            let proceed = confirm('Are you sure?\nThis will delete all attendance records for today!');
-            if (proceed) {
-              this.props.deleteRecord();
-            }
-          }}
-        >
+
+
+        <button type="button" className="deleteRecord btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
           <span className="glyphicon glyphicon-trash"/>
-          Delete Today's Record
+          Delete Today's Record -Han's
         </button>
+
+        <div className="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 className="modal-title default" id="myModalLabel">Delete Record</h3>
+              </div>
+              <div className="modal-body">
+                <h4>Are you sure? </h4>
+                <h4>This will delete all attendance records for today!</h4>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="button" className="btn btn-success"data-dismiss="modal" onClick={ ()=>{
+                  this.props.deleteRecord();
+                }}>Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {!this.props.statusUpdated ? null : <h5>Changed {this.props.selectedStudent.label.slice(0, this.props.selectedStudent.label.indexOf('-') - 1)}'s attendance status for {Moment(this.props.selectedDate).format('dddd, MMMM Do, YYYY')} to '{this.props.selectedStatus}'!</h5>}
         {!this.props.recordDeleted ? null : <h5>Deleted today's attendance records for all classes!</h5>}
       </div>
