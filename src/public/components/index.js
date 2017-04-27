@@ -24,8 +24,8 @@ export default class App extends React.Component {
     this.setState(loginStatus);
   }
 
-  toggleSpinner() {
-    this.setState({ spinner: !this.state.spinner });
+  toggleSpinner(bool) {
+    this.setState({ spinner: bool ? true : false });
   }
 
   render () {
