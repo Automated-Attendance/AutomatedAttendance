@@ -84,7 +84,7 @@ export default class Camera extends React.Component {
     const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn && checkedIn.length) {
-      checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name ? ' ' + student.last_name : ''}`));
+      checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`));
     }
     this.setState({spinner: false, checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
   }
