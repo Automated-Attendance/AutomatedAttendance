@@ -141,6 +141,7 @@ export default class Enrollment extends React.Component {
       this.setState({studentAdded: await storeStudentData(data)});
       this.setState({spinner: false});
       await this.populateTable();
+      await this.getClassOptions();
       this.toggleOff('studentAdded', 'selectedStudentAddStudent', 'selectedClassAddStudent', 'studentPhoto');
       this.clearDOMRefs();
     } else {
@@ -154,8 +155,8 @@ export default class Enrollment extends React.Component {
       this.setState({spinner: true, classRemoved: false});
       this.setState({classRemoved: await removeClasses(data)});
       this.setState({spinner: false});
-      await this.getClassOptions();
       await this.populateTable();
+      await this.getClassOptions();
       this.toggleOff('classRemoved', 'selectedClassRemoveClass');
     } else {
       alert('Select Class(es)!');
@@ -172,6 +173,7 @@ export default class Enrollment extends React.Component {
       this.setState({studentRemoved: await removeStudentData(data)});
       this.setState({spinner: false});
       await this.populateTable();
+      await this.getClassOptions();
       this.toggleOff('studentRemoved', 'selectedStudentRemoveStudent', 'selectedClassRemoveStudent');
     } else {
       alert('Select Class(es) and Student!');
