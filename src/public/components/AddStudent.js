@@ -1,12 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select'
-import 'react-select/dist/react-select.css'
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import VirtualizedSelect from 'react-virtualized-select';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 export default class AddStudent extends React.Component {
   render() {
+    /* istanbul ignore next */
     return (
       <div>
         <h3 className="text-center">Add Student to Class</h3>
