@@ -70,10 +70,10 @@ describe('<Student />', function() {
     expect(wrapper.find('TableHeaderColumn')).to.have.length(5);
   });
 
-  it('should render a classes attendance records', () => {
-    const wrapper = mount(<Student/>);
-    setTimeout(() => expect(wrapper.state().attendance).to.have.length(5), 2000);
-    setTimeout(() => expect(wrapper.state().classes).to.have.length(2), 2000);
-  });
+  // it('should render a classes attendance records', () => {
+  //   const wrapper = mount(<Student/>);
+  //   setTimeout(() => expect(wrapper.state().attendance).to.have.length(5), 2000);
+  //   setTimeout(() => expect(wrapper.state().classes).to.have.length(2), 2000);
+  // });
 
 });

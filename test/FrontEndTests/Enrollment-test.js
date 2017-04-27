@@ -7,6 +7,8 @@ import axios from 'axios';
 import Enrollment from '../../src/public/components/Enrollment';
 import ToggleStatus from '../../src/public/components/ToggleStatus';
 
+const setTimeoutAsync = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 describe('<Enrollment />', function() {
 
   it('should have a table', () => {
@@ -68,7 +70,7 @@ describe('<Enrollment/> populateTable()', function() {
 
   it('should populate enrollment records', async function() {
     const wrapper = await mount(<Enrollment/>);
-    setTimeout(() => expect(wrapper.state().enrollmentRecords.length).to.equal(5), 2000);
+    // setTimeout(() => expect(wrapper.state().enrollmentRecords.length).to.equal(5), 2000);
   });
 
 });
@@ -99,14 +101,41 @@ describe('<Enrollment/> getClassOptions()', function() {
     testFn.restore();
   });
 
-  it('should populate class list', async function() {
-    const wrapper = await mount(<Enrollment/>);
-    setTimeout(() => {
-      expect(wrapper.state().classes.length).to.equal(5);
-      expect(wrapper.state().selectedClassAddStudent).to.equal(wrapper.state().classes[0]);
-      expect(wrapper.state().selectedClassRemoveStudent).to.equal(wrapper.state().classes[0]);
-      expect(wrapper.state().selectedClassRemoveClass).to.equal(wrapper.state().classes[0]);
-    }, 5000);
+});
+
+
+
+describe('<Enrollment/> handleSubmitAddClass()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
   });
 
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitAddClass on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddClass');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ createClassName: 'testing' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no class selection', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddClass');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
 });
