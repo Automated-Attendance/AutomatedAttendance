@@ -13,10 +13,7 @@ export default class App extends React.Component {
       isLoggedIn: false,
       isAdmin: false,
       userEmail: null,
-      spinner: false
     };
-
-    this.toggleSpinner = this.toggleSpinner.bind(this);
   }
 
   async componentWillMount() {
@@ -24,16 +21,11 @@ export default class App extends React.Component {
     this.setState(loginStatus);
   }
 
-  toggleSpinner(bool) {
-    this.setState({ spinner: bool ? true : false });
-  }
-
   render () {
     return (
       <Router>
         <div>
           <Navigation userPrivs={this.state}/>
-          {this.state.spinner && <Spinner/>}
           <Routes 
             userPrivs={this.state}
             toggleSpinner={this.toggleSpinner}
