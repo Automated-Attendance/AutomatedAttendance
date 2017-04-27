@@ -60,12 +60,12 @@ describe('<Admin/>', function() {
     testFn.restore();
   });
 
-  xit('should call handleSubmitUpdateStatus on button click', () => {
+  it('should call handleSubmitUpdateStatus on button click', () => {
     const testFn = sinon.spy(Admin.prototype, 'handleSubmitUpdateStatus');
     const wrapper = mount(<Admin/>);
+    wrapper.setState({ 'changeNeeded': true, 'selectedDate': 'test', 'selectedStudent': 'testing', 'selectedStatus': 'testing' });
     expect(testFn.called).to.equal(false);
-    wrapper.find('.login-button').simulate('click');
-    wrapper.find('.handleSubmitUpdateStatus').simulate('click');
+    wrapper.find('.updateStatusSubmit').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();  
   });

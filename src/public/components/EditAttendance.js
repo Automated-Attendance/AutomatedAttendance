@@ -45,7 +45,7 @@ export default class EditAttendance extends React.Component {
         </div>
         <br/>
         <button
-          className="btn btn-success"
+          className="btn btn-success updateStatusSubmit"
           onClick={this.props.handleSubmit}
         >
           <span className="glyphicon glyphicon-ok"/>
