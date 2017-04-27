@@ -200,6 +200,24 @@ video {
   padding: 2em;
 }
 
+/* Enrollment Page */
+ 
+
+ .enrollment-form {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 2em;
+}
+
+.enrollment-input {
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+
+
+
 
 /* change attendance transition */
 

@@ -6,9 +6,9 @@ export default class RemoveClass extends React.Component {
   render() {
     return (
       <div>
-        <h3>Delete Class</h3>
-        Class:
-        <div>
+        <h3 className="text-center">Delete Class</h3>
+        <div className="col-md-6 enrollment-input">
+          Class:
           <Select 
             placeholder="Select Class(es)..."
             value={this.props.selectedClass}
@@ -16,10 +16,10 @@ export default class RemoveClass extends React.Component {
             onChange={selectedClass => this.props.handleChange('selectedClassRemoveClass', selectedClass)}
             simpleValue
             multi
-          />
-        </div><br/>
+          /><br/>
         <button onClick={this.props.handleSubmit}>Delete Class</button>
         {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
+        </div>
       </div>
     );
   }
