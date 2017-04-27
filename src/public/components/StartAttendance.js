@@ -13,7 +13,7 @@ export default class StartAttendance extends React.Component {
     return (
       <div className="col-md-4 start-attendance-form">
         <h3 className="text-center">Start Daily Attendance</h3>
-        <hr />
+        <br/>
         <h5 className="form-title">Class:</h5>
         <div className="classSelect">
           <Select

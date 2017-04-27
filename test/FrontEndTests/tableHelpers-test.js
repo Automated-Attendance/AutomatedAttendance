@@ -77,14 +77,8 @@ describe('<tableHelpers />', function() {
 
   it('should sort full names by last name in descending order', () => {
     const names = tableHelpers.nameSort(
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Brown'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Andrew', 'last_name': 'Brown'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'desc'
     );
     expect(names).to.equal(-1);
@@ -92,14 +86,8 @@ describe('<tableHelpers />', function() {
   
   it('should sort full names by first name in descending order', () => {
     const names = tableHelpers.nameSort(
-      {
-        'first_name': 'Bobby',
-        'last_name': 'Alonis'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Bobby', 'last_name': 'Alonis'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'desc'
     );
     expect(names).to.equal(-1);
@@ -107,14 +95,8 @@ describe('<tableHelpers />', function() {
 
   it('should sort full names by last name in ascending order', () => {
     const names = tableHelpers.nameSort(
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Brown'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Andrew', 'last_name': 'Brown'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'asc'
     );
     expect(names).to.equal(1);
@@ -122,14 +104,8 @@ describe('<tableHelpers />', function() {
   
   it('should sort full names by first name in ascending order', () => {
     var names = tableHelpers.nameSort(
-      {
-        'first_name': 'Bobby',
-        'last_name': 'Alonis'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Bobby', 'last_name': 'Alonis'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'asc'
     );
     expect(names).to.equal(1);
@@ -137,12 +113,8 @@ describe('<tableHelpers />', function() {
 
   it('should extract first and last name from student property', () => {
     var names = tableHelpers.nameSort(
-      {
-        'student': 'Andrew Brown'
-      },
-      {
-        'student': 'Andrew Alonis'
-      },
+      {'student': 'Andrew Brown'},
+      {'student': 'Andrew Alonis'},
       'asc'
     );
     expect(names).to.equal(1);
@@ -150,12 +122,8 @@ describe('<tableHelpers />', function() {
   
   it('should extract first and last name from student property when only one name', () => {
     var names = tableHelpers.nameSort(
-      {
-        'student': 'Andrew'
-      },
-      {
-        'student': 'Bobby'
-      },
+      {'student': 'Andrew'},
+      {'student': 'Bobby'},
       'asc'
     );
     expect(names).to.equal(-1);

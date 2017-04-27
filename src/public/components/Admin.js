@@ -147,7 +147,6 @@ export default class Admin extends React.Component {
       <div className="container">
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
-          <hr/>
           <AllAttendanceTable
             attendance={this.state.attendance}
             classes={this.state.classes}
