@@ -139,3 +139,39 @@ describe('<Enrollment/> handleSubmitAddClass()', function() {
     testFn.restore();
   });
 });
+
+describe('<Enrollment/> handleSubmitAddStudent()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitAddStudent on button clicsk', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddStudent');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassAddStudent: 'testing', selectedStudentAddStudent: 'testingtwo', studentPhoto: 'nophoto' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+    await setTimeoutAsync(6000);
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddStudent');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
