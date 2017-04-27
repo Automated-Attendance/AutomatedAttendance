@@ -155,7 +155,7 @@ describe('<Enrollment/> handleSubmitAddStudent()', function() {
   });
 
 
-  it('should call handleSubmitAddStudent on button clicsk', async function() {
+  it('should call handleSubmitAddStudent on button click', async function() {
     const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddStudent');
     const wrapper = mount(<Enrollment />);
     wrapper.setState({ selectedClassAddStudent: 'testing', selectedStudentAddStudent: 'testingtwo', studentPhoto: 'nophoto' });
@@ -163,7 +163,6 @@ describe('<Enrollment/> handleSubmitAddStudent()', function() {
     wrapper.find('.handleSubmitAddStudent').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
-    await setTimeoutAsync(6000);
   });
 
   it('should alert on no form filled', async function() {
