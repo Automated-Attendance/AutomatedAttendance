@@ -7,6 +7,7 @@ import 'react-virtualized-select/styles.css';
 
 export default class ToggleStatus extends React.Component {
   render() {
+    /* istanbul ignore next */
     return (
       <div>
         <h3 className="text-center">Change Admin/Student Status</h3>

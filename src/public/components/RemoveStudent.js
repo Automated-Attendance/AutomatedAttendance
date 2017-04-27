@@ -7,6 +7,7 @@ import 'react-virtualized-select/styles.css';
 
 export default class RemoveStudent extends React.Component {
   render() {
+    /* istanbul ignore next */
     return (
       <div>
         <h3 className="text-center">Remove Student from Class</h3>
