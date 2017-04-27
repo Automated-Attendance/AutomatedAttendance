@@ -74,7 +74,7 @@ export default class Camera extends React.Component {
       if (currentTime.isAfter(end)) {
         clearInterval(intervalId);
       };
-    }, 3000);
+    }, 1200);
     this.setState({intervalId});
   }
 
