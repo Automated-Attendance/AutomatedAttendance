@@ -307,7 +307,7 @@ export default class Enrollment extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-12">
+        <div className="col-md-offset-2 col-md-8">
           <EnrollmentTable
             classOptions={this.state.classOptionsEnrollment}
             enrollments={this.state.enrollmentRecords}
