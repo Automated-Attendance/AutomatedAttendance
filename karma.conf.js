@@ -79,6 +79,8 @@ module.exports = function(config) {
     client: {
       captureConsole: false
     },
+
+    browserNoActivityTimeout: 15000,
     
     port: 9876,
     colors: true,
