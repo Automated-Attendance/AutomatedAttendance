@@ -49,12 +49,13 @@ describe('<Admin/>', function() {
     expect(wrapper.find('button')).to.have.length(8);
   });
 
-  xit('should delete attendance record on click', () => {
+  it('should delete attendance record on click', () => {
     const testFn = sinon.spy(Admin.prototype, 'deleteRecord');
+    const confirmStub = sinon.stub(global, 'confirm');
+    confirmStub.returns(true);
     const wrapper = mount(<Admin/>);
-    wrapper.find('.login-button').simulate('click');
-    expect(testFn.called).to.equal(false);
-    wrapper.find('.deleteRecord').simulate('click');
+    wrapper.setState({ 'changeNeeded': true });
+    wrapper.find('.delete-record').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
@@ -105,3 +106,5 @@ describe('<Admin/>', function() {
   });
 
 });
+
+

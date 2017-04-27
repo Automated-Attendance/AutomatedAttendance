@@ -52,10 +52,8 @@ export default class EditAttendance extends React.Component {
           Submit Changes
         </button>
 
-
-        <button type="button" className="deleteRecord btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
-          <span className="glyphicon glyphicon-trash"/>
-          Delete Today's Record
+        <button type="button" className="delete-record btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
+          <span className="glyphicon glyphicon-trash"/> Delete Today's Record
         </button>
 
         <div className="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
