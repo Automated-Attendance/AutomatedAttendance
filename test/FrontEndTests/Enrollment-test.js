@@ -174,3 +174,38 @@ describe('<Enrollment/> handleSubmitAddStudent()', function() {
     testFn.restore();
   });
 });
+
+describe('<Enrollment/> handleSubmitRemoveStudent()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitRemoveStudent on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveStudent');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassRemoveStudent: 'testing', selectedStudentRemoveStudent: 'testingtwo' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveStudent');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
