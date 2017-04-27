@@ -1,5 +1,4 @@
 import React from 'react';
-import Spinner from './Spinner';
 import Moment from 'moment';
 import Webcam from 'react-webcam';
 import {getClasses} from '../requests/classes';
@@ -13,7 +12,6 @@ export default class Camera extends React.Component {
     this.state = {
       value: '',
       options: [],
-      spinner: false,
       attendancePopulated: false,
       checkedinUser: null,
       selectedTimeCutoff: null,
@@ -40,6 +38,7 @@ export default class Camera extends React.Component {
   componentWillUnmount() {
     this.setState({mounted: false});
     clearInterval(this.state.intervalId);
+    // this.props.toggleSpinner(false);
   }
 
   async getSelectOptions() {
@@ -57,9 +56,8 @@ export default class Camera extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) {
-      this.setState({spinner: true, statusUpdated: false});
+      this.setState({statusUpdated: false});
       this.setState({attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff)});
-      this.setState({spinner: false});
     } else {
       alert('Select Class(es) and Cutoff Time!');
     }
@@ -72,21 +70,22 @@ export default class Camera extends React.Component {
       let currentTime = Moment();
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
+        this.props.toggleSpinner(false);
         clearInterval(intervalId);
       };
-    }, 1200);
+    }, 3000);
     this.setState({intervalId});
   }
 
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({spinner: true});
+    this.props.toggleSpinner(true);
     const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn && checkedIn.length) {
       checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`));
     }
-    this.setState({spinner: false, checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
+    this.setState({checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
   }
 
   handleSelectChange(value) {
@@ -106,7 +105,6 @@ export default class Camera extends React.Component {
     return (
       <div className="container">
         {this.state.mounted && <div className="col-md-8 webcam-component"><Webcam ref='webcam'/></div>}
-        {this.state.spinner && <Spinner/>}
         {this.state.checkedinUser}
         <StartAttendance
           attendancePopulated={this.state.attendancePopulated}
