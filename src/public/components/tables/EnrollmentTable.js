@@ -1,6 +1,6 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import tableHelpers from '../../helpers/tableHelpers.js';
+import {nameSort} from '../../helpers/tableHelpers.js';
 
 export default class EnrollmentTable extends React.Component {
   render() {
@@ -32,7 +32,7 @@ export default class EnrollmentTable extends React.Component {
             dataField='student'
             width='50%'
             filter={{type: 'TextFilter'}}
-            sortFunc={tableHelpers.nameSort}
+            sortFunc={nameSort}
             filterFormatted
             dataSort
           >
