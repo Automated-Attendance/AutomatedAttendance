@@ -30,10 +30,10 @@ describe('<Enrollment />', function() {
 
 describe('<Enrollment/> handleSubmitToggleStatus()', () => {
 
-  xit ('should call handleSubmitToggleStatus on form click', () => {
+  it ('should call handleSubmitToggleStatus on form click', () => {
     const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitToggleStatus');
-    const wrapper = mount(<ToggleStatus/>);
-    wrapper.setState({selectedStudentToggleStatus: {label: 'Duy Nguyen - nguyenaiden' , value: 'nguyenaiden'}, selectedToggleStatus: 'Student'});
+    const wrapper = mount(<Enrollment/>);
+    wrapper.setState({selectedStudentToggleStatus: {label: 'Duy Nguyen - nguyenaiden' , value: 'nguyenaiden'}, selectedStatus: 'Student'});
     expect(testFn.called).to.equal(false);
     wrapper.find('.handleSubmitToggleStatus').simulate('click');
     expect(testFn.called).to.equal(true);

@@ -182,6 +182,7 @@ export default class Enrollment extends React.Component {
   }
 
   async handleSubmitToggleStatus () {
+    console.log(this.state.selectedStudentToggleStatus, this.state.selectedStatus);
     if (this.state.selectedStudentToggleStatus && this.state.selectedStatus) {
       let data = {
         selectedStatus: this.state.selectedStatus,
