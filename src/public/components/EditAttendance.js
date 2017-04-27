@@ -3,10 +3,10 @@ import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Select from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select'
-import 'react-select/dist/react-select.css'
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import VirtualizedSelect from 'react-virtualized-select';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
