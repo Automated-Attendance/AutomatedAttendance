@@ -3,17 +3,19 @@ import React from 'react';
 export default class AddClass extends React.Component {
   render() {
     return (
-      <div>
-        <h3>Create Class</h3>
+      <div className="col-md-6 enrollment-input">
+        <h3 className="text-center">Create Class</h3>
+        Class:
         <input
+          className="form-control"
           name="createClassName"
-          type="text"
+          type="email"
           placeholder="Enter Class Name"
-          value={this.props.className}
+          value={this.props.createClassName}
           onChange={this.props.handleChange}
-        /><br/><br/>
+        /><br/>
         <button onClick={this.props.handleSubmit}>Create Class</button>
-        {!this.props.classAdded ? null : <h5>Created {this.props.className}!</h5>}
+        {!this.props.classAdded ? null : <h5>Created {this.props.createClassName}!</h5>}
       </div>
     );
   }

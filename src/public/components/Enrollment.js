@@ -238,61 +238,81 @@ export default class Enrollment extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.state.spinner && <Spinner/>}
-        <AddClass
-          classAdded={this.state.classAdded}
-          className={this.state.createClassName}
-          handleChange={this.handleInputChange}
-          handleSubmit={this.handleSubmitAddClass}
-        />
-        <hr/>
-        <AddStudent
-          studentAdded={this.state.studentAdded}
-          selectedClass={this.state.selectedClassAddStudent}
-          selectedStudent={this.state.selectedStudentAddStudent}
-          classOptions={this.state.classOptions}
-          studentOptions={this.state.studentOptions}
-          imageSource={this.state.imageSource}
-          imageValue={this.state.imageValue}
-          imageHeight={this.state.imageHeight}
-          preview={this.previewFile}
-          handleChange={this.handleChangeSelect}
-          handleSubmit={this.handleSubmitAddStudent}
-        />
-        <hr/>
-        <RemoveClass
-          classRemoved={this.state.classRemoved}
-          selectedClass={this.state.selectedClassRemoveClass}
-          classOptions={this.state.classOptions}
-          handleChange={this.handleChangeSelect}
-          handleSubmit={this.handleSubmitRemoveClass}
-        />
-        <hr/>
-        <RemoveStudent
-          studentRemoved={this.state.studentRemoved}
-          selectedClass={this.state.selectedClassRemoveStudent}
-          selectedStudent={this.state.selectedStudentRemoveStudent}
-          classOptions={this.state.classOptions}
-          studentOptions={this.state.studentOptionsByClass}
-          handleClassChange={this.handleChangeSelectRemoveStudent}
-          handleStudentChange={this.handleChangeSelect}
-          handleSubmit={this.handleSubmitRemoveStudent}
-        />
-        <hr/>
-        <ToggleStatus
-          statusToggled={this.state.statusToggled}
-          selectedUser={this.state.selectedStudentToggleStatus}
-          selectedStatus={this.state.selectedStatus}
-          studentOptions={this.state.studentOptions}
-          statusOptions={this.state.statusOptions}
-          handleChange={this.handleChangeSelect}
-          handleSubmit={this.handleSubmitToggleStatus}
-        />
-        <hr/>
-        <EnrollmentTable
-          classOptions={this.state.classOptionsEnrollment}
-          enrollments={this.state.enrollmentRecords}
-        />
+        <div className="row">
+          <div className="col-md-offset-2 col-md-8 card">
+            <ul className="nav nav-tabs" role="tablist">
+              <li role="presentation" className="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Create Class</a></li>
+              <li role="presentation"> <a href="#removeclass" aria-controls="removeclass" role="tab" data-toggle="tab">Remove Class</a></li>
+              <li role="presentation"> <a href="#addstudent" aria-controls="addstudent" role="tab" data-toggle="tab">Add Student</a></li>
+              <li role="presentation"> <a href="#removestudent" aria-controls="removestudent" role="tab" data-toggle="tab">Remove Student</a></li>
+              <li role="presentation"> <a href="#togglestatus" aria-controls="togglestatus" role="tab" data-toggle="tab">Change Status</a></li>
+            </ul> 
+            {this.state.spinner && <Spinner/>}
+            <div className="tab-content">
+              <div role="tabpanel" className="tab-pane active enrollment-form" id="home">
+                <AddClass
+                  classAdded={this.state.classAdded}
+                  createClassName={this.state.createClassName}
+                  handleChange={this.handleInputChange}
+                  handleSubmit={this.handleSubmitAddClass}
+                />
+              </div>
+              <div role="tabpanel" className="tab-pane enrollment-form" id="addstudent">
+                <AddStudent
+                  studentAdded={this.state.studentAdded}
+                  selectedClass={this.state.selectedClassAddStudent}
+                  selectedStudent={this.state.selectedStudentAddStudent}
+                  classOptions={this.state.classOptions}
+                  studentOptions={this.state.studentOptions}
+                  imageSource={this.state.imageSource}
+                  imageValue={this.state.imageValue}
+                  imageHeight={this.state.imageHeight}
+                  preview={this.previewFile}
+                  handleChange={this.handleChangeSelect}
+                  handleSubmit={this.handleSubmitAddStudent}
+                />
+              </div>
+              <div role="tabpanel" className="tab-pane enrollment-form" id="removeclass">
+                <RemoveClass
+                  classRemoved={this.state.classRemoved}
+                  selectedClass={this.state.selectedClassRemoveClass}
+                  classOptions={this.state.classOptions}
+                  handleChange={this.handleChangeSelect}
+                  handleSubmit={this.handleSubmitRemoveClass}
+                />
+              </div>
+              <div role="tabpanel" className="tab-pane enrollment-form" id="removestudent">
+                <RemoveStudent
+                  studentRemoved={this.state.studentRemoved}
+                  selectedClass={this.state.selectedClassRemoveStudent}
+                  selectedStudent={this.state.selectedStudentRemoveStudent}
+                  classOptions={this.state.classOptions}
+                  studentOptions={this.state.studentOptionsByClass}
+                  handleClassChange={this.handleChangeSelectRemoveStudent}
+                  handleStudentChange={this.handleChangeSelect}
+                  handleSubmit={this.handleSubmitRemoveStudent}
+                />
+              </div>
+              <div role="tabpanel" className="tab-pane enrollment-form" id="togglestatus">
+                <ToggleStatus
+                  statusToggled={this.state.statusToggled}
+                  selectedUser={this.state.selectedStudentToggleStatus}
+                  selectedStatus={this.state.selectedStatus}
+                  studentOptions={this.state.studentOptions}
+                  statusOptions={this.state.statusOptions}
+                  handleChange={this.handleChangeSelect}
+                  handleSubmit={this.handleSubmitToggleStatus}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-offset-2 col-md-8">
+          <EnrollmentTable
+            classOptions={this.state.classOptionsEnrollment}
+            enrollments={this.state.enrollmentRecords}
+          />
+        </div>      
       </div>
     );
   }
