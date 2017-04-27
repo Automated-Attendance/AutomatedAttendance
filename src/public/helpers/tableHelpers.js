@@ -46,7 +46,15 @@ const dateFormatter = (cell) => {
   return `${days[date.day()]}, ${months[date.month()]} ${date.date()}, ${date.year()}`;
 };
 
-const timeFormatter = (cell) => {
+const cutoffTimeFormatter = (cell) => {
+  if (cell === null) {
+    return '';
+  }
+  const time = Moment(cell);
+  return `${time.hour()}:${zeroFill(time.minute(), 2)}`;
+};
+
+const checkinTimeFormatter = (cell) => {
   if (cell === null) {
     return '';
   }
@@ -67,6 +75,7 @@ module.exports = {
   days: days,
   nameSort: nameSort,
   dateFormatter: dateFormatter,
-  timeFormatter: timeFormatter,
+  cutoffTimeFormatter: cutoffTimeFormatter,
+  checkinTimeFormatter: checkinTimeFormatter,
   zeroFill: zeroFill
 };

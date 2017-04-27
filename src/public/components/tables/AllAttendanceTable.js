@@ -1,6 +1,6 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import tableHelpers from '../../helpers/tableHelpers.js';
+import {nameSort, dateFormatter, cutoffTimeFormatter, checkinTimeFormatter} from '../../helpers/tableHelpers.js';
 
 export default class AllAttendanceTable extends React.Component {
   render() {
@@ -31,7 +31,7 @@ export default class AllAttendanceTable extends React.Component {
             dataField='full_name'
             width='20%'
             filter={{type: 'TextFilter'}}
-            sortFunc={tableHelpers.nameSort}
+            sortFunc={nameSort}
             filterFormatted
             dataSort
           >
@@ -42,7 +42,7 @@ export default class AllAttendanceTable extends React.Component {
             width='20%'
             dataAlign='right'
             filter={{type: 'TextFilter'}}
-            dataFormat={tableHelpers.dateFormatter}
+            dataFormat={dateFormatter}
             filterFormatted
             dataSort
           >
@@ -52,7 +52,7 @@ export default class AllAttendanceTable extends React.Component {
             dataField='cutoff_time'
             width='15%'
             dataAlign='right'
-            dataFormat={tableHelpers.timeFormatter}
+            dataFormat={cutoffTimeFormatter}
             dataSort
           >
             Cutoff Time
@@ -61,7 +61,7 @@ export default class AllAttendanceTable extends React.Component {
             dataField='checkin_time'
             width='15%'
             dataAlign='right'
-            dataFormat={tableHelpers.timeFormatter}
+            dataFormat={checkinTimeFormatter}
             dataSort
           >
             Arrival Time
