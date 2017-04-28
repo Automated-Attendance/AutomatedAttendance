@@ -43,7 +43,6 @@ export default class AddStudent extends React.Component {
               ref="preview"
               type="file"
               name="sampleFile"
-              value={this.props.imageValue}
               onChange={this.props.preview}
             />
             <img
