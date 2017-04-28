@@ -58,27 +58,30 @@ exports.checkInStudents = async (req, res) => {
     const matches = await recognize(url);
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0, 10));
     const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
-    const [matchedUsers] = await Student.getMatchedUsers(matches);
 
-    for (let i = 0; i < matchedUsers.length; i++) {
-      let user = matchedUsers[i];
-      let userId = user.users_id;
-      let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
-      if (cutOffDate[0].status === 'Pending') {
-        if (currentTime.isAfter(cutoffTimeObj)) {
-          await Student.checkInTardy(userId, date, date.slice(0, 10));
-          sendTardyEmails([user]);
+    if (matches) {
+      const [matchedUsers] = await Student.getMatchedUsers(matches);
+      for (let i = 0; i < matchedUsers.length; i++) {
+        let user = matchedUsers[i];
+        let userId = user.users_id;
+        let [cutOffDate] = await Student.getAttendanceStatus(userId, date.slice(0, 10));
+        if (cutOffDate[0].status === 'Pending') {
+          if (currentTime.isAfter(cutoffTimeObj)) {
+            await Student.checkInTardy(userId, date, date.slice(0, 10));
+            sendTardyEmails([user]);
+          } else {
+            await Student.checkInOnTime(userId, date, date.slice(0, 10));
+            sendMailForArrival([user]);
+          }
         } else {
-          await Student.checkInOnTime(userId, date, date.slice(0, 10));
-          sendMailForArrival([user]);
+          matchedUsers.splice(i, 1);
+          i--;
         }
-      } else {
-        matchedUsers.splice(i, 1);
-        i--;
       }
+      res.status(201).send(matchedUsers);
+    } else {
+      res.sendStatus(204);
     }
-
-    res.status(201).send(matchedUsers);
   } catch (err) {
     /* istanbul ignore next  */
     console.log(err.message);

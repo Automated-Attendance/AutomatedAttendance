@@ -11,7 +11,7 @@ exports.storeInGallery = async (studentUserName, selectedClass, imageLink) => {
 exports.recognize = async (url) => {
   const params = { 'image': url, 'gallery_name': 'HRSF72' };
   const { body } = await client.recognize(params);
-  return body.Errors ? console.log(body.Errors) : body.images;
+  return body.Errors ? false : body.images;
 };
 
 exports.removeGallery = async (className) => {
