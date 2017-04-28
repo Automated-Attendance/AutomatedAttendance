@@ -52,7 +52,7 @@ export default class Admin extends React.Component {
     await this.populateTable();
     let attendanceInterval = setInterval(async () => {
       await this.populateTable();
-    }, 30000);
+    }, 3000);
     await this.getStudentOptions();
     this.setState({attendanceInterval});
   }
@@ -147,12 +147,12 @@ export default class Admin extends React.Component {
       <div className="container">
         <div className="attendance-page-form">
           <h3 className="text-center">Attendance Records</h3>
-          <hr/>
           <AllAttendanceTable
             attendance={this.state.attendance}
             classes={this.state.classes}
             statuses={this.state.statuses}
           />
+          <br/>
           <button
             className="login-button btn btn-primary"
             onClick={this.toggleEditAttendance}

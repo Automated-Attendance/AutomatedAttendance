@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import axios from 'axios';
 import Admin from '../../src/public/components/Admin';
 
-describe('<Admin />', function() {
+describe('<Admin/>', function() {
 
   let sandbox;
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('<Admin />', function() {
 
   it('calls componentWillMount', async function() {
     const componentWillMountSpy = sinon.spy(Admin.prototype, 'componentWillMount');
-    const wrapper = mount(<Admin />);
+    const wrapper = mount(<Admin/>);
     expect(Admin.prototype.componentWillMount.calledOnce).to.equal(true);
     componentWillMountSpy.restore();
   });
@@ -61,7 +61,7 @@ describe('<Admin />', function() {
 
   xit('should call handleSubmitUpdateStatus on button click', () => {
     const testFn = sinon.spy(Admin.prototype, 'handleSubmitUpdateStatus');
-    const wrapper = mount(<Admin />);
+    const wrapper = mount(<Admin/>);
     expect(testFn.called).to.equal(false);
     wrapper.find('.login-button').simulate('click');
     wrapper.find('.handleSubmitUpdateStatus').simulate('click');
@@ -71,7 +71,7 @@ describe('<Admin />', function() {
 
   xit('should change records on button click', () => {
     const testFn = sinon.spy(Admin.prototype, 'handleSubmitUpdateStatus');
-    const wrapper = mount(<Admin />);
+    const wrapper = mount(<Admin/>);
     wrapper.find('.login-button').simulate('click');
     const andrew = {
       label: "Andrew Alonis - andrewaaalonis",
@@ -88,7 +88,7 @@ describe('<Admin />', function() {
 
    it('should update state when unmounted', () => {
     const testFn = sinon.spy(Admin.prototype, 'componentWillUnmount');
-    const wrapper = mount(<Admin />);
+    const wrapper = mount(<Admin/>);
     wrapper.unmount();
     setTimeout(() => {
       expect(clearInterval.calledOnce).to.equal(true);
@@ -97,7 +97,7 @@ describe('<Admin />', function() {
 
    xit('should update state every 3 secs when mounted', () => {
     const testFn = sinon.spy(Admin.prototype, 'componentWillMount');
-    const wrapper = mount(<Admin />);
+    const wrapper = mount(<Admin/>);
     wrapper.mount();
     setTimeout(() => {
       expect(console.log.calledOnce).to.equal(true);

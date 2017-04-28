@@ -1,6 +1,6 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import tableHelpers from '../../helpers/tableHelpers.js';
+import {dateFormatter, cutoffTimeFormatter, checkinTimeFormatter} from '../../helpers/tableHelpers.js';
 
 export default class StudentAttendanceTable extends React.Component {
   render() {
@@ -12,6 +12,7 @@ export default class StudentAttendanceTable extends React.Component {
           maxHeight='750px'
           scrollTop={'Top'}
           multiColumnSort={5}
+          options={{defaultSortName: 'cutoff_time'}}
           striped
           hover
           condensed
@@ -31,7 +32,7 @@ export default class StudentAttendanceTable extends React.Component {
             dataField='cutoff_time'
             width='40%'
             dataAlign='right'
-            dataFormat={tableHelpers.dateFormatter}
+            dataFormat={dateFormatter}
             filter={{type: 'TextFilter'}}
             filterFormatted
             dataSort
@@ -42,7 +43,7 @@ export default class StudentAttendanceTable extends React.Component {
             dataField='cutoff_time'
             width='15%'
             dataAlign='right'
-            dataFormat={tableHelpers.timeFormatter}
+            dataFormat={cutoffTimeFormatter}
             filter={{type: 'TextFilter'}}
             filterFormatted
             dataSort
@@ -53,7 +54,7 @@ export default class StudentAttendanceTable extends React.Component {
             dataField='checkin_time'
             width='15%'
             dataAlign='right'
-            dataFormat={tableHelpers.timeFormatter}
+            dataFormat={checkinTimeFormatter}
             dataSort
           >
             Checkin Time

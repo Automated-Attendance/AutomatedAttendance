@@ -50,81 +50,85 @@ describe('<tableHelpers />', function() {
     expect(date).to.equal('Wednesday, April 12, 2017');
   });
   
-  it('should format time to string', () => {
-    const time = tableHelpers.timeFormatter('2017-04-12 04:21:36');
+  it('should format cutoff time to string', () => {
+    const time = tableHelpers.cutoffTimeFormatter('2017-04-12 04:21:36');
+    expect(time).to.equal('4:21');
+  });
+  
+  it('should format checkin time to string', () => {
+    const time = tableHelpers.checkinTimeFormatter('2017-04-12 04:21:36');
     expect(time).to.equal('4:21:36');
   });
   
   it('should format time string with padding zeros', () => {
-    const time = tableHelpers.timeFormatter('2017-04-12 04:01:06');
+    const time = tableHelpers.checkinTimeFormatter('2017-04-12 04:01:06');
     expect(time).to.equal('4:01:06');
   });
 
-  it('should return an empty string if provided with NULL date', () => {
-    const time = tableHelpers.timeFormatter(null);
+  it('should return an empty string if provided with NULL cutoff date', () => {
+    const time = tableHelpers.cutoffTimeFormatter(null);
     expect(time).to.equal('');
   });
 
-  it('should sort full names by last name', () => {
+  it('should return an empty string if provided with NULL checkin date', () => {
+    const time = tableHelpers.checkinTimeFormatter(null);
+    expect(time).to.equal('');
+  });
+
+  it('should sort full names by last name in descending order', () => {
     const names = tableHelpers.nameSort(
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Bobby'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Andrew', 'last_name': 'Brown'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'desc'
     );
     expect(names).to.equal(-1);
   });
   
-  it('should sort full names by first name', () => {
+  it('should sort full names by first name in descending order', () => {
     const names = tableHelpers.nameSort(
-      {
-        'first_name': 'Bobby',
-        'last_name': 'Alonis'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Bobby', 'last_name': 'Alonis'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'desc'
     );
     expect(names).to.equal(-1);
   });
 
-  it('should sort full names by last name', () => {
-    var names = tableHelpers.nameSort(
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Bobby'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+  it('should sort full names by last name in ascending order', () => {
+    const names = tableHelpers.nameSort(
+      {'first_name': 'Andrew', 'last_name': 'Brown'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'asc'
     );
     expect(names).to.equal(1);
   });
   
-  it('should sort full names by first name', () => {
+  it('should sort full names by first name in ascending order', () => {
     var names = tableHelpers.nameSort(
-      {
-        'first_name': 'Bobby',
-        'last_name': 'Alonis'
-      },
-      {
-        'first_name': 'Andrew',
-        'last_name': 'Alonis'
-      },
+      {'first_name': 'Bobby', 'last_name': 'Alonis'},
+      {'first_name': 'Andrew', 'last_name': 'Alonis'},
       'asc'
     );
     expect(names).to.equal(1);
   });
 
+  it('should extract first and last name from student property', () => {
+    var names = tableHelpers.nameSort(
+      {'student': 'Andrew Brown'},
+      {'student': 'Andrew Alonis'},
+      'asc'
+    );
+    expect(names).to.equal(1);
+  });
+  
+  it('should extract first and last name from student property when only one name', () => {
+    var names = tableHelpers.nameSort(
+      {'student': 'Andrew'},
+      {'student': 'Bobby'},
+      'asc'
+    );
+    expect(names).to.equal(-1);
+  });
+  
   it('should pad numbers with zeros to specified width', () => {
     const num = tableHelpers.zeroFill(123, 5);
     expect(num).to.equal('00123');

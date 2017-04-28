@@ -26,6 +26,24 @@ const days = {
 };
 
 const nameSort = (a, b, order) => {
+  if (a.student) {
+    let indexA = a.student.indexOf(' ');
+    if (indexA >= 0) {
+      a.first_name = a.student.slice(0, indexA);
+      a.last_name = a.student.slice(indexA + 1);
+    } else {
+      a.first_name = a.student;
+      a.last_name = '';
+    }
+    let indexB = b.student.indexOf(' ');
+    if (indexB >= 0) {
+      b.first_name = b.student.slice(0, indexB);
+      b.last_name = b.student.slice(indexB + 1);
+    } else {
+      b.first_name = b.student;
+      b.last_name = '';
+    }
+  }
   if (order === 'desc') {
     if (a.last_name !== b.last_name) {
       return b.last_name.localeCompare(a.last_name);
@@ -46,7 +64,15 @@ const dateFormatter = (cell) => {
   return `${days[date.day()]}, ${months[date.month()]} ${date.date()}, ${date.year()}`;
 };
 
-const timeFormatter = (cell) => {
+const cutoffTimeFormatter = (cell) => {
+  if (cell === null) {
+    return '';
+  }
+  const time = Moment(cell);
+  return `${time.hour()}:${zeroFill(time.minute(), 2)}`;
+};
+
+const checkinTimeFormatter = (cell) => {
   if (cell === null) {
     return '';
   }
@@ -67,6 +93,7 @@ module.exports = {
   days: days,
   nameSort: nameSort,
   dateFormatter: dateFormatter,
-  timeFormatter: timeFormatter,
+  cutoffTimeFormatter: cutoffTimeFormatter,
+  checkinTimeFormatter: checkinTimeFormatter,
   zeroFill: zeroFill
 };
