@@ -52,10 +52,10 @@ exports.removeFromClass = async (req, res) => {
 
 exports.checkInStudents = async (req, res) => {
   try {
-    const { url } = await upload(req.body);
-    const matches = await recognize(url);
     const date = moment().format('YYYY-MM-DD HH:mm:ss');
     const currentTime = moment(date);
+    const { url } = await upload(req.body);
+    const matches = await recognize(url);
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0, 10));
     const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
     const [matchedUsers] = await Student.getMatchedUsers(matches);
