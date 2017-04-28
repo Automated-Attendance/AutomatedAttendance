@@ -73,6 +73,7 @@ export default class Camera extends React.Component {
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
         clearInterval(intervalId);
+        this.setState({spinner: false});
       };
     }, 3000);
     this.setState({intervalId});
