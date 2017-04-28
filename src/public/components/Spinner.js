@@ -36,8 +36,7 @@ export default class Spinner extends React.Component {
 
   render() {
     return (
-      <div id="spinnerdiv">
-      </div>
+      <div id="spinnerdiv" />
     );
   }
 }
