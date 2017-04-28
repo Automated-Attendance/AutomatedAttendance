@@ -17,9 +17,9 @@ exports.addToClass = async (req, res) => {
       /* istanbul ignore else  */
       if (!enrolled.length) {
         const { url } = await upload(req.body);
+        await storeInGallery(studentUserName, selectedClass, url);
         await Student.updateUser(url, studentUserName);
         await Student.addToClass(studentUserName, selectedClass);
-        await storeInGallery(studentUserName, selectedClass, url);
         added = true;
       }
     }
@@ -58,7 +58,6 @@ exports.checkInStudents = async (req, res) => {
     const matches = await recognize(url);
     const [cutoffTime] = await Student.getCutoffTime(date.slice(0, 10));
     const cutoffTimeObj = moment(cutoffTime[0].cutoff_time);
-
     if (matches) {
       const [matchedUsers] = await Student.getMatchedUsers(matches);
       for (let i = 0; i < matchedUsers.length; i++) {
@@ -84,10 +83,6 @@ exports.checkInStudents = async (req, res) => {
     }
   } catch (err) {
     /* istanbul ignore next  */
-    console.log(err.message);
-    console.log(err.message);
-    console.log(err.message);
-    console.log(err.message);
     res.status(500).send(err.message);
   }
 };
