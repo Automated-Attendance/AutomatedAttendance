@@ -22,7 +22,7 @@ export default class RemoveClass extends React.Component {
             <span className="glyphicon glyphicon-trash"/> Delete Class
           </button>
           <br/>
-        {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
+          {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
         </div>
       </div>
     );
