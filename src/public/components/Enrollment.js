@@ -237,7 +237,7 @@ export default class Enrollment extends React.Component {
         imageSource: 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
         imageHeight: '0px',
       });
-      this.refs.addStudent.refs.preview.value = "";
+      this.refs.addStudent.refs.preview.value = '';
     }, 4950);
   }
 
