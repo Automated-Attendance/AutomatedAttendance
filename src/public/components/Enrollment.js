@@ -71,8 +71,10 @@ export default class Enrollment extends React.Component {
 
   async populateTable() {
     const enrollmentRecords = await getEnrollment();
+    /* istanbul ignore else */
     if (enrollmentRecords) {
       enrollmentRecords.enrollment.forEach(item => {
+        /* istanbul ignore else */
         if (!this.state.classOptionsEnrollment[item.class]) {
           const thisClass = this.state.classOptionsEnrollment;
           thisClass[item.class] = item.class;
@@ -212,6 +214,7 @@ export default class Enrollment extends React.Component {
 
   toggleOff(status, ...states) {
     setTimeout(() => {
+      /* istanbul ignore else */
       if (status) {
         this.setState({[status]: false});
       }
@@ -310,6 +313,7 @@ export default class Enrollment extends React.Component {
             </div>
           </div>
         </div>
+        
         <div className="col-md-offset-2 col-md-8">
           <EnrollmentTable
             classOptions={this.state.classOptionsEnrollment}

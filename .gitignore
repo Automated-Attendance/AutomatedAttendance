@@ -34,3 +34,6 @@ src/public/dist/bundle.js
 # nyc reporting
 .nyc_output/
 serverCoverage/
+
+# travis .yml
+.travis.yml

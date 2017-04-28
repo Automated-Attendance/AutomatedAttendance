@@ -6,6 +6,7 @@ const storeStudentData = async (studentData) => {
     return response.status === 201;
   } catch (err) {
     // todo: better error handling
+    /* istanbul ignore next */
     console.warn(err);
   }
 };
@@ -16,6 +17,7 @@ const removeStudentData = async (studentData) => {
     return response.status === 200;
   } catch (err) {
     // todo: better error handling
+    /* istanbul ignore next */
     console.warn(err);
   }
 
@@ -27,6 +29,7 @@ const storeAttendanceRecord = async (classes, time) => {
     return response.status === 201;
   } catch (err) {
     // todo: better error handling
+    /* istanbul ignore next */
     console.warn(err);
   }
 };
@@ -36,6 +39,7 @@ const emailLateStudents = async () => {
     const response = await axios.post('/emailLateStudents');
     return response.status === 201;
   } catch (err) {
+    /* istanbul ignore next */
     console.warn(err);
   }
 }
@@ -45,6 +49,7 @@ const changeAttendanceStatus = async (data) => {
     const response = await axios.post('/changeAttendanceStatus', {data: data});
     return response.status === 201;
   } catch (err) {
+    /* istanbul ignore next */
     console.warn(err);
   }
 }
@@ -54,6 +59,7 @@ const changeUserType = async (data) => {
     const response = await axios.post('/changeUserType', {data: data});
     return response.status === 201;
   } catch (err) {
+    /* istanbul ignore next */
     console.warn(err);
   }
 }
@@ -65,6 +71,7 @@ const getStudentsByClass = async (className) => {
       return { label: user.first_name + ' ' + user.last_name + ' - ' + user.user_name, value: user.user_name };
     });
   } catch (err) {
+    /* istanbul ignore next */
     console.warn(err);
   }
 }

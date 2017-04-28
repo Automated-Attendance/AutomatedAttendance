@@ -34,24 +34,24 @@ describe('', function() {
     await db.queryAsync('CREATE DATABASE IF NOT EXISTS ' + dbName);
     await db.queryAsync('USE ' + dbName);
     await makeTables(db);
-    // await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
-    // await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'myemailisthirtyninedigitslong@gmail.com');`);
-    // await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
-    // await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
-    // await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
-    // await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
-    // await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-    //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-    //     (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
-    // await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-    //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-    //     (SELECT users_id FROM users WHERE email='myemailisthirtyninedigitslong@gmail.com'));`);
-    // await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-    //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
-    //     (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
-    // await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
-    //     VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
-    //     (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('hanzh', 'Han', 'Zhao', 'hanshengzhao1993@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('andrewaaalonis', 'Andrew', 'Alonis', 'myemailisthirtyninedigitslong@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Duy12312313', 'Duy', 'Nguyen', 'duyng92@gmail.com');`);
+    await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) VALUES ('Jukejc', 'Jason', 'Chambers', 'jas.o.chambers@gmail.com');`);
+    await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF72');`);
+    await db.queryAsync(`INSERT INTO classes (class_name) VALUES ('HRSF76');`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='hanshengzhao1993@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='myemailisthirtyninedigitslong@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF72'),
+        (SELECT users_id FROM users WHERE email='jas.o.chambers@gmail.com'));`);
+    await db.queryAsync(`INSERT INTO class_user (class_id, user_id)
+        VALUES ((SELECT classes_id FROM classes WHERE class_name='HRSF76'),
+        (SELECT users_id FROM users WHERE user_name='Duy12312313'));`);
     server = app.listen(port);
 
     afterEach(() => {
@@ -109,9 +109,9 @@ describe('', function() {
     // it('/studentUpload should return 201 when using mock data', async () => {
     //   const fakeStudentData = require('../FakeData/FakeStudentUploadData');
     //   await db.queryAsync(`INSERT INTO users (user_name, first_name, last_name, email) 
-    //     VALUES ('Jukejc', 'Jason', 'Chambers', 'fakeemail@gmail.com');`);
+    //     VALUES ('buds', 'Jason', 'Chambers', 'asdasd@gmail.com');`);
     //   const response = await chai.request(server).post('/studentUpload').send(fakeStudentData);
-    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('fakeemail@gmail.com'));
+    //   const [user] = await db.queryAsync(AuthQuery.selectExistingUser('asdasd@gmail.com'));
     //   expect(response).to.have.status(201);
     // });
 
@@ -122,6 +122,8 @@ describe('', function() {
     });
 
     // it('should check in students if face recognized', async () => {
+    //   const mockRequestBody = JSON.parse('{"classes":["HRSF72", "HRSF76"],"time":"2017-04-27T21:30:00.000Z"}');
+    //   const populateRecords = await chai.request(server).post('/storeAttendanceRecord').send(mockRequestBody);
     //   const fakeKairosImage = require('../FakeData/FakeKairosRecognizeData');
     //   const response = await chai.request(server).post('/kairosGalleryRecognize').send(fakeKairosImage);
     //   expect(response).to.have.status(201);

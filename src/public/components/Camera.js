@@ -57,9 +57,8 @@ export default class Camera extends React.Component {
 
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) {
-      this.setState({spinner: true, statusUpdated: false});
+      this.setState({statusUpdated: false});
       this.setState({attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff)});
-      this.setState({spinner: false});
     } else {
       alert('Select Class(es) and Cutoff Time!');
     }
@@ -68,25 +67,25 @@ export default class Camera extends React.Component {
 
   startCamera() {
     let end = Moment(this.state.selectedTimeCutoff).add(30, 'minute');
+    this.setState({spinner: true});
     let intervalId = setInterval(() => {
       let currentTime = Moment();
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
         clearInterval(intervalId);
       };
-    }, 1200);
+    }, 3000);
     this.setState({intervalId});
   }
 
   async takeScreenshot() {
     const screenshot = this.refs.webcam.getScreenshot();
-    this.setState({spinner: true});
     const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn && checkedIn.length) {
       checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`));
     }
-    this.setState({spinner: false, checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
+    this.setState({checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
   }
 
   handleSelectChange(value) {

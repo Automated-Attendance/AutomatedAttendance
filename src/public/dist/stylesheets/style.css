@@ -410,7 +410,6 @@ video {
 
 /* About / FAQ */
 
-
 .about-answers-block {
   background-color: white;
   border: 1px solid #ddd;
@@ -451,4 +450,23 @@ video {
 .question-block {
   padding-bottom: 5px;
   font-size: 1.15em;
+}
+
+
+/* Spinner */
+
+
+/* Spinner */
+
+
+/* Spinner */
+
+
+/* Spinner */
+
+
+#spinnerdiv {
+  top: 20%;
+  right: 5%;
+  position: fixed;
 }

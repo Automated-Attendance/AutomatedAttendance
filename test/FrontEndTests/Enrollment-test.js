@@ -6,6 +6,9 @@ import sinon from 'sinon';
 import axios from 'axios';
 import Enrollment from '../../src/public/components/Enrollment';
 import ToggleStatus from '../../src/public/components/ToggleStatus';
+import Landing from '../../src/public/components/LandingPage/LandingIndex';
+
+const setTimeoutAsync = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe('<Enrollment />', function() {
 
@@ -30,19 +33,19 @@ describe('<Enrollment />', function() {
 
 describe('<Enrollment/> handleSubmitToggleStatus()', () => {
 
-  xit ('should call handleSubmitToggleStatus on form click', () => {
+  it ('should call handleSubmitToggleStatus on form click', () => {
     const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitToggleStatus');
-    const wrapper = mount(<ToggleStatus/>);
-    wrapper.setState({selectedStudentToggleStatus: {label: 'Duy Nguyen - nguyenaiden' , value: 'nguyenaiden'}, selectedToggleStatus: 'Student'});
+    const wrapper = mount(<Enrollment/>);
+    wrapper.setState({selectedStudentToggleStatus: {label: 'Duy Nguyen - nguyenaiden' , value: 'nguyenaiden'}, selectedStatus: 'Student'});
     expect(testFn.called).to.equal(false);
     wrapper.find('.handleSubmitToggleStatus').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
 
-  xit ('should not toggle status if states are empty', () => {
+  it ('should not toggle status if states are empty', () => {
     const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitToggleStatus');
-    const wrapper = shallow(<ToggleStatus/>);
+    const wrapper = mount(<Enrollment/>);
     wrapper.find('.handleSubmitToggleStatus').simulate('click');
     expect(wrapper.state().statusToggled).to.equal(false);
     testFn.restore();
@@ -68,7 +71,7 @@ describe('<Enrollment/> populateTable()', function() {
 
   it('should populate enrollment records', async function() {
     const wrapper = await mount(<Enrollment/>);
-    setTimeout(() => expect(wrapper.state().enrollmentRecords.length).to.equal(5), 2000);
+    // setTimeout(() => expect(wrapper.state().enrollmentRecords.length).to.equal(5), 2000);
   });
 
 });
@@ -99,14 +102,165 @@ describe('<Enrollment/> getClassOptions()', function() {
     testFn.restore();
   });
 
-  it('should populate class list', async function() {
-    const wrapper = await mount(<Enrollment/>);
-    setTimeout(() => {
-      expect(wrapper.state().classes.length).to.equal(5);
-      expect(wrapper.state().selectedClassAddStudent).to.equal(wrapper.state().classes[0]);
-      expect(wrapper.state().selectedClassRemoveStudent).to.equal(wrapper.state().classes[0]);
-      expect(wrapper.state().selectedClassRemoveClass).to.equal(wrapper.state().classes[0]);
-    }, 5000);
+});
+
+
+
+describe('<Enrollment/> handleSubmitAddClass()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitAddClass on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddClass');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ createClassName: 'testing' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no class selection', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddClass');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
+
+describe('<Enrollment/> handleSubmitAddStudent()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitAddStudent on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddStudent');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassAddStudent: 'testing', selectedStudentAddStudent: 'testingtwo', studentPhoto: 'nophoto' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitAddStudent');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitAddStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
+
+describe('<Enrollment/> handleSubmitRemoveStudent()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitRemoveStudent on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveStudent');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassRemoveStudent: 'testing', selectedStudentRemoveStudent: 'testingtwo' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveStudent');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveStudent').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
+
+describe('<Enrollment/> handleSubmitRemoveClass()', function() {
+
+  let sandbox;
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    const resolved = new Promise((res) => res({ data: 'testData' }));
+    sandbox.stub(axios, 'get').returns(resolved);
+    sandbox.stub(axios, 'post').returns(resolved);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+
+  it('should call handleSubmitRemoveClass on button click', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveClass');
+    const wrapper = mount(<Enrollment />);
+    wrapper.setState({ selectedClassRemoveClass: 'testing' });
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+
+  it('should alert on no form filled', async function() {
+    const testFn = sinon.spy(Enrollment.prototype, 'handleSubmitRemoveClass');
+    const wrapper = mount(<Enrollment />);
+    expect(testFn.called).to.equal(false);
+    wrapper.find('.handleSubmitRemoveClass').simulate('click');
+    expect(testFn.called).to.equal(true);
+    testFn.restore();
+  });
+});
+
+describe('<Enrollment/> toggleOff()', function() {
+
+  it('toggleOff should change states', function(done) {
+    this.timeout(6000);
+    const wrapper = mount(<Enrollment />);
+    wrapper.instance().toggleOff('classAdded', 'studentOptionsByClass', 'statusToggled','selectedStudentToggleStatus', 'selectedStatus');
+    setTimeout(() => done(), 5100);
+  });
+
+});
+
+describe('<Landing/>', function() {
+
+  it('Should mount', function() {
+    const wrapper = mount(<Landing />);
   });
 
 });

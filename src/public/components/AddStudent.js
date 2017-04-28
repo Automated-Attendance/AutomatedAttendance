@@ -1,12 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select'
-import 'react-select/dist/react-select.css'
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import VirtualizedSelect from 'react-virtualized-select';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 export default class AddStudent extends React.Component {
   render() {
+    /* istanbul ignore next */
     return (
       <div>
         <h3 className="text-center">Add Student to Class</h3>
@@ -52,9 +53,9 @@ export default class AddStudent extends React.Component {
               height={this.props.imageHeight}
             />
           </form><br/>
-          <button className="btn btn-primary" onClick={this.props.handleSubmit}>
-          <span className="glyphicon glyphicon-edit"/>
-          Add Student</button>
+          <button className="btn btn-primary handleSubmitAddStudent" onClick={this.props.handleSubmit}>
+            <span className="glyphicon glyphicon-edit"/> Add Student
+          </button>
           {!this.props.studentAdded ? null : <h5>Added {this.props.selectedStudent.label.slice(0, this.props.selectedStudent.label.indexOf('-') - 1)} to {this.props.selectedClass.split(',').join(', ')}!</h5>}
         </div>
       </div>

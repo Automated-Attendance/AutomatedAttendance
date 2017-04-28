@@ -41,7 +41,6 @@ exports.removeFromClass = async (req, res) => {
     for (let className of classNames) {
       req.body.className = className;
       await Student.removeFromClass(req.body);
-      await galleryRemoveUser(req.body);
     }
     res.sendStatus(200);
   } catch (err) {

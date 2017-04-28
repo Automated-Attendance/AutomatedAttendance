@@ -3,10 +3,10 @@ import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import DateTime from 'react-widgets/lib/DateTimePicker';
 import Select from 'react-select';
-import VirtualizedSelect from 'react-virtualized-select'
-import 'react-select/dist/react-select.css'
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import VirtualizedSelect from 'react-virtualized-select';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 // init time localization for DateTimePicker
 momentLocalizer(Moment);
@@ -45,17 +45,15 @@ export default class EditAttendance extends React.Component {
         </div>
         <br/>
         <button
-          className="btn btn-success"
+          className="btn btn-success updateStatusSubmit"
           onClick={this.props.handleSubmit}
         >
           <span className="glyphicon glyphicon-ok"/>
           Submit Changes
         </button>
 
-
-        <button type="button" className="deleteRecord btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
-          <span className="glyphicon glyphicon-trash"/>
-          Delete Today's Record
+        <button type="button" className="delete-record btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
+          <span className="glyphicon glyphicon-trash"/> Delete Today's Record
         </button>
 
         <div className="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
@@ -71,7 +69,7 @@ export default class EditAttendance extends React.Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger" data-dismiss="modal">No</button>
-                <button type="button" className="btn btn-success"data-dismiss="modal" onClick={() => {
+                <button type="button" className="btn btn-success confirm-delete-record"data-dismiss="modal" onClick={() => {
                   this.props.deleteRecord();
                 }}>Yes</button>
               </div>

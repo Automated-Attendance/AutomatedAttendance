@@ -18,10 +18,10 @@ export default class RemoveClass extends React.Component {
             multi
           /><br/>
 
-          <button type="button" className="deleteRecord btn btn-danger" onClick={this.props.handleSubmit}>
-            <span className="glyphicon glyphicon-trash"/>
-            Delete Class
+          <button type="button" className="handleSubmitRemoveClass btn btn-danger" onClick={this.props.handleSubmit}>
+            <span className="glyphicon glyphicon-trash"/> Delete Class
           </button>
+          
           <br/>
         </div>
         {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
@@ -29,4 +29,4 @@ export default class RemoveClass extends React.Component {
       </div>
     );
   }
-};
+}
