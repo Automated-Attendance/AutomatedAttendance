@@ -31,8 +31,9 @@ exports.storeRecords = async ({ body }, res) => {
 
     /* istanbul ignore next */
     const emailTardyInterval = setInterval(() => {
+      let bufferTime = moment(time).add(3, 'minute');
       const currentTime = moment();
-      if (currentTime.isAfter(time)) {
+      if (currentTime.isAfter(bufferTime)) {
        Attendance.emailStudentAboutToBeTardy();
         clearInterval(emailTardyInterval);
       };

@@ -73,8 +73,9 @@ export default class Camera extends React.Component {
       this.takeScreenshot();
       if (currentTime.isAfter(end)) {
         clearInterval(intervalId);
+        this.setState({spinner: false});
       };
-    }, 3000);
+    }, 1500);
     this.setState({intervalId});
   }
 
@@ -84,8 +85,8 @@ export default class Camera extends React.Component {
     let checkedInStudents = [];
     if (checkedIn && checkedIn.length) {
       checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`));
+      this.setState({checkedinUser: `Checked in: ${checkedInStudents.join(', ') + '!'}`});
     }
-    this.setState({checkedinUser: `Checked in: ${checkedInStudents.length ? checkedInStudents.join(', ') + '!' : ''}`});
   }
 
   handleSelectChange(value) {
