@@ -1,7 +1,5 @@
 import React from 'react';
 import Select from 'react-select';
-import ConfirmModal from './ConfirmModal';
-import RejectModal from './RejectModal';
 import 'react-select/dist/react-select.css';
 
 export default class RemoveClass extends React.Component {
