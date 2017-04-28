@@ -14,7 +14,9 @@ export default class AddClass extends React.Component {
           value={this.props.createClassName}
           onChange={this.props.handleChange}
         /><br/>
-        <button onClick={this.props.handleSubmit}>Create Class</button>
+        <button className="btn btn-primary" onClick={this.props.handleSubmit}>
+        <span className="glyphicon glyphicon-edit"/>
+        Create Class</button>
         {!this.props.classAdded ? null : <h5>Created {this.props.createClassName}!</h5>}
       </div>
     );

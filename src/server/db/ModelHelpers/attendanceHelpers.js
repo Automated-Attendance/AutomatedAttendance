@@ -37,7 +37,6 @@ exports.storeRecords = async ({ body }, res) => {
         clearInterval(emailTardyInterval);
       };
     }, 5000);
-
     res.sendStatus(201);
   } catch (err) {
     /* istanbul ignore next */

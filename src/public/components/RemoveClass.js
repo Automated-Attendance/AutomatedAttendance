@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css'
+import 'react-select/dist/react-select.css';
 
 export default class RemoveClass extends React.Component {
   render() {
@@ -17,9 +17,15 @@ export default class RemoveClass extends React.Component {
             simpleValue
             multi
           /><br/>
-        <button onClick={this.props.handleSubmit}>Delete Class</button>
-        {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
+
+          <button type="button" className="deleteRecord btn btn-danger" onClick={this.props.handleSubmit}>
+            <span className="glyphicon glyphicon-trash"/>
+            Delete Class
+          </button>
+          <br/>
         </div>
+        {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
+
       </div>
     );
   }

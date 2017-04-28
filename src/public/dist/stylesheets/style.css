@@ -202,7 +202,6 @@ video {
 
 /* Enrollment Page */
  
-
  .enrollment-form {
   background-color: white;
   border: 1px solid #ddd;
@@ -215,9 +214,10 @@ video {
   float: none;
 }
 
-
-
-
+.word-color-delete-attendnace {
+  color: white;
+  text-align: center;
+}
 
 /* change attendance transition */
 

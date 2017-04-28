@@ -29,6 +29,7 @@ export default class Enrollment extends React.Component {
       studentRemoved: false,
       statusToggled: false,
       spinner: false,
+      popUpMessage: true,
       classOptions: [],
       classOptionsEnrollment: {},
       studentOptions: [],
@@ -159,7 +160,7 @@ export default class Enrollment extends React.Component {
       await this.getClassOptions();
       this.toggleOff('classRemoved', 'selectedClassRemoveClass');
     } else {
-      alert('Select Class(es)!');
+      alert('Select Class(es)');
     }
   }
 

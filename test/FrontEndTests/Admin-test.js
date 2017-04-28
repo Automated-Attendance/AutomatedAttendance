@@ -43,10 +43,10 @@ describe('<Admin/>', function() {
     setTimeout(() => expect(wrapper.state().attendance).to.have.length(1), 2000);
   });
 
-  it('Should have five buttons', () => {
+  it('Should have eight buttons', () => {
     const wrapper = mount(<Admin/>);
     wrapper.find('.login-button').simulate('click');
-    expect(wrapper.find('button')).to.have.length(5);
+    expect(wrapper.find('button')).to.have.length(8);
   });
 
   xit('should delete attendance record on click', () => {

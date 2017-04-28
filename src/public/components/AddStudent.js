@@ -52,7 +52,9 @@ export default class AddStudent extends React.Component {
               height={this.props.imageHeight}
             />
           </form><br/>
-          <button onClick={this.props.handleSubmit}>Add Student</button>
+          <button className="btn btn-primary" onClick={this.props.handleSubmit}>
+          <span className="glyphicon glyphicon-edit"/>
+          Add Student</button>
           {!this.props.studentAdded ? null : <h5>Added {this.props.selectedStudent.label.slice(0, this.props.selectedStudent.label.indexOf('-') - 1)} to {this.props.selectedClass.split(',').join(', ')}!</h5>}
         </div>
       </div>
