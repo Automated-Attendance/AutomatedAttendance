@@ -21,11 +21,9 @@ export default class RemoveClass extends React.Component {
           <button type="button" className="handleSubmitRemoveClass btn btn-danger" onClick={this.props.handleSubmit}>
             <span className="glyphicon glyphicon-trash"/> Delete Class
           </button>
-          
           <br/>
-        </div>
         {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
-
+        </div>
       </div>
     );
   }
