@@ -51,11 +51,10 @@ describe('<Admin/>', function() {
 
   it('should delete attendance record on click', () => {
     const testFn = sinon.spy(Admin.prototype, 'deleteRecord');
-    const confirmStub = sinon.stub(global, 'confirm');
-    confirmStub.returns(true);
     const wrapper = mount(<Admin/>);
     wrapper.setState({ 'changeNeeded': true });
     wrapper.find('.delete-record').simulate('click');
+    wrapper.find('.confirm-delete-record').simulate('click');
     expect(testFn.called).to.equal(true);
     testFn.restore();
   });
