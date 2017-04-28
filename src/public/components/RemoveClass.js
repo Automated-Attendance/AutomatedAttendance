@@ -20,19 +20,10 @@ export default class RemoveClass extends React.Component {
             multi
           /><br/>
 
-          <button type="button" className="deleteRecord btn btn-danger pull-left" data-toggle="modal" data-target="#myModal">
+          <button type="button" className="deleteRecord btn btn-danger pull-left" onClick={this.props.handleSubmit}>
             <span className="glyphicon glyphicon-trash"/>
             Delete Class
           </button>
-
-          {this.props.selectedClass.length ?  
-            <ConfirmModal 
-            handleSubmit={this.props.handleSubmit}
-            /> 
-          : 
-            <RejectModal 
-            /> }
-
         {!this.props.classRemoved ? null : <h5>Deleted {this.props.selectedClass.split(',').join(', ')}!</h5>}
         </div>
 

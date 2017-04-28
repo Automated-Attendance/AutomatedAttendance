@@ -160,7 +160,7 @@ export default class Enrollment extends React.Component {
       await this.getClassOptions();
       this.toggleOff('classRemoved', 'selectedClassRemoveClass');
     } else {
-      alert('Select Class(es)!han');
+      alert('Select Class(es)');
     }
   }
 
