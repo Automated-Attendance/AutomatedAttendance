@@ -75,7 +75,7 @@ export default class Camera extends React.Component {
         clearInterval(intervalId);
         this.setState({spinner: false});
       };
-    }, 1500);
+    }, 2000);
     this.setState({intervalId});
   }
 

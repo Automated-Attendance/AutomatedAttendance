@@ -44,7 +44,7 @@ const Testimonials = () => {
           <div className="row">
             <div className="span4">
               <img className="img-left img-circle" src="https://res.cloudinary.com/automatedattendance/image/upload/c_scale,w_200/v1492903911/hanzh.png" alt="testimonial three" />
-              <div className="content-heading testimonials-text"><h4>Han Zhou[ao], Software Engineer</h4></div>
+              <div className="content-heading testimonials-text"><h4>Han Zhao, Software Engineer</h4></div>
               <hr/>
               <p className="testimonials-text testimonials-text-p">
                 The camera loves me, and I love the camera.
