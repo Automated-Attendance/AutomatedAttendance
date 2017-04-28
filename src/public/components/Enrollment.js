@@ -236,8 +236,8 @@ export default class Enrollment extends React.Component {
       this.setState({
         imageSource: 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
         imageHeight: '0px',
-        imageValue: ''
       });
+      this.refs.addStudent.refs.preview.value = "";
     }, 4950);
   }
 
@@ -265,6 +265,7 @@ export default class Enrollment extends React.Component {
               </div>
               <div role="tabpanel" className="tab-pane enrollment-form" id="addstudent">
                 <AddStudent
+                  ref="addStudent"
                   studentAdded={this.state.studentAdded}
                   selectedClass={this.state.selectedClassAddStudent}
                   selectedStudent={this.state.selectedStudentAddStudent}
