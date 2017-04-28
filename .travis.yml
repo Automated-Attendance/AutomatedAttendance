@@ -29,6 +29,6 @@ env:
   - secure: TQHhTrGzee4z5ZVoNeg89BY9W79DhM5jJ1w2RqmqJ7vcAhYsfIQheTRr+yBNz3Vu3t9N3Rqc+hkyO5z1euKQFhxCgiBCp9zadcNmR1FO1LzPTIgLo6Tgu6PasHpQFFKqMvUu8sIuKbjVhJbkPKp66uBq0bCxp6VMIt/UGB5CKELCq8MtArL8H1/fJ0+A/Qr/Z83VqL2ya5zLC/ivnWhA6vWVsY2/JuYSjm9hxG0m5pfKnkTW5O0tBXclyEFKPJCKAIT1tKbF3qLkHjONwPFQTBpGQEkG+hGnFHSJvLvvybReNwDt3S4P+/CsqbJMsOKWW3kf5NY3JTNGsezY66yDd809nte+zGMYdKdlziC8gkq2NU35uRxy9G1iBOu7PZpPxaqRMolBEdFBKU/Mf0pKw4NbWKdrPcjuFYIFAagrAbAw2xGJomTMyAMPUWErOsWBo8uCPgooc7Tq1QK8DZHXJMpikVweIo7kdxQE8XyXUAyFbZFceXUU6MdtyzXT7kovOnMrUkvzF2nMi+kNtGyrFQljct+hhyJf9CjmHBgKNQ3Uc5xjsSl9dVxnxGxxCoysE37tmZVtVb8KgsQv8SeWxj5v5otqnoAKGuDuGjuXEi3LKO9y6aoUlZl364AVWj5bd3af6hY2RNix+nKZKjfKiQLSvxzLVutQeXbeVCsJels=
 script:
 - npm test
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run servertest; fi
+# - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run servertest; fi
 after_success:
 - npm run coveralls
