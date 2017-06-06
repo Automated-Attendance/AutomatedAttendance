@@ -58,7 +58,9 @@ export default class Camera extends React.Component {
   async populateAttendanceRecord() {
     if (this.state.value && this.state.selectedTimeCutoff) {
       this.setState({statusUpdated: false});
-      this.setState({attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff)});
+      this.setState({
+        attendancePopulated: await storeAttendanceRecord(this.state.value, this.state.selectedTimeCutoff)
+      });
     } else {
       alert('Select Class(es) and Cutoff Time!');
     }
@@ -84,7 +86,11 @@ export default class Camera extends React.Component {
     const checkedIn = await queryGallery(screenshot);
     let checkedInStudents = [];
     if (checkedIn && checkedIn.length) {
-      checkedIn.forEach(student => checkedInStudents.push(`${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`));
+      checkedIn.forEach(student => {
+        checkedInStudents.push(
+          `${student.first_name}${student.last_name !== 'undefined' ? ' ' + student.last_name : ''}`
+        )
+      });
       this.setState({checkedinUser: `Checked in: ${checkedInStudents.join(', ') + '!'}`});
     }
   }
