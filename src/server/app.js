@@ -42,12 +42,6 @@ app.get('/callback', Auth0.authVerify, userHelpers.storeAndLogin);
 app.get('/logout', Auth0.logout);
 app.get('/retrieveUserData', userHelpers.retrieveData);
 
-/********************/
-/**** Cloudinary ****/
-/********************/
-
-// rip
-
 /***********************************/
 /**** Kairos Facial Recognition ****/
 /***********************************/
@@ -81,20 +75,7 @@ app.post('/storeAttendanceRecord', Attendance.storeRecords);
 app.post('/emailLateStudents', Attendance.emailLateStudents);
 app.post('/changeAttendanceStatus', Attendance.changeAttendanceStatus);
 
-// idk yet
 app.get('/allUsers', searchHelpers.getAllUsernames);
-
-/*****************/
-/**** Twillio ****/
-/*****************/
-
-// no more twillio
-
-/*****************/
-/**** MailGun ****/
-/*****************/
-
-// rip
 
 /******************/
 /**** Wildcard ****/
