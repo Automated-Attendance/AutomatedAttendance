@@ -1,32 +1,34 @@
 import React from 'react';
 import Routes from './Routes';
 import Navigation from './Navigation';
-import {getUserData} from '../requests/users';
 import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchLoginStatus } from '../actions/userActions';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-      isAdmin: false,
-      userEmail: null
-    };
-  }
+class App extends React.Component {
 
-  async componentWillMount() {
-    const loginStatus = await getUserData();
-    this.setState(loginStatus);
+  componentWillMount() {
+    this.props.fetchLoginStatus();
   }
 
   render () {
     return (
       <Router>
         <div>
-          <Navigation userPrivs={this.state}/>
-          <Routes userPrivs={this.state}/>
+          <Navigation userPrivs={this.props}/>
+          <Routes userPrivs={this.props}/>
         </div>
       </Router>
     );
   }
 };
+
+function mapStateToProps({ userStatus: { isLoggedIn, isAdmin, userEmail } }) {
+  return {
+    isLoggedIn,
+    isAdmin,
+    userEmail
+  };
+}
+
+export default connect(mapStateToProps, { fetchLoginStatus })(App);
