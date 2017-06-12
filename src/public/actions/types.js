@@ -1,0 +1,1 @@
+export const FETCH_LOGIN_STATUS = 'fetch_login_status';
