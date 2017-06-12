@@ -15,20 +15,12 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Navigation userPrivs={this.props}/>
-          <Routes userPrivs={this.props}/>
+          <Navigation />
+          <Routes />
         </div>
       </Router>
     );
   }
 };
 
-function mapStateToProps({ userStatus: { isLoggedIn, isAdmin, userEmail } }) {
-  return {
-    isLoggedIn,
-    isAdmin,
-    userEmail
-  };
-}
-
-export default connect(mapStateToProps, { fetchLoginStatus })(App);
+export default connect(null, { fetchLoginStatus })(App);
