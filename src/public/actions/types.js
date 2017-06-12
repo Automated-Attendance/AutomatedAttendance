@@ -1,2 +1,6 @@
+//User Auth
 export const FETCH_LOGIN_STATUS = 'FETCH_LOGIN_STATUS';
 export const ERROR_FETCHING_USER = 'ERROR_FETCHING_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+
+//
