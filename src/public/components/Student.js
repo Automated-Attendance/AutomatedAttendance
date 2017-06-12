@@ -1,8 +1,9 @@
 import React from 'react';
 import {getAttendanceRecords} from '../requests/classes';
 import StudentAttendanceTable from './tables/StudentAttendanceTable';
+import { connect } from 'react-redux';
 
-export default class Student extends React.Component {
+class Student extends React.Component {
   constructor(props) {
     super(props);
     
@@ -29,8 +30,8 @@ export default class Student extends React.Component {
   }
 
   async getAttendance() {
-    const userEmail = this.props.userPrivs.userEmail;
-    const attendanceRecords = await getAttendanceRecords({email: this.props.userPrivs.userEmail, queryType: 'studentAttendance'});
+    const userEmail = this.props.userEmail;
+    const attendanceRecords = await getAttendanceRecords({email: this.props.userEmail, queryType: 'studentAttendance'});
     attendanceRecords.forEach(item => {
       /* istanbul ignore else  */
       if (!this.state.classes[item.class_name]) {
@@ -64,3 +65,11 @@ export default class Student extends React.Component {
     );
   }
 }
+
+function mapStateToProps({ userStatus }) {
+  return {
+    userEmail: userStatus.userEmail
+  };
+}
+
+export default connect(mapStateToProps)(Student);
