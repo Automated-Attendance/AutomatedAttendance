@@ -13,7 +13,7 @@ const Navigation = ({ isAdmin, isLoggedIn }) => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a href="/"><img src="/images/AutoAttenLogo.png" alt="Automated Attendance Logo"/></a>
+          <Link to="/"><img src="/images/AutoAttenLogo.png" alt="Automated Attendance Logo"/></Link>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
