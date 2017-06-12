@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const LoginRedirect = ({userPrivs}) => {
-  if (userPrivs.isAdmin || userPrivs.isLoggedIn) {
+const LoginRedirect = ({ isAdmin, isLoggedIn }) => {
+  if (isAdmin || isLoggedIn) {
     return (
       <div className="container">
         <div className="row">
@@ -44,4 +45,11 @@ const LoginRedirect = ({userPrivs}) => {
   }
 };
 
-export default LoginRedirect;
+function mapStateToProps({ userStatus }) {
+  return {
+    isAdmin: userStatus.isAdmin,
+    isLoggedIn: userStatus.isLoggedIn
+  };
+}
+
+export default connect(mapStateToProps)(LoginRedirect);
