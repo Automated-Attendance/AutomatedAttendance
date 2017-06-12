@@ -1,1 +1,2 @@
-export const FETCH_LOGIN_STATUS = 'fetch_login_status';
+export const FETCH_LOGIN_STATUS = 'FETCH_LOGIN_STATUS';
+export const ERROR_FETCHING_USER = 'ERROR_FETCHING_USER';
