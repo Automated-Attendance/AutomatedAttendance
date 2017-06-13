@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchLoginStatus } from '../actions/userActions';
+import { getLoginStatus } from '../actions/userActions';
 
 import Routes from './Routes';
 import Navigation from './Navigation';
@@ -17,7 +17,7 @@ import Landing from './LandingPage/LandingIndex';
 class App extends React.Component {
 
   componentWillMount() {
-    this.props.fetchLoginStatus();
+    this.props.getLoginStatus();
   }
 
   render () {
@@ -48,4 +48,4 @@ function mapStateToProps({ userStatus }) {
   };
 }
 
-export default connect(mapStateToProps, { fetchLoginStatus })(App);
+export default connect(mapStateToProps, { getLoginStatus })(App);
