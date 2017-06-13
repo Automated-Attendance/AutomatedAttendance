@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { 
-  FETCH_LOGIN_STATUS,
-  ERROR_FETCHING_USER
+  GET_LOGIN_STATUS,
+  ERROR_GETTING_USER,
+  GET_ALL_USERS
 } from './types';
 
-export function fetchLoginStatus() {
+export function getLoginStatus() {
   return async (dispatch) => {
     try {
       const { data } = await axios.get('/retrieveUserData');
@@ -18,10 +19,29 @@ export function fetchLoginStatus() {
         status.userEmail = data[0].email;
       }
 
-      dispatch({ type: FETCH_LOGIN_STATUS, payload: status });
+      dispatch({ type: GET_LOGIN_STATUS, payload: status });
     } catch (err) {
-      dispatch({ type: ERROR_FETCHING_USER, payload: err });
+      dispatch({ type: ERROR_GETTING_USER, payload: err });
     }
 
+  }
+}
+
+export function getAllUsers() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/allUsers');
+      const userList = data.map(user => {
+        const { first_name, last_name, user_name } = user;
+        return { 
+          label: `${first_name} ${last_name} - ${user_name}`,
+          value: user_name 
+        };
+      });
+      console.log(userList)
+      dispatch({ type: GET_ALL_USERS, payload: userList}) 
+    } catch (err) {
+      dispatch({ type: ERROR_GETTING_USER, payload: err });
+    }
   }
 }
