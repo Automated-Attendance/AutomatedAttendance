@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from './Spinner';
-import {getAllUsers} from '../requests/users';
+import { getAllUsers } from '../actions/UserActions';
 import {storeStudentData, removeStudentData, getStudentsByClass, changeUserType} from '../requests/students';
 import {getClasses, addClasses, removeClasses, getEnrollment} from '../requests/classes';
 import AddClass from './AddClass';
@@ -9,8 +9,9 @@ import RemoveClass from './RemoveClass';
 import RemoveStudent from './RemoveStudent';
 import ToggleStatus from './ToggleStatus';
 import EnrollmentTable from './tables/EnrollmentTable';
+import { connect } from 'react-redux';
 
-export default class Enrollment extends React.Component {
+class Enrollment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +47,6 @@ export default class Enrollment extends React.Component {
 
     ['populateTable',
     'getClassOptions',
-    'getStudentOptions',
     'getStudentsByClass',
     'handleInputChange',
     'handleChangeSelect',
@@ -65,7 +65,7 @@ export default class Enrollment extends React.Component {
 
   async componentWillMount() {
     await this.getClassOptions();
-    await this.getStudentOptions();
+    this.props.getAllUsers();
     await this.populateTable();
   }
 
@@ -93,17 +93,12 @@ export default class Enrollment extends React.Component {
     this.setState({classOptions: classes});
   }
 
-  async getStudentOptions() {
-    let users = await getAllUsers();
-    this.setState({studentOptions: users});
-  }
-
   async getStudentsByClass() {
     if (this.state.selectedClassRemoveStudent) {
       const students = await getStudentsByClass(this.state.selectedClassRemoveStudent);
       this.setState({studentOptionsByClass: students});
     } else {
-      this.setState({studentOptionsByClass: this.state.studentOptions});
+      this.setState({studentOptionsByClass: this.props.studentOptions});
     }
   }
 
@@ -270,7 +265,7 @@ export default class Enrollment extends React.Component {
                   selectedClass={this.state.selectedClassAddStudent}
                   selectedStudent={this.state.selectedStudentAddStudent}
                   classOptions={this.state.classOptions}
-                  studentOptions={this.state.studentOptions}
+                  studentOptions={this.props.studentOptions}
                   imageSource={this.state.imageSource}
                   imageValue={this.state.imageValue}
                   imageHeight={this.state.imageHeight}
@@ -305,7 +300,7 @@ export default class Enrollment extends React.Component {
                   statusToggled={this.state.statusToggled}
                   selectedUser={this.state.selectedStudentToggleStatus}
                   selectedStatus={this.state.selectedStatus}
-                  studentOptions={this.state.studentOptions}
+                  studentOptions={this.props.studentOptions}
                   statusOptions={this.state.statusOptions}
                   handleChange={this.handleChangeSelect}
                   handleSubmit={this.handleSubmitToggleStatus}
@@ -325,3 +320,12 @@ export default class Enrollment extends React.Component {
     );
   }
 };
+
+function mapStateToProps({ userStatus }) {
+  console.log(userStatus, 'mapStateToProps')
+  return {
+    studentOptions: userStatus.studentOptions
+  };
+}
+
+export default connect(mapStateToProps, { getAllUsers })(Enrollment)
