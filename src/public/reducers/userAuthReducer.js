@@ -1,21 +1,25 @@
-import { getUserData } from '../requests/users';
 import { 
-  FETCH_LOGIN_STATUS,
-  ERROR_FETCHING_USER
+  GET_LOGIN_STATUS,
+  ERROR_GETTING_USER,
+  GET_ALL_USERS
 } from '../actions/types';
 
 
 const initialState = {
   isLoggedIn: false,
   isAdmin: false,
-  userEmail: null
+  userEmail: null,
+  studentOptions: []
 };
 
 export default function userAuthReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case ERROR_FETCHING_USER: 
+    case GET_ALL_USERS:
+    console.log(state, payload)
+      return { ...state, studentOptions: payload };
+    case ERROR_GETTING_USER: 
       return state;
-    case FETCH_LOGIN_STATUS:
+    case GET_LOGIN_STATUS:
       return payload;
     default:
       return state;
