@@ -15,7 +15,6 @@ const initialState = {
 export default function userAuthReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_ALL_USERS:
-    console.log(state, payload)
       return { ...state, studentOptions: payload };
     case ERROR_GETTING_USER: 
       return state;

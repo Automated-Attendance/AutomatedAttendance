@@ -18,7 +18,6 @@ export function getLoginStatus() {
         status.isLoggedIn = true;
         status.userEmail = data[0].email;
       }
-
       dispatch({ type: GET_LOGIN_STATUS, payload: status });
     } catch (err) {
       dispatch({ type: ERROR_GETTING_USER, payload: err });
@@ -38,7 +37,6 @@ export function getAllUsers() {
           value: user_name 
         };
       });
-      console.log(userList)
       dispatch({ type: GET_ALL_USERS, payload: userList}) 
     } catch (err) {
       dispatch({ type: ERROR_GETTING_USER, payload: err });
