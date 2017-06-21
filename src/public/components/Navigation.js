@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'
 
-const Navigation = ({ isAdmin, isLoggedIn }) => {
+const Navigation = ({ userPrivs }) => {
+  const { isAdmin, isLoggedIn } = userPrivs;
   return (
     <nav className="navbar navbar-fixed-top navbar-default">
       <div className="container-fluid">
@@ -35,12 +35,4 @@ const Navigation = ({ isAdmin, isLoggedIn }) => {
   );
 };
 
-
-function mapStateToProps({ userStatus }) {
-  return {
-    isAdmin: userStatus.isAdmin,
-    isLoggedIn: userStatus.isLoggedIn
-  };
-}
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;
