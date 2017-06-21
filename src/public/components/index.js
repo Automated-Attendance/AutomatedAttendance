@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Navigation />
+          <Navigation userPrivs={this.props}/>
           <Switch>
             <Route path="/About" component={About}/>
             <Route path="/Contact" component={Contact}/>
