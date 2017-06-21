@@ -3,7 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import { spy } from 'sinon';
 import { expect } from 'chai';
 import { Link } from 'react-router-dom';
-import { Navigation } from '../../src/public/components/Navigation';
+import Navigation from '../../src/public/components/Navigation';
 
 
 describe('<Navigation />', function() {
