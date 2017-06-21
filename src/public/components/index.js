@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-rou
 import { connect } from 'react-redux';
 import { getLoginStatus } from '../actions/userActions';
 
-import Routes from './Routes';
 import Navigation from './Navigation';
 import Camera from './Camera';
 import Student from './Student';
