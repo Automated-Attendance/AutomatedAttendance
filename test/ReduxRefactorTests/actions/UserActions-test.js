@@ -62,4 +62,23 @@ describe('user actions', () => {
       expect(store.getActions()[0].type).to.eql(types.ERROR_GETTING_USER);
     })
   });
+
+  describe('getAllUsers', () => {
+
+    it('return a user list of users', async () => {
+      const payload = [{ first_name: 'Andy', last_name: 'Zou', user_name: 'azou' }];
+      const resolved = new Promise(res => res({ data: payload }));
+      sandbox.stub(axios, 'get').returns(resolved);
+      const store = mockStore({});
+      await store.dispatch(getAllUsers());
+      expect(store.getActions()[0].type).to.equal(types.GET_ALL_USERS);
+    });
+
+    it('should throw error on bad request', async () => {
+      const store = mockStore({});
+      await store.dispatch(getAllUsers());
+      expect(store.getActions()[0].type).to.eql(types.ERROR_GETTING_USER);
+    })
+
+  });
 });
