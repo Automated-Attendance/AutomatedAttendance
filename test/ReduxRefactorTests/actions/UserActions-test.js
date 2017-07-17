@@ -36,7 +36,6 @@ describe('user actions', () => {
       }];
       await store.dispatch(getLoginStatus())
       expect(store.getActions()).to.eql(expectedActions);
-      console.log(expect(store.getActions()).to.eql(expectedActions));
     });
 
     it('should update login status for logged in user', async () => {
@@ -53,7 +52,6 @@ describe('user actions', () => {
       }];
       await store.dispatch(getLoginStatus())
       expect(store.getActions()).to.eql(expectedActions);
-      console.log(expect(store.getActions()).to.eql(expectedActions));
     });
 
     it('should throw an error when handling a bad request', async () => {

@@ -322,7 +322,6 @@ class Enrollment extends React.Component {
 };
 
 function mapStateToProps({ userStatus }) {
-  console.log(userStatus, 'mapStateToProps')
   return {
     studentOptions: userStatus.studentOptions
   };
