@@ -77,7 +77,7 @@ module.exports = function(config) {
     },
 
     client: {
-      captureConsole: false
+      captureConsole: true
     },
 
     browserNoActivityTimeout: 15000,
