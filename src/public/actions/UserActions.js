@@ -10,7 +10,6 @@ export function getLoginStatus() {
 
     try {
       const { data } = await axios.get('/retrieveUserData');
-      console.log(data)
       const loggedIn = data !== 'not logged in';
       const admin = data[0].type === 'admin';
       const status = { isLoggedIn: false, isAdmin: false, userEmail: null };
