@@ -66,7 +66,6 @@
     "karma-mocha": "^1.3.0",
     "karma-nyan-reporter": "^0.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
-    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
@@ -132,5 +131,9 @@
     ],
     "report-dir": "./serverCoverage"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "install": "^0.10.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "redux-mock-store": "^1.2.3"
+  }
 }
