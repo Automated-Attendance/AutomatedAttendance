@@ -34,13 +34,32 @@ describe('user actions', () => {
           userEmail: null
         }
       }];
-      const result = await store.dispatch(getLoginStatus())
+      await store.dispatch(getLoginStatus())
       expect(store.getActions()).to.eql(expectedActions);
       console.log(expect(store.getActions()).to.eql(expectedActions));
     });
 
-    it('should', () => {
-
+    it('should update login status for logged in user', async () => {
+      const resolved = new Promise(res => res({ data: [{ type: 'admin', email: 'test@test.com' }] }));
+      sandbox.stub(axios, 'get').returns(resolved);
+      const store = mockStore({});
+      const expectedActions = [{
+        type: types.GET_LOGIN_STATUS,
+        payload: {
+          isLoggedIn: true,
+          isAdmin: true,
+          userEmail: 'test@test.com'
+        }
+      }];
+      await store.dispatch(getLoginStatus())
+      expect(store.getActions()).to.eql(expectedActions);
+      console.log(expect(store.getActions()).to.eql(expectedActions));
     });
+
+    it('should throw an error when handling a bad request', async () => {
+      const store = mockStore({});
+      await store.dispatch(getLoginStatus());
+      expect(store.getActions()[0].type).to.eql(types.ERROR_GETTING_USER);
+    })
   });
 });
