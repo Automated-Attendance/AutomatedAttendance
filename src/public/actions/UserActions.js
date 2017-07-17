@@ -7,13 +7,17 @@ import {
 
 export function getLoginStatus() {
   return async (dispatch) => {
+
     try {
       const { data } = await axios.get('/retrieveUserData');
+      console.log(data)
       const loggedIn = data !== 'not logged in';
       const admin = data[0].type === 'admin';
       const status = { isLoggedIn: false, isAdmin: false, userEmail: null };
 
+      /* istanbul ignore else */
       if (loggedIn) {
+        /* istanbul ignore else */
         if (admin) status.isAdmin = true;
         status.isLoggedIn = true;
         status.userEmail = data[0].email;
