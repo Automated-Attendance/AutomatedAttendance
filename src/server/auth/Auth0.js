@@ -1,6 +1,7 @@
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 
+
 // Configure Passport to use Auth0
 /* istanbul ignore next */
 var strategy = new Auth0Strategy({
