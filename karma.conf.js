@@ -7,6 +7,8 @@ if (process.env.TRAVIS) {
   reportOutput = [
     {type: 'text'},
     {type: 'text-summary'},
+    
+    
     {type: 'html', dir: 'coverage/', subdir: 'report/'}
   ];
 }
